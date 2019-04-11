@@ -29,7 +29,7 @@ package sweetrush.utils
 		{
 			CONFIG::node
 			{
-				return path.join(__dirname, '../../../', 'transcompiler');
+				return path.join(__dirname, '../../../', 'as3-js');
 			}
 			CONFIG::air
 			{
@@ -41,7 +41,7 @@ package sweetrush.utils
 		{
 			CONFIG::node
 			{
-				return path.join(__dirname, '../../../', 'transcompiler', '_excluded');
+				return path.join(__dirname, '../../../', 'as3-js', '_excluded');
 			}
 			CONFIG::air
 			{
