@@ -1,0 +1,843 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="342607d7-5e25-44ce-bad1-bffc82e2954e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NOTICE" beforeDir="false" afterPath="$PROJECT_DIR$/NOTICE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/playerglobal.node.1.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/playerglobal.node.1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/playerglobal.node.swc" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/playerglobal.node.swc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/playerglobal.player.3.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/playerglobal.player.swc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/transcompiler.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/transcompiler.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/transcompiler.swf" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/transcompiler.swf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/playerglobal/browser/Browser.player.as" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/playerglobal/browser/Browser.player.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/playerglobal/browser/convertArrayBufferToBase64String.as" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/playerglobal/browser/convertArrayBufferToBase64String.player.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/playerglobal/flash/display/BitmapData.player.as" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/playerglobal/flash/display/BitmapData.player.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/playerglobal/flash/display/draw.as" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/playerglobal/flash/display/draw.player.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweetrush/Transcompiler.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/Transcompiler.as" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CompilerWorkspaceConfiguration">
+    <option name="CLEAR_OUTPUT_DIRECTORY" value="false" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sweetrush/Transcompiler.as">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="338">
+              <caret line="361" column="63" selection-start-line="361" selection-start-column="63" selection-end-line="361" selection-end-column="63" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="ActionScript Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>!getTr</find>
+      <find>return $es4.$$coerce</find>
+      <find>Player</find>
+      <find>convertArrayBufferToBase64String</find>
+      <find>insertIncludes</find>
+      <find>compileConstants[compileConstantIdentifier]</find>
+      <find>window.URI</find>
+      <find>window</find>
+      <find>new global.B</find>
+      <find>Buffer.all</find>
+      <find>MIT</find>
+      <find>/\*\*[a-zA-Z0-9\s*,.]*/</find>
+      <find>/\*\*[a-zA-Z0-9\s*,.@\)\(:'_\-]^(John)*/</find>
+      <find>(?!^Brandle$)/\*\*[a-zA-Z0-9\s*,.@\)\(:'_\-]*/</find>
+      <find>/\*\*[a-zA-Z0-9\s*,.@\)\(:'_\-]*/</find>
+      <find>/\*\*[a-zA-Z0-9\s*,.@;\)\(:'_\-]*/</find>
+      <find>/\*\*[a-zA-Z0-9\s*,.@—;\)\(:'_\-]*/</find>
+      <find>/\*\*[a-zA-Z0-9\s*,.@—~&quot;;\)\(:'_\-]*/</find>
+      <find>/\*\*[a-zA-Z0-9\s*,.@—~&quot;;\)\(:'_\-’&lt;&gt;]*/</find>
+      <find>/\*\*[a-zA-Z0-9\s*,.@—~&quot;;\)\(%:'_\=\-’&lt;&gt;]*/</find>
+      <find>/\*\*[a-zA-Z0-9\s*,.@—~&quot;;\)\(%:'_\=\-’&lt;&gt;\+]*/</find>
+      <find>/\*\*[a-zA-Z0-9\s*,.#@—~&quot;;\)\(%:'_\=\-’&lt;&gt;\+]*/</find>
+      <find>jangaroo</find>
+      <find>copyright</find>
+      <find>HTMLtoDoM</find>
+      <find>HTMLtoDOM</find>
+      <find>draw</find>
+      <find>captureStackTrace</find>
+      <find>* @date		04.15.2013</find>
+      <find>@date</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>grammar</replace>
+      <replace>:String</replace>
+      <replace>getNewResult</replace>
+      <replace>case Token.</replace>
+      <replace>trace</replace>
+      <replace>Token.getNewToke</replace>
+      <replace>:String = '</replace>
+      <replace>private static const</replace>
+      <replace>public static const</replace>
+      <replace>public static function</replace>
+      <replace>Construct.</replace>
+      <replace>Construct.getNew</replace>
+      <replace>trace(</replace>
+      <replace>Construct.nameConstructToString</replace>
+      <replace>getExcludedPath()</replace>
+      <replace>VFile</replace>
+      <replace />
+      <replace>.name</replace>
+      <replace>type</replace>
+      <replace>_rootConstruct</replace>
+      <replace>private static function</replace>
+      <replace>$$getDescriptor</replace>
+      <replace>$es4.$$</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>S:\Source_Control\git\xrworkshop-realtimeserver\source\transcompiler\_excluded\playerglobal</dir>
+      <dir>S:\Source_Control\git\transcompiler\tools\transcompiler\sweetrush</dir>
+      <dir>S:\Source_Control\git\transcompiler\tools\transcompiler\_excluded\playerglobal</dir>
+      <dir>S:\Source_Control\git\transcompiler\tools\transcompiler\_excluded</dir>
+      <dir>S:\Source_Control\git\transcompiler\tools\transcompiler\</dir>
+      <dir>S:\Source_Control\git\transcompiler\tools\transcompiler</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/ui/ContextMenu.player.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/ui/ContextMenuBuiltInItems.player.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/ui/ContextMenuClipboardItems.player.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/ui/ContextMenuItem.player.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/ui/Keyboard.player.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/ui/KeyboardType.player.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/ui/KeyLocation.player.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/ui/Mouse.player.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/ui/MouseCursor.player.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/ui/MouseCursorData.player.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/ui/Multitouch.player.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/ui/MultitouchInputMode.player.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/utils/ByteArray.browser.player.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/utils/ByteArray.node.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/utils/CompressionAlgorithm.player.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/utils/Dictionary.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/utils/Endian.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/xml/XMLDocument.player.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/xml/XMLNode.player.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/utils/clearInterval.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/utils/clearTimeout.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/utils/getTimer.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/utils/setInterval.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/utils/setTimeout.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/utils/Timer.player.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/geom/Rectangle.player.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/geom/Point.player.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/geom/Matrix.player.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/geom/ColorTransform.player.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/geom/Transform.player.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/events/MouseEvent.player.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/events/EventDispatcher.player.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/events/EventDispatcher.node.browser.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/events/Event.player.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/events/Event.node.browser.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/display/Stage.player.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/utils/flash_proxy.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/browser/draw.as" />
+        <option value="$PROJECT_DIR$/_excluded/bootstrap/js/simplehtmlparser.player.js" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/browser/convertArrayBufferToBase64String,as" />
+        <option value="$PROJECT_DIR$/sweetrush/core/Lexer.as" />
+        <option value="$PROJECT_DIR$/LICENSE" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/browser/convertArrayBufferToBase64String.as" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/_excluded/bootstrap/bootstrap.node.js" />
+        <option value="$PROJECT_DIR$/_excluded/bootstrap/bootstrap.browser.player.js" />
+        <option value="$PROJECT_DIR$/_excluded/bootstrap/js/captureStackTrace.js" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/browser/Browser.player.as" />
+        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/display/BitmapData.player.as" />
+        <option value="$PROJECT_DIR$/NOTICE" />
+        <option value="$PROJECT_DIR$/sweetrush/Transcompiler.as" />
+      </list>
+    </option>
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
+  </component>
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <expand />
+      <select />
+    </treeState>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-10" />
+    <option name="y" value="-10" />
+    <option name="width" value="2580" />
+    <option name="height" value="1420" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="transcompiler" type="b2602c69:ProjectViewProjectNode" />
+              <item name="transcompiler" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="transcompiler" type="b2602c69:ProjectViewProjectNode" />
+              <item name="transcompiler" type="462c0819:PsiDirectoryNode" />
+              <item name="_excluded" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="transcompiler" type="b2602c69:ProjectViewProjectNode" />
+              <item name="transcompiler" type="462c0819:PsiDirectoryNode" />
+              <item name="_excluded" type="462c0819:PsiDirectoryNode" />
+              <item name="playerglobal" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="transcompiler" type="b2602c69:ProjectViewProjectNode" />
+              <item name="transcompiler" type="462c0819:PsiDirectoryNode" />
+              <item name="_excluded" type="462c0819:PsiDirectoryNode" />
+              <item name="playerglobal" type="462c0819:PsiDirectoryNode" />
+              <item name="browser" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="transcompiler" type="b2602c69:ProjectViewProjectNode" />
+              <item name="transcompiler" type="462c0819:PsiDirectoryNode" />
+              <item name="_excluded" type="462c0819:PsiDirectoryNode" />
+              <item name="playerglobal" type="462c0819:PsiDirectoryNode" />
+              <item name="flash" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="transcompiler" type="b2602c69:ProjectViewProjectNode" />
+              <item name="transcompiler" type="462c0819:PsiDirectoryNode" />
+              <item name="_excluded" type="462c0819:PsiDirectoryNode" />
+              <item name="playerglobal" type="462c0819:PsiDirectoryNode" />
+              <item name="flash" type="462c0819:PsiDirectoryNode" />
+              <item name="display" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="transcompiler" type="b2602c69:ProjectViewProjectNode" />
+              <item name="transcompiler" type="462c0819:PsiDirectoryNode" />
+              <item name="sweetrush" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554935358208" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="flex.compiler" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="S:\Source_Control\git\transcompiler\tools\transcompiler" />
+      <recent name="S:\Source_Control\git\xrworkshop-realtimeserver\source\transcompiler\sweetrush" />
+    </key>
+    <key name="CreateActionScriptClassDialog.DESTINATION_PACKAGE_RECENT_KEY">
+      <recent name="sweetrush.utils" />
+      <recent name="sweetrush" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="S:\Source_Control\git\transcompiler\tools\transcompiler\_excluded\playerglobal\flash\display" />
+      <recent name="S:\Source_Control\git\transcompiler\tools\transcompiler\_excluded\playerglobal\flash" />
+      <recent name="S:\Source_Control\git\xrworkshop-realtimeserver\tools\transcompiler\sweetrush\obj" />
+      <recent name="S:\Source_Control\git\xrworkshop-realtimeserver\tools\transcompiler\sweetrush\core" />
+      <recent name="S:\Source_Control\git\xrworkshop-realtimeserver\tools\transcompiler\sweetrush\utils" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="transcompiler" type="FlashRunConfigurationType">
+      <option name="BCName" value="transcompiler" />
+      <option name="IOSSimulatorSdkPath" value="" />
+      <option name="adlOptions" value="" />
+      <option name="airProgramParameters" value="" />
+      <option name="appDescriptorForEmulator" value="Android" />
+      <option name="clearAppDataOnEachLaunch" value="true" />
+      <option name="debugTransport" value="USB" />
+      <option name="debuggerSdkRaw" value="BC SDK" />
+      <option name="emulator" value="NexusOne" />
+      <option name="emulatorAdlOptions" value="" />
+      <option name="fastPackaging" value="true" />
+      <option name="fullScreenHeight" value="0" />
+      <option name="fullScreenWidth" value="0" />
+      <option name="launchUrl" value="false" />
+      <option name="launcherParameters">
+        <LauncherParameters>
+          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
+          <option name="launcherType" value="OSDefault" />
+          <option name="newPlayerInstance" value="false" />
+          <option name="playerPath" value="FlashPlayerDebugger.exe" />
+        </LauncherParameters>
+      </option>
+      <option name="mobileRunTarget" value="Emulator" />
+      <option name="moduleName" value="transcompiler" />
+      <option name="overriddenMainClass" value="" />
+      <option name="overriddenOutputFileName" value="" />
+      <option name="overrideMainClass" value="false" />
+      <option name="runTrusted" value="true" />
+      <option name="screenDpi" value="0" />
+      <option name="screenHeight" value="0" />
+      <option name="screenWidth" value="0" />
+      <option name="url" value="http://" />
+      <option name="usbDebugPort" value="7936" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="342607d7-5e25-44ce-bad1-bffc82e2954e" name="Default Changelist" comment="" />
+      <created>1548876546437</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1548876546437</updated>
+      <workItem from="1548876550324" duration="18914000" />
+      <workItem from="1548937726212" duration="12000" />
+      <workItem from="1548938637510" duration="7600000" />
+      <workItem from="1548948885803" duration="24209000" />
+      <workItem from="1549015422967" duration="24870000" />
+      <workItem from="1549055780864" duration="360000" />
+      <workItem from="1549056190447" duration="19119000" />
+      <workItem from="1549106249521" duration="6379000" />
+      <workItem from="1549114252804" duration="9992000" />
+      <workItem from="1549125186761" duration="5919000" />
+      <workItem from="1549137084217" duration="29541000" />
+      <workItem from="1549217219628" duration="299000" />
+      <workItem from="1549278530572" duration="165000" />
+      <workItem from="1549631798048" duration="6084000" />
+      <workItem from="1549650427932" duration="948000" />
+      <workItem from="1549974975715" duration="8530000" />
+      <workItem from="1550001455263" duration="370000" />
+      <workItem from="1550237900582" duration="3901000" />
+      <workItem from="1550243536141" duration="63000" />
+      <workItem from="1550245530044" duration="6870000" />
+      <workItem from="1550266613655" duration="113000" />
+      <workItem from="1550305270075" duration="2340000" />
+      <workItem from="1550309970515" duration="1872000" />
+      <workItem from="1550489349716" duration="2471000" />
+      <workItem from="1550492536003" duration="14784000" />
+      <workItem from="1551083211229" duration="816000" />
+      <workItem from="1551171380983" duration="8839000" />
+      <workItem from="1551217921361" duration="659000" />
+      <workItem from="1551420172817" duration="702000" />
+      <workItem from="1551423806976" duration="4053000" />
+      <workItem from="1551520590677" duration="3864000" />
+      <workItem from="1551531905342" duration="914000" />
+      <workItem from="1551873778959" duration="1338000" />
+      <workItem from="1553095468567" duration="866000" />
+      <workItem from="1554231832487" duration="713000" />
+      <workItem from="1554236061658" duration="913000" />
+      <workItem from="1554237144651" duration="2105000" />
+      <workItem from="1554241179585" duration="42000" />
+      <workItem from="1554843320163" duration="23981000" />
+      <workItem from="1554930616834" duration="4736000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="250266000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="2062" height="1136" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8316733" visible="true" weight="0.22177823" />
+      <window_info id="Structure" order="1" sideWeight="0.16832669" side_tool="true" visible="true" weight="0.22177823" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.22808765" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32968128" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.30378485" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32978722" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32978722" />
+      <window_info anchor="bottom" id="Database Changes" order="9" />
+      <window_info anchor="bottom" id="Terminal" order="10" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.20219123" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24975026" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Theme Preview" order="4" />
+      <window_info anchor="right" id="Maven" order="5" weight="0.32967034" />
+      <window_info anchor="right" id="Capture Analysis" order="6" />
+      <window_info anchor="right" id="Palette&#9;" order="7" />
+      <window_info anchor="right" id="Database" order="8" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="FlashRunConfigurationType">
+        <watch expression="&#9;&#9;&#9;var srcFiles" />
+        <watch expression="propertyConstruct" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/flash/utils/unescapeMultiByte.player.as">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/flash/xml/XMLDocument.player.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1332">
+          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/flash/xml/XMLNode.player.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/flash/xml/XMLNodeType.player.as">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/player/Player.player.as">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/XMLList.player.as">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/builtin/RangeError.as">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/builtin/Array.as">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/_generated/playerglobal.node.1.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sweetrush/core/Analyzer.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="3" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/flash/utils/clearInterval.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/flash/utils/clearTimeout.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/flash/utils/getTimer.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="4" lean-forward="true" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/flash/utils/setInterval.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="5" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/flash/utils/setTimeout.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="3" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/flash/utils/Timer.player.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="16" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/flash/geom/Matrix.player.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4172">
+          <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/flash/geom/ColorTransform.player.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/flash/geom/Point.player.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/flash/geom/Rectangle.player.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3740">
+          <caret line="220" column="9" selection-start-line="220" selection-start-column="9" selection-end-line="220" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/flash/geom/Transform.player.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/flash/events/MouseEvent.player.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/flash/events/EventDispatcher.player.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/flash/events/EventDispatcher.node.browser.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/flash/events/Event.player.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/flash/display/Stage.player.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="3" selection-start-line="3" selection-start-column="3" selection-end-line="3" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/_generated/transcompiler-descriptor.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="113">
+          <caret line="36" column="9" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/bootstrap/js/URI.player.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="2" selection-end-column="48" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/bootstrap/js/sortOn.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="2" lean-forward="true" selection-start-line="10" selection-start-column="2" selection-end-line="10" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/bootstrap/js/simplehtmlparser.player.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="4" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sweetrush/core/Lexer.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/browser/convertArrayBufferToBase64String,as" />
+    <entry file="file://$PROJECT_DIR$/LICENSE">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="17" selection-start-column="17" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/browser/convertArrayBufferToBase64String2,as" />
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/browser/convertArrayBufferToBase64String.player.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="922">
+          <caret line="67" column="1" selection-start-line="67" selection-start-column="1" selection-end-line="67" selection-end-column="1" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/flash/events/Event.node.browser.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="9" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor>
+            <caret column="5" selection-start-column="5" selection-end-column="5" />
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/transcompiler.iml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/transcompiler.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/bootstrap/js/captureStackTrace.js" />
+    <entry file="file://$PROJECT_DIR$/_excluded/bootstrap/bootstrap.browser.player.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24072">
+          <caret line="1416" column="41" selection-start-line="1416" selection-start-column="41" selection-end-line="1416" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/builtin/Boolean.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="33" lean-forward="true" selection-start-line="2" selection-start-column="33" selection-end-line="2" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/bootstrap/bootstrap.node.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="1374" column="59" selection-start-line="1374" selection-start-column="59" selection-end-line="1374" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/browser/Browser.player.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="501">
+          <caret line="190" column="56" selection-start-line="190" selection-start-column="56" selection-end-line="190" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/NOTICE">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2159">
+          <caret line="127" column="43" selection-start-line="127" selection-start-column="43" selection-end-line="127" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/flash/display/draw.player.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="28" lean-forward="true" selection-start-line="7" selection-start-column="15" selection-end-line="7" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/flash/display/BitmapData.player.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="136" column="29" selection-start-line="136" selection-start-column="29" selection-end-line="136" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sweetrush/utils/FileUtil.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="305">
+          <caret line="51" column="42" lean-forward="true" selection-start-line="51" selection-start-column="31" selection-end-line="51" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sweetrush/core/Parser.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="128" selection-start-line="128" selection-end-line="128" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/XML.player.as">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sweetrush/Transcompiler.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="338">
+          <caret line="361" column="63" selection-start-line="361" selection-start-column="63" selection-end-line="361" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>AIRSDK_Compiler</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>transcompiler|transcompiler</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>

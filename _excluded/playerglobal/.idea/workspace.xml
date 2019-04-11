@@ -1,0 +1,679 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9d534660-43a1-4c06-8241-bb532aa6d147" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/flexCompiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../player/build.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../../player/build.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../test_displaylist/build.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../../test_displaylist/build.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../test_proto_fast_mode/build.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../../test_proto_fast_mode/build.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../test_proto_full_mode/build.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../../test_proto_full_mode/build.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../test_proto_full_mode_extended/build.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../../test_proto_full_mode_extended/build.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../test_prototype_fast_mode/build.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../../../test_prototype_fast_mode/build.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bootstrap/bootstrap.browser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../bootstrap/js/simplehtmlparser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/XML.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/XMLList.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/browser/Browser.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/fl/controls/ScrollBarDirection.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/accessibility/Accessibility.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/accessibility/AccessibilityImplementation.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/accessibility/AccessibilityProperties.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/accessibility/ISearchableText.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/accessibility/ISimpleTextSelection.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/desktop/Clipboard.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/desktop/ClipboardFormats.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/desktop/ClipboardTransferMode.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/AVM1Movie.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/ActionScriptVersion.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/Bitmap.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/BitmapData.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/BitmapDataChannel.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/BlendMode.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/CapsStyle.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/ColorCorrection.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/ColorCorrectionSupport.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/DisplayObject.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/DisplayObjectContainer.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/FrameLabel.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/GradientType.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/Graphics.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/GraphicsBitmapFill.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/GraphicsEndFill.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/GraphicsGradientFill.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/GraphicsPath.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/GraphicsPathCommand.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/GraphicsPathWinding.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/GraphicsShaderFill.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/GraphicsSolidFill.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/GraphicsStroke.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/GraphicsTrianglePath.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/IBitmapDrawable.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/IGraphicsData.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/IGraphicsFill.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/IGraphicsPath.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/IGraphicsStroke.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/InteractiveObject.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/InterpolationMethod.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/JointStyle.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/LineScaleMode.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/Loader.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/LoaderInfo.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/MorphShape.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/MovieClip.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/NativeMenu.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/NativeMenuItem.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/PixelSnapping.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/SWFVersion.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/Scene.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/Shader.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/ShaderData.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/ShaderInput.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/ShaderJob.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/ShaderParameter.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/ShaderParameterType.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/ShaderPrecision.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/Shape.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/SimpleButton.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/SpreadMethod.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/Sprite.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/Stage.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/Stage3D.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/StageAlign.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/StageDisplayState.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/StageQuality.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/StageScaleMode.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display/TriangleCulling.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display3D/Context3D.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display3D/Context3DBlendFactor.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display3D/Context3DBufferUsage.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display3D/Context3DClearMask.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display3D/Context3DCompareMode.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display3D/Context3DMipFilter.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display3D/Context3DProfile.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display3D/Context3DRenderMode.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display3D/Context3DStencilAction.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display3D/Context3DTextureFilter.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display3D/Context3DTextureFormat.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display3D/Context3DTriangleFace.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display3D/Context3DVertexBufferFormat.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display3D/Context3DWrapMode.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display3D/IndexBuffer3D.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display3D/Program3D.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/display3D/VertexBuffer3D.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/errors/EOFError.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/errors/IOError.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/errors/IllegalOperationError.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/errors/InvalidSWFError.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/errors/MemoryError.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/errors/ScriptTimeoutError.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/errors/StackOverflowError.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/AccelerometerEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/ActivityEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/AsyncErrorEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/ContextMenuEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/DRMAuthenticationCompleteEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/DRMAuthenticationErrorEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/DRMErrorEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/DRMStatusEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/DataEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/ErrorEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/Event.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/EventDispatcher.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/EventPhase.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/FocusEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/FullScreenEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/GeolocationEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/GestureEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/GesturePhase.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/HTTPStatusEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/IEventDispatcher.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/IMEEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/IOErrorEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/KeyboardEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/MouseEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/NetStatusEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/PressAndTapGestureEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/ProgressEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/SampleDataEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/SecurityErrorEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/ShaderEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/SoftKeyboardEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/SoftKeyboardTrigger.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/StageVideoAvailabilityEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/StageVideoEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/StatusEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/SyncEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/TextEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/TimerEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/TouchEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/TransformGestureEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/UncaughtErrorEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/UncaughtErrorEvents.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/events/VideoEvent.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/external/ExternalInterface.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/filters/BevelFilter.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/filters/BitmapFilter.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/filters/BitmapFilterQuality.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/filters/BitmapFilterType.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/filters/BlurFilter.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/filters/ColorMatrixFilter.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/filters/ConvolutionFilter.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/filters/DisplacementMapFilter.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/filters/DisplacementMapFilterMode.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/filters/DropShadowFilter.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/filters/GlowFilter.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/filters/GradientBevelFilter.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/filters/GradientGlowFilter.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/filters/ShaderFilter.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/geom/ColorTransform.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/geom/Matrix.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/geom/Matrix3D.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/geom/Orientation3D.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/geom/PerspectiveProjection.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/geom/Point.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/geom/Rectangle.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/geom/Transform.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/geom/Utils3D.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/geom/Vector3D.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/globalization/Collator.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/globalization/CollatorMode.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/globalization/CurrencyFormatter.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/globalization/CurrencyParseResult.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/globalization/DateTimeFormatter.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/globalization/DateTimeNameContext.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/globalization/DateTimeNameStyle.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/globalization/DateTimeStyle.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/globalization/LastOperationStatus.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/globalization/LocaleID.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/globalization/NationalDigitsType.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/globalization/NumberFormatter.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/globalization/NumberParseResult.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/globalization/StringTools.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/media/Camera.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/media/ID3Info.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/media/Microphone.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/media/MicrophoneEnhancedOptions.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/media/Sound.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/media/SoundChannel.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/media/SoundCodec.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/media/SoundLoaderContext.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/media/SoundMixer.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/media/SoundTransform.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/media/StageVideo.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/media/StageVideoAvailability.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/media/Video.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/media/VideoStatus.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/media/VideoStreamSettings.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/media/scanHardware.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/FileFilter.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/FileReference.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/FileReferenceList.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/GroupSpecifier.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/IDynamicPropertyWriter.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/LocalConnection.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/NetConnection.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/NetGroup.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/NetGroupInfo.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/NetGroupReceiveMode.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/NetGroupReplicationStrategy.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/NetGroupSendMode.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/NetGroupSendResult.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/NetStream.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/NetStreamAppendBytesAction.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/NetStreamInfo.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/NetStreamMulticastInfo.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/NetStreamPlayOptions.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/NetStreamPlayTransitions.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/ObjectEncoding.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/Responder.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/SecureSocket.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/SharedObject.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/SharedObjectFlushStatus.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/Socket.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/URLLoader.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/URLLoaderDataFormat.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/URLRequest.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/URLRequestHeader.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/URLRequestMethod.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/URLStream.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/URLVariables.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/XMLSocket.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/drm/AuthenticationMethod.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/drm/DRMContentData.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/drm/DRMManager.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/drm/DRMPlaybackTimeWindow.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/drm/DRMVoucher.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/drm/LoadVoucherSetting.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/drm/VoucherAccessInfo.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/getClassByAlias.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/navigateToURL.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/registerClassAlias.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/net/sendToURL.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/printing/PrintJob.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/printing/PrintJobOptions.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/printing/PrintJobOrientation.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/profiler/profile.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/profiler/showRedrawRegions.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/sampler/Accelerometer.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/sampler/CertificateStatus.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/sampler/DeleteObjectSample.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/sampler/NewObjectSample.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/sampler/Sample.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/sampler/StackFrame.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/sampler/clearSamples.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/sampler/getGetterInvocationCount.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/sampler/getInvocationCount.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/sampler/getLexicalScopes.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/sampler/getMasterString.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/sampler/getMemberNames.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/sampler/getSampleCount.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/sampler/getSamples.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/sampler/getSavedThis.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/sampler/getSetterInvocationCount.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/sampler/getSize.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/sampler/isGetterSetter.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/sampler/pauseSampling.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/sampler/sampleInternalAllocs.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/sampler/setSamplerCallback.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/sampler/startSampling.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/sampler/stopSampling.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/security/CertificateStatus.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/security/X509Certificate.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/sensors/Accelerometer.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/system/ApplicationDomain.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/system/Capabilities.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/system/IME.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/system/IMEConversionMode.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/system/JPEGLoaderContext.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/system/LoaderContext.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/system/Security.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/system/SecurityDomain.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/system/SecurityPanel.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/system/System.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/system/SystemUpdater.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/system/SystemUpdaterType.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/system/TouchscreenType.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/system/fscommand.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/AntiAliasType.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/CSMSettings.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/Font.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/FontStyle.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/FontType.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/GridFitType.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/StaticText.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/StyleSheet.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/TextColorType.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/TextDisplayMode.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/TextField.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/TextFieldAutoSize.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/TextFieldType.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/TextFormat.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/TextFormatAlign.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/TextLineMetrics.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/TextRenderer.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/TextSnapshot.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/BreakOpportunity.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/CFFHinting.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/ContentElement.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/DigitCase.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/DigitWidth.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/EastAsianJustifier.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/ElementFormat.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/FontDescription.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/FontLookup.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/FontMetrics.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/FontPosture.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/FontWeight.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/GraphicElement.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/GroupElement.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/JustificationStyle.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/Kerning.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/LigatureLevel.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/LineJustification.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/RenderingMode.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/SpaceJustifier.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/TabAlignment.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/TabStop.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/TextBaseline.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/TextBlock.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/TextElement.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/TextJustifier.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/TextLine.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/TextLineCreationResult.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/TextLineMirrorRegion.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/TextLineValidity.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/TextRotation.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/engine/TypographicCase.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/ime/CompositionAttributeRange.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/text/ime/IIMEClient.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/ui/ContextMenu.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/ui/ContextMenuBuiltInItems.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/ui/ContextMenuClipboardItems.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/ui/ContextMenuItem.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/ui/KeyLocation.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/ui/Keyboard.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/ui/KeyboardType.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/ui/Mouse.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/ui/MouseCursor.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/ui/MouseCursorData.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/ui/Multitouch.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/ui/MultitouchInputMode.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/utils/ByteArray.browser.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/utils/CompressionAlgorithm.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/utils/Dictionary.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/utils/IDataInput.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/utils/IDataOutput.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/utils/Proxy.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/utils/escapeMultiByte.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/utils/flash_proxy.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/utils/getTimer.as" beforeDir="false" afterPath="$PROJECT_DIR$/flash/utils/getTimer.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/utils/setTimeout.as" beforeDir="false" afterPath="$PROJECT_DIR$/flash/utils/setTimeout.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/utils/unescapeMultiByte.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/xml/XMLDocument.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/xml/XMLNode.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/flash/xml/XMLNodeType.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/player/Player.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sweetrush/Transcompiler.as" beforeDir="false" afterPath="$PROJECT_DIR$/../../sweetrush/Transcompiler.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sweetrush/core/TranslatorPrototype.as" beforeDir="false" afterPath="$PROJECT_DIR$/../../sweetrush/core/TranslatorPrototype.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../transcompiler.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../transcompiler.js" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../../.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/flash/utils/getTimer.as" />
+        <option value="$PROJECT_DIR$/player/Player.as" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="2578" />
+    <option name="height" value="1420" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="playerglobal" type="58d84e3e:PackageViewProjectNode" />
+              <item name="playerglobal" type="616d4139:PackageViewModuleNode" />
+            </path>
+            <path>
+              <item name="playerglobal" type="58d84e3e:PackageViewProjectNode" />
+              <item name="playerglobal" type="616d4139:PackageViewModuleNode" />
+              <item name="player" type="1f31426a:PackageElementNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="playerglobal" type="b2602c69:ProjectViewProjectNode" />
+              <item name="playerglobal" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="playerglobal" type="b2602c69:ProjectViewProjectNode" />
+              <item name="playerglobal" type="462c0819:PsiDirectoryNode" />
+              <item name="flash" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="playerglobal" type="b2602c69:ProjectViewProjectNode" />
+              <item name="playerglobal" type="462c0819:PsiDirectoryNode" />
+              <item name="flash" type="462c0819:PsiDirectoryNode" />
+              <item name="external" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="playerglobal" type="b2602c69:ProjectViewProjectNode" />
+              <item name="playerglobal" type="462c0819:PsiDirectoryNode" />
+              <item name="player" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="playerglobal" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="playerglobal" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+            </path>
+            <path>
+              <item name="playerglobal" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="playerglobal" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+            <path>
+              <item name="playerglobal" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="playerglobal" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="flash" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="playerglobal" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="playerglobal" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="player" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1551518556437" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9d534660-43a1-4c06-8241-bb532aa6d147" name="Default Changelist" comment="" />
+      <created>1551514821469</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1551514821469</updated>
+      <workItem from="1551514822941" duration="1262000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="1262000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="2062" height="1136" extended-state="6" />
+    <layout>
+      <window_info id="Image Layers" />
+      <window_info id="Designer" />
+      <window_info id="UI Designer" />
+      <window_info id="Capture Tool" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24975026" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info active="true" anchor="bottom" id="Find" order="1" visible="true" weight="0.32968128" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Palette" />
+      <window_info anchor="right" id="Theme Preview" />
+      <window_info anchor="right" id="Maven" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="right" id="Palette&#9;" />
+      <window_info anchor="right" id="Database" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/flash/external/ExternalInterface.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="22" column="9" lean-forward="true" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/flash/utils/getTimer.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="1" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/player/Player.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="26" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="26" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>playerglobal</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
