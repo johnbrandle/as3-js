@@ -1,5 +1,5 @@
 {
-  "name": "as3-js",
+  "name": "@johnbrandle/as3-js",
   "version": "1.0.0",
   "description": "Compiles ActionScript to JavaScript",
   "main": "index.js",
