@@ -1441,54 +1441,6 @@ if (global.$es4 === undefined)
 		return $es4.$$class(Error, null, 'Error');
 	})();
 
-	var DEFAULT_STACK_TRACE_LIMIT = 10;
-
-	// Polyfill Error.captureStackTrace, which exists only in v8 (Chrome). This is
-	// used in depd, which is used by ast-types. https://github.com/esnext/es6-module-transpiler/blob/master/lib/browser/capture_stack_trace_polyfill.js
-	if (!Error.captureStackTrace) {
-
-	  Error.captureStackTrace = function(obj) {
-		var stack = new $es4.$$Error().stack;
-		var prepare = Error.prepareStackTrace;
-
-		if (prepare) {
-		  stack = prepare(stack, parseStack(stack));
-		}
-
-		obj.stack = stack;
-	  };
-	}
-
-	if (typeof Error.stackTraceLimit === 'undefined') {
-	  Error.stackTraceLimit = DEFAULT_STACK_TRACE_LIMIT;
-	}
-
-	function parseStack(stack) {
-	  return stack.split('\n').slice(0, Error.stackTraceLimit).map(CallSite.parse);
-	}
-
-	CallSite.parse = function(stackTraceLine) {
-	  var fnNameAndLocation = stackTraceLine.split('@');
-	  var fnName = fnNameAndLocation[0];
-	  var location = fnNameAndLocation[1];
-
-	  var fileAndLineAndColumn = location ? location.split(':') : [];
-	  var fileName = fileAndLineAndColumn[0];
-	  var lineNumber = parseInt(fileAndLineAndColumn[1], 10);
-	  var columnNumber = parseInt(fileAndLineAndColumn[2], 10);
-
-	  return new CallSite(fnName, fileName, lineNumber, columnNumber, fnName === 'eval', '');
-	};
-
-
-	function CallSite(fnName, fileName, lineNumber, columnNumber, isEval, evalOrigin) {
-	  this.getFunctionName = function() { return fnName; };
-	  this.getFileName = function() { return fileName; };
-	  this.getLineNumber = function() { return lineNumber; };
-	  this.getColumnNumber = function() { return columnNumber; };
-	  this.isEval = function() { return isEval; };
-	  this.getEvalOrigin = function() { return evalOrigin; };
-	}
 
 	$es4.$$package('').ArgumentError = (function()
 	{
