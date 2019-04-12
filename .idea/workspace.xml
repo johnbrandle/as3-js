@@ -2,19 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="342607d7-5e25-44ce-bad1-bffc82e2954e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NOTICE" beforeDir="false" afterPath="$PROJECT_DIR$/NOTICE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/_generated/playerglobal.node.1.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/playerglobal.node.1.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/_generated/playerglobal.node.swc" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/playerglobal.node.swc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/_generated/playerglobal.player.3.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/_generated/playerglobal.player.swc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/_generated/transcompiler.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/transcompiler.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/_generated/transcompiler.swf" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/transcompiler.swf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/playerglobal/browser/Browser.player.as" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/playerglobal/browser/Browser.player.as" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/playerglobal/browser/convertArrayBufferToBase64String.as" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/playerglobal/browser/convertArrayBufferToBase64String.player.as" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/playerglobal/flash/display/BitmapData.player.as" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/playerglobal/flash/display/BitmapData.player.as" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/playerglobal/flash/display/draw.as" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/playerglobal/flash/display/draw.player.as" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweetrush/Transcompiler.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/Transcompiler.as" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,11 +17,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sweetrush/Transcompiler.as">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="338">
               <caret line="361" column="63" selection-start-line="361" selection-start-column="63" selection-end-line="361" selection-end-column="63" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/sweetrush/utils/Base64Util.as">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -114,7 +114,7 @@
     </dirStrings>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -186,10 +186,9 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-10" />
-    <option name="y" value="-10" />
-    <option name="width" value="2580" />
-    <option name="height" value="1420" />
+    <option name="x" value="430" />
+    <option name="width" value="1874" />
+    <option name="height" value="1410" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -199,57 +198,30 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="transcompiler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="transcompiler" type="462c0819:PsiDirectoryNode" />
+              <item name="as3-js" type="b2602c69:ProjectViewProjectNode" />
+              <item name="as3-js" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="transcompiler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="transcompiler" type="462c0819:PsiDirectoryNode" />
-              <item name="_excluded" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="transcompiler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="transcompiler" type="462c0819:PsiDirectoryNode" />
-              <item name="_excluded" type="462c0819:PsiDirectoryNode" />
-              <item name="playerglobal" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="transcompiler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="transcompiler" type="462c0819:PsiDirectoryNode" />
-              <item name="_excluded" type="462c0819:PsiDirectoryNode" />
-              <item name="playerglobal" type="462c0819:PsiDirectoryNode" />
-              <item name="browser" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="transcompiler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="transcompiler" type="462c0819:PsiDirectoryNode" />
-              <item name="_excluded" type="462c0819:PsiDirectoryNode" />
-              <item name="playerglobal" type="462c0819:PsiDirectoryNode" />
-              <item name="flash" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="transcompiler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="transcompiler" type="462c0819:PsiDirectoryNode" />
-              <item name="_excluded" type="462c0819:PsiDirectoryNode" />
-              <item name="playerglobal" type="462c0819:PsiDirectoryNode" />
-              <item name="flash" type="462c0819:PsiDirectoryNode" />
-              <item name="display" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="transcompiler" type="b2602c69:ProjectViewProjectNode" />
-              <item name="transcompiler" type="462c0819:PsiDirectoryNode" />
+              <item name="as3-js" type="b2602c69:ProjectViewProjectNode" />
+              <item name="as3-js" type="462c0819:PsiDirectoryNode" />
               <item name="sweetrush" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="as3-js" type="b2602c69:ProjectViewProjectNode" />
+              <item name="as3-js" type="462c0819:PsiDirectoryNode" />
+              <item name="sweetrush" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -383,11 +355,12 @@
       <workItem from="1554241179585" duration="42000" />
       <workItem from="1554843320163" duration="23981000" />
       <workItem from="1554930616834" duration="4736000" />
+      <workItem from="1555017201407" duration="691000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="250266000" />
+    <option name="totallyTimeSpent" value="250957000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -402,8 +375,8 @@
     <frame x="-7" y="-7" width="2062" height="1136" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8316733" visible="true" weight="0.22177823" />
-      <window_info id="Structure" order="1" sideWeight="0.16832669" side_tool="true" visible="true" weight="0.22177823" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.8306773" visible="true" weight="0.22427572" />
+      <window_info id="Structure" order="1" sideWeight="0.16932271" side_tool="true" visible="true" weight="0.22427572" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
@@ -445,9 +418,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/flash/utils/unescapeMultiByte.player.as">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/flash/xml/XMLDocument.player.as">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1332">
@@ -750,6 +720,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="338">
           <caret line="361" column="63" selection-start-line="361" selection-start-column="63" selection-end-line="361" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sweetrush/utils/Base64Util.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

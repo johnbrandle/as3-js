@@ -1,18 +1,9 @@
 {
   "name": "@johnbrandle/as3-js",
-  "version": "1.0.2",
-  "description": "Compiles ActionScript to JavaScript",
+  "version": "1.0.3",
+  "description": "ActionScript to JavaScript Compiler",
   "main": "index.js",
-  "dependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.3",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-minify": "^0.5.0",
-    "flatted": "^2.0.0",
-    "fs-extra": "^7.0.1",
-    "properties-reader": "^0.0.16",
-    "punycode": "^2.1.1"
-  },
+  "dependencies": {},
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
