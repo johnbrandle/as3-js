@@ -21,18 +21,18 @@ as3-js is an ActionScript 3 to JavaScript compiler, with both browser and Node.j
   - package-level static initializers (class-level supported)
   - lazy initialization of non-static property values:
 ```actionscript
-        private var foo1:* = foo2; //undefined, not 5
-        private var foo2:* = 5;
+private var foo1:* = foo2; //undefined, not 5
+private var foo2:* = 5;
 ```
   - weak references
   - named closures in conditionals
  ```actionscript
-        if (false) function foo() {} //compilation error
+if (false) function foo() {} //compilation error
 ```
   - non-unique custom namespace identifiers
  ```actionscript
-        public var myNamespace; 
-        namespace myNamespace = 'foo'; //conflict
+public var myNamespace; 
+namespace myNamespace = 'foo'; //conflict
 ```
 
 # Basic Usage:
@@ -85,21 +85,21 @@ fs.writeFileSync('c:/projects/hello/build/js/hello.js', result.js, 'utf8');
 ```html
 <script src="node_modules/@johnbrandle/as3-js/_excluded/_generated/as3_js.js"></script>
 <script>
-  let request = new XMLHttpRequest();
-  request.open('GET', 'node_modules/@johnbrandle/as3-js/_excluded/_generated/builtin.browser.swc', false); //recommend changing this to asynch
-  request.send(null);
+    let request = new XMLHttpRequest();
+    request.open('GET', 'node_modules/@johnbrandle/as3-js/_excluded/_generated/builtin.browser.swc', false); //recommend changing this to asynch
+    request.send(null);
   
-  let constructs = as3_js.getSwcUtil().parseSWCString(request.responseText); //recommend caching result
+    let constructs = as3_js.getSwcUtil().parseSWCString(request.responseText); //recommend caching result
   
-  let script = 'return "hello world";';
-  let code = 'package { public function actionScript(scope:Object, args:*):* { return (function() {' + script + '\n\n}).apply(scope, args || []); } }';  
+    let script = 'return "hello world";';
+    let code = 'package { public function actionScript(scope:Object, args:*):* { return (function() {' + script + '\n\n}).apply(scope, args || []); } }';  
   
-  let construct = as3_js.getAnalyzer().analyze(as3_js.getParser().parse(as3_js.getLexer().lex(code).tokens), constructs, 3, true, true);  
-  let result = as3_js.getTranslator().translate(construct, constructs, true, false, false);  
+    let construct = as3_js.getAnalyzer().analyze(as3_js.getParser().parse(as3_js.getLexer().lex(code).tokens), constructs, 3, true, true);  
+    let result = as3_js.getTranslator().translate(construct, constructs, true, false, false);  
 
-  let value = '(function() { var $window = this; var window = $window.parent || $window; var document = window.document; var $es4 = window.$es4 || (window.$es4 = {}); var _ = window._; var $ = window.$; var alert = window.alert;\n\n' + result + '\n\n})();';  
+    let value = '(function() { var $window = this; var window = $window.parent || $window; var document = window.document; var $es4 = window.$es4 || (window.$es4 = {}); var _ = window._; var $ = window.$; var alert = window.alert;\n\n' + result + '\n\n})();';  
   
-  eval(value); //outputs hello world to console
+    eval(value); //outputs hello world to console
 </script>
 ```
 ##### Node
@@ -114,7 +114,7 @@ package com.foo
     {
         public function say():String
         {
-			const os = require('os');
+            const os = require('os');
 			
             return os.platform() == 'aix' ? global.Buffer.from('hello world').toString() : 'hello world';
         }
