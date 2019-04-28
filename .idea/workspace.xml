@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="342607d7-5e25-44ce-bad1-bffc82e2954e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/_excluded/bootstrap/bootstrap.browser.player.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/bootstrap/bootstrap.browser.player.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/bootstrap/js/simplehtmlparser.player.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/bootstrap/js/simplehtmlparser.player.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweetrush/Transcompiler.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/Transcompiler.as" afterDir="false" />
-    </list>
+    <list default="true" id="342607d7-5e25-44ce-bad1-bffc82e2954e" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -361,12 +356,12 @@
       <workItem from="1556469984299" duration="4778000" />
       <workItem from="1556479668074" duration="1339000" />
       <workItem from="1556481017249" duration="5311000" />
-      <workItem from="1556491480132" duration="1589000" />
+      <workItem from="1556491480132" duration="2188000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="265199000" />
+    <option name="totallyTimeSpent" value="265798000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">

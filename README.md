@@ -35,10 +35,15 @@ public var myNamespace;
 namespace myNamespace = 'foo'; //conflict
 ```
 
+# Install:
+```bash
+npm install @johnbrandle/as3-js
+```
+
 # Basic Usage:
 
 ##### Browser
-```actionscript
+```actionscript3
 /* c:/projects/hello/source/com/foo/Hello.as */
 
 package com.foo
@@ -105,7 +110,7 @@ fs.writeFileSync('c:/projects/hello/build/js/hello.js', result.js, 'utf8');
 ##### Node
 
 
-```actionscript
+```actionscript3
 /* c:/projects/hello/source/com/foo/Hello.as */
 
 package com.foo
