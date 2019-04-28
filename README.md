@@ -91,7 +91,7 @@ fs.writeFileSync('c:/projects/hello/build/js/hello.js', result.js, 'utf8');
   
     let constructs = as3_js.getSwcUtil().parseSWCString(request.responseText); //recommend caching result
   
-    let script = 'return "hello world";';
+    let script = 'trace("hello world");';
     let code = 'package { public function actionScript(scope:Object, args:*):* { return (function() {' + script + '\n\n}).apply(scope, args || []); } }';  
   
     let construct = as3_js.getAnalyzer().analyze(as3_js.getParser().parse(as3_js.getLexer().lex(code).tokens), constructs, 3, true, true);  
@@ -156,7 +156,7 @@ trace(hello.say()); //outputs hello world to console
 
 * For the "browser" platform, recommend loading compiled js files in an iframe *(see docs for details)*
 * The original purpose of this project was to convert *valid* AS3 to JS, so consider first compiling with Apache Flex for improved error checking.
-* Outstanding bug: missing semicolons can cause compilation errors in some instances. Recommend always using semicolons for now. 
+* Outstanding bug: missing semicolons will cause compilation errors in some instances...recommend always using semicolons for now. 
 * Recommended IDE: [IntelliJ][intellij]
 
    [swc]: <https://en.wikipedia.org/wiki/Adobe_SWC_file>
