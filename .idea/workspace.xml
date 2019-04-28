@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="342607d7-5e25-44ce-bad1-bffc82e2954e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/bootstrap/bootstrap.browser.player.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/bootstrap/bootstrap.browser.player.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/bootstrap/js/simplehtmlparser.player.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/bootstrap/js/simplehtmlparser.player.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sweetrush/Transcompiler.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/Transcompiler.as" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -21,7 +23,7 @@
         <entry file="file://$PROJECT_DIR$/sweetrush/Transcompiler.as">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="219">
-              <caret line="454" column="12" selection-start-line="454" selection-start-column="12" selection-end-line="454" selection-end-column="12" />
+              <caret line="454" selection-start-line="454" selection-end-line="454" />
             </state>
           </provider>
         </entry>
@@ -359,12 +361,12 @@
       <workItem from="1556469984299" duration="4778000" />
       <workItem from="1556479668074" duration="1339000" />
       <workItem from="1556481017249" duration="5311000" />
-      <workItem from="1556491480132" duration="987000" />
+      <workItem from="1556491480132" duration="1589000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="264597000" />
+    <option name="totallyTimeSpent" value="265199000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -710,7 +712,7 @@
     <entry file="file://$PROJECT_DIR$/sweetrush/Transcompiler.as">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="219">
-          <caret line="454" column="12" selection-start-line="454" selection-start-column="12" selection-end-line="454" selection-end-column="12" />
+          <caret line="454" selection-start-line="454" selection-end-line="454" />
         </state>
       </provider>
     </entry>

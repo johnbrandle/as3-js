@@ -452,7 +452,7 @@ package sweetrush
 
 				builtinSWCString = result.swc;
 			}
-			
+
 			return _swcs['builtin'][platform] = SwcUtil.parseSWCString(builtinSWCString);
 		}
 

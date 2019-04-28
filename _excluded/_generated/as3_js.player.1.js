@@ -7,1642 +7,1645 @@
  * @license		see "NOTICE" file
  * @date		04.15.2013
  */
+
+if ($es4.$$window === undefined)
+{	 
+	$es4.$$window = $window;
+	$es4.$$startTime = new Date().getTime();
 	 
-$es4.$$window = $window;
-$es4.$$startTime = new Date().getTime();
- 
-$es4.$$EMPTY_ARRAY = [];
-$es4.$$EMPTY_OBJECT = {};
-$es4.$$VALUE_OBJECT = {};
-$es4.$$DEFAULT_PROPERTY_VALUE = {};
-$es4.$$MANUAL_CONSTRUCT = {};
- 
-Object.defineProperty(Object.prototype, '$$hasOwnProperty', {value:Object.prototype.hasOwnProperty});
-Object.defineProperty(Object.prototype, '$$propertyIsEnumerable', {value:Object.prototype.propertyIsEnumerable});
+	$es4.$$EMPTY_ARRAY = [];
+	$es4.$$EMPTY_OBJECT = {};
+	$es4.$$VALUE_OBJECT = {};
+	$es4.$$DEFAULT_PROPERTY_VALUE = {};
+	$es4.$$MANUAL_CONSTRUCT = {};
+	 
+	Object.defineProperty(Object.prototype, '$$hasOwnProperty', {value:Object.prototype.hasOwnProperty});
+	Object.defineProperty(Object.prototype, '$$propertyIsEnumerable', {value:Object.prototype.propertyIsEnumerable});
 
-Object.defineProperty(Object.prototype, 'hasOwnProperty', {value:function(property)
-{
-	var proto = this;
-	while (proto !== null)
+	Object.defineProperty(Object.prototype, 'hasOwnProperty', {value:function(property)
 	{
-		if (proto.$$hasOwnProperty(property)) return true;
+		var proto = this;
+		while (proto !== null)
+		{
+			if (proto.$$hasOwnProperty(property)) return true;
+			
+			proto = proto.__proto__;
+		}
 		
-		proto = proto.__proto__;
-	}
-	
-	return false;
-}});
-Object.defineProperty(Object.prototype, '$$hasOwnProperty_private', {value:Object.prototype.hasOwnProperty});
+		return false;
+	}});
+	Object.defineProperty(Object.prototype, '$$hasOwnProperty_private', {value:Object.prototype.hasOwnProperty});
 
-Object.defineProperty(Object.prototype, 'propertyIsEnumerable', {value:function(property)
-{
-	var proto = this;
-	while (proto !== null)
+	Object.defineProperty(Object.prototype, 'propertyIsEnumerable', {value:function(property)
 	{
-		if (proto.$$hasOwnProperty(property)) return proto.$$propertyIsEnumerable(property);
+		var proto = this;
+		while (proto !== null)
+		{
+			if (proto.$$hasOwnProperty(property)) return proto.$$propertyIsEnumerable(property);
+			
+			proto = proto.__proto__;
+		}
 		
-		proto = proto.__proto__;
-	}
-	
-	return false;
-}});
+		return false;
+	}});
 
-Object.defineProperty(Object.prototype, 'toString', {value:function() 
-{ 
-	var val = (this.constructor !== undefined) ? this.constructor.name : this; //nodejs depd blows up without this
-	return '[object ' + val + ']'; 
-}});
+	Object.defineProperty(Object.prototype, 'toString', {value:function() 
+	{ 
+		var val = (this.constructor !== undefined) ? this.constructor.name : this; //nodejs depd blows up without this
+		return '[object ' + val + ']'; 
+	}});
 
-Object.defineProperty(Object.prototype, '$$nextNameIndex', {value:function(index)
-{
-	if (this.$$names === undefined || index === 0)
+	Object.defineProperty(Object.prototype, '$$nextNameIndex', {value:function(index)
 	{
-		if (this.$$names === undefined) Object.defineProperty(this, '$$names', void ($es4.$$VALUE_OBJECT.value = []) || $es4.$$VALUE_OBJECT);
-		else this.$$names.splice(0, this.$$names.length);
-	
-		var i = 0;
-		for (var name in this) this.$$names[i++] = name;
-	}
-	
-	return (index < this.$$names.length) ? index + 1 : 0;
-}});
-
-Object.defineProperty(Object.prototype, '$$nextName', {value:function(index)
-{	
-	if (this.$$names === undefined) 
-	{
-		Object.defineProperty(this, '$$names', void ($es4.$$VALUE_OBJECT.value = []) || $es4.$$VALUE_OBJECT);
+		if (this.$$names === undefined || index === 0)
+		{
+			if (this.$$names === undefined) Object.defineProperty(this, '$$names', void ($es4.$$VALUE_OBJECT.value = []) || $es4.$$VALUE_OBJECT);
+			else this.$$names.splice(0, this.$$names.length);
 		
-		var i = 0;
-		for (var name in this) this.$$names[i++] = name;
-	}
-
-	var name = this.$$names[index - 1];
-	if (!(name in this))
-	{
-		this.$$nextNameIndex(0);
-		return this.$$nextName(index);
-	}
-	
-	return name;
-}});
-
-Object.defineProperty(Object.prototype, '$$nextValue', {value:function(index)
-{
-	if (this.$$names === undefined) 
-	{
-		Object.defineProperty(this, '$$names', void ($es4.$$VALUE_OBJECT.value = []) || $es4.$$VALUE_OBJECT);
+			var i = 0;
+			for (var name in this) this.$$names[i++] = name;
+		}
 		
-		var i = 0;
-		for (var name in this) this.$$names[i++] = name;
-	}
-	
-	var name = this.$$names[index - 1];
-	if (!(name in this))
-	{
-		this.$$nextNameIndex(0);
-		return this.$$nextValue(index);
-	}
-	
-	return this[name]; //TODO $$get(this, $$this, $$thisp, name);
-}});
+		return (index < this.$$names.length) ? index + 1 : 0;
+	}});
 
-$es4.requestAnimationFrame = $es4.$$window.requestAnimationFrame || $es4.$$window.webkitRequestAnimationFrame || $es4.$$window.mozRequestAnimationFrame || $es4.$$window.oRequestAnimationFrame || $es4.$$window.msRequestAnimationFrame;
-
-$es4.$$class = function(Type, info, fullyQualifiedName)
-{
-	if (Type.name === undefined) Object.defineProperty(Type, 'name', {value:fullyQualifiedName.split('::').pop()});
-	Type.$$isclass = true;
-	Type.$$fullyQualifiedName = fullyQualifiedName;
-	Type.$$info = info;
-	Type.toString = function() { return '[class ' + Type.name + ']'; };
-	
-	if (info === undefined) return Type;  //basic type
-	
-	Type.$$pcinit = function()
+	Object.defineProperty(Object.prototype, '$$nextName', {value:function(index)
 	{	
-		info = Type.$$info;
-	
-		Type.$$info = undefined;
-		Type.$$pcinit = undefined;
-		
-		if (info === null) 
+		if (this.$$names === undefined) 
 		{
-			$es4.$$extends(Type, Object);
-			return;
-		}
-		
-		if (info.INTERFACES !== undefined)
-		{
-			for (var i = info.INTERFACES.length; i--;) 
-			{
-				info.INTERFACES[i].$$pcinit();
-				if (info.INTERFACES[i].$$sinit !== undefined) info.INTERFACES[i].$$sinit();
-			}
+			Object.defineProperty(this, '$$names', void ($es4.$$VALUE_OBJECT.value = []) || $es4.$$VALUE_OBJECT);
+			
+			var i = 0;
+			for (var name in this) this.$$names[i++] = name;
 		}
 
-		if (info.EXTENDS !== undefined) 
+		var name = this.$$names[index - 1];
+		if (!(name in this))
 		{
-			var extendsInfo = info.EXTENDS;
-			if (typeof extendsInfo === 'string')
-			{ 
-				var index = extendsInfo.lastIndexOf('.');
-				if (index === -1) $es4.$$extends(Type, $es4.$$[''][extendsInfo]);
-				else $es4.$$extends(Type, $es4.$$[extendsInfo.substring(0, index)][extendsInfo.substring(index + 1)]);
-			}
-			else $es4.$$extends(Type, extendsInfo);
+			this.$$nextNameIndex(0);
+			return this.$$nextName(index);
 		}
-		else $es4.$$extends(Type, Object);
 		
-		if (info.IMPLEMENTS !== undefined)
+		return name;
+	}});
+
+	Object.defineProperty(Object.prototype, '$$nextValue', {value:function(index)
+	{
+		if (this.$$names === undefined) 
 		{
-			var implementsInfo = info.IMPLEMENTS;
-			for (var i = implementsInfo.length; i--;)
+			Object.defineProperty(this, '$$names', void ($es4.$$VALUE_OBJECT.value = []) || $es4.$$VALUE_OBJECT);
+			
+			var i = 0;
+			for (var name in this) this.$$names[i++] = name;
+		}
+		
+		var name = this.$$names[index - 1];
+		if (!(name in this))
+		{
+			this.$$nextNameIndex(0);
+			return this.$$nextValue(index);
+		}
+		
+		return this[name]; //TODO $$get(this, $$this, $$thisp, name);
+	}});
+
+	$es4.requestAnimationFrame = $es4.$$window.requestAnimationFrame || $es4.$$window.webkitRequestAnimationFrame || $es4.$$window.mozRequestAnimationFrame || $es4.$$window.oRequestAnimationFrame || $es4.$$window.msRequestAnimationFrame;
+
+	$es4.$$class = function(Type, info, fullyQualifiedName)
+	{
+		if (Type.name === undefined) Object.defineProperty(Type, 'name', {value:fullyQualifiedName.split('::').pop()});
+		Type.$$isclass = true;
+		Type.$$fullyQualifiedName = fullyQualifiedName;
+		Type.$$info = info;
+		Type.toString = function() { return '[class ' + Type.name + ']'; };
+		
+		if (info === undefined) return Type;  //basic type
+		
+		Type.$$pcinit = function()
+		{	
+			info = Type.$$info;
+		
+			Type.$$info = undefined;
+			Type.$$pcinit = undefined;
+			
+			if (info === null) 
 			{
-				var implementInfo = implementsInfo[i];
-				
-				if (typeof implementInfo !== 'string') continue;
-				
-				var index = implementInfo.lastIndexOf('.');
-				if (index === -1) implementsInfo[i] = $es4.$$[''][implementInfo];
-				else implementsInfo[i] = $es4.$$[implementInfo.substring(0, index)][implementInfo.substring(index + 1)];
+				$es4.$$extends(Type, Object);
+				return;
 			}
 			
-			implementsInfo.unshift(Type);
-			
-			Type.$$implementsInterfaces = implementsInfo;
-			Type.$$_implements = [];
-			switch (implementsInfo.length)
+			if (info.INTERFACES !== undefined)
 			{
+				for (var i = info.INTERFACES.length; i--;) 
+				{
+					info.INTERFACES[i].$$pcinit();
+					if (info.INTERFACES[i].$$sinit !== undefined) info.INTERFACES[i].$$sinit();
+				}
+			}
+
+			if (info.EXTENDS !== undefined) 
+			{
+				var extendsInfo = info.EXTENDS;
+				if (typeof extendsInfo === 'string')
+				{ 
+					var index = extendsInfo.lastIndexOf('.');
+					if (index === -1) $es4.$$extends(Type, $es4.$$[''][extendsInfo]);
+					else $es4.$$extends(Type, $es4.$$[extendsInfo.substring(0, index)][extendsInfo.substring(index + 1)]);
+				}
+				else $es4.$$extends(Type, extendsInfo);
+			}
+			else $es4.$$extends(Type, Object);
+			
+			if (info.IMPLEMENTS !== undefined)
+			{
+				var implementsInfo = info.IMPLEMENTS;
+				for (var i = implementsInfo.length; i--;)
+				{
+					var implementInfo = implementsInfo[i];
+					
+					if (typeof implementInfo !== 'string') continue;
+					
+					var index = implementInfo.lastIndexOf('.');
+					if (index === -1) implementsInfo[i] = $es4.$$[''][implementInfo];
+					else implementsInfo[i] = $es4.$$[implementInfo.substring(0, index)][implementInfo.substring(index + 1)];
+				}
+				
+				implementsInfo.unshift(Type);
+				
+				Type.$$implementsInterfaces = implementsInfo;
+				Type.$$_implements = [];
+				switch (implementsInfo.length)
+				{
+					case 1:
+						break;
+					case 2:
+						$es4.$$implements(implementsInfo[0], implementsInfo[1]);
+						break;
+					case 3:
+						$es4.$$implements(implementsInfo[0], implementsInfo[1], implementsInfo[2]);
+						break;
+					case 4:
+						$es4.$$implements(implementsInfo[0], implementsInfo[1], implementsInfo[2], implementsInfo[3]);
+						break;
+					default:
+						$es4.$$implements.apply(null, implementsInfo);
+						break;
+				}
+			}
+			else Type.$$implementsInterfaces = $es4.$$EMPTY_ARRAY;
+			
+			if (info.CLASSES !== undefined)
+			{
+				for (var i = info.CLASSES.length; i--;) 
+				{
+					info.CLASSES[i].$$pcinit();
+					if (info.CLASSES[i].$$sinit !== undefined) info.CLASSES[i].$$sinit();
+				}
+			}
+		};
+		
+		return Type;
+	}
+
+	$es4.$$function = function(Type)
+	{
+		Type.$$ismethod = true;
+		
+		return Type;
+	}
+
+	$es4.$$interface = function(Type, info, fullyQualifiedName)
+	{
+		if (Type.name === undefined) Object.defineProperty(Type, 'name', {value:fullyQualifiedName.split('::').pop()});
+		Type.$$isclass = true;
+		Type.$$fullyQualifiedName = fullyQualifiedName;
+		Type.$$info = info;
+		Type.toString = function() { return '[class ' + Type.name + ']'; };
+		
+		Type.$$pcinit = function()
+		{
+			info = Type.$$info;
+			
+			Type.$$info = undefined;
+			Type.$$pcinit = undefined;
+			
+			if (info === null) 
+			{
+				Type.$$implementsInterfaces = $es4.$$EMPTY_ARRAY;
+				return;
+			}
+
+			if (info.IMPLEMENTS !== undefined) 
+			{
+				var implementsInfo = info.IMPLEMENTS;
+				for (var i = implementsInfo.length; i--;)
+				{
+					var implementInfo = implementsInfo[i];
+					
+					if (typeof implementInfo !== 'string') continue;
+					
+					var index = implementInfo.lastIndexOf('.');
+					if (index === -1) implementsInfo[i] = $es4.$$[''][implementInfo];
+					else implementsInfo[i] = $es4.$$[implementInfo.substring(0, index)][implementInfo.substring(index + 1)];
+				}
+				
+				Type.$$implementsInterfaces = info.IMPLEMENTS;
+			}
+			else Type.$$implementsInterfaces = $es4.$$EMPTY_ARRAY;
+		};
+
+		return Type;
+	}
+
+	$es4.$$super = function(object)
+	{
+		var s = {};
+		Object.defineProperty(s, '$$z', {value:function()
+		{
+			if (object.__proto__.$$constructor === undefined) throw new Error('trouble calling super for: ' + object.constructor.name + ', ' + object.__proto__.constructor.name);
+			switch (arguments.length)
+			{
+				case 0:
+					object.__proto__.$$constructor();
+					break;
 				case 1:
+					object.__proto__.$$constructor(arguments[0]);
 					break;
 				case 2:
-					$es4.$$implements(implementsInfo[0], implementsInfo[1]);
+					object.__proto__.$$constructor(arguments[0], arguments[1]);
 					break;
 				case 3:
-					$es4.$$implements(implementsInfo[0], implementsInfo[1], implementsInfo[2]);
-					break;
-				case 4:
-					$es4.$$implements(implementsInfo[0], implementsInfo[1], implementsInfo[2], implementsInfo[3]);
+					object.__proto__.$$constructor(arguments[0], arguments[1], arguments[2]);
 					break;
 				default:
-					$es4.$$implements.apply(null, implementsInfo);
+					object.__proto__.$$constructor.apply(null, arguments);
 					break;
 			}
-		}
-		else Type.$$implementsInterfaces = $es4.$$EMPTY_ARRAY;
-		
-		if (info.CLASSES !== undefined)
-		{
-			for (var i = info.CLASSES.length; i--;) 
-			{
-				info.CLASSES[i].$$pcinit();
-				if (info.CLASSES[i].$$sinit !== undefined) info.CLASSES[i].$$sinit();
-			}
-		}
-	};
-	
-	return Type;
-}
-
-$es4.$$function = function(Type)
-{
-	Type.$$ismethod = true;
-	
-	return Type;
-}
-
-$es4.$$interface = function(Type, info, fullyQualifiedName)
-{
-	if (Type.name === undefined) Object.defineProperty(Type, 'name', {value:fullyQualifiedName.split('::').pop()});
-	Type.$$isclass = true;
-	Type.$$fullyQualifiedName = fullyQualifiedName;
-	Type.$$info = info;
-	Type.toString = function() { return '[class ' + Type.name + ']'; };
-	
-	Type.$$pcinit = function()
-	{
-		info = Type.$$info;
-		
-		Type.$$info = undefined;
-		Type.$$pcinit = undefined;
-		
-		if (info === null) 
-		{
-			Type.$$implementsInterfaces = $es4.$$EMPTY_ARRAY;
-			return;
-		}
-
-		if (info.IMPLEMENTS !== undefined) 
-		{
-			var implementsInfo = info.IMPLEMENTS;
-			for (var i = implementsInfo.length; i--;)
-			{
-				var implementInfo = implementsInfo[i];
-				
-				if (typeof implementInfo !== 'string') continue;
-				
-				var index = implementInfo.lastIndexOf('.');
-				if (index === -1) implementsInfo[i] = $es4.$$[''][implementInfo];
-				else implementsInfo[i] = $es4.$$[implementInfo.substring(0, index)][implementInfo.substring(index + 1)];
-			}
 			
-			Type.$$implementsInterfaces = info.IMPLEMENTS;
-		}
-		else Type.$$implementsInterfaces = $es4.$$EMPTY_ARRAY;
-	};
+		}});
+		s.__proto__ = object.__proto__;
+		return s;
+	}
 
-	return Type;
-}
-
-$es4.$$super = function(object)
-{
-	var s = {};
-	Object.defineProperty(s, '$$z', {value:function()
+	$es4.$$super2 = function($$this, Type, $$typeString, propertyName, type, arg)
 	{
-		if (object.__proto__.$$constructor === undefined) throw new Error('trouble calling super for: ' + object.constructor.name + ', ' + object.__proto__.constructor.name);
-		switch (arguments.length)
+		while (!Type.prototype.$$hasOwnProperty(propertyName)) Type = Type.__proto__;	
+		
+		if (type == 'func') 
+		{
+			//if ($$this[$$typeString].$$hasOwnProperty(propertyName)) return $$this[$$typeString][propertyName];
+			return Object.getOwnPropertyDescriptor(Type.prototype, propertyName).get.call($$this);
+		}
+		
+		if (type == 'get') return Object.getOwnPropertyDescriptor(Type.prototype, propertyName).get.call($$this);
+		if (type == 'set') return Object.getOwnPropertyDescriptor(Type.prototype, propertyName).set.call($$this, arg);
+		
+		throw new Error('unknown type');
+	}
+
+	$es4.$$getOwnScope = function(scope, Type)
+	{
+		if (Type.prototype.$$v !== undefined) return Type.prototype;
+		
+		//proto method
+		while (scope.constructor != Type) scope = scope.__proto__;	
+		return scope;
+	}
+
+	$es4.$$getDescriptor = function(scope, propertyName)
+	{
+		return Object.getOwnPropertyDescriptor(scope, propertyName);
+	}
+
+	$es4.$$primitive = function(object)
+	{
+		if (object !== undefined && object !== null) 
+		{
+			switch (object.constructor.name)
+			{
+				case 'Boolean':
+				case 'String':
+				case 'Number':
+				case 'uint':
+				case 'int':
+					return object.valueOf();
+			}
+		}
+		
+		return object;
+	}
+
+	$es4.$$construct = function(object, args)
+	{	
+		if (object.constructor.$$construct !== undefined) return object.constructor.$$construct(object, args);
+		
+		var objectTypeObject = object.__proto__;
+		var Type = object.constructor.__proto__;
+		var innerObject = object;
+		var innerTypeObject = objectTypeObject;
+		var innerObjectSave;
+		var innerObjectSaveConstructor;
+		var VALUE_OBJECT = $es4.$$VALUE_OBJECT;
+		var MANUAL_CONSTRUCT = $es4.$$MANUAL_CONSTRUCT;
+		while (Type.$$isclass !== undefined && Type !== Class)
+		{
+			innerObjectSave = innerObject;
+			innerObjectSaveConstructor = innerObject.constructor;
+			innerObject = innerObject.__proto__ = (Type !== Object) ? new Type(MANUAL_CONSTRUCT, object) : {};
+			Object.defineProperty(innerObjectSave, 'constructor', void (VALUE_OBJECT.value = innerObjectSaveConstructor) || VALUE_OBJECT);
+			
+			innerTypeObject = innerTypeObject.__proto__ = innerObject.__proto__;
+			
+			Type = Type.__proto__;
+		}
+		innerObject.__proto__ = objectTypeObject;
+		
+		innerObject = object;
+		while (innerObject !== objectTypeObject)
+		{
+			if (innerObject.$$iinit !== undefined) innerObject.$$iinit();
+			innerObject = innerObject.__proto__;
+		}
+		
+		switch (args.length)
 		{
 			case 0:
-				object.__proto__.$$constructor();
+				object.$$constructor();
 				break;
 			case 1:
-				object.__proto__.$$constructor(arguments[0]);
+				object.$$constructor(args[0]);
 				break;
 			case 2:
-				object.__proto__.$$constructor(arguments[0], arguments[1]);
+				object.$$constructor(args[0], args[1]);
 				break;
 			case 3:
-				object.__proto__.$$constructor(arguments[0], arguments[1], arguments[2]);
+				object.$$constructor(args[0], args[1], args[2]);
+				break;
+			case 4:
+				object.$$constructor(args[0], args[1], args[2], args[3]);
 				break;
 			default:
-				object.__proto__.$$constructor.apply(null, arguments);
+				object.$$constructor.apply(object, args);
 				break;
 		}
+	}
+
+	$es4.$$extends = function(object, Type)
+	{
+		object.__proto__ = Type;
+	}
+
+	$es4.$$implements = function(object)
+	{
+		var argumentsLength = arguments.length;
+		for (var i = 1; i < argumentsLength; i++)
+		{
+			var Type = arguments[i];
+			
+			var implementsInterfaces = Type.$$implementsInterfaces;
+			for (var j = implementsInterfaces.length; j--;) $es4.$$implements(object, implementsInterfaces[j]);
+			
+			object.$$_implements.push(Type);
+		}
+	}
+
+	$es4.$$is = function(object, Type)
+	{
+		if ($es4.$$instanceof(object, Type)) return true;
 		
+		var proto = object;
+		while (proto != null)
+		{
+			if (proto.constructor.$$_implements !== undefined && proto.constructor.$$_implements.indexOf(Type) !== -1) return true;
+			proto = proto.__proto__;
+		}
+		
+		return false
+	}
+
+	$es4.$$instanceof = function(object, Type)
+	{
+		if (object === null || object === undefined) return false;
+		if (Type === Class && object.$$isclass !== undefined) return true;
+		if (Type === Object && object.$$isclass === undefined) return true;
+		if (object instanceof Type) return true;
+		
+		var typeOfObject = typeof object;
+		
+		switch (typeOfObject)
+		{
+			case 'string':
+				return Type === String;
+			case 'number':
+				if (Type === Number) return true;
+				if (Type === uint || Type === int) return Type(object) == object;
+				break;
+			case 'boolean':
+				return Type === Boolean;
+			case 'function':
+				if (object.$$isclass === undefined) return Type === Function;
+				if (Type === Function) return false;
+
+				var proto = object.__proto__;
+				while (proto !== null)
+				{
+					if (proto === Type) return true;
+					proto = proto.__proto__;
+				}
+				
+				return false;
+		}
+		
+		return false;
+	}
+
+	$es4.$$typeof = function(object)
+	{
+		return (object !== null && object !== undefined && object.$$isclass !== undefined) ? 'object' : typeof object;
+	}
+
+	$es4.$$as = function(object, Type)
+	{
+		return (object === null || object === undefined) ? null : ($es4.$$is(object, Type)) ? object : null;
+	}
+
+	$es4.$$coerce = function(value, coerceType)
+	{
+		switch (coerceType)
+		{
+			case Object:
+			case Function:
+			case Array:
+			case Date:
+				return (!$es4.$$is(value, coerceType)) ? null : value;
+			case String:
+				return (value === null || value === undefined) ? null : String(value);
+			case Boolean:
+				if (value === true || value === false) return value;
+				return Boolean(value);
+			case Number:
+			case uint:
+			case int:
+				return coerceType(value);
+			default:			
+				return coerceType(value);
+		}
+	}
+
+	$es4.$$isPrivateProperty = function(scope, object)
+	{
+		if (typeof object !== 'string') return false;
+		
+		var proto = scope;
+		while (proto !== null)
+		{
+			if (proto.$$hasOwnProperty(object)) return (scope.$$private !== undefined && scope.$$private.$$hasOwnProperty(object));
+			
+			proto = proto.__proto__;
+		}
+		
+		throw new Error('$$isPrivateProperty:: property not found: ' + object);
+	}
+
+	$es4.$$delete = function(scope, $$this, $$thisp)
+	{
+		var argumentsLength = arguments.length;
+
+		if (argumentsLength > 4) 
+		{
+			var i, args = new Array(argumentsLength - 1);
+			for (i = 0; i < argumentsLength - 1; i += 1) args[i] = arguments[i];		
+			
+			scope = $es4.$$get.apply(this, args);
+		}
+		
+		var object = arguments[argumentsLength - 1];
+		
+		if (scope.$$hasOwnProperty_private('$$isProxy') && (typeof object !== 'string' || !scope.$$hasOwnProperty_private(object) || ($es4.$$isPrivateProperty(scope, object) && scope !== $$thisp))) return scope.$$delete(object);
+		else return delete scope[object];
+	}
+
+	$es4.$$get = function(scope, $$this, $$thisp)
+	{
+		var argumentsLength = arguments.length;
+		if (argumentsLength === 3) return scope;
+		
+		var originalScope = scope;
+		var index = 3;
+		while (index < argumentsLength)
+		{
+			var object = arguments[index];
+			if (scope.$$hasOwnProperty_private('$$isProxy') && (typeof object !== 'string' || !scope.$$hasOwnProperty_private(object) || ($es4.$$isPrivateProperty(scope, object) && scope !== $$thisp))) scope = scope.$$get(object);
+			else if (scope.constructor.$$isclass !== undefined && scope === $$this && $$thisp.$$private !== undefined && $$thisp.$$private.$$hasOwnProperty(object)) scope = $$thisp[object];
+			else scope = scope[object];
+			
+			index++;
+		}
+		
+		return (scope != null && scope.call !== undefined && scope.apply !== undefined && scope.bind !== undefined && scope.$$isclass === undefined && scope.$$ismethod === undefined && Function.prototype.$$hasOwnProperty(object)) ? scope.bind(originalScope) : scope;  //this is supposed to bind things like myarray.split //instead of doing this it this way, check if the scope is an array, then see if the name of the prop is a native function, like split, then bind as necessary
+	}
+
+	$es4.$$call = function(scope, $$this, $$thisp)
+	{
+		var argumentsLength = arguments.length;
+		
+		if (argumentsLength > 5) 
+		{
+			var i, args = new Array(argumentsLength - 2);
+			for (i = 0; i < argumentsLength - 2; i += 1) args[i] = arguments[i];	
+			
+			scope = $es4.$$get.apply(this, args);
+		}
+		
+		var args = arguments[argumentsLength - 1];
+		var object = arguments[argumentsLength - 2];
+		
+		scope = (scope.constructor.$$isclass !== undefined && scope === $$this && $$thisp.$$private !== undefined && $$thisp.$$private.$$hasOwnProperty(object)) ? $$thisp : scope;
+		if (scope.$$hasOwnProperty_private('$$isProxy') && (typeof object !== 'string' || !scope.$$hasOwnProperty_private(object) || ($es4.$$isPrivateProperty(scope, object) && scope !== $$thisp))) return scope.$$call(object, args);
+		else 
+		{
+			try { return scope[object].apply(scope, args); }
+			catch (error)
+			{
+				if ($es4.$$window.navigator.userAgent.indexOf("Firefox") > 0 && scope && $es4.$$is(scope[object], Function)) try { trace(scope[object].toSource()); } catch (error2) {}
+				
+				throw error;
+			}
+		}
+	}
+
+	$es4.$$set = function(scope, $$this, $$thisp)
+	{
+		var argumentsLength = arguments.length;
+		
+		if (argumentsLength > 5) 
+		{
+			var i, args = new Array(argumentsLength - 3);
+			for (i = 0; i < argumentsLength - 3; i += 1) args[i] = arguments[i];	
+			
+			scope = $es4.$$get.apply(this, args);
+		}
+		
+		var operator = arguments[argumentsLength - 1];
+		var value = arguments[argumentsLength - 2];
+		var object = arguments[argumentsLength - 3];
+		
+		scope = (scope.constructor.$$isclass !== undefined && scope === $$this && $$thisp.$$private !== undefined && $$thisp.$$private.$$hasOwnProperty(object)) ? $$thisp : scope;
+		
+		var useSet = (scope.$$hasOwnProperty_private('$$isProxy') && (typeof object !== 'string' || !scope.$$hasOwnProperty_private(object) || ($es4.$$isPrivateProperty(scope, object) && scope !== $$thisp)));
+		switch (operator)
+		{
+			case '=':
+				return (useSet) ? scope.$$set(object, value) : scope[object] = value;
+			case '+=':
+				if (useSet) { return (scope instanceof XMLList && !isNaN(object)) ? scope.$$append(object, value) : scope.$$set(object, scope.$$get(object) + value); }
+				return scope[object] += value;
+			case '-=':
+				return (useSet) ? scope.$$set(object, scope.$$get(object) - value) : (scope[object] -= value);
+			case '/=':
+				return (useSet) ? scope.$$set(object, scope.$$get(object) / value) : (scope[object] /= value);
+			case '*=':
+				return (useSet) ? scope.$$set(object, scope.$$get(object) * value) : (scope[object] *= value);
+			case '%=':
+				return (useSet) ? scope.$$set(object, scope.$$get(object) % value) : (scope[object] %= value);
+			case '|=':
+				return (useSet) ? scope.$$set(object, scope.$$get(object) | value) : (scope[object] |= value);
+			case '&=':
+				return (useSet) ? scope.$$set(object, scope.$$get(object) & value) : (scope[object] &= value);
+			case '^=':
+				return (useSet) ? scope.$$set(object, scope.$$get(object) ^ value) : (scope[object] ^= value);
+			case '<<':
+				return (useSet) ? scope.$$set(object, scope.$$get(object) << value) : (scope[object]= scope[object] << value);
+			case '>>':
+				return (useSet) ? scope.$$set(object, scope.$$get(object) >> value) : (scope[object] = scope[object] >> value);
+			case '>>>':
+				return (useSet) ? scope.$$set(object, scope.$$get(object) >>> value) : (scope[object] = scope[object] >>> value);
+			case '||=':
+				return (useSet) ? scope.$$set(object, scope.$$get(object) || value) : (scope[object] = scope[object] || value);
+			case '&&=':
+				return (useSet) ? scope.$$set(object, scope.$$get(object) && value) : (scope[object] = scope[object] && value);
+			case '++':
+			case '--':
+				if (value === 'prefix')
+				{
+					if (useSet) return scope.$$prefix(object, operator);  //TODO
+					if (operator === '++') return ++scope[object];
+					else return --scope[object];
+				}
+				else if (value === 'postfix')
+				{
+					if (useSet) return scope.$$postfix(object, operator);  //TODO
+					if (operator === '++') return scope[object]++;
+					else return scope[object]--;
+				}
+			default:
+				throw new Error('unknown operator used in $$set: ' + operator);
+		}
+	}
+
+	$es4.$$ = {};
+	$es4.$$package = function($package)
+	{
+		return ($es4.$$[$package] !== undefined) ? $es4.$$[$package] : $es4.$$[$package] = ($package != '') ? {} : $es4.$$window;
+	}
+
+	Object.defineProperty(Object.prototype, '$$namespace', {value:function(namespace, object, pscope)
+	{
+		if (object === undefined) object = this;
+		if (namespace.constructor === String) return ($es4.$$namespaces[namespace] === undefined) ? $es4.$$namespaces[namespace] = {name:namespace, toString:function() { return namespace; }} : $es4.$$namespaces[namespace];
+		if (object.$$namespaces === undefined) Object.defineProperty(object, '$$namespaces', void ($es4.$$VALUE_OBJECT.value = {}) || $es4.$$VALUE_OBJECT);
+		namespace = (object.$$namespaces && object.$$namespaces[namespace.name]) ? object.$$namespaces[namespace.name] : object.$$namespaces[namespace.name] = {};
+		if (pscope === object || pscope === undefined) return namespace;
+		
+		var Class;
+		var SuperClass;
+		var Type;
+		var objectProto;
+		
+		//for whatever reason, mobile safari inconsistently fails when testing if Type and SuperClass are equal 
+		//an empty try catch try {} catch(e) {) appears to fix this issue... MAGIC!
+		//to reproduce, create about 15 - 20 new TextField() objects in a row, and remove the try catch below
+		//UPDATE: THIS MAY BE UNNECESSARY NOW
+		try { Class = null; } catch(e) {}; //Note: Class = null is only there to prevent closure compiler warning
+		
+		Class = object.constructor;
+		SuperClass = pscope.constructor;
+		Type = Class;
+		objectProto = $es4.$$EMPTY_OBJECT.__proto__;
+		
+		while (Type !== SuperClass)
+		{
+			if (!namespace.__proto__ || namespace.__proto__ === objectProto) namespace.__proto__ = {};
+			namespace = namespace.__proto__;
+			Type = Type.__proto__;
+		}
+		return namespace;
 	}});
-	s.__proto__ = object.__proto__;
-	return s;
-}
+	$es4.$$namespaces = {};
 
-$es4.$$super2 = function($$this, Type, $$typeString, propertyName, type, arg)
-{
-	while (!Type.prototype.$$hasOwnProperty(propertyName)) Type = Type.__proto__;	
-	
-	if (type == 'func') 
+	$es4.$$expose = function(functionName, closure)
 	{
-		//if ($$this[$$typeString].$$hasOwnProperty(propertyName)) return $$this[$$typeString][propertyName];
-		return Object.getOwnPropertyDescriptor(Type.prototype, propertyName).get.call($$this);
+		$es4.$$exposed.functionName = closure;
 	}
-	
-	if (type == 'get') return Object.getOwnPropertyDescriptor(Type.prototype, propertyName).get.call($$this);
-	if (type == 'set') return Object.getOwnPropertyDescriptor(Type.prototype, propertyName).set.call($$this, arg);
-	
-	throw new Error('unknown type');
-}
+	$es4.$$exposed = {};
 
-$es4.$$getOwnScope = function(scope, Type)
-{
-	if (Type.prototype.$$v !== undefined) return Type.prototype;
-	
-	//proto method
-	while (scope.constructor != Type) scope = scope.__proto__;	
-	return scope;
-}
+	$es4.$$constructor = function(scope, func)
+	{	
+		Object.defineProperty(scope, '$$constructor', void ($es4.$$VALUE_OBJECT.value = func) || $es4.$$VALUE_OBJECT);
+	}
 
-$es4.$$getDescriptor = function(scope, propertyName)
-{
-	return Object.getOwnPropertyDescriptor(scope, propertyName);
-}
-
-$es4.$$primitive = function(object)
-{
-	if (object !== undefined && object !== null) 
+	$es4.$$iinit = function(scope, func)
 	{
-		switch (object.constructor.name)
+		Object.defineProperty(scope, '$$iinit', void ($es4.$$VALUE_OBJECT.value = func) || $es4.$$VALUE_OBJECT);
+	}
+
+	$es4.$$public_namespace = function(name, scope, propName)
+	{
+		if ($es4.$$namespaces[name] === undefined) $es4.$$namespaces[name] = {name:name, toString:function() { return name; }};
+		
+		Object.defineProperty(scope, propName, {value:$es4.$$namespaces[name]});
+	}
+	$es4.$$private_namespace = function(name, scope, propName)
+	{
+		if ($es4.$$namespaces[name] === undefined) $es4.$$namespaces[name] = {name:name, toString:function() { return name; }};
+		
+		if (scope.$$private === undefined) Object.defineProperty(scope, '$$private', {value:{}});
+		scope.$$private[name] = name;
+		
+		Object.defineProperty(scope, propName, {value:$es4.$$namespaces[name]});
+	}
+	$es4.$$protected_namespace = $es4.$$public_namespace;
+	$es4.$$internal_namespace = $es4.$$public_namespace;
+	$es4.$$cnamespace_namespace = function(name, scope, namespace, propName)
+	{
+		$es4.$$public_namespace(name, $es4.$$namespace(namespace, scope), propName);
+	}
+
+	$es4.$$getDefaultPropertyValue = function(type)
+	{
+		if (type == null) return undefined;
+		
+		switch (type)
 		{
-			case 'Boolean':
-			case 'String':
-			case 'Number':
-			case 'uint':
-			case 'int':
-				return object.valueOf();
+			case int:
+			case uint:
+				return 0;
+			case Number:
+				return NaN;
+			case Boolean:
+				return false;
 		}
-	}
-	
-	return object;
-}
-
-$es4.$$construct = function(object, args)
-{	
-	if (object.constructor.$$construct !== undefined) return object.constructor.$$construct(object, args);
-	
-	var objectTypeObject = object.__proto__;
-	var Type = object.constructor.__proto__;
-	var innerObject = object;
-	var innerTypeObject = objectTypeObject;
-	var innerObjectSave;
-	var innerObjectSaveConstructor;
-	var VALUE_OBJECT = $es4.$$VALUE_OBJECT;
-	var MANUAL_CONSTRUCT = $es4.$$MANUAL_CONSTRUCT;
-	while (Type.$$isclass !== undefined && Type !== Class)
-	{
-		innerObjectSave = innerObject;
-		innerObjectSaveConstructor = innerObject.constructor;
-		innerObject = innerObject.__proto__ = (Type !== Object) ? new Type(MANUAL_CONSTRUCT, object) : {};
-		Object.defineProperty(innerObjectSave, 'constructor', void (VALUE_OBJECT.value = innerObjectSaveConstructor) || VALUE_OBJECT);
 		
-		innerTypeObject = innerTypeObject.__proto__ = innerObject.__proto__;
-		
-		Type = Type.__proto__;
+		return null;
 	}
-	innerObject.__proto__ = objectTypeObject;
-	
-	innerObject = object;
-	while (innerObject !== objectTypeObject)
+
+	$es4.$$public_property = function(name, scope, coerceType)
 	{
-		if (innerObject.$$iinit !== undefined) innerObject.$$iinit();
-		innerObject = innerObject.__proto__;
-	}
-	
-	switch (args.length)
-	{
-		case 0:
-			object.$$constructor();
-			break;
-		case 1:
-			object.$$constructor(args[0]);
-			break;
-		case 2:
-			object.$$constructor(args[0], args[1]);
-			break;
-		case 3:
-			object.$$constructor(args[0], args[1], args[2]);
-			break;
-		case 4:
-			object.$$constructor(args[0], args[1], args[2], args[3]);
-			break;
-		default:
-			object.$$constructor.apply(object, args);
-			break;
-	}
-}
-
-$es4.$$extends = function(object, Type)
-{
-	object.__proto__ = Type;
-}
-
-$es4.$$implements = function(object)
-{
-	var argumentsLength = arguments.length;
-	for (var i = 1; i < argumentsLength; i++)
-	{
-		var Type = arguments[i];
-		
-		var implementsInterfaces = Type.$$implementsInterfaces;
-		for (var j = implementsInterfaces.length; j--;) $es4.$$implements(object, implementsInterfaces[j]);
-		
-		object.$$_implements.push(Type);
-	}
-}
-
-$es4.$$is = function(object, Type)
-{
-	if ($es4.$$instanceof(object, Type)) return true;
-	
-	var proto = object;
-	while (proto != null)
-	{
-		if (proto.constructor.$$_implements !== undefined && proto.constructor.$$_implements.indexOf(Type) !== -1) return true;
-		proto = proto.__proto__;
-	}
-	
-	return false
-}
-
-$es4.$$instanceof = function(object, Type)
-{
-	if (object === null || object === undefined) return false;
-	if (Type === Class && object.$$isclass !== undefined) return true;
-	if (Type === Object && object.$$isclass === undefined) return true;
-	if (object instanceof Type) return true;
-	
-	var typeOfObject = typeof object;
-	
-	switch (typeOfObject)
-	{
-		case 'string':
-			return Type === String;
-		case 'number':
-			if (Type === Number) return true;
-			if (Type === uint || Type === int) return Type(object) == object;
-			break;
-		case 'boolean':
-			return Type === Boolean;
-		case 'function':
-			if (object.$$isclass === undefined) return Type === Function;
-			if (Type === Function) return false;
-
-			var proto = object.__proto__;
-			while (proto !== null)
-			{
-				if (proto === Type) return true;
-				proto = proto.__proto__;
-			}
-			
-			return false;
-	}
-	
-	return false;
-}
-
-$es4.$$typeof = function(object)
-{
-	return (object !== null && object !== undefined && object.$$isclass !== undefined) ? 'object' : typeof object;
-}
-
-$es4.$$as = function(object, Type)
-{
-	return (object === null || object === undefined) ? null : ($es4.$$is(object, Type)) ? object : null;
-}
-
-$es4.$$coerce = function(value, coerceType)
-{
-	switch (coerceType)
-	{
-		case Object:
-		case Function:
-		case Array:
-		case Date:
-			return (!$es4.$$is(value, coerceType)) ? null : value;
-		case String:
-			return (value === null || value === undefined) ? null : String(value);
-		case Boolean:
-			if (value === true || value === false) return value;
-			return Boolean(value);
-		case Number:
-		case uint:
-		case int:
-			return coerceType(value);
-		default:			
-			return coerceType(value);
-	}
-}
-
-$es4.$$isPrivateProperty = function(scope, object)
-{
-	if (typeof object !== 'string') return false;
-	
-	var proto = scope;
-	while (proto !== null)
-	{
-		if (proto.$$hasOwnProperty(object)) return (scope.$$private !== undefined && scope.$$private.$$hasOwnProperty(object));
-		
-		proto = proto.__proto__;
-	}
-	
-	throw new Error('$$isPrivateProperty:: property not found: ' + object);
-}
-
-$es4.$$delete = function(scope, $$this, $$thisp)
-{
-	var argumentsLength = arguments.length;
-
-	if (argumentsLength > 4) 
-	{
-		var i, args = new Array(argumentsLength - 1);
-		for (i = 0; i < argumentsLength - 1; i += 1) args[i] = arguments[i];		
-		
-		scope = $es4.$$get.apply(this, args);
-	}
-	
-	var object = arguments[argumentsLength - 1];
-	
-	if (scope.$$hasOwnProperty_private('$$isProxy') && (typeof object !== 'string' || !scope.$$hasOwnProperty_private(object) || ($es4.$$isPrivateProperty(scope, object) && scope !== $$thisp))) return scope.$$delete(object);
-	else return delete scope[object];
-}
-
-$es4.$$get = function(scope, $$this, $$thisp)
-{
-	var argumentsLength = arguments.length;
-	if (argumentsLength === 3) return scope;
-	
-	var originalScope = scope;
-	var index = 3;
-	while (index < argumentsLength)
-	{
-		var object = arguments[index];
-		if (scope.$$hasOwnProperty_private('$$isProxy') && (typeof object !== 'string' || !scope.$$hasOwnProperty_private(object) || ($es4.$$isPrivateProperty(scope, object) && scope !== $$thisp))) scope = scope.$$get(object);
-		else if (scope.constructor.$$isclass !== undefined && scope === $$this && $$thisp.$$private !== undefined && $$thisp.$$private.$$hasOwnProperty(object)) scope = $$thisp[object];
-		else scope = scope[object];
-		
-		index++;
-	}
-	
-	return (scope != null && scope.call !== undefined && scope.apply !== undefined && scope.bind !== undefined && scope.$$isclass === undefined && scope.$$ismethod === undefined && Function.prototype.$$hasOwnProperty(object)) ? scope.bind(originalScope) : scope;  //this is supposed to bind things like myarray.split //instead of doing this it this way, check if the scope is an array, then see if the name of the prop is a native function, like split, then bind as necessary
-}
-
-$es4.$$call = function(scope, $$this, $$thisp)
-{
-	var argumentsLength = arguments.length;
-	
-	if (argumentsLength > 5) 
-	{
-		var i, args = new Array(argumentsLength - 2);
-		for (i = 0; i < argumentsLength - 2; i += 1) args[i] = arguments[i];	
-		
-		scope = $es4.$$get.apply(this, args);
-	}
-	
-	var args = arguments[argumentsLength - 1];
-	var object = arguments[argumentsLength - 2];
-	
-	scope = (scope.constructor.$$isclass !== undefined && scope === $$this && $$thisp.$$private !== undefined && $$thisp.$$private.$$hasOwnProperty(object)) ? $$thisp : scope;
-	if (scope.$$hasOwnProperty_private('$$isProxy') && (typeof object !== 'string' || !scope.$$hasOwnProperty_private(object) || ($es4.$$isPrivateProperty(scope, object) && scope !== $$thisp))) return scope.$$call(object, args);
-	else 
-	{
-		try { return scope[object].apply(scope, args); }
-		catch (error)
+		if (coerceType === undefined)
 		{
-			if ($es4.$$window.navigator.userAgent.indexOf("Firefox") > 0 && scope && $es4.$$is(scope[object], Function)) try { trace(scope[object].toSource()); } catch (error2) {}
-			
-			throw error;
+			Object.defineProperty(scope, name, {value:undefined, writable:true});
+			return;
 		}
-	}
-}
-
-$es4.$$set = function(scope, $$this, $$thisp)
-{
-	var argumentsLength = arguments.length;
-	
-	if (argumentsLength > 5) 
-	{
-		var i, args = new Array(argumentsLength - 3);
-		for (i = 0; i < argumentsLength - 3; i += 1) args[i] = arguments[i];	
 		
-		scope = $es4.$$get.apply(this, args);
-	}
-	
-	var operator = arguments[argumentsLength - 1];
-	var value = arguments[argumentsLength - 2];
-	var object = arguments[argumentsLength - 3];
-	
-	scope = (scope.constructor.$$isclass !== undefined && scope === $$this && $$thisp.$$private !== undefined && $$thisp.$$private.$$hasOwnProperty(object)) ? $$thisp : scope;
-	
-	var useSet = (scope.$$hasOwnProperty_private('$$isProxy') && (typeof object !== 'string' || !scope.$$hasOwnProperty_private(object) || ($es4.$$isPrivateProperty(scope, object) && scope !== $$thisp)));
-	switch (operator)
-	{
-		case '=':
-			return (useSet) ? scope.$$set(object, value) : scope[object] = value;
-		case '+=':
-			if (useSet) { return (scope instanceof XMLList && !isNaN(object)) ? scope.$$append(object, value) : scope.$$set(object, scope.$$get(object) + value); }
-			return scope[object] += value;
-		case '-=':
-			return (useSet) ? scope.$$set(object, scope.$$get(object) - value) : (scope[object] -= value);
-		case '/=':
-			return (useSet) ? scope.$$set(object, scope.$$get(object) / value) : (scope[object] /= value);
-		case '*=':
-			return (useSet) ? scope.$$set(object, scope.$$get(object) * value) : (scope[object] *= value);
-		case '%=':
-			return (useSet) ? scope.$$set(object, scope.$$get(object) % value) : (scope[object] %= value);
-		case '|=':
-			return (useSet) ? scope.$$set(object, scope.$$get(object) | value) : (scope[object] |= value);
-		case '&=':
-			return (useSet) ? scope.$$set(object, scope.$$get(object) & value) : (scope[object] &= value);
-		case '^=':
-			return (useSet) ? scope.$$set(object, scope.$$get(object) ^ value) : (scope[object] ^= value);
-		case '<<':
-			return (useSet) ? scope.$$set(object, scope.$$get(object) << value) : (scope[object]= scope[object] << value);
-		case '>>':
-			return (useSet) ? scope.$$set(object, scope.$$get(object) >> value) : (scope[object] = scope[object] >> value);
-		case '>>>':
-			return (useSet) ? scope.$$set(object, scope.$$get(object) >>> value) : (scope[object] = scope[object] >>> value);
-		case '||=':
-			return (useSet) ? scope.$$set(object, scope.$$get(object) || value) : (scope[object] = scope[object] || value);
-		case '&&=':
-			return (useSet) ? scope.$$set(object, scope.$$get(object) && value) : (scope[object] = scope[object] && value);
-		case '++':
-		case '--':
-			if (value === 'prefix')
-			{
-				if (useSet) return scope.$$prefix(object, operator);  //TODO
-				if (operator === '++') return ++scope[object];
-				else return --scope[object];
-			}
-			else if (value === 'postfix')
-			{
-				if (useSet) return scope.$$postfix(object, operator);  //TODO
-				if (operator === '++') return scope[object]++;
-				else return scope[object]--;
-			}
-		default:
-			throw new Error('unknown operator used in $$set: ' + operator);
-	}
-}
-
-$es4.$$ = {};
-$es4.$$package = function($package)
-{
-	return ($es4.$$[$package] !== undefined) ? $es4.$$[$package] : $es4.$$[$package] = ($package != '') ? {} : $es4.$$window;
-}
-
-Object.defineProperty(Object.prototype, '$$namespace', {value:function(namespace, object, pscope)
-{
-	if (object === undefined) object = this;
-	if (namespace.constructor === String) return ($es4.$$namespaces[namespace] === undefined) ? $es4.$$namespaces[namespace] = {name:namespace, toString:function() { return namespace; }} : $es4.$$namespaces[namespace];
-	if (object.$$namespaces === undefined) Object.defineProperty(object, '$$namespaces', void ($es4.$$VALUE_OBJECT.value = {}) || $es4.$$VALUE_OBJECT);
-	namespace = (object.$$namespaces && object.$$namespaces[namespace.name]) ? object.$$namespaces[namespace.name] : object.$$namespaces[namespace.name] = {};
-	if (pscope === object || pscope === undefined) return namespace;
-	
-	var Class;
-	var SuperClass;
-	var Type;
-	var objectProto;
-	
-	//for whatever reason, mobile safari inconsistently fails when testing if Type and SuperClass are equal 
-	//an empty try catch try {} catch(e) {) appears to fix this issue... MAGIC!
-	//to reproduce, create about 15 - 20 new TextField() objects in a row, and remove the try catch below
-	//UPDATE: THIS MAY BE UNNECESSARY NOW
-	try { Class = null; } catch(e) {}; //Note: Class = null is only there to prevent closure compiler warning
-	
-	Class = object.constructor;
-	SuperClass = pscope.constructor;
-	Type = Class;
-	objectProto = $es4.$$EMPTY_OBJECT.__proto__;
-	
-	while (Type !== SuperClass)
-	{
-		if (!namespace.__proto__ || namespace.__proto__ === objectProto) namespace.__proto__ = {};
-		namespace = namespace.__proto__;
-		Type = Type.__proto__;
-	}
-	return namespace;
-}});
-$es4.$$namespaces = {};
-
-$es4.$$expose = function(functionName, closure)
-{
-	$es4.$$exposed.functionName = closure;
-}
-$es4.$$exposed = {};
-
-$es4.$$constructor = function(scope, func)
-{	
-	Object.defineProperty(scope, '$$constructor', void ($es4.$$VALUE_OBJECT.value = func) || $es4.$$VALUE_OBJECT);
-}
-
-$es4.$$iinit = function(scope, func)
-{
-	Object.defineProperty(scope, '$$iinit', void ($es4.$$VALUE_OBJECT.value = func) || $es4.$$VALUE_OBJECT);
-}
-
-$es4.$$public_namespace = function(name, scope, propName)
-{
-	if ($es4.$$namespaces[name] === undefined) $es4.$$namespaces[name] = {name:name, toString:function() { return name; }};
-	
-	Object.defineProperty(scope, propName, {value:$es4.$$namespaces[name]});
-}
-$es4.$$private_namespace = function(name, scope, propName)
-{
-	if ($es4.$$namespaces[name] === undefined) $es4.$$namespaces[name] = {name:name, toString:function() { return name; }};
-	
-	if (scope.$$private === undefined) Object.defineProperty(scope, '$$private', {value:{}});
-	scope.$$private[name] = name;
-	
-	Object.defineProperty(scope, propName, {value:$es4.$$namespaces[name]});
-}
-$es4.$$protected_namespace = $es4.$$public_namespace;
-$es4.$$internal_namespace = $es4.$$public_namespace;
-$es4.$$cnamespace_namespace = function(name, scope, namespace, propName)
-{
-	$es4.$$public_namespace(name, $es4.$$namespace(namespace, scope), propName);
-}
-
-$es4.$$getDefaultPropertyValue = function(type)
-{
-	if (type == null) return undefined;
-	
-	switch (type)
-	{
-		case int:
-		case uint:
-			return 0;
-		case Number:
-			return NaN;
-		case Boolean:
-			return false;
-	}
-	
-	return null;
-}
-
-$es4.$$public_property = function(name, scope, coerceType)
-{
-	if (coerceType === undefined)
-	{
-		Object.defineProperty(scope, name, {value:undefined, writable:true});
-		return;
-	}
-	
-	var obj;
-	var getFunc;
-	var setFunc;
-	if (typeof scope === 'function')
-	{
-		var normalized = false;
-		
-		getFunc = function() 
-		{ 
-			if (scope.$$cinit !== undefined) scope.$$cinit(); 
+		var obj;
+		var getFunc;
+		var setFunc;
+		if (typeof scope === 'function')
+		{
+			var normalized = false;
 			
-			if (normalized === true) return obj;
-			
-			if (typeof coerceType === 'string')
-			{
-				var index = coerceType.lastIndexOf('.');
-				if (index === -1) coerceType = $es4.$$[''][coerceType];
-				else coerceType = $es4.$$[coerceType.substring(0, index)][coerceType.substring(index + 1)];
-			}
-			normalized = true;
-			
-			return obj = $es4.$$getDefaultPropertyValue(coerceType);
-		}
-		setFunc = function(value) 
-		{ 
-			if (scope.$$cinit !== undefined) scope.$$cinit(); 
-			
-			if (normalized === true)
-			{
-				obj = $es4.$$coerce(value, coerceType);
-				return;
-			}
-			
-			if (typeof coerceType === 'string')
-			{
-				var index = coerceType.lastIndexOf('.');
-				if (index === -1) coerceType = $es4.$$[''][coerceType];
-				else coerceType = $es4.$$[coerceType.substring(0, index)][coerceType.substring(index + 1)];
-			}
-			normalized = true;
-			
-			obj = $es4.$$coerce(value, coerceType);
-		}
-	}
-	else 
-	{
-		obj = $es4.$$getDefaultPropertyValue(coerceType);
-		getFunc = function() { return obj; };
-		setFunc = function(value) { obj = $es4.$$coerce(value, coerceType); };
-	}
-	
-	Object.defineProperty(scope, name, {get:getFunc, set:setFunc});
-}
- 
-$es4.$$private_property = function(name, scope, coerceType)
-{
-	if (scope.$$private === undefined) Object.defineProperty(scope, '$$private', void ($es4.$$VALUE_OBJECT.value = {}) || $es4.$$VALUE_OBJECT);
-	scope.$$private[name] = name;
-	
-	if (coerceType === undefined)
-	{
-		Object.defineProperty(scope, name, {value:undefined, writable:true});
-		return;
-	}
-	
-	var obj;
-	var getFunc;
-	var setFunc;
-	if (typeof scope === 'function')
-	{
-		var normalized = false;
-		
-		getFunc = function() 
-		{ 
-			if (scope.$$cinit !== undefined) scope.$$cinit(); 
-			
-			if (normalized === true) return obj;
-			
-			if (typeof coerceType === 'string')
-			{
-				var index = coerceType.lastIndexOf('.');
-				if (index === -1) coerceType = $es4.$$[''][coerceType];
-				else coerceType = $es4.$$[coerceType.substring(0, index)][coerceType.substring(index + 1)];
-			}
-			normalized = true;
-			
-			return obj = $es4.$$getDefaultPropertyValue(coerceType);
-		}
-		setFunc = function(value) 
-		{ 
-			if (scope.$$cinit !== undefined) scope.$$cinit(); 
-			
-			if (normalized === true)
-			{
-				obj = $es4.$$coerce(value, coerceType);
-				return;
-			}
-			
-			if (typeof coerceType === 'string')
-			{
-				var index = coerceType.lastIndexOf('.');
-				if (index === -1) coerceType = $es4.$$[''][coerceType];
-				else coerceType = $es4.$$[coerceType.substring(0, index)][coerceType.substring(index + 1)];
-			}
-			normalized = true;
-			
-			obj = $es4.$$coerce(value, coerceType);
-		}
-	}
-	else 
-	{
-		obj = $es4.$$getDefaultPropertyValue(coerceType);
-		getFunc = function() { return obj; };
-		setFunc = function(value) { obj = $es4.$$coerce(value, coerceType); };
-	}
-	
-	Object.defineProperty(scope, name, {get:getFunc, set:setFunc});
-}
-$es4.$$protected_property = $es4.$$public_property;
-$es4.$$internal_property = $es4.$$public_property;
-$es4.$$cnamespace_property = function(name, scope, pscope, namespace, castType)
-{
-	var obj = $es4.$$DEFAULT_PROPERTY_VALUE;
-	var getFunc;
-	var setFunc;
-	if (typeof scope === 'function')
-	{
-		var resolved = castType === undefined;
-		
-		castType = namespace;
-		namespace = pscope;
-		pscope = undefined;
-		
-		getFunc = function() 
-		{ 
-			if (scope.$$cinit !== undefined) scope.$$cinit(); 
-			
-			if (obj !== $es4.$$DEFAULT_PROPERTY_VALUE) return obj;
-			
-			return obj = (resolved) ? $es4.$$getDefaultPropertyValue(castType) : $es4.$$getDefaultPropertyValue(resolved = castType = castType());
-		}
-		setFunc = function(value) 
-		{ 
-			if (scope.$$cinit !== undefined) scope.$$cinit(); 
-			
-			obj = (resolved) ? $es4.$$coerce(value, castType) : $es4.$$coerce(value, resolved = castType = castType());
-		}
-	}
-	else 
-	{
-		obj = $es4.$$getDefaultPropertyValue(castType);
-		getFunc = function() { return obj; };
-		setFunc = function(value) { obj = $es4.$$coerce(value, castType); };
-	}
-	Object.defineProperty($es4.$$namespace(namespace, scope, pscope), name, {get:getFunc, set:setFunc});
-}
-
-$es4.$$public_function = function(name, scope, func, returnCastType)
-{
-	if (returnCastType === undefined)
-	{
-		Object.defineProperty(scope, name, void ($es4.$$VALUE_OBJECT.value = func) || $es4.$$VALUE_OBJECT);
-		func.$$ismethod = true;
-		return;
-	}
-	
-	var wrapFunc;
-	
-	if (typeof scope === 'function')
-	{
-		var normalized = false;
-		wrapFunc = function() 
-		{ 
-			if (normalized === false)
-			{
-				if (typeof returnCastType === 'string')
+			getFunc = function() 
+			{ 
+				if (scope.$$cinit !== undefined) scope.$$cinit(); 
+				
+				if (normalized === true) return obj;
+				
+				if (typeof coerceType === 'string')
 				{
-					var index = returnCastType.lastIndexOf('.');
-					if (index === -1) returnCastType = $es4.$$[''][returnCastType];
-					else returnCastType = $es4.$$[returnCastType.substring(0, index)][returnCastType.substring(index + 1)];
+					var index = coerceType.lastIndexOf('.');
+					if (index === -1) coerceType = $es4.$$[''][coerceType];
+					else coerceType = $es4.$$[coerceType.substring(0, index)][coerceType.substring(index + 1)];
+				}
+				normalized = true;
+				
+				return obj = $es4.$$getDefaultPropertyValue(coerceType);
+			}
+			setFunc = function(value) 
+			{ 
+				if (scope.$$cinit !== undefined) scope.$$cinit(); 
+				
+				if (normalized === true)
+				{
+					obj = $es4.$$coerce(value, coerceType);
+					return;
 				}
 				
-				normalized = true;
-			}
-			
-			var result;
-			switch (arguments.length)
-			{
-				case 0:
-					result = func();
-					break;
-				case 1:
-					result = func(arguments[0]);
-					break;
-				case 2:
-					result = func(arguments[0], arguments[1]);
-					break;
-				case 3:
-					result = func(arguments[0], arguments[1], arguments[2]);
-					break;
-				default:
-					var i, length = arguments.length, args = new Array(length);
-					for (i = 0; i < length; i += 1) args[i] = arguments[i];
-					result = func.apply(null, args);
-					break;
-			}
-			
-			return $es4.$$coerce(result, returnCastType); 
-		};
-	}
-	else 
-	{
-		wrapFunc = function() 
-		{ 
-			var result;
-			switch (arguments.length)
-			{
-				case 0:
-					result = func();
-					break;
-				case 1:
-					result = func(arguments[0]);
-					break;
-				case 2:
-					result = func(arguments[0], arguments[1]);
-					break;
-				case 3:
-					result = func(arguments[0], arguments[1], arguments[2]);
-					break;
-				default:
-					var i, length = arguments.length, args = new Array(length);
-					for (i = 0; i < length; i += 1) args[i] = arguments[i];
-					result = func.apply(null, args);
-					break;
-			}
-		
-			return $es4.$$coerce(result, returnCastType); 
-		};
-	}
-	
-	Object.defineProperty(scope, name, void ($es4.$$VALUE_OBJECT.value = wrapFunc) || $es4.$$VALUE_OBJECT);
-	wrapFunc.$$ismethod = true;
-}
-$es4.$$private_function = function(name, scope, func, returnCastType)
-{
-	if (scope.$$private === undefined) Object.defineProperty(scope, '$$private', void ($es4.$$VALUE_OBJECT.value = {}) || $es4.$$VALUE_OBJECT);
-	scope.$$private[name] = name;
-	
-	if (returnCastType === undefined)
-	{
-		Object.defineProperty(scope, name, void ($es4.$$VALUE_OBJECT.value = func) || $es4.$$VALUE_OBJECT);
-		func.$$ismethod = true;
-		return;
-	}
-	
-	var wrapFunc;
-	
-	if (typeof scope === 'function')
-	{
-		var normalized = false;
-		wrapFunc = function() 
-		{ 
-			if (normalized === false)
-			{
-				if (typeof returnCastType === 'string')
+				if (typeof coerceType === 'string')
 				{
-					var index = returnCastType.lastIndexOf('.');
-					if (index === -1) returnCastType = $es4.$$[''][returnCastType];
-					else returnCastType = $es4.$$[returnCastType.substring(0, index)][returnCastType.substring(index + 1)];
+					var index = coerceType.lastIndexOf('.');
+					if (index === -1) coerceType = $es4.$$[''][coerceType];
+					else coerceType = $es4.$$[coerceType.substring(0, index)][coerceType.substring(index + 1)];
+				}
+				normalized = true;
+				
+				obj = $es4.$$coerce(value, coerceType);
+			}
+		}
+		else 
+		{
+			obj = $es4.$$getDefaultPropertyValue(coerceType);
+			getFunc = function() { return obj; };
+			setFunc = function(value) { obj = $es4.$$coerce(value, coerceType); };
+		}
+		
+		Object.defineProperty(scope, name, {get:getFunc, set:setFunc});
+	}
+	 
+	$es4.$$private_property = function(name, scope, coerceType)
+	{
+		if (scope.$$private === undefined) Object.defineProperty(scope, '$$private', void ($es4.$$VALUE_OBJECT.value = {}) || $es4.$$VALUE_OBJECT);
+		scope.$$private[name] = name;
+		
+		if (coerceType === undefined)
+		{
+			Object.defineProperty(scope, name, {value:undefined, writable:true});
+			return;
+		}
+		
+		var obj;
+		var getFunc;
+		var setFunc;
+		if (typeof scope === 'function')
+		{
+			var normalized = false;
+			
+			getFunc = function() 
+			{ 
+				if (scope.$$cinit !== undefined) scope.$$cinit(); 
+				
+				if (normalized === true) return obj;
+				
+				if (typeof coerceType === 'string')
+				{
+					var index = coerceType.lastIndexOf('.');
+					if (index === -1) coerceType = $es4.$$[''][coerceType];
+					else coerceType = $es4.$$[coerceType.substring(0, index)][coerceType.substring(index + 1)];
+				}
+				normalized = true;
+				
+				return obj = $es4.$$getDefaultPropertyValue(coerceType);
+			}
+			setFunc = function(value) 
+			{ 
+				if (scope.$$cinit !== undefined) scope.$$cinit(); 
+				
+				if (normalized === true)
+				{
+					obj = $es4.$$coerce(value, coerceType);
+					return;
 				}
 				
+				if (typeof coerceType === 'string')
+				{
+					var index = coerceType.lastIndexOf('.');
+					if (index === -1) coerceType = $es4.$$[''][coerceType];
+					else coerceType = $es4.$$[coerceType.substring(0, index)][coerceType.substring(index + 1)];
+				}
 				normalized = true;
+				
+				obj = $es4.$$coerce(value, coerceType);
 			}
-			
-			var result;
-			switch (arguments.length)
-			{
-				case 0:
-					result = func();
-					break;
-				case 1:
-					result = func(arguments[0]);
-					break;
-				case 2:
-					result = func(arguments[0], arguments[1]);
-					break;
-				case 3:
-					result = func(arguments[0], arguments[1], arguments[2]);
-					break;
-				default:
-					var i, length = arguments.length, args = new Array(length);
-					for (i = 0; i < length; i += 1) args[i] = arguments[i];
-					result = func.apply(null, args);
-					break;
-			}
-			
-			return $es4.$$coerce(result, returnCastType); 
-		};
-	}
-	else 
-	{
-		wrapFunc = function() 
-		{ 
-			var result;
-			switch (arguments.length)
-			{
-				case 0:
-					result = func();
-					break;
-				case 1:
-					result = func(arguments[0]);
-					break;
-				case 2:
-					result = func(arguments[0], arguments[1]);
-					break;
-				case 3:
-					result = func(arguments[0], arguments[1], arguments[2]);
-					break;
-				default:
-					var i, length = arguments.length, args = new Array(length);
-					for (i = 0; i < length; i += 1) args[i] = arguments[i];
-					result = func.apply(null, args);
-					break;
-			}
+		}
+		else 
+		{
+			obj = $es4.$$getDefaultPropertyValue(coerceType);
+			getFunc = function() { return obj; };
+			setFunc = function(value) { obj = $es4.$$coerce(value, coerceType); };
+		}
 		
-			return $es4.$$coerce(result, returnCastType); 
-		};
+		Object.defineProperty(scope, name, {get:getFunc, set:setFunc});
 	}
-	
-	Object.defineProperty(scope, name, void ($es4.$$VALUE_OBJECT.value = wrapFunc) || $es4.$$VALUE_OBJECT);
-	wrapFunc.$$ismethod = true;
-}
-$es4.$$protected_function = $es4.$$public_function;
-$es4.$$internal_function = $es4.$$public_function;
-$es4.$$cnamespace_function = function(name, scope, pscope, namespace, func, returnCastType)
-{
-	if (returnCastType === undefined)
+	$es4.$$protected_property = $es4.$$public_property;
+	$es4.$$internal_property = $es4.$$public_property;
+	$es4.$$cnamespace_property = function(name, scope, pscope, namespace, castType)
 	{
+		var obj = $es4.$$DEFAULT_PROPERTY_VALUE;
+		var getFunc;
+		var setFunc;
+		if (typeof scope === 'function')
+		{
+			var resolved = castType === undefined;
+			
+			castType = namespace;
+			namespace = pscope;
+			pscope = undefined;
+			
+			getFunc = function() 
+			{ 
+				if (scope.$$cinit !== undefined) scope.$$cinit(); 
+				
+				if (obj !== $es4.$$DEFAULT_PROPERTY_VALUE) return obj;
+				
+				return obj = (resolved) ? $es4.$$getDefaultPropertyValue(castType) : $es4.$$getDefaultPropertyValue(resolved = castType = castType());
+			}
+			setFunc = function(value) 
+			{ 
+				if (scope.$$cinit !== undefined) scope.$$cinit(); 
+				
+				obj = (resolved) ? $es4.$$coerce(value, castType) : $es4.$$coerce(value, resolved = castType = castType());
+			}
+		}
+		else 
+		{
+			obj = $es4.$$getDefaultPropertyValue(castType);
+			getFunc = function() { return obj; };
+			setFunc = function(value) { obj = $es4.$$coerce(value, castType); };
+		}
+		Object.defineProperty($es4.$$namespace(namespace, scope, pscope), name, {get:getFunc, set:setFunc});
+	}
+
+	$es4.$$public_function = function(name, scope, func, returnCastType)
+	{
+		if (returnCastType === undefined)
+		{
+			Object.defineProperty(scope, name, void ($es4.$$VALUE_OBJECT.value = func) || $es4.$$VALUE_OBJECT);
+			func.$$ismethod = true;
+			return;
+		}
+		
+		var wrapFunc;
+		
+		if (typeof scope === 'function')
+		{
+			var normalized = false;
+			wrapFunc = function() 
+			{ 
+				if (normalized === false)
+				{
+					if (typeof returnCastType === 'string')
+					{
+						var index = returnCastType.lastIndexOf('.');
+						if (index === -1) returnCastType = $es4.$$[''][returnCastType];
+						else returnCastType = $es4.$$[returnCastType.substring(0, index)][returnCastType.substring(index + 1)];
+					}
+					
+					normalized = true;
+				}
+				
+				var result;
+				switch (arguments.length)
+				{
+					case 0:
+						result = func();
+						break;
+					case 1:
+						result = func(arguments[0]);
+						break;
+					case 2:
+						result = func(arguments[0], arguments[1]);
+						break;
+					case 3:
+						result = func(arguments[0], arguments[1], arguments[2]);
+						break;
+					default:
+						var i, length = arguments.length, args = new Array(length);
+						for (i = 0; i < length; i += 1) args[i] = arguments[i];
+						result = func.apply(null, args);
+						break;
+				}
+				
+				return $es4.$$coerce(result, returnCastType); 
+			};
+		}
+		else 
+		{
+			wrapFunc = function() 
+			{ 
+				var result;
+				switch (arguments.length)
+				{
+					case 0:
+						result = func();
+						break;
+					case 1:
+						result = func(arguments[0]);
+						break;
+					case 2:
+						result = func(arguments[0], arguments[1]);
+						break;
+					case 3:
+						result = func(arguments[0], arguments[1], arguments[2]);
+						break;
+					default:
+						var i, length = arguments.length, args = new Array(length);
+						for (i = 0; i < length; i += 1) args[i] = arguments[i];
+						result = func.apply(null, args);
+						break;
+				}
+			
+				return $es4.$$coerce(result, returnCastType); 
+			};
+		}
+		
+		Object.defineProperty(scope, name, void ($es4.$$VALUE_OBJECT.value = wrapFunc) || $es4.$$VALUE_OBJECT);
+		wrapFunc.$$ismethod = true;
+	}
+	$es4.$$private_function = function(name, scope, func, returnCastType)
+	{
+		if (scope.$$private === undefined) Object.defineProperty(scope, '$$private', void ($es4.$$VALUE_OBJECT.value = {}) || $es4.$$VALUE_OBJECT);
+		scope.$$private[name] = name;
+		
+		if (returnCastType === undefined)
+		{
+			Object.defineProperty(scope, name, void ($es4.$$VALUE_OBJECT.value = func) || $es4.$$VALUE_OBJECT);
+			func.$$ismethod = true;
+			return;
+		}
+		
+		var wrapFunc;
+		
+		if (typeof scope === 'function')
+		{
+			var normalized = false;
+			wrapFunc = function() 
+			{ 
+				if (normalized === false)
+				{
+					if (typeof returnCastType === 'string')
+					{
+						var index = returnCastType.lastIndexOf('.');
+						if (index === -1) returnCastType = $es4.$$[''][returnCastType];
+						else returnCastType = $es4.$$[returnCastType.substring(0, index)][returnCastType.substring(index + 1)];
+					}
+					
+					normalized = true;
+				}
+				
+				var result;
+				switch (arguments.length)
+				{
+					case 0:
+						result = func();
+						break;
+					case 1:
+						result = func(arguments[0]);
+						break;
+					case 2:
+						result = func(arguments[0], arguments[1]);
+						break;
+					case 3:
+						result = func(arguments[0], arguments[1], arguments[2]);
+						break;
+					default:
+						var i, length = arguments.length, args = new Array(length);
+						for (i = 0; i < length; i += 1) args[i] = arguments[i];
+						result = func.apply(null, args);
+						break;
+				}
+				
+				return $es4.$$coerce(result, returnCastType); 
+			};
+		}
+		else 
+		{
+			wrapFunc = function() 
+			{ 
+				var result;
+				switch (arguments.length)
+				{
+					case 0:
+						result = func();
+						break;
+					case 1:
+						result = func(arguments[0]);
+						break;
+					case 2:
+						result = func(arguments[0], arguments[1]);
+						break;
+					case 3:
+						result = func(arguments[0], arguments[1], arguments[2]);
+						break;
+					default:
+						var i, length = arguments.length, args = new Array(length);
+						for (i = 0; i < length; i += 1) args[i] = arguments[i];
+						result = func.apply(null, args);
+						break;
+				}
+			
+				return $es4.$$coerce(result, returnCastType); 
+			};
+		}
+		
+		Object.defineProperty(scope, name, void ($es4.$$VALUE_OBJECT.value = wrapFunc) || $es4.$$VALUE_OBJECT);
+		wrapFunc.$$ismethod = true;
+	}
+	$es4.$$protected_function = $es4.$$public_function;
+	$es4.$$internal_function = $es4.$$public_function;
+	$es4.$$cnamespace_function = function(name, scope, pscope, namespace, func, returnCastType)
+	{
+		if (returnCastType === undefined)
+		{
+			if (typeof scope === 'function')
+			{
+				returnCastType = func;
+				func = namespace;
+				namespace = pscope;
+				pscope = undefined;
+			}
+			
+			Object.defineProperty($es4.$$namespace(namespace, scope, pscope), name, void ($es4.$$VALUE_OBJECT.value = func) || $es4.$$VALUE_OBJECT);
+			func.$$ismethod = true;
+			return;
+		}
+		
+		var wrapFunc;
+
 		if (typeof scope === 'function')
 		{
 			returnCastType = func;
 			func = namespace;
 			namespace = pscope;
 			pscope = undefined;
-		}
-		
-		Object.defineProperty($es4.$$namespace(namespace, scope, pscope), name, void ($es4.$$VALUE_OBJECT.value = func) || $es4.$$VALUE_OBJECT);
-		func.$$ismethod = true;
-		return;
-	}
-	
-	var wrapFunc;
-
-	if (typeof scope === 'function')
-	{
-		returnCastType = func;
-		func = namespace;
-		namespace = pscope;
-		pscope = undefined;
-		
-		var normalized = false;
-		wrapFunc = function() 
-		{ 
-			if (normalized === false)
-			{
-				if (typeof returnCastType === 'string')
+			
+			var normalized = false;
+			wrapFunc = function() 
+			{ 
+				if (normalized === false)
 				{
-					var index = returnCastType.lastIndexOf('.');
-					if (index === -1) returnCastType = $es4.$$[''][returnCastType];
-					else returnCastType = $es4.$$[returnCastType.substring(0, index)][returnCastType.substring(index + 1)];
+					if (typeof returnCastType === 'string')
+					{
+						var index = returnCastType.lastIndexOf('.');
+						if (index === -1) returnCastType = $es4.$$[''][returnCastType];
+						else returnCastType = $es4.$$[returnCastType.substring(0, index)][returnCastType.substring(index + 1)];
+					}
+					
+					normalized = true;
 				}
 				
-				normalized = true;
-			}
+				var result;
+				switch (arguments.length)
+				{
+					case 0:
+						result = func();
+						break;
+					case 1:
+						result = func(arguments[0]);
+						break;
+					case 2:
+						result = func(arguments[0], arguments[1]);
+						break;
+					case 3:
+						result = func(arguments[0], arguments[1], arguments[2]);
+						break;
+					default:
+						var i, length = arguments.length, args = new Array(length);
+						for (i = 0; i < length; i += 1) args[i] = arguments[i];
+						result = func.apply(null, args);
+						break;
+				}
+				
+				return $es4.$$coerce(result, returnCastType); 
+			};
+		}
+		else
+		{
+			wrapFunc = function() 
+			{ 
+				var result;
+				switch (arguments.length)
+				{
+					case 0:
+						result = func();
+						break;
+					case 1:
+						result = func(arguments[0]);
+						break;
+					case 2:
+						result = func(arguments[0], arguments[1]);
+						break;
+					case 3:
+						result = func(arguments[0], arguments[1], arguments[2]);
+						break;
+					default:
+						var i, length = arguments.length, args = new Array(length);
+						for (i = 0; i < length; i += 1) args[i] = arguments[i];
+						result = func.apply(null, args);
+						break;
+				}
 			
-			var result;
-			switch (arguments.length)
+				return $es4.$$coerce(result, returnCastType); 
+			};
+		}
+		
+		Object.defineProperty($es4.$$namespace(namespace, scope, pscope), name, void ($es4.$$VALUE_OBJECT.value = wrapFunc) || $es4.$$VALUE_OBJECT);
+		wrapFunc.$$ismethod = true;
+	}
+
+	$es4.$$getter = function(name, scope, get_func, castType)
+	{
+		Object.defineProperty(scope, name, {get:get_func});
+	}
+	$es4.$$setter = function(name, scope, set_func, castType)
+	{
+		Object.defineProperty(scope, name, {set:set_func});
+	}
+
+	$es4.$$public_accessor = function(name, scope, get_func, set_func)
+	{
+		if (get_func !== null && set_func !== null) Object.defineProperty(scope, name, {get:get_func, set:set_func});
+		else if (get_func !== null) Object.defineProperty(scope, name, {get:get_func});
+		else Object.defineProperty(scope, name, {set:set_func});
+	}
+	$es4.$$private_accessor = function(name, scope, get_func, set_func)
+	{
+		if (scope.$$private === undefined) Object.defineProperty(scope, '$$private', void ($es4.$$VALUE_OBJECT.value = {}) || $es4.$$VALUE_OBJECT);
+		scope.$$private[name] = name;
+		
+		if (get_func !== null && set_func !== null) Object.defineProperty(scope, name, {get:get_func, set:set_func});
+		else if (get_func !== null) Object.defineProperty(scope, name, {get:get_func});
+		else Object.defineProperty(scope, name, {set:set_func});
+	}
+	$es4.$$protected_accessor = $es4.$$public_accessor;
+	$es4.$$internal_accessor = $es4.$$public_accessor;
+	$es4.$$cnamespace_accessor = function(name, scope, pscope, namespace, get_func, set_func)
+	{
+		if (typeof scope === 'function')
+		{
+			set_func = get_func;
+			get_func = namespace;
+			namespace = pscope;
+			pscope = undefined;
+		}
+		
+		if (get_func !== null && set_func !== null) Object.defineProperty($es4.$$namespace(namespace, scope, pscope), name, {get:get_func, set:set_func});
+		else if (get_func !== null) Object.defineProperty($es4.$$namespace(namespace, scope, pscope), name, {get:get_func});
+		else Object.defineProperty($es4.$$namespace(namespace, scope, pscope), name, {set:set_func});
+	}
+
+	$es4.$$window.trace = function() //returns false if trace returns before outputting to console
+	{
+		//if (!$es4.$$window.loaderInfoParams || ($es4.$$window.loaderInfoParams['debug'] !== 'true' && $es4.$$window.loaderInfoParams['trace'] !== 'true')) return false;
+		
+		if (arguments[0] === ':::benchmark:::') arguments[0] = 'benchmark time: ' + (new Date().getTime() - $es4.$$['player'].Player.getStartTime());
+		
+		var trace = document.getElementById('traceOutJS');
+		var argumentsLength = arguments.length;
+		var output = '';
+		for (var i = 0; i < argumentsLength; i++) output += arguments[i] + ' ';
+		
+		console.log(output);
+		
+		if (!trace) return true;
+		
+		var div = document.createElement('div');
+		div.setAttribute('tabindex', -1);
+		div.innerHTML = output;
+		
+		if (trace.firstChild) trace.insertBefore(div, trace.firstChild);
+		else trace.appendChild(div);
+		
+		return true;
+	}
+
+	$es4.$$window.toString = function() { return '[object global]'; }
+	Function.__proto__.toString = function() { return 'function Function() {}'; }
+
+	$es4.$$throwArgumentError = function()
+	{
+		throw new ArgumentError('Argument count mismatch on class coercion.  Expected 1, got 0.');
+	}
+
+	$es4.$$window.isXMLName = function()
+	{
+		throw new Error('isXMLName is not supported at this time.');
+	}
+
+	/*
+	$es4.$$window.onerror = function(errorMsg, url, lineNumber, colno, error) 
+	{
+		var event = document.createEvent('CustomEvent');
+		event.initCustomEvent('ERROR', false, false, {'msg':errorMsg, 'url':url, 'line':lineNumber, 'error':error});
+		$es4.$$window.dispatchEvent(event);
+		
+		var message = errorMsg + ', ' + url + ', ' + lineNumber;
+		if (!trace(message)) console.log(message);
+	};
+	*/
+
+	$es4.$$class(Number, undefined, 'Number');
+	$es4.$$class(String, undefined, 'String');
+	$es4.$$class(Array, undefined, 'Array');
+	$es4.$$class(Object, undefined, 'Object');
+	$es4.$$class(Boolean, undefined, 'Boolean');
+
+	$es4.$$package('').Class = (function()
+	{
+		function Class()
+		{
+			if (arguments.length !== 0) return (arguments[0] !== null && arguments[0].$$isclass !== undefined) ? arguments[0] : null;
+			else throw new TypeError('Class$$ is not a constructor.');
+		}
+		
+		return $es4.$$class(Class, null, 'Class');
+	})();
+
+	$es4.$$Function = Function;
+	$es4.$$package('').Function = (function()
+	{
+		function Function()
+		{
+			return (arguments.length !== 0) ? ((typeof arguments[0] === 'function') ? arguments[0] : null) : this;
+		}
+		Function.prototype = $es4.$$Function;
+
+		return $es4.$$class(Function, null, 'Function');
+	})();
+
+	$es4.$$package('').int = (function()
+	{
+		int.MAX_VALUE = 2147483647;
+		int.MIN_VALUE = -2147483648;
+		
+		function int(value)
+		{
+			var value = new Number(value >> 0);
+		
+			return (this instanceof int) ? value : value.valueOf();
+		}
+		int.prototype = Number;
+		
+		return $es4.$$class(int, null, 'int');
+	})();
+
+	$es4.$$package('').uint = (function()
+	{
+		uint.MAX_VALUE = 4294967295;
+		uint.MIN_VALUE = 0;
+		
+		function uint(value)
+		{
+			var value = new Number(value >>> 0);
+		
+			return (this instanceof uint) ? value : value.valueOf();
+		}
+		
+		return $es4.$$class(uint, null, 'uint');
+	})();
+
+	$es4.$$package('').Namespace = (function()
+	{	
+		function Namespace()
+		{
+			//save scope
+			var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
+			var $$thisp = this;
+			
+			//handle possible cast
+			if ($$this === $$thisp && (!($$this instanceof Namespace) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Namespace) : $es4.$$throwArgumentError();
+			Object.defineProperty($$this, '$$t', {value:1});
+			
+			//constructor
+			$es4.$$constructor($$thisp, (function()
 			{
-				case 0:
-					result = func();
-					break;
-				case 1:
-					result = func(arguments[0]);
-					break;
-				case 2:
-					result = func(arguments[0], arguments[1]);
-					break;
-				case 3:
-					result = func(arguments[0], arguments[1], arguments[2]);
-					break;
-				default:
-					var i, length = arguments.length, args = new Array(length);
-					for (i = 0; i < length; i += 1) args[i] = arguments[i];
-					result = func.apply(null, args);
-					break;
-			}
+			}));
 			
-			return $es4.$$coerce(result, returnCastType); 
-		};
-	}
-	else
-	{
-		wrapFunc = function() 
-		{ 
-			var result;
-			switch (arguments.length)
+			//call construct if no arguments, or argument zero does not equal manual construct
+			if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT) 
 			{
-				case 0:
-					result = func();
-					break;
-				case 1:
-					result = func(arguments[0]);
-					break;
-				case 2:
-					result = func(arguments[0], arguments[1]);
-					break;
-				case 3:
-					result = func(arguments[0], arguments[1], arguments[2]);
-					break;
-				default:
-					var i, length = arguments.length, args = new Array(length);
-					for (i = 0; i < length; i += 1) args[i] = arguments[i];
-					result = func.apply(null, args);
-					break;
+				var $$i, $$length = arguments.length, $$args = new Array($$length);
+				for ($$i = 0; $$i < $$length; $$i += 1) $$args[$$i]  = arguments[$$i];
+			
+				$es4.$$construct($$this, $$args);
 			}
-		
-			return $es4.$$coerce(result, returnCastType); 
-		};
-	}
-	
-	Object.defineProperty($es4.$$namespace(namespace, scope, pscope), name, void ($es4.$$VALUE_OBJECT.value = wrapFunc) || $es4.$$VALUE_OBJECT);
-	wrapFunc.$$ismethod = true;
-}
-
-$es4.$$getter = function(name, scope, get_func, castType)
-{
-	Object.defineProperty(scope, name, {get:get_func});
-}
-$es4.$$setter = function(name, scope, set_func, castType)
-{
-	Object.defineProperty(scope, name, {set:set_func});
-}
-
-$es4.$$public_accessor = function(name, scope, get_func, set_func)
-{
-	if (get_func !== null && set_func !== null) Object.defineProperty(scope, name, {get:get_func, set:set_func});
-	else if (get_func !== null) Object.defineProperty(scope, name, {get:get_func});
-	else Object.defineProperty(scope, name, {set:set_func});
-}
-$es4.$$private_accessor = function(name, scope, get_func, set_func)
-{
-	if (scope.$$private === undefined) Object.defineProperty(scope, '$$private', void ($es4.$$VALUE_OBJECT.value = {}) || $es4.$$VALUE_OBJECT);
-	scope.$$private[name] = name;
-	
-	if (get_func !== null && set_func !== null) Object.defineProperty(scope, name, {get:get_func, set:set_func});
-	else if (get_func !== null) Object.defineProperty(scope, name, {get:get_func});
-	else Object.defineProperty(scope, name, {set:set_func});
-}
-$es4.$$protected_accessor = $es4.$$public_accessor;
-$es4.$$internal_accessor = $es4.$$public_accessor;
-$es4.$$cnamespace_accessor = function(name, scope, pscope, namespace, get_func, set_func)
-{
-	if (typeof scope === 'function')
-	{
-		set_func = get_func;
-		get_func = namespace;
-		namespace = pscope;
-		pscope = undefined;
-	}
-	
-	if (get_func !== null && set_func !== null) Object.defineProperty($es4.$$namespace(namespace, scope, pscope), name, {get:get_func, set:set_func});
-	else if (get_func !== null) Object.defineProperty($es4.$$namespace(namespace, scope, pscope), name, {get:get_func});
-	else Object.defineProperty($es4.$$namespace(namespace, scope, pscope), name, {set:set_func});
-}
-
-$es4.$$window.trace = function() //returns false if trace returns before outputting to console
-{
-	//if (!$es4.$$window.loaderInfoParams || ($es4.$$window.loaderInfoParams['debug'] !== 'true' && $es4.$$window.loaderInfoParams['trace'] !== 'true')) return false;
-	
-	if (arguments[0] === ':::benchmark:::') arguments[0] = 'benchmark time: ' + (new Date().getTime() - $es4.$$['player'].Player.getStartTime());
-	
-	var trace = document.getElementById('traceOutJS');
-	var argumentsLength = arguments.length;
-	var output = '';
-	for (var i = 0; i < argumentsLength; i++) output += arguments[i] + ' ';
-	
-	console.log(output);
-	
-	if (!trace) return true;
-	
-	var div = document.createElement('div');
-	div.setAttribute('tabindex', -1);
-	div.innerHTML = output;
-	
-	if (trace.firstChild) trace.insertBefore(div, trace.firstChild);
-	else trace.appendChild(div);
-	
-	return true;
-}
-
-$es4.$$window.toString = function() { return '[object global]'; }
-Function.__proto__.toString = function() { return 'function Function() {}'; }
-
-$es4.$$throwArgumentError = function()
-{
-	throw new ArgumentError('Argument count mismatch on class coercion.  Expected 1, got 0.');
-}
-
-$es4.$$window.isXMLName = function()
-{
-	throw new Error('isXMLName is not supported at this time.');
-}
-
-/*
-$es4.$$window.onerror = function(errorMsg, url, lineNumber, colno, error) 
-{
-    var event = document.createEvent('CustomEvent');
-    event.initCustomEvent('ERROR', false, false, {'msg':errorMsg, 'url':url, 'line':lineNumber, 'error':error});
-	$es4.$$window.dispatchEvent(event);
-	
-	var message = errorMsg + ', ' + url + ', ' + lineNumber;
-	if (!trace(message)) console.log(message);
-};
-*/
-
-$es4.$$class(Number, undefined, 'Number');
-$es4.$$class(String, undefined, 'String');
-$es4.$$class(Array, undefined, 'Array');
-$es4.$$class(Object, undefined, 'Object');
-$es4.$$class(Boolean, undefined, 'Boolean');
-
-$es4.$$package('').Class = (function()
-{
-	function Class()
-	{
-		if (arguments.length !== 0) return (arguments[0] !== null && arguments[0].$$isclass !== undefined) ? arguments[0] : null;
-		else throw new TypeError('Class$$ is not a constructor.');
-	}
-	
-	return $es4.$$class(Class, null, 'Class');
-})();
-
-$es4.$$Function = Function;
-$es4.$$package('').Function = (function()
-{
-	function Function()
-	{
-		return (arguments.length !== 0) ? ((typeof arguments[0] === 'function') ? arguments[0] : null) : this;
-	}
-	Function.prototype = $es4.$$Function;
-
-	return $es4.$$class(Function, null, 'Function');
-})();
-
-$es4.$$package('').int = (function()
-{
-	int.MAX_VALUE = 2147483647;
-	int.MIN_VALUE = -2147483648;
-	
-	function int(value)
-	{
-		var value = new Number(value >> 0);
-	
-		return (this instanceof int) ? value : value.valueOf();
-	}
-	int.prototype = Number;
-	
-	return $es4.$$class(int, null, 'int');
-})();
-
-$es4.$$package('').uint = (function()
-{
-	uint.MAX_VALUE = 4294967295;
-	uint.MIN_VALUE = 0;
-	
-	function uint(value)
-	{
-		var value = new Number(value >>> 0);
-	
-		return (this instanceof uint) ? value : value.valueOf();
-	}
-	
-	return $es4.$$class(uint, null, 'uint');
-})();
-
-$es4.$$package('').Namespace = (function()
-{	
-	function Namespace()
-	{
-		//save scope
-		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
-		var $$thisp = this;
-		
-		//handle possible cast
-		if ($$this === $$thisp && (!($$this instanceof Namespace) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Namespace) : $es4.$$throwArgumentError();
-		Object.defineProperty($$this, '$$t', {value:1});
-		
-		//constructor
-		$es4.$$constructor($$thisp, (function()
-		{
-		}));
-		
-		//call construct if no arguments, or argument zero does not equal manual construct
-		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT) 
-		{
-			var $$i, $$length = arguments.length, $$args = new Array($$length);
-			for ($$i = 0; $$i < $$length; $$i += 1) $$args[$$i]  = arguments[$$i];
-		
-			$es4.$$construct($$this, $$args);
+			
+			throw new Error('Namespace is not supported at this time.');
 		}
 		
-		throw new Error('Namespace is not supported at this time.');
-	}
-	
-	return $es4.$$class(Namespace, null, 'Namespace');
-})();
+		return $es4.$$class(Namespace, null, 'Namespace');
+	})();
 
-$es4.$$package('').QName = (function()
-{	
-	function QName()
-	{
-		//save scope
-		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
-		var $$thisp = this;
-		
-		//handle possible cast
-		if ($$this === $$thisp && (!($$this instanceof QName) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], QName) : $es4.$$throwArgumentError();
-		Object.defineProperty($$this, '$$t', {value:1});
-		
-		//constructor
-		$es4.$$constructor($$thisp, (function()
+	$es4.$$package('').QName = (function()
+	{	
+		function QName()
 		{
-		}));
-		
-		//call construct if no arguments, or argument zero does not equal manual construct
-		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT) 
-		{
-			var $$i, $$length = arguments.length, $$args = new Array($$length);
-			for ($$i = 0; $$i < $$length; $$i += 1) $$args[$$i]  = arguments[$$i];
-		
-			$es4.$$construct($$this, $$args);
+			//save scope
+			var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
+			var $$thisp = this;
+			
+			//handle possible cast
+			if ($$this === $$thisp && (!($$this instanceof QName) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], QName) : $es4.$$throwArgumentError();
+			Object.defineProperty($$this, '$$t', {value:1});
+			
+			//constructor
+			$es4.$$constructor($$thisp, (function()
+			{
+			}));
+			
+			//call construct if no arguments, or argument zero does not equal manual construct
+			if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT) 
+			{
+				var $$i, $$length = arguments.length, $$args = new Array($$length);
+				for ($$i = 0; $$i < $$length; $$i += 1) $$args[$$i]  = arguments[$$i];
+			
+				$es4.$$construct($$this, $$args);
+			}
+			
+			throw new Error('QName is not supported at this time.');
 		}
 		
-		throw new Error('QName is not supported at this time.');
-	}
-	
-	return $es4.$$class(QName, null, 'QName');
-})();
+		return $es4.$$class(QName, null, 'QName');
+	})();
 
-$es4.$$Error = Error;
-$es4.$$package('').Error = (function()
-{	
-	function Error()
-	{
-		//save scope
-		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
-		var $$thisp = this;
-		
-		//handle possible cast
-		if ($$this === $$thisp && (!($$this instanceof Error) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Error) : $es4.$$throwArgumentError();
-		Object.defineProperty($$this, '$$t', {value:1});
-		
-		//properties
-		$es4.$$protected_property('name', $$thisp, String);
-		$es4.$$public_property('message', $$thisp, String);
-		
-		//constructor
-		$es4.$$constructor($$thisp, (function($$$$message)
+	$es4.$$Error = Error;
+	$es4.$$package('').Error = (function()
+	{	
+		function Error()
 		{
-			//set default parameter values
-			var message = (0 > arguments.length - 1) ? '' : $es4.$$coerce($$$$message, String);
-
-			$$this.name = $$this.constructor.name;
-			$$this.message = message;
+			//save scope
+			var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
+			var $$thisp = this;
 			
-			//$$Error.call($$this);
-			//if (Error.captureStackTrace !== undefined) Error.captureStackTrace($$this, $$this.constructor);
-		}));
-		
-		//method
-		$es4.$$public_function('toString', $$thisp, (function()
-		{
-			return $$this.name + ': ' + $$this.message;
-		}));
-		
-		//method
-		$es4.$$public_function('getStackTrace', $$thisp, (function()
-		{
-			return $$this.name + ': ' + $$this.message;
-		}));
-		
-		//call construct if no arguments, or argument zero does not equal manual construct
-		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT) 
-		{
-			var $$i, $$length = arguments.length, $$args = new Array($$length);
-			for ($$i = 0; $$i < $$length; $$i += 1) $$args[$$i]  = arguments[$$i];
-		
-			$es4.$$construct($$this, $$args);
+			//handle possible cast
+			if ($$this === $$thisp && (!($$this instanceof Error) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Error) : $es4.$$throwArgumentError();
+			Object.defineProperty($$this, '$$t', {value:1});
+			
+			//properties
+			$es4.$$protected_property('name', $$thisp, String);
+			$es4.$$public_property('message', $$thisp, String);
+			
+			//constructor
+			$es4.$$constructor($$thisp, (function($$$$message)
+			{
+				//set default parameter values
+				var message = (0 > arguments.length - 1) ? '' : $es4.$$coerce($$$$message, String);
+
+				$$this.name = $$this.constructor.name;
+				$$this.message = message;
+				
+				//$$Error.call($$this);
+				//if (Error.captureStackTrace !== undefined) Error.captureStackTrace($$this, $$this.constructor);
+			}));
+			
+			//method
+			$es4.$$public_function('toString', $$thisp, (function()
+			{
+				return $$this.name + ': ' + $$this.message;
+			}));
+			
+			//method
+			$es4.$$public_function('getStackTrace', $$thisp, (function()
+			{
+				return $$this.name + ': ' + $$this.message;
+			}));
+			
+			//call construct if no arguments, or argument zero does not equal manual construct
+			if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT) 
+			{
+				var $$i, $$length = arguments.length, $$args = new Array($$length);
+				for ($$i = 0; $$i < $$length; $$i += 1) $$args[$$i]  = arguments[$$i];
+			
+				$es4.$$construct($$this, $$args);
+			}
 		}
-	}
-	Error.prototype = new $es4.$$Error;
-	
-	return $es4.$$class(Error, null, 'Error');
-})();
+		Error.prototype = new $es4.$$Error;
+		
+		return $es4.$$class(Error, null, 'Error');
+	})();
 
 
-$es4.$$package('').ArgumentError = (function()
-{
-	function ArgumentError()
+	$es4.$$package('').ArgumentError = (function()
 	{
-		//save scope
-		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
-		var $$thisp = this;
-		
-		//handle possible cast
-		if ($$this === $$thisp && (!($$this instanceof ArgumentError) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], ArgumentError) : $es4.$$throwArgumentError();
-		Object.defineProperty($$this, '$$t', {value:1});
-
-		//constructor
-		$es4.$$constructor($$thisp, (function($$$$message)
+		function ArgumentError()
 		{
-			//set default parameter values
-			var message = (0 > arguments.length - 1) ? '' : $es4.$$coerce($$$$message, String);
+			//save scope
+			var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
+			var $$thisp = this;
 			
-			$es4.$$super($$thisp)(message);
+			//handle possible cast
+			if ($$this === $$thisp && (!($$this instanceof ArgumentError) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], ArgumentError) : $es4.$$throwArgumentError();
+			Object.defineProperty($$this, '$$t', {value:1});
 
-			$$this.name = $$this.constructor.name;
-		}));		
+			//constructor
+			$es4.$$constructor($$thisp, (function($$$$message)
+			{
+				//set default parameter values
+				var message = (0 > arguments.length - 1) ? '' : $es4.$$coerce($$$$message, String);
+				
+				$es4.$$super($$thisp)(message);
 
-		//call construct if no arguments, or argument zero does not equal manual construct
-		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT) 
-		{
-			var $$i, $$length = arguments.length, $$args = new Array($$length);
-			for ($$i = 0; $$i < $$length; $$i += 1) $$args[$$i]  = arguments[$$i];
-		
-			$es4.$$construct($$this, $$args);
+				$$this.name = $$this.constructor.name;
+			}));		
+
+			//call construct if no arguments, or argument zero does not equal manual construct
+			if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT) 
+			{
+				var $$i, $$length = arguments.length, $$args = new Array($$length);
+				for ($$i = 0; $$i < $$length; $$i += 1) $$args[$$i]  = arguments[$$i];
+			
+				$es4.$$construct($$this, $$args);
+			}
 		}
-	}
-	
-	return $es4.$$class(ArgumentError, {EXTENDS:'Error'}, 'ArgumentError');
-})();
+		
+		return $es4.$$class(ArgumentError, {EXTENDS:'Error'}, 'ArgumentError');
+	})();
 
-$es4.$$package('').DefinitionError = (function()
-{
-	function DefinitionError()
+	$es4.$$package('').DefinitionError = (function()
 	{
-		//save scope
-		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
-		var $$thisp = this;
-		
-		//handle possible cast
-		if ($$this === $$thisp && (!($$this instanceof DefinitionError) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], DefinitionError) : $es4.$$throwArgumentError();
-		Object.defineProperty($$this, '$$t', {value:1});
-
-		//constructor
-		$es4.$$constructor($$thisp, (function($$$$message)
+		function DefinitionError()
 		{
-			//set default parameter values
-			var message = (0 > arguments.length - 1) ? '' : $es4.$$coerce($$$$message, String);
+			//save scope
+			var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
+			var $$thisp = this;
 			
-			$es4.$$super($$thisp)(message);
-			
-			$$this.name = $$this.constructor.name;
-		}));		
+			//handle possible cast
+			if ($$this === $$thisp && (!($$this instanceof DefinitionError) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], DefinitionError) : $es4.$$throwArgumentError();
+			Object.defineProperty($$this, '$$t', {value:1});
 
-		//call construct if no arguments, or argument zero does not equal manual construct
-		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT) 
-		{
-			var $$i, $$length = arguments.length, $$args = new Array($$length);
-			for ($$i = 0; $$i < $$length; $$i += 1) $$args[$$i]  = arguments[$$i];
-		
-			$es4.$$construct($$this, $$args);
+			//constructor
+			$es4.$$constructor($$thisp, (function($$$$message)
+			{
+				//set default parameter values
+				var message = (0 > arguments.length - 1) ? '' : $es4.$$coerce($$$$message, String);
+				
+				$es4.$$super($$thisp)(message);
+				
+				$$this.name = $$this.constructor.name;
+			}));		
+
+			//call construct if no arguments, or argument zero does not equal manual construct
+			if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT) 
+			{
+				var $$i, $$length = arguments.length, $$args = new Array($$length);
+				for ($$i = 0; $$i < $$length; $$i += 1) $$args[$$i]  = arguments[$$i];
+			
+				$es4.$$construct($$this, $$args);
+			}
 		}
-	}
-	
-	return $es4.$$class(DefinitionError, {EXTENDS:'Error'}, 'DefinitionError');
-})();
+		
+		return $es4.$$class(DefinitionError, {EXTENDS:'Error'}, 'DefinitionError');
+	})();
 
-$es4.$$package('').SecurityError = (function()
-{
-	function SecurityError()
+	$es4.$$package('').SecurityError = (function()
 	{
-		//save scope
-		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
-		var $$thisp = this;
-		
-		//handle possible cast
-		if ($$this === $$thisp && (!($$this instanceof SecurityError) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], SecurityError) : $es4.$$throwArgumentError();
-		Object.defineProperty($$this, '$$t', {value:1});
-
-		//constructor
-		$es4.$$constructor($$thisp, (function($$$$message)
+		function SecurityError()
 		{
-			//set default parameter values
-			var message = (0 > arguments.length - 1) ? '' : $es4.$$coerce($$$$message, String);
+			//save scope
+			var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
+			var $$thisp = this;
 			
-			$es4.$$super($$thisp)(message);
-			
-			$$this.name = $$this.constructor.name;
-		}));		
+			//handle possible cast
+			if ($$this === $$thisp && (!($$this instanceof SecurityError) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], SecurityError) : $es4.$$throwArgumentError();
+			Object.defineProperty($$this, '$$t', {value:1});
 
-		//call construct if no arguments, or argument zero does not equal manual construct
-		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT) 
-		{
-			var $$i, $$length = arguments.length, $$args = new Array($$length);
-			for ($$i = 0; $$i < $$length; $$i += 1) $$args[$$i]  = arguments[$$i];
-		
-			$es4.$$construct($$this, $$args);
+			//constructor
+			$es4.$$constructor($$thisp, (function($$$$message)
+			{
+				//set default parameter values
+				var message = (0 > arguments.length - 1) ? '' : $es4.$$coerce($$$$message, String);
+				
+				$es4.$$super($$thisp)(message);
+				
+				$$this.name = $$this.constructor.name;
+			}));		
+
+			//call construct if no arguments, or argument zero does not equal manual construct
+			if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT) 
+			{
+				var $$i, $$length = arguments.length, $$args = new Array($$length);
+				for ($$i = 0; $$i < $$length; $$i += 1) $$args[$$i]  = arguments[$$i];
+			
+				$es4.$$construct($$this, $$args);
+			}
 		}
-	}
-	
-	return $es4.$$class(SecurityError, {EXTENDS:'Error'}, 'SecurityError');
-})();
+		
+		return $es4.$$class(SecurityError, {EXTENDS:'Error'}, 'SecurityError');
+	})();
 
-$es4.$$package('').VerifyError = (function()
-{
-	function VerifyError()
+	$es4.$$package('').VerifyError = (function()
 	{
-		//save scope
-		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
-		var $$thisp = this;
-		
-		//handle possible cast
-		if ($$this === $$thisp && (!($$this instanceof VerifyError) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], VerifyError) : $es4.$$throwArgumentError();
-		Object.defineProperty($$this, '$$t', {value:1});
+		function VerifyError()
+		{
+			//save scope
+			var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
+			var $$thisp = this;
+			
+			//handle possible cast
+			if ($$this === $$thisp && (!($$this instanceof VerifyError) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], VerifyError) : $es4.$$throwArgumentError();
+			Object.defineProperty($$this, '$$t', {value:1});
 
-		//constructor
-		$es4.$$constructor($$thisp, (function($$$$message)
-		{
-			//set default parameter values
-			var message = (0 > arguments.length - 1) ? '' : $es4.$$coerce($$$$message, String);
+			//constructor
+			$es4.$$constructor($$thisp, (function($$$$message)
+			{
+				//set default parameter values
+				var message = (0 > arguments.length - 1) ? '' : $es4.$$coerce($$$$message, String);
+				
+				$es4.$$super($$thisp)(message);
+				
+				$$this.name = $$this.constructor.name;
+			}));
 			
-			$es4.$$super($$thisp)(message);
+			//call construct if no arguments, or argument zero does not equal manual construct
+			if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT) 
+			{
+				var $$i, $$length = arguments.length, $$args = new Array($$length);
+				for ($$i = 0; $$i < $$length; $$i += 1) $$args[$$i]  = arguments[$$i];
 			
-			$$this.name = $$this.constructor.name;
-		}));
-		
-		//call construct if no arguments, or argument zero does not equal manual construct
-		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT) 
-		{
-			var $$i, $$length = arguments.length, $$args = new Array($$length);
-			for ($$i = 0; $$i < $$length; $$i += 1) $$args[$$i]  = arguments[$$i];
-		
-			$es4.$$construct($$this, $$args);
+				$es4.$$construct($$this, $$args);
+			}
 		}
-	}
-	
-	return $es4.$$class(VerifyError, {EXTENDS:'Error'}, 'Error');
-})();
+		
+		return $es4.$$class(VerifyError, {EXTENDS:'Error'}, 'Error');
+	})();
 
-$es4.$$package('').TypeError = (function()
-{
-	function TypeError()
+	$es4.$$package('').TypeError = (function()
 	{
-		//save scope
-		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
-		var $$thisp = this;
-		
-		//handle possible cast
-		if ($$this === $$thisp && (!($$this instanceof TypeError) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], TypeError) : $es4.$$throwArgumentError();
-		Object.defineProperty($$this, '$$t', {value:1});
+		function TypeError()
+		{
+			//save scope
+			var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
+			var $$thisp = this;
+			
+			//handle possible cast
+			if ($$this === $$thisp && (!($$this instanceof TypeError) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], TypeError) : $es4.$$throwArgumentError();
+			Object.defineProperty($$this, '$$t', {value:1});
 
-		//constructor
-		$es4.$$constructor($$thisp, (function($$$$message)
-		{
-			//set default parameter values
-			var message = (0 > arguments.length - 1) ? '' : $es4.$$coerce($$$$message, String);
+			//constructor
+			$es4.$$constructor($$thisp, (function($$$$message)
+			{
+				//set default parameter values
+				var message = (0 > arguments.length - 1) ? '' : $es4.$$coerce($$$$message, String);
+				
+				$es4.$$super($$thisp)(message);
+				
+				$$this.name = $$this.constructor.name;
+			}));
 			
-			$es4.$$super($$thisp)(message);
+			//call construct if no arguments, or argument zero does not equal manual construct
+			if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT) 
+			{
+				var $$i, $$length = arguments.length, $$args = new Array($$length);
+				for ($$i = 0; $$i < $$length; $$i += 1) $$args[$$i]  = arguments[$$i];
 			
-			$$this.name = $$this.constructor.name;
-		}));
-		
-		//call construct if no arguments, or argument zero does not equal manual construct
-		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT) 
-		{
-			var $$i, $$length = arguments.length, $$args = new Array($$length);
-			for ($$i = 0; $$i < $$length; $$i += 1) $$args[$$i]  = arguments[$$i];
-		
-			$es4.$$construct($$this, $$args);
+				$es4.$$construct($$this, $$args);
+			}
 		}
-	}
-	
-	return $es4.$$class(TypeError, {EXTENDS:'Error'}, 'TypeError');
-})();
+		
+		return $es4.$$class(TypeError, {EXTENDS:'Error'}, 'TypeError');
+	})();
 
-$es4.$$[''].Function.$$pcinit();
-$es4.$$[''].Class.$$pcinit();
-$es4.$$[''].int.$$pcinit();
-$es4.$$[''].uint.$$pcinit();
-$es4.$$[''].Namespace.$$pcinit();
-$es4.$$[''].QName.$$pcinit();
-$es4.$$[''].Error.$$pcinit();
-$es4.$$[''].ArgumentError.$$pcinit();
-$es4.$$[''].DefinitionError.$$pcinit();
-$es4.$$[''].SecurityError.$$pcinit();
-$es4.$$[''].VerifyError.$$pcinit();
-$es4.$$[''].TypeError.$$pcinit();
+	$es4.$$[''].Function.$$pcinit();
+	$es4.$$[''].Class.$$pcinit();
+	$es4.$$[''].int.$$pcinit();
+	$es4.$$[''].uint.$$pcinit();
+	$es4.$$[''].Namespace.$$pcinit();
+	$es4.$$[''].QName.$$pcinit();
+	$es4.$$[''].Error.$$pcinit();
+	$es4.$$[''].ArgumentError.$$pcinit();
+	$es4.$$[''].DefinitionError.$$pcinit();
+	$es4.$$[''].SecurityError.$$pcinit();
+	$es4.$$[''].VerifyError.$$pcinit();
+	$es4.$$[''].TypeError.$$pcinit();
+}
 
 /*
  * HTML Parser By John Resig (ejohn.org)
@@ -1670,326 +1673,329 @@ $es4.$$[''].TypeError.$$pcinit();
  *
  */
 
-(function(){
+if (window.HTMLParser === undefined)
+{	 
+	(function(){
 
-	// Regular Expressions for parsing tags and attributes
-	var startTag = /^<([-A-Za-z0-9_]+)((?:\s+[\w\-]+(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)>/,
-		endTag = /^<\/([-A-Za-z0-9_]+)[^>]*>/,
-		attr = /([-A-Za-z0-9_]+)(?:\s*=\s*(?:(?:"((?:\\.|[^"])*)")|(?:'((?:\\.|[^'])*)')|([^>\s]+)))?/g;
+		// Regular Expressions for parsing tags and attributes
+		var startTag = /^<([-A-Za-z0-9_]+)((?:\s+[\w\-]+(?:\s*=\s*(?:(?:"[^"]*")|(?:'[^']*')|[^>\s]+))?)*)\s*(\/?)>/,
+			endTag = /^<\/([-A-Za-z0-9_]+)[^>]*>/,
+			attr = /([-A-Za-z0-9_]+)(?:\s*=\s*(?:(?:"((?:\\.|[^"])*)")|(?:'((?:\\.|[^'])*)')|([^>\s]+)))?/g;
+			
+		// Empty Elements - HTML 4.01
+		var empty = makeMap("area,base,basefont,br,col,frame,hr,img,input,isindex,link,meta,param,embed");
+
+		// Block Elements - HTML 4.01
+		var block = makeMap("address,applet,blockquote,button,center,dd,del,dir,div,dl,dt,fieldset,form,frameset,hr,iframe,ins,isindex,li,map,menu,noframes,noscript,object,ol,p,pre,script,table,tbody,td,tfoot,th,thead,tr,ul");
+
+		// Inline Elements - HTML 4.01
+		var inline = makeMap("a,abbr,acronym,applet,b,basefont,bdo,big,br,button,cite,code,del,dfn,em,font,i,iframe,img,input,ins,kbd,label,map,object,q,s,samp,script,select,small,span,strike,strong,sub,sup,textarea,tt,u,var");
+
+		// Elements that you can, intentionally, leave open
+		// (and which close themselves)
+		var closeSelf = makeMap("colgroup,dd,dt,li,options,p,td,tfoot,th,thead,tr");
+
+		// Attributes that have their values filled in disabled="disabled"
+		var fillAttrs = makeMap("checked,compact,declare,defer,disabled,ismap,multiple,nohref,noresize,noshade,nowrap,readonly,selected");
+
+		// Special Elements (can contain anything)
+		var special = makeMap("script,style");
+
+		var HTMLParser = this.HTMLParser = function( html, handler ) {
+			var original = html;
+			var index, chars, match, stack = [], last = html;
+			stack.last = function(){
+				return this[ this.length - 1 ];
+			};
+
+			while ( html ) {
+				chars = true;
+
+				// Make sure we're not in a script or style element
+				if ( !stack.last() || !special[ stack.last() ] ) {
+
+					// Comment
+					if ( html.indexOf("<!--") == 0 ) {
+						index = html.indexOf("-->");
 		
-	// Empty Elements - HTML 4.01
-	var empty = makeMap("area,base,basefont,br,col,frame,hr,img,input,isindex,link,meta,param,embed");
-
-	// Block Elements - HTML 4.01
-	var block = makeMap("address,applet,blockquote,button,center,dd,del,dir,div,dl,dt,fieldset,form,frameset,hr,iframe,ins,isindex,li,map,menu,noframes,noscript,object,ol,p,pre,script,table,tbody,td,tfoot,th,thead,tr,ul");
-
-	// Inline Elements - HTML 4.01
-	var inline = makeMap("a,abbr,acronym,applet,b,basefont,bdo,big,br,button,cite,code,del,dfn,em,font,i,iframe,img,input,ins,kbd,label,map,object,q,s,samp,script,select,small,span,strike,strong,sub,sup,textarea,tt,u,var");
-
-	// Elements that you can, intentionally, leave open
-	// (and which close themselves)
-	var closeSelf = makeMap("colgroup,dd,dt,li,options,p,td,tfoot,th,thead,tr");
-
-	// Attributes that have their values filled in disabled="disabled"
-	var fillAttrs = makeMap("checked,compact,declare,defer,disabled,ismap,multiple,nohref,noresize,noshade,nowrap,readonly,selected");
-
-	// Special Elements (can contain anything)
-	var special = makeMap("script,style");
-
-	var HTMLParser = this.HTMLParser = function( html, handler ) {
-		var original = html;
-		var index, chars, match, stack = [], last = html;
-		stack.last = function(){
-			return this[ this.length - 1 ];
-		};
-
-		while ( html ) {
-			chars = true;
-
-			// Make sure we're not in a script or style element
-			if ( !stack.last() || !special[ stack.last() ] ) {
-
-				// Comment
-				if ( html.indexOf("<!--") == 0 ) {
-					index = html.indexOf("-->");
-	
-					if ( index >= 0 ) {
-						if ( handler.comment )
-							handler.comment( html.substring( 4, index ) );
-						html = html.substring( index + 3 );
-						chars = false;
-					}
-	
-				// end tag
-				} else if ( html.indexOf("</") == 0 ) {
-					match = html.match( endTag );
-	
-					if ( match ) {
-						html = html.substring( match[0].length );
-						match[0].replace( endTag, parseEndTag );
-						chars = false;
-					}
-	
-				// start tag
-				} else if ( html.indexOf("<") == 0 ) {
-					match = html.match( startTag );
-	
-					if ( match ) {
-						html = html.substring( match[0].length );
-						match[0].replace( startTag, parseStartTag );
-						chars = false;
-					}
-				}
-
-				if ( chars ) {
-					index = html.indexOf("<");
-					
-					var text = index < 0 ? html : html.substring( 0, index );
-					html = index < 0 ? "" : html.substring( index );
-					
-					if ( handler.chars )
-						handler.chars( text );
-				}
-
-			} else {
-				html = html.replace(new RegExp("(.*)<\/" + stack.last() + "[^>]*>"), function(all, text){
-					text = text.replace(/<!--(.*?)-->/g, "$1")
-						.replace(/<!\[CDATA\[(.*?)]]>/g, "$1");
-
-					if ( handler.chars )
-						handler.chars( text );
-
-					return "";
-				});
-
-				parseEndTag( "", stack.last() );
-			}
-
-			if ( html == last )
-			{
-				return original; //ignore parse error. return original html
-				//throw "Parse Error: " + html;
-			}
-			last = html;
-		}
+						if ( index >= 0 ) {
+							if ( handler.comment )
+								handler.comment( html.substring( 4, index ) );
+							html = html.substring( index + 3 );
+							chars = false;
+						}
 		
-		// Clean up any remaining tags
-		parseEndTag();
+					// end tag
+					} else if ( html.indexOf("</") == 0 ) {
+						match = html.match( endTag );
+		
+						if ( match ) {
+							html = html.substring( match[0].length );
+							match[0].replace( endTag, parseEndTag );
+							chars = false;
+						}
+		
+					// start tag
+					} else if ( html.indexOf("<") == 0 ) {
+						match = html.match( startTag );
+		
+						if ( match ) {
+							html = html.substring( match[0].length );
+							match[0].replace( startTag, parseStartTag );
+							chars = false;
+						}
+					}
 
-		function parseStartTag( tag, tagName, rest, unary ) {
-			tagName = tagName.toLowerCase();
+					if ( chars ) {
+						index = html.indexOf("<");
+						
+						var text = index < 0 ? html : html.substring( 0, index );
+						html = index < 0 ? "" : html.substring( index );
+						
+						if ( handler.chars )
+							handler.chars( text );
+					}
 
-			if ( block[ tagName ] ) {
-				while ( stack.last() && inline[ stack.last() ] ) {
+				} else {
+					html = html.replace(new RegExp("(.*)<\/" + stack.last() + "[^>]*>"), function(all, text){
+						text = text.replace(/<!--(.*?)-->/g, "$1")
+							.replace(/<!\[CDATA\[(.*?)]]>/g, "$1");
+
+						if ( handler.chars )
+							handler.chars( text );
+
+						return "";
+					});
+
 					parseEndTag( "", stack.last() );
 				}
+
+				if ( html == last )
+				{
+					return original; //ignore parse error. return original html
+					//throw "Parse Error: " + html;
+				}
+				last = html;
 			}
-
-			if ( closeSelf[ tagName ] && stack.last() == tagName ) {
-				parseEndTag( "", tagName );
-			}
-
-			unary = empty[ tagName ] || !!unary;
-
-			if ( !unary )
-				stack.push( tagName );
 			
-			if ( handler.start ) {
-				var attrs = [];
-	
-				rest.replace(attr, function(match, name) {
-					var value = arguments[2] ? arguments[2] :
-						arguments[3] ? arguments[3] :
-						arguments[4] ? arguments[4] :
-						fillAttrs[name] ? name : "";
-					
-					attrs.push({
-						name: name,
-						value: value,
-						escaped: value.replace(/(^|[^\\])"/g, '$1\\\"') //"
-					});
-				});
-	
-				if ( handler.start )
-					handler.start( tagName, attrs, unary );
-			}
-		}
+			// Clean up any remaining tags
+			parseEndTag();
 
-		function parseEndTag( tag, tagName ) {
-			// If no tag name is provided, clean shop
-			if ( !tagName )
-				var pos = 0;
-				
-			// Find the closest opened tag of the same type
-			else
-				for ( var pos = stack.length - 1; pos >= 0; pos-- )
-					if ( stack[ pos ] == tagName )
-						break;
-			
-			if ( pos >= 0 ) {
-				// Close all the open elements, up the stack
-				for ( var i = stack.length - 1; i >= pos; i-- )
-					if ( handler.end )
-						handler.end( stack[ i ] );
-				
-				// Remove the open elements from the stack
-				stack.length = pos;
-			}
-		}
-	};
-	
-	this.HTMLtoXML = function( html ) {
-		var results = "";
-		
-		HTMLParser(html, {
-			start: function( tag, attrs, unary ) {
-				results += "<" + tag;
-		
-				for ( var i = 0; i < attrs.length; i++ )
-					results += " " + attrs[i].name + '="' + attrs[i].escaped + '"';
-		
-				results += (unary ? "/" : "") + ">";
-			},
-			end: function( tag ) {
-				results += "</" + tag + ">";
-			},
-			chars: function( text ) {
-				results += text;
-			},
-			comment: function( text ) {
-				results += "<!--" + text + "-->";
-			}
-		});
-		
-		return results;
-	};
-	
-	this.HTMLtoText = function( html ) {
-		var results = "";
-		
-		HTMLParser(html, {
-			start: function( tag, attrs, unary ) {
-				if (tag != 'br') return;
-				
-				results += "<" + tag;
-		
-				for ( var i = 0; i < attrs.length; i++ )
-					results += " " + attrs[i].name + '="' + attrs[i].escaped + '"';
-		
-				results += (unary ? "/" : "") + ">";
-			},
-			end: function( tag ) {
-			},
-			chars: function( text ) {
-				results += text;
-			},
-			comment: function( text ) {
-				results += "<!--" + text + "-->";
-			}
-		});
-		
-		return results;
-	};
-	
-	this.HTMLtoDOM = function( html, doc ) {
-		// There can be only one of these elements
-		var one = makeMap("html,head,body,title");
-		
-		// Enforce a structure for the document
-		var structure = {
-			link: "head",
-			base: "head"
-		};
-	
-		if ( !doc ) {
-			if ( typeof DOMDocument != "undefined" )
-				doc = new DOMDocument();
-			else if ( typeof document != "undefined" && document.implementation && document.implementation.createDocument )
-				doc = document.implementation.createDocument("", "", null);
-			else if ( typeof ActiveX != "undefined" )
-				doc = new ActiveXObject("Msxml.DOMDocument");
-			
-		} else
-			doc = doc.ownerDocument ||
-				doc.getOwnerDocument && doc.getOwnerDocument() ||
-				doc;
-		
-		var elems = [],
-			documentElement = doc.documentElement ||
-				doc.getDocumentElement && doc.getDocumentElement();
-				
-		// If we're dealing with an empty document then we
-		// need to pre-populate it with the HTML document structure
-		if ( !documentElement && doc.createElement ) (function(){
-			var html = doc.createElement("html");
-			var head = doc.createElement("head");
-			head.appendChild( doc.createElement("title") );
-			html.appendChild( head );
-			html.appendChild( doc.createElement("body") );
-			doc.appendChild( html );
-		})();
-		
-		// Find all the unique elements
-		if ( doc.getElementsByTagName )
-			for ( var i in one )
-				one[ i ] = doc.getElementsByTagName( i )[0];
-		
-		// If we're working with a document, inject contents into
-		// the body element
-		var curParentNode = one.body;
-		
-		HTMLParser( html, {
-			start: function( tagName, attrs, unary ) {
-				// If it's a pre-built element, then we can ignore
-				// its construction
-				if ( one[ tagName ] ) {
-					curParentNode = one[ tagName ];
-					if ( !unary ) {
-						elems.push( curParentNode );
+			function parseStartTag( tag, tagName, rest, unary ) {
+				tagName = tagName.toLowerCase();
+
+				if ( block[ tagName ] ) {
+					while ( stack.last() && inline[ stack.last() ] ) {
+						parseEndTag( "", stack.last() );
 					}
-					return;
 				}
-			
-				var elem = doc.createElement( tagName );
-				
-				for ( var attr in attrs )
-					elem.setAttribute( attrs[ attr ].name, attrs[ attr ].value );
-				
-				if ( structure[ tagName ] && typeof one[ structure[ tagName ] ] != "boolean" )
-					one[ structure[ tagName ] ].appendChild( elem );
-				
-				else if ( curParentNode && curParentNode.appendChild )
-					curParentNode.appendChild( elem );
-					
-				if ( !unary ) {
-					elems.push( elem );
-					curParentNode = elem;
-				}
-			},
-			end: function( tag ) {
-				elems.length -= 1;
-				
-				// Init the new parentNode
-				curParentNode = elems[ elems.length - 1 ];
-			},
-			chars: function( text ) {
-				curParentNode.appendChild( doc.createTextNode( text ) );
-			},
-			comment: function( text ) {
-				// create comment node
-			}
-		});
-		
-		return doc;
-	};
 
-	function makeMap(str){
-		var obj = {}, items = str.split(",");
-		for ( var i = 0; i < items.length; i++ )
-			obj[ items[i] ] = true;
-		return obj;
-	}
-})();
+				if ( closeSelf[ tagName ] && stack.last() == tagName ) {
+					parseEndTag( "", tagName );
+				}
+
+				unary = empty[ tagName ] || !!unary;
+
+				if ( !unary )
+					stack.push( tagName );
+				
+				if ( handler.start ) {
+					var attrs = [];
+		
+					rest.replace(attr, function(match, name) {
+						var value = arguments[2] ? arguments[2] :
+							arguments[3] ? arguments[3] :
+							arguments[4] ? arguments[4] :
+							fillAttrs[name] ? name : "";
+						
+						attrs.push({
+							name: name,
+							value: value,
+							escaped: value.replace(/(^|[^\\])"/g, '$1\\\"') //"
+						});
+					});
+		
+					if ( handler.start )
+						handler.start( tagName, attrs, unary );
+				}
+			}
+
+			function parseEndTag( tag, tagName ) {
+				// If no tag name is provided, clean shop
+				if ( !tagName )
+					var pos = 0;
+					
+				// Find the closest opened tag of the same type
+				else
+					for ( var pos = stack.length - 1; pos >= 0; pos-- )
+						if ( stack[ pos ] == tagName )
+							break;
+				
+				if ( pos >= 0 ) {
+					// Close all the open elements, up the stack
+					for ( var i = stack.length - 1; i >= pos; i-- )
+						if ( handler.end )
+							handler.end( stack[ i ] );
+					
+					// Remove the open elements from the stack
+					stack.length = pos;
+				}
+			}
+		};
+		
+		this.HTMLtoXML = function( html ) {
+			var results = "";
+			
+			HTMLParser(html, {
+				start: function( tag, attrs, unary ) {
+					results += "<" + tag;
+			
+					for ( var i = 0; i < attrs.length; i++ )
+						results += " " + attrs[i].name + '="' + attrs[i].escaped + '"';
+			
+					results += (unary ? "/" : "") + ">";
+				},
+				end: function( tag ) {
+					results += "</" + tag + ">";
+				},
+				chars: function( text ) {
+					results += text;
+				},
+				comment: function( text ) {
+					results += "<!--" + text + "-->";
+				}
+			});
+			
+			return results;
+		};
+		
+		this.HTMLtoText = function( html ) {
+			var results = "";
+			
+			HTMLParser(html, {
+				start: function( tag, attrs, unary ) {
+					if (tag != 'br') return;
+					
+					results += "<" + tag;
+			
+					for ( var i = 0; i < attrs.length; i++ )
+						results += " " + attrs[i].name + '="' + attrs[i].escaped + '"';
+			
+					results += (unary ? "/" : "") + ">";
+				},
+				end: function( tag ) {
+				},
+				chars: function( text ) {
+					results += text;
+				},
+				comment: function( text ) {
+					results += "<!--" + text + "-->";
+				}
+			});
+			
+			return results;
+		};
+		
+		this.HTMLtoDOM = function( html, doc ) {
+			// There can be only one of these elements
+			var one = makeMap("html,head,body,title");
+			
+			// Enforce a structure for the document
+			var structure = {
+				link: "head",
+				base: "head"
+			};
+		
+			if ( !doc ) {
+				if ( typeof DOMDocument != "undefined" )
+					doc = new DOMDocument();
+				else if ( typeof document != "undefined" && document.implementation && document.implementation.createDocument )
+					doc = document.implementation.createDocument("", "", null);
+				else if ( typeof ActiveX != "undefined" )
+					doc = new ActiveXObject("Msxml.DOMDocument");
+				
+			} else
+				doc = doc.ownerDocument ||
+					doc.getOwnerDocument && doc.getOwnerDocument() ||
+					doc;
+			
+			var elems = [],
+				documentElement = doc.documentElement ||
+					doc.getDocumentElement && doc.getDocumentElement();
+					
+			// If we're dealing with an empty document then we
+			// need to pre-populate it with the HTML document structure
+			if ( !documentElement && doc.createElement ) (function(){
+				var html = doc.createElement("html");
+				var head = doc.createElement("head");
+				head.appendChild( doc.createElement("title") );
+				html.appendChild( head );
+				html.appendChild( doc.createElement("body") );
+				doc.appendChild( html );
+			})();
+			
+			// Find all the unique elements
+			if ( doc.getElementsByTagName )
+				for ( var i in one )
+					one[ i ] = doc.getElementsByTagName( i )[0];
+			
+			// If we're working with a document, inject contents into
+			// the body element
+			var curParentNode = one.body;
+			
+			HTMLParser( html, {
+				start: function( tagName, attrs, unary ) {
+					// If it's a pre-built element, then we can ignore
+					// its construction
+					if ( one[ tagName ] ) {
+						curParentNode = one[ tagName ];
+						if ( !unary ) {
+							elems.push( curParentNode );
+						}
+						return;
+					}
+				
+					var elem = doc.createElement( tagName );
+					
+					for ( var attr in attrs )
+						elem.setAttribute( attrs[ attr ].name, attrs[ attr ].value );
+					
+					if ( structure[ tagName ] && typeof one[ structure[ tagName ] ] != "boolean" )
+						one[ structure[ tagName ] ].appendChild( elem );
+					
+					else if ( curParentNode && curParentNode.appendChild )
+						curParentNode.appendChild( elem );
+						
+					if ( !unary ) {
+						elems.push( elem );
+						curParentNode = elem;
+					}
+				},
+				end: function( tag ) {
+					elems.length -= 1;
+					
+					// Init the new parentNode
+					curParentNode = elems[ elems.length - 1 ];
+				},
+				chars: function( text ) {
+					curParentNode.appendChild( doc.createTextNode( text ) );
+				},
+				comment: function( text ) {
+					// create comment node
+				}
+			});
+			
+			return doc;
+		};
+
+		function makeMap(str){
+			var obj = {}, items = str.split(",");
+			for ( var i = 0; i < items.length; i++ )
+				obj[ items[i] ] = true;
+			return obj;
+		}
+	})();
+}
 
 /*
 ---
@@ -29018,6 +29024,4945 @@ $es4.$$package('sweetrush').Transcompiler = (function ()
 //sweetrush.Transcompiler
 
 
+//sweetrush.obj.Token
+$es4.$$package('sweetrush.obj').Token = (function ()
+{
+	//imports
+	var Lexer;
+
+	//properties
+	$es4.$$private_property('whitespaceCharacters', Token, Object);
+	$es4.$$private_property('identifierStartCharacters', Token, Object);
+	Token.OpenParenTokenType = 'OpenParenTokenType';
+	Token.ClosedParenTokenType = 'ClosedParenTokenType';
+	Token.OpenBraceTokenType = 'OpenBraceTokenType';
+	Token.ClosedBraceTokenType = 'ClosedBraceTokenType';
+	Token.OpenBracketTokenType = 'OpenBracketTokenType';
+	Token.ClosedBracketTokenType = 'ClosedBracketTokenType';
+	Token.EOSTokenType = 'EOSTokenType';
+	Token.PackageTokenType = 'PackageTokenType';
+	Token.ImportTokenType = 'ImportTokenType';
+	Token.ClassTokenType = 'ClassTokenType';
+	Token.InterfaceTokenType = 'InterfaceTokenType';
+	Token.NewTokenType = 'NewTokenType';
+	Token.UseTokenType = 'UseTokenType';
+	Token.CaseTokenType = 'CaseTokenType';
+	Token.FunctionTokenType = 'FunctionTokenType';
+	Token.GetTokenType = 'GetTokenType';
+	Token.SetTokenType = 'SetTokenType';
+	Token.RestTokenType = 'RestTokenType';
+	Token.ExtendsTokenType = 'ExtendsTokenType';
+	Token.ImplementsTokenType = 'ImplementsTokenType';
+	Token.CommentTokenType = 'CommentTokenType';
+	Token.CommentChunkTokenType = 'CommentChunkTokenType';
+	Token.MultiLineCommentTokenType = 'MultiLineCommentTokenType';
+	Token.MultiLineCommentChunkTokenType = 'MultiLineCommentChunkTokenType';
+	Token.MultiLineCommentEndTokenType = 'MultiLineCommentEndTokenType';
+	Token.OverrideTokenType = 'OverrideTokenType';
+	Token.StaticTokenType = 'StaticTokenType';
+	Token.DynamicTokenType = 'DynamicTokenType';
+	Token.FinalTokenType = 'FinalTokenType';
+	Token.VarTokenType = 'VarTokenType';
+	Token.ConstTokenType = 'ConstTokenType';
+	Token.IdentifierTokenType = 'IdentifierTokenType';
+	Token.BooleanTokenType = 'BooleanTokenType';
+	Token.ThisTokenType = 'ThisTokenType';
+	Token.TypeofTokenType = 'TypeofTokenType';
+	Token.NullTokenType = 'NullTokenType';
+	Token.VoidTokenType = 'VoidTokenType';
+	Token.UndefinedTokenType = 'UndefinedTokenType';
+	Token.IsTokenType = 'IsTokenType';
+	Token.NaNTokenType = 'NaNTokenType';
+	Token.InstanceofTokenType = 'InstanceofTokenType';
+	Token.ReturnTokenType = 'ReturnTokenType';
+	Token.SwitchTokenType = 'SwitchTokenType';
+	Token.SuperTokenType = 'SuperTokenType';
+	Token.ThrowTokenType = 'ThrowTokenType';
+	Token.DotDotTokenType = 'DotDotTokenType';
+	Token.DotTokenType = 'DotTokenType';
+	Token.NotTokenType = 'NotTokenType';
+	Token.BitwiseNotTokenType = 'BitwiseNotTokenType';
+	Token.ColonTokenType = 'ColonTokenType';
+	Token.CommaTokenType = 'CommaTokenType';
+	Token.TernaryTokenType = 'TernaryTokenType';
+	Token.IncrementTokenType = 'IncrementTokenType';
+	Token.DecrementTokenType = 'DecrementTokenType';
+	Token.BreakTokenType = 'BreakTokenType';
+	Token.ContinueTokenType = 'ContinueTokenType';
+	Token.DefaultTokenType = 'DefaultTokenType';
+	Token.InTokenType = 'InTokenType';
+	Token.AsTokenType = 'AsTokenType';
+	Token.DeleteTokenType = 'DeleteTokenType';
+	Token.IfTokenType = 'IfTokenType';
+	Token.ElseTokenType = 'ElseTokenType';
+	Token.EachTokenType = 'EachTokenType';
+	Token.ForTokenType = 'ForTokenType';
+	Token.WhileTokenType = 'WhileTokenType';
+	Token.DoTokenType = 'DoTokenType';
+	Token.WithTokenType = 'WithTokenType';
+	Token.TryTokenType = 'TryTokenType';
+	Token.CatchTokenType = 'CatchTokenType';
+	Token.RegExpTokenType = 'RegExpTokenType';
+	Token.SpecialUFOTokenType = 'SpecialUFOTokenType';
+	Token.FinallyTokenType = 'FinallyTokenType';
+	Token.AtTokenType = 'AtTokenType';
+	Token.BitwiseLeftShiftAssignmentTokenType = 'BitwiseLeftShiftAssignmentTokenType';
+	Token.BitwiseRightShiftAssignmentTokenType = 'BitwiseRightShiftAssignmentTokenType';
+	Token.BitwiseUnsignedRightShiftAssignmentTokenType = 'BitwiseUnsignedRightShiftAssignmentTokenType';
+	Token.BitwiseAndAssignmentTokenType = 'BitwiseAndAssignmentTokenType';
+	Token.BitwiseOrAssignmentTokenType = 'BitwiseOrAssignmentTokenType';
+	Token.BitwiseXorAssignmentTokenType = 'BitwiseXorAssignmentTokenType';
+	Token.AddWithAssignmentTokenType = 'AddWithAssignmentTokenType';
+	Token.DivWithAssignmentTokenType = 'DivWithAssignmentTokenType';
+	Token.ModWithAssignmentTokenType = 'ModWithAssignmentTokenType';
+	Token.MulWithAssignmentTokenType = 'MulWithAssignmentTokenType';
+	Token.SubWithAssignmentTokenType = 'SubWithAssignmentTokenType';
+	Token.EqualityTokenType = 'EqualityTokenType';
+	Token.RelationalTokenType = 'RelationalTokenType';
+	Token.BitwiseAndTokenType = 'BitwiseAndTokenType';
+	Token.BitwiseXorTokenType = 'BitwiseXorTokenType';
+	Token.BitwiseOrTokenType = 'BitwiseOrTokenType';
+	Token.AndTokenType = 'AndTokenType';
+	Token.AndWithAssignmentTokenType = 'AndWithAssignmentTokenType';
+	Token.OrTokenType = 'OrTokenType';
+	Token.OrWithAssignmentTokenType = 'OrWithAssignmentTokenType';
+	Token.BitwiseLeftShiftTokenType = 'BitwiseLeftShiftTokenType';
+	Token.BitwiseRightShiftTokenType = 'BitwiseRightShiftTokenType';
+	Token.BitwiseUnsignedRightShiftTokenType = 'BitwiseUnsignedRightShiftTokenType';
+	Token.SubTokenType = 'SubTokenType';
+	Token.AddTokenType = 'AddTokenType';
+	Token.DivTokenType = 'DivTokenType';
+	Token.MulTokenType = 'MulTokenType';
+	Token.ModTokenType = 'ModTokenType';
+	Token.AssignmentTokenType = 'AssignmentTokenType';
+	Token.NamespaceKeywordTokenType = 'NamespaceKeywordTokenType';
+	Token.XMLTokenType = 'XMLTokenType';
+	Token.XMLIdentifierTokenType = 'XMLIdentifierTokenType';
+	Token.XMLTextTokenType = 'XMLTextTokenType';
+	Token.XMLCDATATokenType = 'XMLCDATATokenType';
+	Token.XMLCDATAChunkTokenType = 'XMLCDATAChunkTokenType';
+	Token.XMLCDATAEndTokenType = 'XMLCDATAEndTokenType';
+	Token.XMLOpenArrowTokenType = 'XMLOpenArrowTokenType';
+	Token.XMLClosedArrowTokenType = 'XMLClosedArrowTokenType';
+	Token.XMLForwardSlashTokenType = 'XMLForwardSlashTokenType';
+	Token.NamespaceQualifierTokenType = 'NamespaceQualifierTokenType';
+	Token.VectorDotOpenArrowTokenType = 'VectorDotOpenArrowTokenType';
+	Token.VectorClosedArrowTokenType = 'VectorClosedArrowTokenType';
+	Token.StringTokenType = 'StringTokenType';
+	Token.StringChunkTokenType = 'StringChunkTokenType';
+	Token.StringMultiLineDelimiterTokenType = 'StringMultiLineDelimiterTokenType';
+	Token.StringEndTokenType = 'StringEndTokenType';
+	Token.NumberTokenType = 'NumberTokenType';
+	Token.SpaceTokenType = 'SpaceTokenType';
+	Token.TabTokenType = 'TabTokenType';
+	Token.NewLineTokenType = 'NewLineTokenType';
+	Token.UFOTokenType = 'UFOTokenType';
+	$es4.$$public_property('tokenFunctions', Token, Object);
+
+	//class initializer
+	Token.$$cinit = (function ()
+	{
+		Token.$$cinit = undefined;
+
+		//initialize imports
+		Lexer = $es4.$$['sweetrush.core'].Lexer;
+
+		//initialize properties
+		Token.whitespaceCharacters = {'\u0020':true, '\u0009':true, '\u000A':true, '\u000C':true, '\u000D':true};
+		Token.identifierStartCharacters = {'_':true, '$':true, 'a':true, 'b':true, 'c':true, 'd':true, 'e':true, 'f':true, 'g':true, 'h':true, 'i':true, 'j':true, 'k':true, 'l':true, 'm':true, 'n':true, 'o':true, 'p':true, 'q':true, 'r':true, 's':true, 't':true, 'u':true, 'v':true, 'w':true, 'x':true, 'y':true, 'z':true, 'A':true, 'B':true, 'C':true, 'D':true, 'E':true, 'F':true, 'G':true, 'H':true, 'I':true, 'J':true, 'K':true, 'L':true, 'M':true, 'N':true, 'O':true, 'P':true, 'Q':true, 'R':true, 'S':true, 'T':true, 'U':true, 'V':true, 'W':true, 'X':true, 'Y':true, 'Z':true};
+		Token.tokenFunctions = {};
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OpenParenTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClosedParenTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OpenBraceTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClosedBraceTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OpenBracketTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClosedBracketTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EOSTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'PackageTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ImportTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClassTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InterfaceTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UseTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CaseTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FunctionTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'GetTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SetTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RestTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ExtendsTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ImplementsTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CommentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CommentChunkTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MultiLineCommentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MultiLineCommentChunkTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MultiLineCommentEndTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OverrideTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StaticTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DynamicTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinalTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VarTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ConstTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IdentifierTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BooleanTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ThisTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TypeofTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NullTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VoidTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UndefinedTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IsTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NaNTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InstanceofTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ReturnTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SwitchTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SuperTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ThrowTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DotDotTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DotTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NotTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseNotTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ColonTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CommaTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TernaryTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IncrementTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DecrementTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BreakTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ContinueTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DefaultTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AsTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DeleteTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IfTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ElseTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EachTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ForTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WhileTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DoTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WithTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TryTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CatchTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RegExpTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SpecialUFOTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinallyTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AtTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AddWithAssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DivWithAssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ModWithAssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MulWithAssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SubWithAssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EqualityTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RelationalTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseAndTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseXorTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseOrTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AndTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AndWithAssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OrTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OrWithAssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseLeftShiftTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseRightShiftTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SubTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AddTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DivTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MulTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ModTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NamespaceKeywordTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLIdentifierTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLTextTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLCDATATokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLCDATAChunkTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLCDATAEndTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLOpenArrowTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLClosedArrowTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VectorClosedArrowTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StringTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StringChunkTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StringMultiLineDelimiterTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StringEndTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NumberTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SpaceTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TabTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewLineTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UFOTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OpenParenTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '(') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'OpenParenTokenType'), '(']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClosedParenTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == ')') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'ClosedParenTokenType'), ')']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OpenBraceTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '{') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'OpenBraceTokenType'), '{']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClosedBraceTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '}') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'ClosedBraceTokenType'), '}']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OpenBracketTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '[') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'OpenBracketTokenType'), '[']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClosedBracketTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == ']') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'ClosedBracketTokenType'), ']']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EOSTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == ';') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'EOSTokenType'), ';']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'PackageTokenType'), 'keyword', 'package', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'PackageTokenType'), 'terminator', /^([\s]|\{)/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'PackageTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'p' || $es4.$$call(input, null, null, 'charAt', [1]) != 'a') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'PackageTokenType'), [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType'), $es4.$$get(Token, null, null, 'IdentifierTokenType'), $es4.$$get(Token, null, null, 'DotTokenType')]]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ImportTokenType'), 'keyword', 'import', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ImportTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 'm') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'import', $es4.$$get(Token, null, null, 'ImportTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClassTokenType'), 'keyword', 'class', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClassTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'c' || $es4.$$call(input, null, null, 'charAt', [1]) != 'l') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'class', $es4.$$get(Token, null, null, 'ClassTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InterfaceTokenType'), 'keyword', 'interface', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InterfaceTokenType'), 'terminator', /^[\s]/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InterfaceTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 'n') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'interface', $es4.$$get(Token, null, null, 'InterfaceTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewTokenType'), 'keyword', 'new', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewTokenType'), 'terminator', /^[\s]/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'n' || $es4.$$call(input, null, null, 'charAt', [1]) != 'e') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'NewTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UseTokenType'), 'keyword', 'use', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UseTokenType'), 'terminator', /^[\s]/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UseTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'u' || $es4.$$call(input, null, null, 'charAt', [1]) != 's') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'UseTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CaseTokenType'), 'keyword', 'case', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CaseTokenType'), 'terminator', /^[\s]/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CaseTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'c' || $es4.$$call(input, null, null, 'charAt', [1]) != 'a') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'CaseTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FunctionTokenType'), 'keyword', 'function', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FunctionTokenType'), 'terminator', /^[\s]|\(/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FunctionTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	if ($es4.$$call(input, null, null, 'charAt', [0]) != 'f')
+	{
+		return null;
+	}
+	var result = $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'FunctionTokenType'), [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType'), $es4.$$get(Token, null, null, 'GetTokenType'), $es4.$$get(Token, null, null, 'SetTokenType'), $es4.$$get(Token, null, null, 'IdentifierTokenType')]]);
+	if (!result)
+	{
+		return null;
+	}
+	var tokens = $es4.$$get(result, null, null, 'tokens');
+	var index = $es4.$$get(result, null, null, 'index');
+	result = $es4.$$call(Lexer, null, null, 'lex', [$es4.$$call(input, null, null, 'slice', [index + 1]), [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType'), $es4.$$get(Token, null, null, 'OpenParenTokenType'), $es4.$$get(Token, null, null, 'ClosedParenTokenType'), $es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType'), $es4.$$get(Token, null, null, 'VectorClosedArrowTokenType'), $es4.$$get(Token, null, null, 'VoidTokenType'), $es4.$$get(Token, null, null, 'StringTokenType'), $es4.$$get(Token, null, null, 'BooleanTokenType'), $es4.$$get(Token, null, null, 'SubTokenType'), $es4.$$get(Token, null, null, 'AddTokenType'), $es4.$$get(Token, null, null, 'RestTokenType'), $es4.$$get(Token, null, null, 'NumberTokenType'), $es4.$$get(Token, null, null, 'NullTokenType'), $es4.$$get(Token, null, null, 'UndefinedTokenType'), $es4.$$get(Token, null, null, 'NaNTokenType'), $es4.$$get(Token, null, null, 'ColonTokenType'), $es4.$$get(Token, null, null, 'MulTokenType'), $es4.$$get(Token, null, null, 'CommaTokenType'), $es4.$$get(Token, null, null, 'AssignmentTokenType'), $es4.$$get(Token, null, null, 'IdentifierTokenType'), $es4.$$get(Token, null, null, 'DotTokenType')], true]);
+	tokens = $es4.$$call(tokens, null, null, 'concat', [$es4.$$get(result, null, null, 'tokens')]);
+	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, $es4.$$get(result, null, null, 'index') + index]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'GetTokenType'), 'keyword', 'get', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'GetTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'g' || $es4.$$call(input, null, null, 'charAt', [1]) != 'e') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'get', $es4.$$get(Token, null, null, 'GetTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SetTokenType'), 'keyword', 'set', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SetTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 's' || $es4.$$call(input, null, null, 'charAt', [1]) != 'e') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'set', $es4.$$get(Token, null, null, 'SetTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RestTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '.' || $es4.$$call(input, null, null, 'charAt', [1]) != '.') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, '...', $es4.$$get(Token, null, null, 'RestTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), false]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ExtendsTokenType'), 'keyword', 'extends', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ExtendsTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'e' || $es4.$$call(input, null, null, 'charAt', [1]) != 'x') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'extends', $es4.$$get(Token, null, null, 'ExtendsTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ImplementsTokenType'), 'keyword', 'implements', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ImplementsTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 'm') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'implements', $es4.$$get(Token, null, null, 'ImplementsTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CommentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	if ($es4.$$call(input, null, null, 'charAt', [0]) != '/' || $es4.$$call(input, null, null, 'charAt', [1]) != '/')
+	{
+		return null;
+	}
+	var tokens = [];
+	var i = 2;
+	var commentChunk = '';
+	var token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'CommentTokenType'), $es4.$$call(input, null, null, 'charAt', [0]) + $es4.$$call(input, null, null, 'charAt', [1])]);
+	$es4.$$call(tokens, null, null, 'push', [token]);
+	while (i < $es4.$$get(input, null, null, 'length'))
+	{
+		if ($es4.$$call($es4.$$call(input, null, null, 'charAt', [i]), null, null, 'match', [/[\r\n]/]))
+		{
+			break;
+		}
+		commentChunk += $es4.$$call(input, null, null, 'charAt', [i]);
+		i++;
+	}
+	if (i > 2)
+	{
+		token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'CommentChunkTokenType'), commentChunk]);
+		$es4.$$call(tokens, null, null, 'push', [token]);
+	}
+	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, i - 1]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MultiLineCommentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	if ($es4.$$call(input, null, null, 'charAt', [0]) != '/' || $es4.$$call(input, null, null, 'charAt', [1]) != '*')
+	{
+		return null;
+	}
+	var tokens = [];
+	var token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MultiLineCommentTokenType'), $es4.$$call(input, null, null, 'charAt', [0]) + $es4.$$call(input, null, null, 'charAt', [1])]);
+	$es4.$$call(tokens, null, null, 'push', [token]);
+	var i = 2;
+	var lastChar;
+	var commentChunk = '';
+	while (i < $es4.$$get(input, null, null, 'length'))
+	{
+		if ($es4.$$call($es4.$$call(input, null, null, 'charAt', [i]), null, null, 'match', [/[\r\n]/]))
+		{
+			if ($es4.$$get(commentChunk, null, null, 'length') > 0)
+			{
+				token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MultiLineCommentChunkTokenType'), commentChunk]);
+				$es4.$$call(tokens, null, null, 'push', [token]);
+			}
+			token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$call(input, null, null, 'charAt', [i])]);
+			$es4.$$call(tokens, null, null, 'push', [token]);
+			commentChunk = '';
+		}
+		else if (lastChar == '*' && $es4.$$call(input, null, null, 'charAt', [i]) == '/')
+		{
+			commentChunk = $es4.$$call(commentChunk, null, null, 'slice', [0, $es4.$$get(commentChunk, null, null, 'length') - 1]);
+			i--;
+			break;
+		}
+		else
+		{
+			commentChunk += $es4.$$call(input, null, null, 'charAt', [i]);
+		}
+		lastChar = $es4.$$call(input, null, null, 'charAt', [i]);
+		i++;
+	}
+	if ($es4.$$get(commentChunk, null, null, 'length') > 0)
+	{
+		token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MultiLineCommentChunkTokenType'), commentChunk]);
+		$es4.$$call(tokens, null, null, 'push', [token]);
+	}
+	token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MultiLineCommentEndTokenType'), $es4.$$call(input, null, null, 'charAt', [i]) + $es4.$$call(input, null, null, 'charAt', [i + 1])]);
+	$es4.$$call(tokens, null, null, 'push', [token]);
+	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, i + 1]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OverrideTokenType'), 'keyword', 'override', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OverrideTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'o' || $es4.$$call(input, null, null, 'charAt', [1]) != 'v') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'override', $es4.$$get(Token, null, null, 'OverrideTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StaticTokenType'), 'keyword', 'static', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StaticTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 's' || $es4.$$call(input, null, null, 'charAt', [1]) != 't') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'static', $es4.$$get(Token, null, null, 'StaticTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DynamicTokenType'), 'keyword', 'dynamic', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DynamicTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'd' || $es4.$$call(input, null, null, 'charAt', [1]) != 'y') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'dynamic', $es4.$$get(Token, null, null, 'DynamicTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinalTokenType'), 'keyword', 'final', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinalTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'f' || $es4.$$call(input, null, null, 'charAt', [1]) != 'i') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'final', $es4.$$get(Token, null, null, 'FinalTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VarTokenType'), 'keyword', 'var', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VarTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'v' || $es4.$$call(input, null, null, 'charAt', [1]) != 'a') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'var', $es4.$$get(Token, null, null, 'VarTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ConstTokenType'), 'keyword', 'const', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ConstTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'c' || $es4.$$call(input, null, null, 'charAt', [1]) != 'o') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'const', $es4.$$get(Token, null, null, 'ConstTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IdentifierTokenType'), 'regex', /^[a-zA-Z_$][a-zA-Z_0-9$]*/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IdentifierTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'IdentifierTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BooleanTokenType'), 'regex', /^(true|false)(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BooleanTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 't' && $es4.$$call(input, null, null, 'charAt', [0]) != 'f') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BooleanTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ThisTokenType'), 'regex', /^this(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ThisTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 't' || $es4.$$call(input, null, null, 'charAt', [1]) != 'h') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'ThisTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TypeofTokenType'), 'regex', /^typeof(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TypeofTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 't' || $es4.$$call(input, null, null, 'charAt', [1]) != 'y') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'TypeofTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NullTokenType'), 'regex', /^null(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NullTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'n' || $es4.$$call(input, null, null, 'charAt', [1]) != 'u') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'NullTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VoidTokenType'), 'regex', /^void(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VoidTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'v' || $es4.$$call(input, null, null, 'charAt', [1]) != 'o') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'VoidTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UndefinedTokenType'), 'regex', /^undefined(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UndefinedTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'u' || $es4.$$call(input, null, null, 'charAt', [1]) != 'n') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'UndefinedTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IsTokenType'), 'regex', /^is(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IsTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 's') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'IsTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NaNTokenType'), 'regex', /^NaN(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NaNTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'N' || $es4.$$call(input, null, null, 'charAt', [1]) != 'a') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'NaNTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InstanceofTokenType'), 'regex', /^instanceof(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InstanceofTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 'n') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'InstanceofTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ReturnTokenType'), 'regex', /^return(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ReturnTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'r' || $es4.$$call(input, null, null, 'charAt', [1]) != 'e') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'ReturnTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SwitchTokenType'), 'regex', /^switch(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SwitchTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 's' || $es4.$$call(input, null, null, 'charAt', [1]) != 'w') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'SwitchTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SuperTokenType'), 'regex', /^super(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SuperTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 's' || $es4.$$call(input, null, null, 'charAt', [1]) != 'u') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'SuperTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ThrowTokenType'), 'regex', /^throw(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ThrowTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 't' || $es4.$$call(input, null, null, 'charAt', [1]) != 'h') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'ThrowTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DotDotTokenType'), 'regex', /^\.\./, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DotDotTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '.' || $es4.$$call(input, null, null, 'charAt', [1]) != '.') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'DotDotTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DotTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '.') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'DotTokenType'), '.']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NotTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '!') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'NotTokenType'), '!']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseNotTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '~') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseNotTokenType'), '~']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ColonTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == ':') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'ColonTokenType'), ':']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CommaTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == ',') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'CommaTokenType'), ',']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TernaryTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '?') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'TernaryTokenType'), '?']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IncrementTokenType'), 'regex', /^\+\+/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IncrementTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '+' || $es4.$$call(input, null, null, 'charAt', [1]) != '+') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'IncrementTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DecrementTokenType'), 'regex', /^\-\-/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DecrementTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '-' || $es4.$$call(input, null, null, 'charAt', [1]) != '-') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'DecrementTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BreakTokenType'), 'regex', /^break(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BreakTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'b' || $es4.$$call(input, null, null, 'charAt', [1]) != 'r') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BreakTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ContinueTokenType'), 'regex', /^continue(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ContinueTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'c' || $es4.$$call(input, null, null, 'charAt', [1]) != 'o') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'ContinueTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DefaultTokenType'), 'regex', /^default(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DefaultTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'd' || $es4.$$call(input, null, null, 'charAt', [1]) != 'e') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'DefaultTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InTokenType'), 'regex', /^in(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 'n') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'InTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AsTokenType'), 'regex', /^as(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AsTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'a' || $es4.$$call(input, null, null, 'charAt', [1]) != 's') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'AsTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DeleteTokenType'), 'regex', /^delete(?![a-zA-Z0-9_.(])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DeleteTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'd' || $es4.$$call(input, null, null, 'charAt', [1]) != 'e') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'DeleteTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IfTokenType'), 'keyword', 'if', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IfTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 'f') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'if', $es4.$$get(Token, null, null, 'IfTokenType'), '(', false]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ElseTokenType'), 'keyword', 'else', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ElseTokenType'), 'terminator', /^([\s]|\{)/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ElseTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'e' || $es4.$$call(input, null, null, 'charAt', [1]) != 'l') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'ElseTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EachTokenType'), 'keyword', 'each', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EachTokenType'), 'terminator', /^([\s]|\()/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EachTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'e' || $es4.$$call(input, null, null, 'charAt', [1]) != 'a') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'EachTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ForTokenType'), 'keyword', 'for', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ForTokenType'), 'terminator', /^([\s]|\()/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ForTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'f' || $es4.$$call(input, null, null, 'charAt', [1]) != 'o') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'ForTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WhileTokenType'), 'keyword', 'while', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WhileTokenType'), 'terminator', /^([\s]|\()/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WhileTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'w' || $es4.$$call(input, null, null, 'charAt', [1]) != 'h') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'WhileTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DoTokenType'), 'keyword', 'do', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DoTokenType'), 'terminator', /^([\s]|\{)/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DoTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'd' || $es4.$$call(input, null, null, 'charAt', [1]) != 'o') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'DoTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WithTokenType'), 'keyword', 'with', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WithTokenType'), 'terminator', /^([\s]|\{)/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WithTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'w' || $es4.$$call(input, null, null, 'charAt', [1]) != 'i') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'WithTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TryTokenType'), 'keyword', 'try', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TryTokenType'), 'terminator', /^([\s]|\{)/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TryTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 't' || $es4.$$call(input, null, null, 'charAt', [1]) != 'r') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'TryTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CatchTokenType'), 'keyword', 'catch', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CatchTokenType'), 'terminator', /^([\s]|\()/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CatchTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	if ($es4.$$call(input, null, null, 'charAt', [0]) != 'c' || $es4.$$call(input, null, null, 'charAt', [1]) != 'a')
+	{
+		return null;
+	}
+	var result = $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'CatchTokenType'), [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType')]]);
+	if (!result)
+	{
+		return null;
+	}
+	var tokens = $es4.$$get(result, null, null, 'tokens');
+	var index = $es4.$$get(result, null, null, 'index');
+	result = $es4.$$call(Lexer, null, null, 'lex', [$es4.$$call(input, null, null, 'slice', [index + 1]), [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType'), $es4.$$get(Token, null, null, 'OpenParenTokenType'), $es4.$$get(Token, null, null, 'ClosedParenTokenType'), $es4.$$get(Token, null, null, 'IdentifierTokenType'), $es4.$$get(Token, null, null, 'DotTokenType'), $es4.$$get(Token, null, null, 'ColonTokenType')], true]);
+	tokens = $es4.$$call(tokens, null, null, 'concat', [$es4.$$get(result, null, null, 'tokens')]);
+	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, $es4.$$get(result, null, null, 'index') + index]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RegExpTokenType'), 'find', function ($$$$input, $$$$foundTokens) 
+{
+		//set default parameter values
+		var input = $$$$input;
+		var foundTokens = $$$$foundTokens;
+
+	if ($es4.$$call(input, null, null, 'charAt', [0]) != '/')
+	{
+		return null;
+	}
+	outer:	for (var j = $es4.$$get(foundTokens, null, null, 'length') - 1; j >= 0; j--)
+	{
+		var tokens = $es4.$$get(foundTokens, null, null, j);
+		var token;
+		var i;
+		for (i = $es4.$$get(tokens, null, null, 'length') - 1; i >= 0; i--)
+		{
+			token = $es4.$$get(tokens, null, null, i);
+			switch ($es4.$$get(token, null, null, 'type'))
+			{
+				case $es4.$$get(Token, null, null, 'SpaceTokenType'):
+				case $es4.$$get(Token, null, null, 'TabTokenType'):
+				case $es4.$$get(Token, null, null, 'NewLineTokenType'):
+					break;
+				case $es4.$$get(Token, null, null, 'EOSTokenType'):
+				case $es4.$$get(Token, null, null, 'OpenBracketTokenType'):
+				case $es4.$$get(Token, null, null, 'OpenParenTokenType'):
+				case $es4.$$get(Token, null, null, 'EqualityTokenType'):
+				case $es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'BitwiseLeftShiftTokenType'):
+				case $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftTokenType'):
+				case $es4.$$get(Token, null, null, 'BitwiseRightShiftTokenType'):
+				case $es4.$$get(Token, null, null, 'RelationalTokenType'):
+				case $es4.$$get(Token, null, null, 'AddWithAssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'DivWithAssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'ModWithAssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'MulWithAssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'SubWithAssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'AssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'CommaTokenType'):
+				case $es4.$$get(Token, null, null, 'DeleteTokenType'):
+				case $es4.$$get(Token, null, null, 'InTokenType'):
+				case $es4.$$get(Token, null, null, 'WithTokenType'):
+				case $es4.$$get(Token, null, null, 'TypeofTokenType'):
+				case $es4.$$get(Token, null, null, 'VoidTokenType'):
+				case $es4.$$get(Token, null, null, 'ReturnTokenType'):
+				case $es4.$$get(Token, null, null, 'ThrowTokenType'):
+				case $es4.$$get(Token, null, null, 'NewTokenType'):
+				case $es4.$$get(Token, null, null, 'CaseTokenType'):
+				case $es4.$$get(Token, null, null, 'AndWithAssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'OrWithAssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'AndTokenType'):
+				case $es4.$$get(Token, null, null, 'OrTokenType'):
+				case $es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'BitwiseAndTokenType'):
+				case $es4.$$get(Token, null, null, 'BitwiseNotTokenType'):
+				case $es4.$$get(Token, null, null, 'BitwiseOrTokenType'):
+				case $es4.$$get(Token, null, null, 'BitwiseXorTokenType'):
+				case $es4.$$get(Token, null, null, 'NotTokenType'):
+				case $es4.$$get(Token, null, null, 'IncrementTokenType'):
+				case $es4.$$get(Token, null, null, 'DecrementTokenType'):
+				case $es4.$$get(Token, null, null, 'OpenBraceTokenType'):
+				case $es4.$$get(Token, null, null, 'IsTokenType'):
+				case $es4.$$get(Token, null, null, 'InstanceofTokenType'):
+				case $es4.$$get(Token, null, null, 'AddTokenType'):
+				case $es4.$$get(Token, null, null, 'RegExpTokenType'):
+				case $es4.$$get(Token, null, null, 'SubTokenType'):
+				case $es4.$$get(Token, null, null, 'DivTokenType'):
+				case $es4.$$get(Token, null, null, 'MulTokenType'):
+				case $es4.$$get(Token, null, null, 'ModTokenType'):
+					break outer;
+				default:
+					return null;
+			}
+		}
+	}
+	var result = $es4.$$call(Lexer, null, null, 'lex', [$es4.$$call(input, null, null, 'slice', [1]), [$es4.$$get(Token, null, null, 'SpecialUFOTokenType')], true]);
+	var previousToken;
+	var tokens = $es4.$$get(result, null, null, 'tokens');
+	var foundEnd = false;
+	for (i = 0; i < $es4.$$get(tokens, null, null, 'length'); i++)
+	{
+		token = $es4.$$get(tokens, null, null, i);
+		if (foundEnd)
+		{
+			if ($es4.$$get(token, null, null, 'data') == ',' || $es4.$$get(token, null, null, 'data') == ';' || $es4.$$get(token, null, null, 'data') == ']' || $es4.$$get(token, null, null, 'data') == ')' || $es4.$$get(token, null, null, 'data') == ']' || $es4.$$get(token, null, null, 'data') == '.' || $es4.$$get(token, null, null, 'data') == ' ' || $es4.$$get(token, null, null, 'data') == '	' || $es4.$$call(token, null, null, 'data', 'match', [/[\r\n]/]))
+			{
+				i++;
+				break;
+			}
+		}
+		else if ($es4.$$get(token, null, null, 'data') == '/' && previousToken && $es4.$$get(previousToken, null, null, 'data') != '\\')
+		{
+			foundEnd = true;
+		}
+		previousToken = token;
+	}
+	if (!foundEnd)
+	{
+		return null;
+	}
+	tokens = $es4.$$call(tokens, null, null, 'splice', [0, i - 1]);
+	$es4.$$call(tokens, null, null, 'unshift', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'RegExpTokenType'), '/'])]);
+	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, i - 1]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SpecialUFOTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	if ($es4.$$call(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewLineTokenType'), 'find', [input]) != null)
+	{
+		return null;
+	}
+	return $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'SpecialUFOTokenType'), $es4.$$call(input, null, null, 'charAt', [0])]), 0]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinallyTokenType'), 'keyword', 'finally', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinallyTokenType'), 'terminator', /^([\s]|\{)/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinallyTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'f' || $es4.$$call(input, null, null, 'charAt', [1]) != 'i') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'FinallyTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AtTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '@') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'AtTokenType'), '@']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType'), 'regex', /^<<=/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '<' || $es4.$$call(input, null, null, 'charAt', [1]) != '<') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType'), 'regex', /^>>=/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '>' || $es4.$$call(input, null, null, 'charAt', [1]) != '>') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType'), 'regex', /^>>>=/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '>' || $es4.$$call(input, null, null, 'charAt', [1]) != '>') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType'), 'regex', /^&=/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '&' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType'), 'regex', /^\|=/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '|' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType'), 'regex', /^\^=/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '^' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AddWithAssignmentTokenType'), 'regex', /^\+\=/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AddWithAssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '+' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'AddWithAssignmentTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DivWithAssignmentTokenType'), 'regex', /^\/\=/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DivWithAssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '/' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'DivWithAssignmentTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ModWithAssignmentTokenType'), 'regex', /^\%\=/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ModWithAssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '%' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'ModWithAssignmentTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MulWithAssignmentTokenType'), 'regex', /^\*\=/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MulWithAssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '*' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'MulWithAssignmentTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SubWithAssignmentTokenType'), 'regex', /^\-\=/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SubWithAssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '-' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'SubWithAssignmentTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EqualityTokenType'), 'operators', ['===', '!==', '==', '!='], '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EqualityTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	if ($es4.$$call(input, null, null, 'charAt', [0]) != '=' && $es4.$$call(input, null, null, 'charAt', [0]) != '!')
+	{
+		return null;
+	}
+	for (var i = 0; i < $es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EqualityTokenType'), 'operators', 'length'); i++)
+	{
+		var operator = $es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EqualityTokenType'), 'operators', i);
+		var match = $es4.$$call(input, null, null, 'match', [$es4.$$primitive(new (RegExp)("^" + operator))]);
+		if (!match)
+		{
+			continue;
+		}
+		var token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'EqualityTokenType'), operator]);
+		return $es4.$$call(Token, null, null, 'getNewResult', [token, $es4.$$get(operator, null, null, 'length') - 1]);
+	}
+	return null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RelationalTokenType'), 'operators', ['>=', '>', '<=', '<'], '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RelationalTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	if ($es4.$$call(input, null, null, 'charAt', [0]) != '>' && $es4.$$call(input, null, null, 'charAt', [0]) != '<')
+	{
+		return null;
+	}
+	for (var i = 0; i < $es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RelationalTokenType'), 'operators', 'length'); i++)
+	{
+		var operator = $es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RelationalTokenType'), 'operators', i);
+		var match = $es4.$$call(input, null, null, 'match', [$es4.$$primitive(new (RegExp)("^" + operator))]);
+		if (!match)
+		{
+			continue;
+		}
+		var token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'RelationalTokenType'), operator]);
+		return $es4.$$call(Token, null, null, 'getNewResult', [token, $es4.$$get(operator, null, null, 'length') - 1]);
+	}
+	return null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseAndTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '&') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseAndTokenType'), '&']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseXorTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '^') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseXorTokenType'), '^']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseOrTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '|') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseOrTokenType'), '|']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AndTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '&' && $es4.$$call(input, null, null, 'charAt', [1]) == '&') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'AndTokenType'), '&&']), 1]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AndWithAssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '&' && $es4.$$call(input, null, null, 'charAt', [1]) == '&' && $es4.$$call(input, null, null, 'charAt', [2]) == '=') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'AndWithAssignmentTokenType'), '&&=']), 2]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OrTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '|' && $es4.$$call(input, null, null, 'charAt', [1]) == '|') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'OrTokenType'), '||']), 1]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OrWithAssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '|' && $es4.$$call(input, null, null, 'charAt', [1]) == '|' && $es4.$$call(input, null, null, 'charAt', [2]) == '=') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'OrWithAssignmentTokenType'), '||=']), 2]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseLeftShiftTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '<' && $es4.$$call(input, null, null, 'charAt', [1]) == '<') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseLeftShiftTokenType'), '<<']), 1]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseRightShiftTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '>' && $es4.$$call(input, null, null, 'charAt', [1]) == '>') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseRightShiftTokenType'), '>>']), 1]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '>' && $es4.$$call(input, null, null, 'charAt', [1]) == '>' && $es4.$$call(input, null, null, 'charAt', [2]) == '>') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftTokenType'), '>>>']), 2]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SubTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '-') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'SubTokenType'), '-']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AddTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '+') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'AddTokenType'), '+']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DivTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '/') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'DivTokenType'), '/']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MulTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '*') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MulTokenType'), '*']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ModTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '%') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'ModTokenType'), '%']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '=') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'AssignmentTokenType'), '=']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NamespaceKeywordTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == 'n') ? $es4.$$call(Token, null, null, 'keywordFind2', [input, 'namespace', $es4.$$get(Token, null, null, 'NamespaceKeywordTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	if ($es4.$$call(input, null, null, 'charAt', [0]) != '<')
+	{
+		return null;
+	}
+	var isXMLList = $es4.$$call(input, null, null, 'charAt', [1]) == '>';
+	var resultTokens = [];
+	var index = -1;
+	var openNodes = 0;
+	while (true)
+	{
+		var result = $es4.$$call(Lexer, null, null, 'lex', [input, [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType'), $es4.$$get(Token, null, null, 'StringTokenType'), $es4.$$get(Token, null, null, 'AssignmentTokenType'), $es4.$$get(Token, null, null, 'ColonTokenType'), $es4.$$get(Token, null, null, 'XMLOpenArrowTokenType'), $es4.$$get(Token, null, null, 'XMLIdentifierTokenType'), $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType')], true]);
+		if (!$es4.$$get(result, null, null, 'tokens', 'length'))
+		{
+			break;
+		}
+		if ($es4.$$call(input, null, null, 'charAt', [$es4.$$get(result, null, null, 'index')]) != '>')
+		{
+			break;
+		}
+		var tokens = $es4.$$call(result, null, null, 'tokens', 'concat', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLClosedArrowTokenType'), '>'])]);
+		input = $es4.$$call(input, null, null, 'slice', [$es4.$$get(result, null, null, 'index') + 1]);
+		index += $es4.$$get(result, null, null, 'index') + 1;
+		resultTokens = $es4.$$call(resultTokens, null, null, 'concat', [tokens]);
+		if ($es4.$$get(tokens, null, null, 1, 'type') != $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'))
+		{
+			openNodes++;
+		}
+		if ($es4.$$get(tokens, null, null, 1, 'type') == $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'))
+		{
+			openNodes--;
+		}
+		else if ($es4.$$get(tokens, null, null, $es4.$$get(tokens, null, null, 'length') - 2, 'type') == $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'))
+		{
+			openNodes--;
+		}
+		if (!openNodes)
+		{
+			break;
+		}
+		if (isXMLList && openNodes == 1)
+		{
+			result = $es4.$$call(Lexer, null, null, 'lex', [input, [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType')], true]);
+			if (!$es4.$$get(result, null, null, 'tokens', 'length'))
+			{
+				continue;
+			}
+			input = $es4.$$call(input, null, null, 'slice', [$es4.$$get(result, null, null, 'index')]);
+			index += $es4.$$get(result, null, null, 'index');
+			resultTokens = $es4.$$call(resultTokens, null, null, 'concat', [$es4.$$get(result, null, null, 'tokens')]);
+		}
+		else
+		{
+			result = $es4.$$call(Lexer, null, null, 'lex', [input, [$es4.$$get(Token, null, null, 'XMLTextTokenType'), $es4.$$get(Token, null, null, 'XMLCDATATokenType')], true]);
+			if (!$es4.$$get(result, null, null, 'tokens', 'length'))
+			{
+				continue;
+			}
+			input = $es4.$$call(input, null, null, 'slice', [$es4.$$get(result, null, null, 'index')]);
+			index += $es4.$$get(result, null, null, 'index');
+			resultTokens = $es4.$$call(resultTokens, null, null, 'concat', [$es4.$$get(result, null, null, 'tokens')]);
+		}
+	}
+	if (openNodes || !$es4.$$get(resultTokens, null, null, 'length'))
+	{
+		return null;
+	}
+	return $es4.$$call(Token, null, null, 'getNewResult', [resultTokens, index]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLIdentifierTokenType'), 'regex', /^[a-zA-Z_][a-zA-Z_0-9]*/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLIdentifierTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'XMLIdentifierTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLTextTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	if ($es4.$$call(input, null, null, 'charAt', [0]) == '<')
+	{
+		return null;
+	}
+	var token;
+	var tokens = [];
+	var i = 0;
+	var chunk = '';
+	while (i < $es4.$$get(input, null, null, 'length'))
+	{
+		if ($es4.$$call($es4.$$call(input, null, null, 'charAt', [i]), null, null, 'match', [/[\r\n]/]))
+		{
+			if ($es4.$$get(chunk, null, null, 'length') > 0)
+			{
+				token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLTextTokenType'), chunk]);
+				$es4.$$call(tokens, null, null, 'push', [token]);
+			}
+			token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$call(input, null, null, 'charAt', [i])]);
+			$es4.$$call(tokens, null, null, 'push', [token]);
+			chunk = '';
+		}
+		else if ($es4.$$call(input, null, null, 'charAt', [i]) == '<')
+		{
+			i--;
+			break;
+		}
+		else
+		{
+			chunk += $es4.$$call(input, null, null, 'charAt', [i]);
+		}
+		i++;
+	}
+	if ($es4.$$get(chunk, null, null, 'length') > 0)
+	{
+		token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLTextTokenType'), chunk]);
+		$es4.$$call(tokens, null, null, 'push', [token]);
+	}
+	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, i]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLCDATATokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	if ($es4.$$call(input, null, null, 'charAt', [0]) != '<' || $es4.$$call(input, null, null, 'charAt', [1]) != '!' || $es4.$$call(input, null, null, 'charAt', [2]) != '[' || $es4.$$call(input, null, null, 'indexOf', ['<![CDATA[']) != 0)
+	{
+		return null;
+	}
+	var tokens = [];
+	var token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLCDATATokenType'), '<![CDATA[']);
+	$es4.$$call(tokens, null, null, 'push', [token]);
+	var i = 9;
+	var chunk = '';
+	while (i < $es4.$$get(input, null, null, 'length'))
+	{
+		if ($es4.$$call($es4.$$call(input, null, null, 'charAt', [i]), null, null, 'match', [/[\r\n]/]))
+		{
+			if ($es4.$$get(chunk, null, null, 'length') > 0)
+			{
+				token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLCDATAChunkTokenType'), chunk]);
+				$es4.$$call(tokens, null, null, 'push', [token]);
+			}
+			token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$call(input, null, null, 'charAt', [i])]);
+			$es4.$$call(tokens, null, null, 'push', [token]);
+			chunk = '';
+		}
+		else if ($es4.$$call(input, null, null, 'charAt', [i - 2]) == ']' && $es4.$$call(input, null, null, 'charAt', [i - 1]) == ']' && $es4.$$call(input, null, null, 'charAt', [i]) == '>')
+		{
+			chunk = $es4.$$call(chunk, null, null, 'slice', [0, $es4.$$get(chunk, null, null, 'length') - 2]);
+			break;
+		}
+		else
+		{
+			chunk += $es4.$$call(input, null, null, 'charAt', [i]);
+		}
+		i++;
+	}
+	if ($es4.$$get(chunk, null, null, 'length') > 0)
+	{
+		token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLCDATAChunkTokenType'), chunk]);
+		$es4.$$call(tokens, null, null, 'push', [token]);
+	}
+	token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLCDATAEndTokenType'), ']]>']);
+	$es4.$$call(tokens, null, null, 'push', [token]);
+	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, i]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLOpenArrowTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '<') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLOpenArrowTokenType'), '<']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLClosedArrowTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '>') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLClosedArrowTokenType'), '>']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'), 'regex', /^\//, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '/') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType'), 'regex', /^::/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != ':' || $es4.$$call(input, null, null, 'charAt', [1]) != ':') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType'), 'regex', /^\.\</, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	if ($es4.$$call(input, null, null, 'charAt', [0]) != '.')
+	{
+		return null;
+	}
+	var result = $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType')]);
+	if (!result)
+	{
+		return null;
+	}
+	var tokens = $es4.$$get(result, null, null, 'tokens');
+	var index = $es4.$$get(result, null, null, 'index');
+	result = $es4.$$call(Lexer, null, null, 'lex', [$es4.$$call(input, null, null, 'slice', [index + 1]), [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType'), $es4.$$get(Token, null, null, 'IdentifierTokenType'), $es4.$$get(Token, null, null, 'DotTokenType'), $es4.$$get(Token, null, null, 'VectorClosedArrowTokenType')], true]);
+	tokens = $es4.$$call(tokens, null, null, 'concat', [$es4.$$get(result, null, null, 'tokens')]);
+	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, $es4.$$get(result, null, null, 'index') + index]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VectorClosedArrowTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '>') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'VectorClosedArrowTokenType'), '>']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StringTokenType'), 'prefixAllowed', ["'", '"'], '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StringTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	if ($es4.$$call(input, null, null, 'charAt', [0]) != "'" && $es4.$$call(input, null, null, 'charAt', [0]) != '"')
+	{
+		return null;
+	}
+	var tokens = [];
+	var token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'StringTokenType'), $es4.$$call(input, null, null, 'charAt', [0])]);
+	$es4.$$call(tokens, null, null, 'push', [token]);
+	var i = 1;
+	var ignore = false;
+	var lastChar;
+	var stringChunk = '';
+	while (i < $es4.$$get(input, null, null, 'length') && ($es4.$$call(input, null, null, 'charAt', [0]) != $es4.$$call(input, null, null, 'charAt', [i]) || ignore))
+	{
+		if (lastChar == '\\' && $es4.$$call($es4.$$call(input, null, null, 'charAt', [i]), null, null, 'match', [/[\r\n]/]) && !ignore)
+		{
+			if ($es4.$$get(stringChunk, null, null, 'length') - 1 > 0)
+			{
+				token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'StringChunkTokenType'), $es4.$$call(stringChunk, null, null, 'slice', [0, $es4.$$get(stringChunk, null, null, 'length') - 1])]);
+				$es4.$$call(tokens, null, null, 'push', [token]);
+			}
+			token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'StringMultiLineDelimiterTokenType'), lastChar]);
+			$es4.$$call(tokens, null, null, 'push', [token]);
+			token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$call(input, null, null, 'charAt', [i])]);
+			$es4.$$call(tokens, null, null, 'push', [token]);
+			stringChunk = '';
+		}
+		else
+		{
+			stringChunk += $es4.$$call(input, null, null, 'charAt', [i]);
+		}
+		lastChar = $es4.$$call(input, null, null, 'charAt', [i]);
+		ignore = lastChar == '\\' && !ignore;
+		i++;
+	}
+	if ($es4.$$get(stringChunk, null, null, 'length') > 0)
+	{
+		token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'StringChunkTokenType'), stringChunk]);
+		$es4.$$call(tokens, null, null, 'push', [token]);
+	}
+	token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'StringEndTokenType'), $es4.$$call(input, null, null, 'charAt', [i])]);
+	$es4.$$call(tokens, null, null, 'push', [token]);
+	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, i]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NumberTokenType'), 'regex1', /^([0-9]|[\.][0-9\.]+)[0-9\.]*(e[+-][0-9]+)*/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NumberTokenType'), 'regex2', /^0x[a-fA-F0-9]+/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NumberTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	if ($es4.$$call(input, null, null, 'charAt', [0]) == '0' && $es4.$$call(input, null, null, 'charAt', [1]) == 'x')
+	{
+		return $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'NumberTokenType'), $es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NumberTokenType'), 'regex2')]);
+	}
+	if ($es4.$$call(input, null, null, 'charAt', [0]) != '0' && $es4.$$call(input, null, null, 'charAt', [0]) != '1' && $es4.$$call(input, null, null, 'charAt', [0]) != '2' && $es4.$$call(input, null, null, 'charAt', [0]) != '3' && $es4.$$call(input, null, null, 'charAt', [0]) != '4' && $es4.$$call(input, null, null, 'charAt', [0]) != '5' && $es4.$$call(input, null, null, 'charAt', [0]) != '6' && $es4.$$call(input, null, null, 'charAt', [0]) != '7' && $es4.$$call(input, null, null, 'charAt', [0]) != '8' && $es4.$$call(input, null, null, 'charAt', [0]) != '9' && $es4.$$call(input, null, null, 'charAt', [0]) != '.')
+	{
+		return;
+	}
+	return $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'NumberTokenType'), $es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NumberTokenType'), 'regex1')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SpaceTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == ' ') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'SpaceTokenType'), ' ']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TabTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '	') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'TabTokenType'), '	']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewLineTokenType'), 'regex', /[\r\n]/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewLineTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	var tokens;
+	var index = -1;
+	while ($es4.$$call($es4.$$call(input, null, null, 'charAt', [index + 1]), null, null, 'match', [$es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewLineTokenType'), 'regex')]))
+	{
+		if (!tokens)
+		{
+			tokens = [];
+		}
+		$es4.$$call(tokens, null, null, 'push', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$call(input, null, null, 'charAt', [index + 1])])]);
+		index++;
+	}
+	return (index == -1) ? null : $es4.$$call(Token, null, null, 'getNewResult', [tokens, index]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UFOTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'UFOTokenType'), $es4.$$call(input, null, null, 'charAt', [0])]), 0]);
+}
+, '=');
+	});
+
+	//method
+	$es4.$$public_function('getNewToken', Token, (function ($$$$type, $$$$data)
+	{
+		if (Token.$$cinit !== undefined) Token.$$cinit();
+
+		//set default parameter values
+		var type = $es4.$$coerce($$$$type, String);
+		var data = $$$$data;
+
+		return {constructor:"token", type:type, data:data, line:NaN, position:NaN};
+	}));
+
+	//method
+	$es4.$$public_function('getNewResult', Token, (function ($$$$tokens, $$$$index)
+	{
+		if (Token.$$cinit !== undefined) Token.$$cinit();
+
+		//set default parameter values
+		var tokens = $$$$tokens;
+		var index = $es4.$$coerce($$$$index, Number);
+
+		if (!($es4.$$is(tokens, Array)))
+		{
+			tokens = [tokens];
+		}
+		return {tokens:tokens, index:index};
+	}));
+
+	//method
+	$es4.$$public_function('keywordFind2', Token, (function ($$$$input, $$$$keyword, $$$$TokenType, $$$$matchNext, $$$$requireWhitespace)
+	{
+		if (Token.$$cinit !== undefined) Token.$$cinit();
+
+		//set default parameter values
+		var input = $$$$input;
+		var keyword = $$$$keyword;
+		var TokenType = $$$$TokenType;
+		var matchNext = $$$$matchNext;
+		var requireWhitespace = $es4.$$coerce($$$$requireWhitespace, Boolean);
+
+		if ($es4.$$call(input, null, null, 'substring', [0, $es4.$$get(keyword, null, null, 'length')]) != keyword)
+		{
+			return null;
+		}
+		var cur = null;
+		var whitespace = 0;
+		var inputLength = $es4.$$get(input, null, null, 'length');
+		for (var i = $es4.$$get(keyword, null, null, 'length'); i < inputLength; i++)
+		{
+			cur = $es4.$$call(input, null, null, 'charAt', [i]);
+			if ($es4.$$get(Token, null, null, 'whitespaceCharacters', cur) === undefined)
+			{
+				break;
+			}
+			whitespace++;
+		}
+		if (requireWhitespace && whitespace === 0)
+		{
+			return null;
+		}
+		if ($es4.$$is(matchNext, String))
+		{
+			if (cur != matchNext)
+			{
+				return null;
+			}
+		}
+		else
+		{
+			if ($es4.$$get(matchNext, null, null, cur) === undefined)
+			{
+				return null;
+			}
+		}
+		return $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [TokenType, keyword]), $es4.$$get(keyword, null, null, 'length') - 1]);
+	}));
+
+	//method
+	$es4.$$public_function('keywordFind', Token, (function ($$$$input, $$$$TokenType, $$$$grammer)
+	{
+		if (Token.$$cinit !== undefined) Token.$$cinit();
+
+		//set default parameter values
+		var input = $$$$input;
+		var TokenType = $$$$TokenType;
+		var grammer = (2 > arguments.length - 1) ? null : $$$$grammer;
+
+		for (var i = 0; i < $es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'keyword', 'length'); i++)
+		{
+			if ($es4.$$call(Token, null, null, 'tokenFunctions', TokenType, 'keyword', 'charAt', [i]) !== $es4.$$call(input, null, null, 'charAt', [i]))
+			{
+				return null;
+			}
+		}
+		if (!$es4.$$call($es4.$$call(input, null, null, 'charAt', [i]), null, null, 'match', [$es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'terminator')]))
+		{
+			return null;
+		}
+		if (!grammer)
+		{
+			return $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [TokenType, $es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'keyword')]), $es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'keyword', 'length') - 1]);
+		}
+		var result = $es4.$$call(Lexer, null, null, 'lex', [$es4.$$call(input, null, null, 'slice', [$es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'keyword', 'length')]), grammer, true]);
+		$es4.$$call(result, null, null, 'tokens', 'unshift', [$es4.$$call(Token, null, null, 'getNewToken', [TokenType, $es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'keyword')])]);
+		return $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$get(result, null, null, 'tokens'), $es4.$$get(result, null, null, 'index') + $es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'keyword', 'length') - 1]);
+	}));
+
+	//method
+	$es4.$$public_function('regexFind', Token, (function ($$$$input, $$$$TokenType, $$$$regex)
+	{
+		if (Token.$$cinit !== undefined) Token.$$cinit();
+
+		//set default parameter values
+		var input = $$$$input;
+		var TokenType = $$$$TokenType;
+		var regex = (2 > arguments.length - 1) ? null : $$$$regex;
+
+		if (!regex)
+		{
+			regex = $es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'regex');
+		}
+		var match = $es4.$$call(input, null, null, 'match', [regex]);
+		if (!match)
+		{
+			return null;
+		}
+		return $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [TokenType, $es4.$$get(match, null, null, 0)]), $es4.$$get(match, null, null, 0, 'length') - 1]);
+	}));
+
+	function Token()
+	{
+		//initialize class if not initialized
+		if (Token.$$cinit !== undefined) Token.$$cinit();
+
+		//save scope
+		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
+		var $$thisp = this;
+
+		//handle possible cast
+		if ($$this === $$thisp && (!($$this instanceof Token) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Token) : $es4.$$throwArgumentError();
+		Object.defineProperty($$this, '$$t', {value:1});
+
+		//constructor
+		$es4.$$constructor($$thisp, (function ()
+		{
+		}));
+
+		//call construct if no arguments, or argument zero does not equal manual construct
+		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
+		{
+			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
+
+			$es4.$$construct($$this, $$args);
+		}
+	}
+
+	return $es4.$$class(Token, null, 'sweetrush.obj::Token');
+})();
+//sweetrush.obj.Token
+
+
+//sweetrush.core.TranslatorPrototype
+$es4.$$package('sweetrush.core').TranslatorPrototype = (function ()
+{
+	//imports
+	var Construct;
+	var Token;
+	var Base64Util;
+	var Analyzer;
+	var TranslatorPrototype;
+	var FileUtil;
+	var SwcUtil;
+	var Construct;
+	var TranslatorProto;
+	var Lexer;
+	var JsonUtil;
+	var Token;
+	var Parser;
+	var Transcompiler;
+
+	//class initializer
+	TranslatorPrototype.$$cinit = (function ()
+	{
+		TranslatorPrototype.$$cinit = undefined;
+
+		//initialize imports
+		Construct = $es4.$$['sweetrush.obj'].Construct;
+		Token = $es4.$$['sweetrush.obj'].Token;
+		Base64Util = $es4.$$['sweetrush.utils'].Base64Util;
+		Analyzer = $es4.$$['sweetrush.core'].Analyzer;
+		FileUtil = $es4.$$['sweetrush.utils'].FileUtil;
+		SwcUtil = $es4.$$['sweetrush.utils'].SwcUtil;
+		TranslatorProto = $es4.$$['sweetrush.core'].TranslatorProto;
+		Lexer = $es4.$$['sweetrush.core'].Lexer;
+		JsonUtil = $es4.$$['sweetrush.utils'].JsonUtil;
+		Parser = $es4.$$['sweetrush.core'].Parser;
+		Transcompiler = $es4.$$['sweetrush'].Transcompiler;
+	});
+
+	//method
+	$es4.$$public_function('translate', TranslatorPrototype, (function ($$$$rootConstruct, $$$$rootConstructs, $$$$dynamicPropertyAccess, $$$$release, $$$$fastPropertyAccess)
+	{
+		if (TranslatorPrototype.$$cinit !== undefined) TranslatorPrototype.$$cinit();
+
+		//set default parameter values
+		var rootConstruct = $$$$rootConstruct;
+		var rootConstructs = $$$$rootConstructs;
+		var dynamicPropertyAccess = (2 > arguments.length - 1) ? false : $es4.$$coerce($$$$dynamicPropertyAccess, Boolean);
+		var release = (3 > arguments.length - 1) ? false : $es4.$$coerce($$$$release, Boolean);
+		var fastPropertyAccess = (4 > arguments.length - 1) ? false : $es4.$$coerce($$$$fastPropertyAccess, Boolean);
+
+		var _rootConstruct = rootConstruct;
+		var _rootConstructs = rootConstructs;
+		var _indent = -1;
+		var _count = -1;
+		var _level = 0;
+		var _fastPropertyAccess = fastPropertyAccess = false;
+		var _dynamicPropertyAccess = false;
+		var _inClosure = false;
+		var _inNamespacedFunction = false;
+		var _inStaticFunction = false;
+		var _inIfStatement = 0;
+		var _importNameConflicts = {};
+		var _extendsNameConflict = false;
+
+		function upLevel() 
+		{
+			_indent++;
+			_level++;
+			return _level;
+		}
+;
+
+		function downLevel() 
+		{
+			_indent--;
+			_level--;
+			return _level;
+		}
+;
+
+		function lookupConstructInRootConstruct($$$$rootConstruct, $$$$object) 
+		{
+			//set default parameter values
+			var rootConstruct = $$$$rootConstruct;
+			var object = $$$$object;
+
+			if (!rootConstruct || !object)
+			{
+				throw $es4.$$primitive(new (Error)('cannot lookup empty rootConstruct/object: ' + rootConstruct + ', ' + object));
+			}
+			else if ($es4.$$is(object, String))
+			{
+				for (var i = 0; i < $es4.$$get(rootConstruct, null, null, 'classConstructs', 'length'); i++)
+				{
+					if ($es4.$$get(rootConstruct, null, null, 'classConstructs', i, 'identifierToken', 'data') == object)
+					{
+						return $es4.$$get(rootConstruct, null, null, 'classConstructs', i);
+					}
+				}
+				for (var i = 0; i < $es4.$$get(rootConstruct, null, null, 'interfaceConstructs', 'length'); i++)
+				{
+					if ($es4.$$get(rootConstruct, null, null, 'interfaceConstructs', i, 'identifierToken', 'data') == object)
+					{
+						return $es4.$$get(rootConstruct, null, null, 'interfaceConstructs', i);
+					}
+				}
+				if ($es4.$$get(rootConstruct, null, null, 'packageConstruct', 'classConstruct'))
+				{
+					return $es4.$$get(rootConstruct, null, null, 'packageConstruct', 'classConstruct');
+				}
+				if ($es4.$$get(rootConstruct, null, null, 'packageConstruct', 'interfaceConstruct'))
+				{
+					return $es4.$$get(rootConstruct, null, null, 'packageConstruct', 'interfaceConstruct');
+				}
+				if ($es4.$$get(rootConstruct, null, null, 'packageConstruct', 'propertyConstruct'))
+				{
+					return $es4.$$get(rootConstruct, null, null, 'packageConstruct', 'propertyConstruct');
+				}
+				if ($es4.$$get(rootConstruct, null, null, 'packageConstruct', 'methodConstruct'))
+				{
+					return $es4.$$get(rootConstruct, null, null, 'packageConstruct', 'methodConstruct');
+				}
+				throw $es4.$$primitive(new (Error)('could not lookup construct in construct: ' + object));
+			}
+			if ($es4.$$get(object, null, null, 'constructor') == $es4.$$get(Construct, null, null, 'NameConstruct'))
+			{
+				return lookupConstructInRootConstruct(rootConstruct, $es4.$$call(Construct, null, null, 'nameConstructToString', [object]));
+			}
+			else if ($es4.$$get(object, null, null, 'constructor') == $es4.$$get(Construct, null, null, 'ImportConstruct'))
+			{
+				return lookupConstructInRootConstruct(rootConstruct, $es4.$$call(Construct, null, null, 'nameConstructToString', [$es4.$$get(object, null, null, 'nameConstruct')]));
+			}
+		}
+;
+
+		var packageConstruct = $es4.$$get(rootConstruct, null, null, 'packageConstruct');
+		var js = print('$es4.$$package(\'' + ($es4.$$get(packageConstruct, null, null, 'nameConstruct') ? $es4.$$call(Construct, null, null, 'nameConstructToString', [$es4.$$get(packageConstruct, null, null, 'nameConstruct')]) : '') + '\').', _indent, 0);
+		if ($es4.$$get(packageConstruct, null, null, 'classConstruct'))
+		{
+			if ($es4.$$get(packageConstruct, null, null, 'classConstruct', 'UNIMPLEMENTEDToken'))
+			{
+				if (release)
+				{
+					js += $es4.$$get(packageConstruct, null, null, 'classConstruct', 'identifierToken', 'data') + ' = null;\n';
+					return js;
+				}
+				js = ($es4.$$get(packageConstruct, null, null, 'nameConstruct')) ? '$$package(\'' + $es4.$$call(Construct, null, null, 'nameConstructToString', [$es4.$$get(packageConstruct, null, null, 'nameConstruct')]) + '\')' : 'global';
+				js += '.' + $es4.$$get(packageConstruct, null, null, 'classConstruct', 'identifierToken', 'data');
+				js += ' = function () { throw new Error(\'Use of unimplemented class: ' + $es4.$$get(packageConstruct, null, null, 'classConstruct', 'identifierToken', 'data') + '\'); }';
+				js += '\n';
+				return js;
+			}
+			js += print(translateClassConstruct($es4.$$get(packageConstruct, null, null, 'classConstruct')), _indent, 0);
+		}
+		js += ($es4.$$get(packageConstruct, null, null, 'interfaceConstruct')) ? print(translateInterfaceConstruct($es4.$$get(packageConstruct, null, null, 'interfaceConstruct')), _indent, 0) : '';
+		js += ($es4.$$get(packageConstruct, null, null, 'propertyConstruct')) ? print(translatePropertyConstruct($es4.$$get(packageConstruct, null, null, 'propertyConstruct')), _indent, 0) : '';
+		if ($es4.$$get(packageConstruct, null, null, 'methodConstruct'))
+		{
+			if ($es4.$$get(packageConstruct, null, null, 'methodConstruct', 'UNIMPLEMENTEDToken'))
+			{
+				if (release)
+				{
+					js += $es4.$$get(packageConstruct, null, null, 'methodConstruct', 'identifierToken', 'data') + ' = null;\n';
+					return js;
+				}
+				js = ($es4.$$get(packageConstruct, null, null, 'nameConstruct')) ? '$es4.$$package(\'' + $es4.$$call(Construct, null, null, 'nameConstructToString', [$es4.$$get(packageConstruct, null, null, 'nameConstruct')]) + '\')' : 'global';
+				js += '.' + $es4.$$get(packageConstruct, null, null, 'methodConstruct', 'identifierToken', 'data');
+				js += ' = function () { throw new Error(\'Use of unimplemented function: ' + $es4.$$get(packageConstruct, null, null, 'methodConstruct', 'identifierToken', 'data') + '\'); }';
+				js += '\n';
+				return js;
+			}
+			_inStaticFunction = true;
+			js += print(translateFunctionConstruct($es4.$$get(packageConstruct, null, null, 'methodConstruct')), _indent, 0);
+		}
+		return js;
+
+		function getTranslatedTypeName($$$$type) 
+		{
+			//set default parameter values
+			var type = $$$$type;
+
+			if ($es4.$$get(type, null, null, 'name') == '*' || $es4.$$get(type, null, null, 'name') == 'void')
+			{
+				return '';
+			}
+			if ($es4.$$get(_importNameConflicts, null, null, $es4.$$get(type, null, null, 'name')))
+			{
+				var fullyQualifiedName = $es4.$$get(type, null, null, 'fullyQualifiedName');
+				var parts = $es4.$$call(fullyQualifiedName, null, null, 'split', ['.']);
+				var name = $es4.$$call(parts, null, null, 'pop', $es4.$$EMPTY_ARRAY);
+				return '$es4.$$[\'' + $es4.$$call(parts, null, null, 'join', ['.']) + '\'].' + name;
+			}
+			return $es4.$$get(type, null, null, 'name');
+		}
+;
+
+		function translateInterfaceConstruct($$$$construct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+
+			upLevel();
+			var js = print($es4.$$get(construct, null, null, 'identifierToken', 'data') + ' = (function ()', 0, 1);
+			js += print('{', _indent, 1);
+			js += print('function ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '()', _indent + 1, 1);
+			js += print('{', _indent + 1, 1);
+			js += print('//handle cast', _indent + 2, 1);
+			js += print('return $es4.$$as(arguments[0], ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ');', _indent + 2, 1);
+			js += print('}', _indent + 1, 1);
+			var comma = false;
+			var innerJS = '';
+			if ($es4.$$get(construct, null, null, 'extendsNameConstructs', 'length'))
+			{
+				innerJS += 'IMPLEMENTS:[';
+				for (var i = 0; i < $es4.$$get(construct, null, null, 'extendsNameConstructs', 'length'); i++)
+				{
+					if (comma)
+					{
+						innerJS += ', ';
+					}
+					var type = $es4.$$get(construct, null, null, 'extendsNameConstructs', i, 'type');
+					var innerConstruct = lookupConstructInRootConstruct($es4.$$get(construct, null, null, 'rootConstruct'), $es4.$$get(construct, null, null, 'extendsNameConstructs', i));
+					if ($es4.$$get(innerConstruct, null, null, 'isInternal'))
+					{
+						innerJS += comma = $es4.$$get(type, null, null, 'fullyQualifiedName');
+					}
+					else
+					{
+						innerJS += comma = '\'' + $es4.$$get(type, null, null, 'fullyQualifiedName') + '\'';
+					}
+				}
+				innerJS += comma = ']';
+			}
+			if (!$es4.$$get(construct, null, null, 'isInternal'))
+			{
+				if ($es4.$$get(_rootConstruct, null, null, 'classConstructs', 'length'))
+				{
+					if (comma)
+					{
+						innerJS += ', ';
+					}
+					innerJS += 'CLASSES:[';
+					comma = false;
+					for (var i = 0; i < $es4.$$get(_rootConstruct, null, null, 'classConstructs', 'length'); i++)
+					{
+						if (comma)
+						{
+							innerJS += ', ';
+						}
+						innerJS += comma = $es4.$$get(_rootConstruct, null, null, 'classConstructs', i, 'identifierToken', 'data');
+					}
+					innerJS += comma = ']';
+				}
+				if ($es4.$$get(_rootConstruct, null, null, 'interfaceConstructs', 'length'))
+				{
+					if (comma)
+					{
+						innerJS += ', ';
+					}
+					innerJS += 'INTERFACES:[';
+					comma = false;
+					for (var i = 0; i < $es4.$$get(_rootConstruct, null, null, 'interfaceConstructs', 'length'); i++)
+					{
+						if (comma)
+						{
+							innerJS += ', ';
+						}
+						innerJS += comma = $es4.$$get(_rootConstruct, null, null, 'interfaceConstructs', i, 'identifierToken', 'data');
+					}
+					innerJS += comma = ']';
+				}
+			}
+			var packageName = $es4.$$get(construct, null, null, 'packageName');
+			var fullyQualifiedName = (packageName) ? packageName + '::' + $es4.$$get(construct, null, null, 'identifierToken', 'data') : $es4.$$get(construct, null, null, 'identifierToken', 'data');
+			if (innerJS)
+			{
+				js += print('return $es4.$$interface(' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ', ', _indent + 1, 0, 1);
+				js += '{' + innerJS + '}';
+				js += print(', \'' + fullyQualifiedName + '\');', 0, 1);
+			}
+			else
+			{
+				js += print('return $es4.$$interface(' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ', null, ', _indent + 1, 0);
+				js += print('\'' + fullyQualifiedName + '\');', 0, 1);
+			}
+			js += print('})();', _indent, 1);
+			downLevel();
+			return js;
+		}
+;
+
+		function translatePropertyConstruct($$$$construct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+
+			return print($es4.$$get(construct, null, null, 'identifierToken', 'data') + ' = $es4.$$namespace(' + translateExpression($es4.$$get(construct, null, null, 'valueExpression'), _indent, false, construct) + ', true);', 0, 1);
+		}
+;
+
+		function translateFunctionConstruct($$$$construct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+
+			upLevel();
+			var importConstructs = $es4.$$get(_rootConstruct, null, null, 'packageConstruct', 'importConstructs');
+			var js = '';
+			var innerJS;
+			var cr = false;
+			var accessor = $es4.$$get(construct, null, null, 'getToken') || $es4.$$get(construct, null, null, 'setToken');
+			js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + ' = (function ()', 0, 1);
+			js += print('{', _indent, 1);
+			js += print('var $$this = ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ', $$thisp = ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ';', _indent + 1, 1);
+			js += (innerJS = translateImports(construct)) ? cr = innerJS : '';
+			js += (innerJS = translateClassInitializer(construct)) ? cr = print(innerJS, 0, 0, (cr) ? 1 : 0) : '';
+			js += (innerJS = translateClassFunction(construct)) ? print(innerJS, 0, 0, 1) : '';
+			if (accessor)
+			{
+				js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$pcinit = ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ';', _indent + 1, 1, 1);
+				js += print('return ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ';', _indent + 1, 1, 0);
+			}
+			else
+			{
+				js += print('return $es4.$$function (' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ');', _indent + 1, 1, 1);
+			}
+			js += print('})();', _indent, 1);
+			downLevel();
+			return js;
+
+			function translateImports($$$$construct) 
+			{
+				//set default parameter values
+				var construct = $$$$construct;
+
+				var js = '';
+				if ($es4.$$get(importConstructs, null, null, 'length'))
+				{
+					js += print('//imports', _indent + 1, 1);
+				}
+				for (var i = 0; i < $es4.$$get(importConstructs, null, null, 'length'); i++)
+				{
+					js += print('var ' + $es4.$$get(importConstructs, null, null, i, 'nameConstruct', 'identifierTokens', $es4.$$get(importConstructs, null, null, i, 'nameConstruct', 'identifierTokens', 'length') - 1, 'data') + ';', _indent + 1, 1);
+				}
+				return js;
+			}
+;
+
+			function translateClassInitializer($$$$construct) 
+			{
+				//set default parameter values
+				var construct = $$$$construct;
+
+				_inStaticFunction = true;
+				var js = print('//function initializer', _indent + 1, 1);
+				js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit = (function ()', _indent + 1, 1);
+				js += print('{', _indent + 1, 1);
+				js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit = undefined;', _indent + 2, 1);
+				var importConstructs = ($es4.$$get(construct, null, null, 'isInternal')) ? $es4.$$get(_rootConstruct, null, null, 'importConstructs') : $es4.$$get(_rootConstruct, null, null, 'packageConstruct', 'importConstructs');
+				if ($es4.$$get(importConstructs, null, null, 'length'))
+				{
+					js += print('//initialize imports', _indent + 2, 1, 1);
+				}
+				var importNames = {};
+				$es4.$$set(importNames, null, null, $es4.$$get(construct, null, null, 'identifierToken', 'data'), true, '=');
+				for (var i = 0; i < $es4.$$get(importConstructs, null, null, 'length'); i++)
+				{
+					var name = $es4.$$get(importConstructs, null, null, i, 'nameConstruct', 'identifierTokens', $es4.$$get(importConstructs, null, null, i, 'nameConstruct', 'identifierTokens', 'length') - 1, 'data');
+					var packageName = '';
+					if ($es4.$$get(importConstructs, null, null, i, 'nameConstruct', 'identifierTokens', 'length') > 1)
+					{
+						var fullyQualifiedName = $es4.$$call(Construct, null, null, 'nameConstructToString', [$es4.$$get(importConstructs, null, null, i, 'nameConstruct')]);
+						fullyQualifiedName = $es4.$$call(fullyQualifiedName, null, null, 'split', ['.']);
+						$es4.$$call(fullyQualifiedName, null, null, 'pop', $es4.$$EMPTY_ARRAY);
+						packageName = $es4.$$call(fullyQualifiedName, null, null, 'join', ['.']);
+					}
+					if ($es4.$$get(importNames, null, null, name))
+					{
+						$es4.$$set(_importNameConflicts, null, null, name, true, '=');
+						continue;
+					}
+					else
+					{
+						$es4.$$set(importNames, null, null, name, true, '=');
+					}
+					js += print(name + ' = $es4.$$[\'' + packageName + '\'].' + name + ';', _indent + 2, 1);
+				}
+				js += print('});', _indent + 1, 1);
+				_inStaticFunction = false;
+				return js;
+			}
+;
+
+			function translateClassFunction($$$$construct) 
+			{
+				//set default parameter values
+				var construct = $$$$construct;
+
+				upLevel();
+				var js = '';
+				if (accessor)
+				{
+					var name = $es4.$$get(construct, null, null, 'getToken') ? 'getter' : 'setter';
+					js += print('function ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '() { $es4.$$' + name + '(\'' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '\', ' + '$es4.$$package(\'' + ($es4.$$get(construct, null, null, 'packageConstruct', 'nameConstruct') ? $es4.$$call(Construct, null, null, 'nameConstructToString', [$es4.$$get(construct, null, null, 'packageConstruct', 'nameConstruct')]) : '') + '\'), (function ()', _indent, 1);
+				}
+				else
+				{
+					js += print('function ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '(', _indent, 0);
+				}
+				js += translateParameters(construct, construct);
+				if (!accessor)
+				{
+					js += print(')', 0, (_indent) ? 1 : 0);
+				}
+				js += print('{', _indent, (_indent) ? 1 : 0);
+				js += print('//initialize function if not initialized', _indent + 1, 1);
+				js += print('if (' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit !== undefined) ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit();', _indent + 1, 2);
+				js += translateDefaultParameterValues(construct, construct);
+				if (accessor)
+				{
+					js += print('//change reference', _indent + 1, 1, 1);
+					js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + ' = this;', _indent + 1, $es4.$$get(construct, null, null, 'bodyStatements', 'length') ? 2 : 1);
+				}
+				if ($es4.$$get(construct, null, null, 'isJavaScript'))
+				{
+					js += $es4.$$get(construct, null, null, 'javaScriptString');
+				}
+				else
+				{
+					js += translateStatements($es4.$$get(construct, null, null, 'bodyStatements'), _indent + 1, construct);
+				}
+				if (accessor)
+				{
+					js += print('})', ($es4.$$get(construct, null, null, 'isJavaScript')) ? 0 : _indent, 0);
+					js += print(');}', 0, 1);
+				}
+				else
+				{
+					js += print('}', 0, 1);
+				}
+				downLevel();
+				return js;
+			}
+;
+		}
+;
+
+		function translateClassConstruct($$$$construct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+
+			var js = '';
+			upLevel();
+			_extendsNameConflict = $es4.$$get(construct, null, null, 'extendsNameConflict');
+			var innerJS;
+			var cr = false;
+			js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + ' = (function ()', 0, 1);
+			js += print('{', _indent, 1);
+			js += (innerJS = translateImports(construct)) ? cr = innerJS : '';
+			js += (innerJS = translateNamespaces(construct, true)) ? cr = print(innerJS, 0, 0, (cr) ? 1 : 0) : '';
+			js += (innerJS = translateStaticProperties(construct)) ? cr = print(innerJS, 0, 0, (cr) ? 1 : 0) : '';
+			js += (innerJS = translateClassPreInitializer(construct)) ? cr = print(innerJS, 0, 0, (cr) ? 1 : 0) : '';
+			js += (innerJS = translateClassInitializer(construct)) ? cr = print(innerJS, 0, 0, (cr) ? 1 : 0) : '';
+			js += (innerJS = translateStaticMethods(construct)) ? print(innerJS, 0, 0, 1) : '';
+			js += (innerJS = translateStaticAccessors(construct)) ? print(innerJS, 0, 0, 1) : '';
+			js += (innerJS = translateClassFunction(construct)) ? print(innerJS, 0, 0, 1) : '';
+			js += (innerJS = translateConstruct(construct)) ? print(innerJS, 0, 0, 1) : '';
+			js += (innerJS = translateInitializer(construct)) ? print(innerJS, 0, 0, 1) : '';
+			js += (innerJS = translateConstructor(construct)) ? print(innerJS, 0, 0, 1) : '';
+			js += (innerJS = translateInternalClasses(construct)) ? print(innerJS, 0, 0, 1) : '';
+			js += (innerJS = translateInternalInterfaces(construct)) ? print(innerJS, 0, 0, 1) : '';
+			js += (innerJS = translateClassReturnStatement(construct)) ? print(innerJS, 0, 0, 1) : '';
+			js += print('})();', _indent, 1);
+			downLevel();
+			return js;
+		}
+;
+
+		function translateClassPreInitializer($$$$construct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+
+			_inStaticFunction = true;
+			var js = print('//class pre initializer', _indent + 1, 1);
+			js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$sinit = (function ()', _indent + 1, 1);
+			js += print('{', _indent + 1, 1);
+			js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$sinit = undefined;', _indent + 2, 2);
+			var importConstructs = ($es4.$$get(construct, null, null, 'isInternal')) ? $es4.$$get(_rootConstruct, null, null, 'importConstructs') : $es4.$$get(_rootConstruct, null, null, 'packageConstruct', 'importConstructs');
+			if ($es4.$$get(importConstructs, null, null, 'length'))
+			{
+				js += print('//initialize imports', _indent + 2, 1);
+			}
+			var found = false;
+			var extraCR = 0;
+			var importNames = {};
+			$es4.$$set(importNames, null, null, $es4.$$get(construct, null, null, 'identifierToken', 'data'), true, '=');
+			for (var i = 0; i < $es4.$$get(importConstructs, null, null, 'length'); i++)
+			{
+				found = true;
+				var name = $es4.$$get(importConstructs, null, null, i, 'nameConstruct', 'identifierTokens', $es4.$$get(importConstructs, null, null, i, 'nameConstruct', 'identifierTokens', 'length') - 1, 'data');
+				var packageName = '';
+				if ($es4.$$get(importConstructs, null, null, i, 'nameConstruct', 'identifierTokens', 'length') > 1)
+				{
+					var fullyQualifiedName = $es4.$$call(Construct, null, null, 'nameConstructToString', [$es4.$$get(importConstructs, null, null, i, 'nameConstruct')]);
+					fullyQualifiedName = $es4.$$call(fullyQualifiedName, null, null, 'split', ['.']);
+					$es4.$$call(fullyQualifiedName, null, null, 'pop', $es4.$$EMPTY_ARRAY);
+					packageName = $es4.$$call(fullyQualifiedName, null, null, 'join', ['.']);
+				}
+				if ($es4.$$get(importNames, null, null, name))
+				{
+					$es4.$$set(_importNameConflicts, null, null, name, true, '=');
+					continue;
+				}
+				else
+				{
+					$es4.$$set(importNames, null, null, name, true, '=');
+				}
+				extraCR = 1;
+				js += print(name + ' = $es4.$$[\'' + packageName + '\'].' + name + ';', _indent + 2, 1);
+			}
+			var className = $es4.$$get(construct, null, null, 'identifierToken', 'data');
+			var superClassName = 'Object';
+			if ($es4.$$get(construct, null, null, 'extendsNameConstruct'))
+			{
+				superClassName = getTranslatedTypeName($es4.$$get(construct, null, null, 'extendsNameConstruct', 'type'));
+				js += print('//ensure $$sinit is called on super class', _indent + 2, 1, extraCR);
+				js += print('if (' + superClassName + '.$$sinit !== undefined) ' + superClassName + '.$$sinit();', _indent + 2, 1);
+			}
+			js += print('//set prototype and constructor', _indent + 2, 1, extraCR);
+			js += print(className + '.prototype = Object.create(' + superClassName + '.prototype);', _indent + 2, 1);
+			js += print('Object.defineProperty(' + className + '.prototype, "constructor", { value: ' + className + ', enumerable: false });', _indent + 2, 2);
+			extraCR = 0;
+			js += print('//hold private values', _indent + 2, 1);
+			js += print('Object.defineProperty(' + className + '.prototype, \'$$v\', {value:{}});', _indent + 2, 1);
+			var innerJS;
+			js += (innerJS = translateInstanceMethods(construct)) ? print(innerJS, 0, 0, 1) : '';
+			js += (innerJS = translateInstanceAccessors(construct)) ? print(innerJS, 0, 0, 1) : '';
+			js += (innerJS = translateInstanceProperties(construct)) ? print(innerJS, 0, 0, 1) : '';
+			js += print('});', _indent + 1, 1);
+			_inStaticFunction = false;
+			return js;
+		}
+;
+
+		function translateClassInitializer($$$$construct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+
+			_inStaticFunction = true;
+			var js = print('//class initializer', _indent + 1, 1);
+			js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit = (function ()', _indent + 1, 1);
+			js += print('{', _indent + 1, 1);
+			js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit = undefined;', _indent + 2, 1);
+			var found = false;
+			for (var i = 0; i < $es4.$$get(construct, null, null, 'propertyConstructs', 'length'); i++)
+			{
+				var propertyConstruct = $es4.$$get(construct, null, null, 'propertyConstructs', i);
+				if (!$es4.$$get(propertyConstruct, null, null, 'staticToken'))
+				{
+					continue;
+				}
+				if ($es4.$$get(propertyConstruct, null, null, 'translatedEarlier'))
+				{
+					continue;
+				}
+				if (!found)
+				{
+					found = true;
+					js += print('//initialize properties', _indent + 2, 1, 1);
+				}
+				var namespaceObj = $es4.$$get(propertyConstruct, null, null, 'identifier', 'namespaceObj');
+				var type = getTranslatedTypeName($es4.$$get(propertyConstruct, null, null, 'identifier', 'type'));
+				js += print('$$j.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + ' = ', _indent + 2, 0);
+				if (type)
+				{
+					js += '$es4.$$coerce(';
+				}
+				js += ($es4.$$get(propertyConstruct, null, null, 'valueExpression')) ? translateExpression($es4.$$get(propertyConstruct, null, null, 'valueExpression'), _indent, false, construct) : 'undefined';
+				if (type)
+				{
+					js += ', ' + type + ')';
+				}
+				js += print(';', 0, 1);
+			}
+			if (found)
+			{
+				js += print('', _indent + 1, 1);
+			}
+			js += translateStatements($es4.$$get(construct, null, null, 'initializerStatements'), _indent + 2, construct);
+			js += print('});', _indent + 1, 1);
+			_inStaticFunction = false;
+			return js;
+		}
+;
+
+		function translateClassFunction($$$$construct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+
+			var js = '';
+			upLevel();
+			var js = print('function ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '()', _indent, 1);
+			js += print('{', _indent, 1);
+			js += print('var $$this;', _indent + 1, 2);
+			js += print('//save scope', _indent + 1, 1);
+			js += print('if (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) $$this = arguments[1];', _indent + 1, 1);
+			js += print('else', _indent + 1, 1);
+			js += print('{', _indent + 1, 1);
+			js += print('var $$this = this;', _indent + 2, 2);
+			js += print('if (!($$this instanceof ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ') || $$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + ' !== undefined) return (arguments.length !== 0) ? $es4.$$as(arguments[0], ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ') : $es4.$$throwArgumentError();', _indent + 2, 1);
+			js += print('}', _indent + 1, 1);
+			var innerJS;
+			js += print('//call construct if no arguments, or argument zero does not equal manual construct', _indent + 1, 1, 1);
+			js += print('if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)', _indent + 1, 1);
+			js += print('{', _indent + 1, 1);
+			js += print('for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];', _indent + 2, 2);
+			js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$construct($$this, $$args);', _indent + 2, 1);
+			js += print('}', _indent + 1, 1);
+			js += print('}', _indent, 1);
+			downLevel();
+			return js;
+		}
+;
+
+		function translateConstruct($$$$construct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+
+			_inStaticFunction = true;
+			var js = print('//construct', _indent + 1, 1);
+			js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$construct = (function ($$this, args)', _indent + 1, 1);
+			js += print('{', _indent + 1, 1);
+			js += print('//initialize function if not initialized', _indent + 2, 1);
+			js += print('if (' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit !== undefined) ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit();', _indent + 2, 2);
+			js += print('//hold property values, and methods', _indent + 2, 1);
+			js += print('Object.defineProperty($$this, \'$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '\', {value:{$$this:$$this, $$p:{}, $$ns:{}}});', _indent + 2, 2);
+			upLevel();
+			var innerJS;
+			innerJS = translateNamespaces(construct, false);
+			if (innerJS)
+			{
+				js += print(innerJS, 0, 0, 1);
+			}
+			js += translateNamespaceInstanceMethods(construct);
+			downLevel();
+			var propertyConstructs = $es4.$$get(construct, null, null, 'instancePropertyConstructs');
+			for (var i = 0; i < $es4.$$get(propertyConstructs, null, null, 'length'); i++)
+			{
+				var propertyConstruct = $es4.$$get(propertyConstructs, null, null, i);
+				var namespaceObj = $es4.$$get(propertyConstruct, null, null, 'identifier', 'namespaceObj');
+				if (!$es4.$$get(namespaceObj, null, null, 'isPrivate'))
+				{
+					continue;
+				}
+				js += print('Object.defineProperty($$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + ', \'' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + '\', ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.prototype.$$v.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + ');', _indent + 2, 1);
+			}
+			for (var i = 0; i < $es4.$$get(construct, null, null, 'instanceAccessorConstructs', 'length'); i++)
+			{
+				var setterMethodConstruct = $es4.$$get(construct, null, null, 'instanceAccessorConstructs', i, 'setter');
+				var getterMethodConstruct = $es4.$$get(construct, null, null, 'instanceAccessorConstructs', i, 'getter');
+				var methodConstruct = setterMethodConstruct || getterMethodConstruct;
+				var namespaceObj = $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj');
+				var isPrivate = $es4.$$get(methodConstruct, null, null, 'namespaceToken', 'data') == 'private';
+				if (!isPrivate)
+				{
+					continue;
+				}
+				js += print('Object.defineProperty($$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + ', \'' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '\', ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.prototype.$$v.' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + ');', _indent + 2, 1);
+			}
+			js += print(innerJS, 0, 0, 1);
+			for (var i = 0; i < $es4.$$get(construct, null, null, 'instanceMethodConstructs', 'length'); i++)
+			{
+				var methodConstruct = $es4.$$get(construct, null, null, 'instanceMethodConstructs', i);
+				var namespaceObj = $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj');
+				if ($es4.$$get(namespaceObj, null, null, 'isCustom'))
+				{
+					continue;
+				}
+				if (!$es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj', 'isPrivate'))
+				{
+					continue;
+				}
+				var type = $es4.$$get(methodConstruct, null, null, 'identifier', 'type');
+				js += print('//' + $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj', 'name') + ' instance method', _indent + 2, 1);
+				js += print('Object.defineProperty($$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + ', \'' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '\', ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.prototype.$$v.' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + ');', _indent + 2, 2);
+			}
+			if ($es4.$$get(construct, null, null, 'extendsNameConstruct'))
+			{
+				var superClassName = getTranslatedTypeName($es4.$$get(construct, null, null, 'extendsNameConstruct', 'type'));
+				js += print('//call construct on super', _indent + 2, 1);
+				js += print(superClassName + '.$$construct($$this);', _indent + 2, 2, 0);
+			}
+			js += print('//initialize properties', _indent + 2, 1);
+			js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$iinit($$this);', _indent + 2, 2, 0);
+			js += print('//call constructor', _indent + 2, 1);
+			js += print('if (args !== undefined) ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$constructor.apply($$this, args);', _indent + 2, 1, 0);
+			js += print('});', _indent + 1, 1);
+			_inStaticFunction = false;
+			return js;
+		}
+;
+
+		function translateInitializer($$$$construct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+
+			_inStaticFunction = true;
+			var js = print('//initializer', _indent + 1, 1);
+			js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$iinit = (function ($$this)', _indent + 1, 1);
+			js += print('{', _indent + 1, 1);
+			var found = false;
+			for (var i = 0; i < $es4.$$get(construct, null, null, 'instancePropertyConstructs', 'length'); i++)
+			{
+				var propertyConstruct = $es4.$$get(construct, null, null, 'instancePropertyConstructs', i);
+				if (!found)
+				{
+					found = true;
+					js += print('//initialize properties', _indent + 2, 1);
+				}
+				var namespaceObj = $es4.$$get(propertyConstruct, null, null, 'identifier', 'namespaceObj');
+				var type = getTranslatedTypeName($es4.$$get(propertyConstruct, null, null, 'identifier', 'type'));
+				if (!$es4.$$get(namespaceObj, null, null, 'isPrivate'))
+				{
+					js += print('$$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + ' = ', _indent + 2, 0);
+				}
+				else
+				{
+					js += print('$$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.$$p.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + ' = ', _indent + 2, 0);
+				}
+				if (type)
+				{
+					js += '$es4.$$coerce(';
+				}
+				js += ($es4.$$get(propertyConstruct, null, null, 'valueExpression')) ? translateExpression($es4.$$get(propertyConstruct, null, null, 'valueExpression'), _indent, false, construct) : 'undefined';
+				if (type)
+				{
+					js += ', ' + type + ')';
+				}
+				js += print(';', 0, 1);
+			}
+			if (found)
+			{
+				js += print('', _indent + 1, 1);
+			}
+			if ($es4.$$get(construct, null, null, 'extendsNameConstruct'))
+			{
+				var superClassName = getTranslatedTypeName($es4.$$get(construct, null, null, 'extendsNameConstruct', 'type'));
+				js += print('//call iinit on super', _indent + 2, 1);
+				js += print(superClassName + '.$$iinit($$this);', _indent + 2, 1, 0);
+			}
+			js += print('});', _indent + 1, 1);
+			_inStaticFunction = false;
+			return js;
+		}
+;
+
+		function translateConstructor($$$$construct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+
+			upLevel();
+			var methodConstruct = $es4.$$get(construct, null, null, 'constructorMethodConstruct');
+			var js = print('//constructor', _indent, 1);
+			js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$constructor = (function (', _indent, 0);
+			if (methodConstruct)
+			{
+				js += translateParameters(methodConstruct, construct);
+			}
+			js += print(')', 0, 1);
+			js += print('{', _indent, 1);
+			js += print('var $$this = this;', _indent + 1, 1, 0);
+			if (methodConstruct)
+			{
+				js += translateDefaultParameterValues(methodConstruct, construct);
+			}
+			var carriage = false;
+			if ($es4.$$get(construct, null, null, 'extendsNameConstruct') && (!methodConstruct || (methodConstruct && !$es4.$$get(methodConstruct, null, null, 'callsSuper'))))
+			{
+				var superClassName = getTranslatedTypeName($es4.$$get(construct, null, null, 'extendsNameConstruct', 'type'));
+				js += print(superClassName + '.$$constructor.call($$this);', _indent + 1, 1, 1);
+				carriage = true;
+			}
+			if (methodConstruct)
+			{
+				var innerJS = print(translateStatements($es4.$$get(methodConstruct, null, null, 'bodyStatements'), _indent + 1, construct), 0, 0);
+				if (innerJS && carriage)
+				{
+					js += print('', 0, 1);
+				}
+				if (innerJS)
+				{
+					js += innerJS;
+				}
+			}
+			js += print('});', _indent, 1);
+			downLevel();
+			return js;
+		}
+;
+
+		function translateInternalClasses($$$$construct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+
+			if ($es4.$$get(construct, null, null, 'isInternal'))
+			{
+				return '';
+			}
+			var js = '';
+			for (var i = 0; i < $es4.$$get(_rootConstruct, null, null, 'classConstructs', 'length'); i++)
+			{
+				if (js)
+				{
+					js += print('', 0, 1);
+				}
+				js += print('////////////////INTERNAL CLASS////////////////', _indent + 1, 1);
+				js += print('var ' + translateClassConstruct($es4.$$get(_rootConstruct, null, null, 'classConstructs', i)), 1, 0);
+			}
+			return js;
+		}
+;
+
+		function translateInternalInterfaces($$$$construct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+
+			if ($es4.$$get(construct, null, null, 'isInternal'))
+			{
+				return '';
+			}
+			var js = '';
+			for (var i = 0; i < $es4.$$get(_rootConstruct, null, null, 'interfaceConstructs', 'length'); i++)
+			{
+				if (js)
+				{
+					js += print('', 0, 1);
+				}
+				js += print('////////////////INTERNAL INTERFACE////////////////', _indent + 1, 1);
+				js += print('var ' + translateInterfaceConstruct($es4.$$get(_rootConstruct, null, null, 'interfaceConstructs', i)), 1, 0);
+			}
+			return js;
+		}
+;
+
+		function translateClassReturnStatement($$$$construct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+
+			var js = print('return $es4.$$class(' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ', ', _indent + 1, 0);
+			var comma = false;
+			var innerJS = '';
+			if ($es4.$$get(construct, null, null, 'extendsNameConstruct'))
+			{
+				var type = $es4.$$get(construct, null, null, 'extendsNameConstruct', 'type');
+				var innerConstruct = lookupConstructInRootConstruct($es4.$$get(construct, null, null, 'rootConstruct'), $es4.$$get(construct, null, null, 'extendsNameConstruct'));
+				if ($es4.$$get(innerConstruct, null, null, 'isInternal'))
+				{
+					innerJS += comma = 'EXTENDS:' + $es4.$$get(type, null, null, 'fullyQualifiedName');
+				}
+				else
+				{
+					innerJS += comma = 'EXTENDS:\'' + $es4.$$get(type, null, null, 'fullyQualifiedName') + '\'';
+				}
+			}
+			if ($es4.$$get(construct, null, null, 'implementsNameConstructs', 'length'))
+			{
+				if (comma)
+				{
+					innerJS += ', ';
+				}
+				innerJS += 'IMPLEMENTS:[';
+				comma = false;
+				for (var i = 0; i < $es4.$$get(construct, null, null, 'implementsNameConstructs', 'length'); i++)
+				{
+					if (comma)
+					{
+						innerJS += ', ';
+					}
+					var type = $es4.$$get(construct, null, null, 'implementsNameConstructs', i, 'type');
+					var innerConstruct = lookupConstructInRootConstruct($es4.$$get(construct, null, null, 'rootConstruct'), $es4.$$get(construct, null, null, 'implementsNameConstructs', i));
+					if ($es4.$$get(innerConstruct, null, null, 'isInternal'))
+					{
+						innerJS += comma = $es4.$$get(type, null, null, 'fullyQualifiedName');
+					}
+					else
+					{
+						innerJS += comma = '\'' + $es4.$$get(type, null, null, 'fullyQualifiedName') + '\'';
+					}
+				}
+				innerJS += comma = ']';
+			}
+			if (!$es4.$$get(construct, null, null, 'isInternal'))
+			{
+				if ($es4.$$get(_rootConstruct, null, null, 'classConstructs', 'length'))
+				{
+					if (comma)
+					{
+						innerJS += ', ';
+					}
+					innerJS += 'CLASSES:[';
+					comma = false;
+					for (var i = 0; i < $es4.$$get(_rootConstruct, null, null, 'classConstructs', 'length'); i++)
+					{
+						if (comma)
+						{
+							innerJS += ', ';
+						}
+						innerJS += comma = $es4.$$get(_rootConstruct, null, null, 'classConstructs', i, 'identifierToken', 'data');
+					}
+					innerJS += comma = ']';
+				}
+				if ($es4.$$get(_rootConstruct, null, null, 'interfaceConstructs', 'length'))
+				{
+					if (comma)
+					{
+						innerJS += ', ';
+					}
+					innerJS += 'INTERFACES:[';
+					comma = false;
+					for (var i = 0; i < $es4.$$get(_rootConstruct, null, null, 'interfaceConstructs', 'length'); i++)
+					{
+						if (comma)
+						{
+							innerJS += ', ';
+						}
+						innerJS += comma = $es4.$$get(_rootConstruct, null, null, 'interfaceConstructs', i, 'identifierToken', 'data');
+					}
+					innerJS += comma = ']';
+				}
+			}
+			var packageName = $es4.$$get(construct, null, null, 'packageName');
+			var fullyQualifiedName = (packageName) ? packageName + '::' + $es4.$$get(construct, null, null, 'identifierToken', 'data') : $es4.$$get(construct, null, null, 'identifierToken', 'data');
+			if (innerJS)
+			{
+				js += '{' + innerJS + '}';
+				js += print(', \'' + fullyQualifiedName + '\');', 0, 1);
+			}
+			else
+			{
+				js = print('return $es4.$$class(' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ', null, ', _indent + 1, 0);
+				js += print('\'' + fullyQualifiedName + '\');', 0, 1);
+			}
+			return js;
+		}
+;
+
+		function translateImports($$$$construct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+
+			var js = '';
+			var importConstructs = ($es4.$$get(construct, null, null, 'isInternal')) ? $es4.$$get(_rootConstruct, null, null, 'importConstructs') : $es4.$$get(_rootConstruct, null, null, 'packageConstruct', 'importConstructs');
+			if ($es4.$$get(importConstructs, null, null, 'length'))
+			{
+				js += print('//imports', _indent + 1, 1);
+			}
+			for (var i = 0; i < $es4.$$get(importConstructs, null, null, 'length'); i++)
+			{
+				js += print('var ' + $es4.$$get(importConstructs, null, null, i, 'nameConstruct', 'identifierTokens', $es4.$$get(importConstructs, null, null, i, 'nameConstruct', 'identifierTokens', 'length') - 1, 'data') + ';', _indent + 1, 1);
+			}
+			return js;
+		}
+;
+
+		function translateNamespaces($$$$construct, $$$$isClassLevel) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+			var isClassLevel = $$$$isClassLevel;
+
+			var js = '';
+			var propertyConstructs = $es4.$$get(construct, null, null, 'namespacePropertyConstructs');
+			var counter = 0;
+			for (var i = 0; i < $es4.$$get(propertyConstructs, null, null, 'length'); i++)
+			{
+				var propertyConstruct = $es4.$$get(propertyConstructs, null, null, i);
+				if (!js)
+				{
+					js += print('//namespaces', _indent + 1, 1);
+				}
+				js += print('$es4.$$' + $es4.$$get(propertyConstruct, null, null, 'identifier', 'namespaceObj', 'name') + '_namespace(' + ($es4.$$get(propertyConstruct, null, null, 'valueExpression') ? translateExpression($es4.$$get(propertyConstruct, null, null, 'valueExpression'), _indent, false, construct) : '\'$$uniqueNS_' + (counter++) + '_' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '\'') + ', ' + ((isClassLevel) ? $es4.$$get(construct, null, null, 'identifierToken', 'data') : ($es4.$$get(propertyConstruct, null, null, 'namespaceToken', 'data') == 'private' ? ('$$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.$$ns') : '$$this')) + ', \'' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + '\');', _indent + 1, 1);
+			}
+			return js;
+		}
+;
+
+		function translateStaticProperties($$$$construct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+
+			var js = '';
+			var propertyConstructs = $es4.$$get(construct, null, null, 'staticPropertyConstructs');
+			for (var i = 0; i < $es4.$$get(propertyConstructs, null, null, 'length'); i++)
+			{
+				var propertyConstruct = $es4.$$get(propertyConstructs, null, null, i);
+				if (!js)
+				{
+					js += print('//properties', _indent + 1, 1);
+					js += print('var $$j = {};', _indent + 1, 1);
+				}
+				var namespaceObj = $es4.$$get(propertyConstruct, null, null, 'identifier', 'namespaceObj');
+				var type = $es4.$$get(propertyConstruct, null, null, 'identifier', 'type');
+				var scope = $es4.$$get(construct, null, null, 'identifierToken', 'data');
+				if ($es4.$$get(namespaceObj, null, null, 'isCustom'))
+				{
+					throw $es4.$$primitive(new (Error)('custom static properties not supported at the moment'));
+				}
+				var returnString = getTranslatedTypeName(type);
+				if ($es4.$$get(propertyConstruct, null, null, 'constToken') && $es4.$$get(propertyConstruct, null, null, 'valueExpression'))
+				{
+					if (returnString == 'String' || returnString == 'uint' || returnString == 'int' || returnString == 'Number' || returnString == 'Boolean')
+					{
+						var constructor = $es4.$$get(propertyConstruct, null, null, 'valueExpression', 'constructor');
+						if (constructor === $es4.$$get(Construct, null, null, 'StringExpression') || constructor === $es4.$$get(Construct, null, null, 'NumberExpression') || constructor === $es4.$$get(Construct, null, null, 'BooleanExpression'))
+						{
+							var valueJS = translateExpression($es4.$$get(propertyConstruct, null, null, 'valueExpression'), _indent, false, construct);
+							var coerce = false;
+							if (constructor === $es4.$$get(Construct, null, null, 'StringExpression') && returnString != 'String')
+							{
+								coerce = true;
+							}
+							else if (constructor === $es4.$$get(Construct, null, null, 'BooleanExpression') && returnString != 'Boolean')
+							{
+								coerce = true;
+							}
+							else if (constructor === $es4.$$get(Construct, null, null, 'NumberExpression'))
+							{
+								if (returnString == 'uint')
+								{
+									if (parseInt(valueJS) != (valueJS >>> 0))
+									{
+										coerce = true;
+									}
+								}
+								else if (returnString == 'int')
+								{
+									if (parseInt(valueJS) != (valueJS >> 0))
+									{
+										coerce = true;
+									}
+								}
+							}
+							if (coerce)
+							{
+								js += print(scope + '.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + ' = $es4.$$coerce(' + valueJS + ', ' + returnString + ');', _indent + 1, 1);
+							}
+							else
+							{
+								js += print(scope + '.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + ' = ' + valueJS + ';', _indent + 1, 1);
+							}
+							$es4.$$set(propertyConstruct, null, null, 'translatedEarlier', true, '=');
+							continue;
+						}
+					}
+				}
+				js += print('Object.defineProperty(' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ', \'' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + '\', {', _indent + 1, 1);
+				js += print('get:function () { ', _indent + 1, 0);
+				js += 'if (' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit !== undefined) ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit(); ';
+				js += print('return $$j.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + '; },', 0, 1);
+				js += print('set:function (value) { ', _indent + 1, 0);
+				js += 'if (' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit !== undefined) ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit(); ';
+				if (returnString)
+				{
+					js += print('$$j.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + ' = $es4.$$coerce(value, ' + returnString + '); }', 0, 1);
+				}
+				else
+				{
+					js += print('$$j.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + ' = value }', 0, 1);
+				}
+				js += print('});', _indent + 1, 2);
+			}
+			return js;
+		}
+;
+
+		function translateInstanceProperties($$$$construct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+
+			var js = '';
+			var propertyConstructs = $es4.$$get(construct, null, null, 'instancePropertyConstructs');
+			for (var i = 0; i < $es4.$$get(propertyConstructs, null, null, 'length'); i++)
+			{
+				var propertyConstruct = $es4.$$get(propertyConstructs, null, null, i);
+				if (!js)
+				{
+					js += print('//properties', _indent + 2, 1);
+				}
+				var namespaceObj = $es4.$$get(propertyConstruct, null, null, 'identifier', 'namespaceObj');
+				if ($es4.$$get(namespaceObj, null, null, 'isCustom'))
+				{
+					throw $es4.$$primitive(new (Error)('custom namespace properties not supported at this time'));
+				}
+				var returnString = getTranslatedTypeName($es4.$$get(propertyConstruct, null, null, 'identifier', 'type'));
+				if ($es4.$$get(namespaceObj, null, null, 'isPrivate'))
+				{
+					js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.prototype.$$v.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + ' = {', _indent + 2, 1);
+					js += print('get:function () { var $$this = this.$$this; return $$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.$$p.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + '; },', _indent + 2, 1);
+					if (returnString)
+					{
+						js += print('set:function (value) { var $$this = this.$$this; $$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.$$p.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + ' = $es4.$$coerce(value, ' + returnString + '); }', _indent + 2, 1);
+					}
+					else
+					{
+						js += print('set:function (value) { var $$this = this.$$this; $$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.$$p.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + ' = value }', _indent + 2, 1);
+					}
+					js += print('};', _indent + 2, 2);
+					continue;
+				}
+				js += print('Object.defineProperty(' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.prototype, \'' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + '\', {', _indent + 2, 1);
+				js += print('get:function () { var $$this = this; return $$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + '; },', _indent + 2, 1);
+				if (returnString)
+				{
+					js += print('set:function (value) { var $$this = this; $$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + ' = $es4.$$coerce(value, ' + returnString + '); }', _indent + 2, 1);
+				}
+				else
+				{
+					js += print('set:function (value) { var $$this = this; $$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + ' = value }', _indent + 2, 1);
+				}
+				js += print('});', _indent + 2, 2);
+			}
+			return js;
+		}
+;
+
+		function translateStaticMethods($$$$construct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+
+			var js = '';
+			for (var i = 0; i < $es4.$$get(construct, null, null, 'staticMethodConstructs', 'length'); i++)
+			{
+				var methodConstruct = $es4.$$get(construct, null, null, 'staticMethodConstructs', i);
+				var namespaceObj = $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj');
+				if ($es4.$$get(methodConstruct, null, null, 'isJavaScript'))
+				{
+					if ($es4.$$get(namespaceObj, null, null, 'isCustom'))
+					{
+						js += translateCustomNamespaceJavaScriptStaticMethod(construct, methodConstruct);
+					}
+					else
+					{
+						js += translateNoCustomNamespaceJavaScriptStaticMethod(construct, methodConstruct);
+					}
+				}
+				else
+				{
+					if ($es4.$$get(namespaceObj, null, null, 'isCustom'))
+					{
+						js += translateCustomNamespaceStaticMethod(construct, methodConstruct);
+					}
+					else
+					{
+						js += translateNoCustomNamespaceStaticMethod(construct, methodConstruct);
+					}
+				}
+				if (i + 1 < $es4.$$get(construct, null, null, 'staticMethodConstructs', 'length'))
+				{
+					js += print('', 0, 2);
+				}
+			}
+			return js;
+		}
+;
+
+		function translateNoCustomNamespaceJavaScriptStaticMethod($$$$construct, $$$$methodConstruct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+			var methodConstruct = $$$$methodConstruct;
+
+			_inStaticFunction = true;
+			var js = '';
+			var namespaceObj = $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj');
+			var type = $es4.$$get(methodConstruct, null, null, 'identifier', 'type');
+			upLevel();
+			js += print('//' + $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj', 'name') + ' static method', _indent, 1, (js) ? 1 : 0);
+			if (getTranslatedTypeName(type))
+			{
+				js += translateJavaScriptWithReturnTypeStaticMethod(construct, methodConstruct);
+			}
+			else
+			{
+				js += translateJavaScriptWithoutReturnTypeStaticMethod(construct, methodConstruct);
+			}
+			downLevel();
+			_inStaticFunction = false;
+			return js;
+
+			function translateJavaScriptWithReturnTypeStaticMethod($$$$construct, $$$$methodConstruct) 
+			{
+				//set default parameter values
+				var construct = $$$$construct;
+				var methodConstruct = $$$$methodConstruct;
+
+				var js = '';
+				js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + ' = (function () { return $es4.$$coerce((function (', _indent, 0);
+				js += translateParameters(methodConstruct, construct);
+				js += print(')', 0, 1);
+				js += print('{', _indent, 1);
+				js += print('if (' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit !== undefined) ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit();', _indent + 1, 2);
+				js += translateDefaultParameterValues(methodConstruct, construct);
+				js += $es4.$$get(methodConstruct, null, null, 'javaScriptString');
+				js += print('', 0, 1);
+				js += print('}).apply(this, arguments), ' + getTranslatedTypeName(type) + ');});', _indent, 1);
+				return js;
+			}
+;
+
+			function translateJavaScriptWithoutReturnTypeStaticMethod($$$$construct, $$$$methodConstruct) 
+			{
+				//set default parameter values
+				var construct = $$$$construct;
+				var methodConstruct = $$$$methodConstruct;
+
+				var js = '';
+				js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + ' = (function (', _indent, 0);
+				js += translateParameters(methodConstruct, construct);
+				js += print(')', 0, 1);
+				js += print('{', _indent, 1);
+				js += print('if (' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit !== undefined) ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit();', _indent + 1, 2);
+				js += translateDefaultParameterValues(methodConstruct, construct);
+				js += $es4.$$get(methodConstruct, null, null, 'javaScriptString');
+				js += print('', _indent, 1);
+				js += print('});', _indent, 0);
+				return js;
+			}
+;
+		}
+;
+
+		function translateCustomNamespaceJavaScriptStaticMethod($$$$construct, $$$$methodConstruct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+			var methodConstruct = $$$$methodConstruct;
+
+			return 'TODO translateCustomNamespaceJavaScriptStaticMethod';
+		}
+;
+
+		function translateNoCustomNamespaceStaticMethod($$$$construct, $$$$methodConstruct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+			var methodConstruct = $$$$methodConstruct;
+
+			_inStaticFunction = true;
+			var js = '';
+			var namespaceObj = $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj');
+			upLevel();
+			var type = $es4.$$get(methodConstruct, null, null, 'identifier', 'type');
+			js += print('//' + $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj', 'name') + ' static method', _indent, 1, (js) ? 1 : 0);
+			js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + ' = (function (', _indent, 0);
+			js += translateParameters(methodConstruct, construct);
+			js += print(')', 0, 1);
+			js += print('{', _indent, ($es4.$$get(methodConstruct, null, null, 'isJavaScript')) ? 0 : 1);
+			js += print('if (' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit !== undefined) ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit();', _indent + 1, 2);
+			js += translateDefaultParameterValues(methodConstruct, construct);
+			if ($es4.$$get(methodConstruct, null, null, 'UNIMPLEMENTEDToken') && release)
+			{
+				js += print("throw new Error('" + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + "');", 0, 0);
+			}
+			else
+			{
+				js += print(translateStatements($es4.$$get(methodConstruct, null, null, 'bodyStatements'), _indent + 1, construct), 0, 0);
+			}
+			js += print('});', _indent, 0);
+			downLevel();
+			_inStaticFunction = false;
+			return js;
+		}
+;
+
+		function translateCustomNamespaceStaticMethod($$$$construct, $$$$methodConstruct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+			var methodConstruct = $$$$methodConstruct;
+
+			return 'TODO translateCustomNamespaceStaticMethod';
+		}
+;
+
+		function translateInstanceMethods($$$$construct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+
+			var js = '';
+			for (var i = 0; i < $es4.$$get(construct, null, null, 'instanceMethodConstructs', 'length'); i++)
+			{
+				var methodConstruct = $es4.$$get(construct, null, null, 'instanceMethodConstructs', i);
+				var namespaceObj = $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj');
+				var type = $es4.$$get(methodConstruct, null, null, 'identifier', 'type');
+				if ($es4.$$get(methodConstruct, null, null, 'isJavaScript'))
+				{
+					if ($es4.$$get(namespaceObj, null, null, 'isCustom'))
+					{
+						continue;
+					}
+					else
+					{
+						js += translateNoCustomNamespaceJavaScriptInstanceMethod(construct, methodConstruct);
+					}
+				}
+				else
+				{
+					if ($es4.$$get(namespaceObj, null, null, 'isCustom'))
+					{
+						continue;
+					}
+					else
+					{
+						js += translateNoCustomNamespaceInstanceMethod(construct, methodConstruct);
+					}
+				}
+				if (i + 1 < $es4.$$get(construct, null, null, 'instanceMethodConstructs', 'length'))
+				{
+					js += print('', 0, 2);
+				}
+			}
+			return js;
+		}
+;
+
+		function translateNamespaceInstanceMethods($$$$construct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+
+			var js = '';
+			for (var i = 0; i < $es4.$$get(construct, null, null, 'instanceMethodConstructs', 'length'); i++)
+			{
+				var methodConstruct = $es4.$$get(construct, null, null, 'instanceMethodConstructs', i);
+				var namespaceObj = $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj');
+				var type = $es4.$$get(methodConstruct, null, null, 'identifier', 'type');
+				if (!$es4.$$get(namespaceObj, null, null, 'isCustom'))
+				{
+					continue;
+				}
+				if ($es4.$$get(methodConstruct, null, null, 'isJavaScript'))
+				{
+					js += translateCustomNamespaceJavaScriptInstanceMethod(construct, methodConstruct);
+				}
+				else
+				{
+					js += translateCustomNamespaceInstanceMethod(construct, methodConstruct);
+				}
+				if (i + 1 < $es4.$$get(construct, null, null, 'instanceMethodConstructs', 'length'))
+				{
+					js += print('', 0, 2);
+				}
+			}
+			return js;
+		}
+;
+
+		function translateCustomNamespaceInstanceMethod($$$$construct, $$$$methodConstruct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+			var methodConstruct = $$$$methodConstruct;
+
+			upLevel();
+			upLevel();
+			var js = '';
+			var namespaceObj = $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj');
+			var type = $es4.$$get(methodConstruct, null, null, 'identifier', 'type');
+			js += print('//custom namespace method', _indent, 1, 1);
+			var namespaceString = ($es4.$$get(namespaceObj, null, null, 'importID')) ? ', ' + $es4.$$get(namespaceObj, null, null, 'normalizedImportID') : ', ' + ($es4.$$get(namespaceObj, null, null, 'namespaceIsPrivate') ? ('$$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.$$ns.') : '$$this.') + $es4.$$get(namespaceObj, null, null, 'normalizedName');
+			js += print('$es4.$$cnamespace_function(\'' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '\', $$this, ' + ('$$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.$$ns') + namespaceString + ', (function (', _indent, 0);
+			js += translateParameters(methodConstruct, construct);
+			js += print(')', 0, 1);
+			js += print('{', _indent, 1);
+			js += translateDefaultParameterValues(methodConstruct, construct);
+			if ($es4.$$get(methodConstruct, null, null, 'UNIMPLEMENTEDToken') && release)
+			{
+				js += print("throw new Error('" + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + "');", 0, 0);
+			}
+			else
+			{
+				_inNamespacedFunction = ($es4.$$get(namespaceObj, null, null, 'importID')) ? $es4.$$get(namespaceObj, null, null, 'importID') : ('$$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.$$ns.') + $es4.$$get(namespaceObj, null, null, 'name');
+				js += print(translateStatements($es4.$$get(methodConstruct, null, null, 'bodyStatements'), _indent + 1, construct), 0, 0);
+				_inNamespacedFunction = false;
+			}
+			js += print('})', _indent, 0);
+			js += print(');', 0, 1);
+			downLevel();
+			downLevel();
+			return js;
+		}
+;
+
+		function translateNoCustomNamespaceInstanceMethod($$$$construct, $$$$methodConstruct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+			var methodConstruct = $$$$methodConstruct;
+
+			upLevel();
+			upLevel();
+			var js = '';
+			var namespaceObj = $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj');
+			var type = $es4.$$get(methodConstruct, null, null, 'identifier', 'type');
+			js += print('//' + $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj', 'name') + ' instance method', _indent, 1);
+			js += ($es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj', 'isPrivate')) ? translatePrivate() : translateOther();
+			downLevel();
+			downLevel();
+			return js;
+
+			function translatePrivate() 
+			{
+				var js = '';
+				js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.prototype.$$v.' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + ' = {', _indent, 1);
+				js += print('get:function ()', _indent, 1);
+				js += print('{', _indent, 1);
+				js += print('var $$this = this.$$this;', _indent + 1, 2);
+				upLevel();
+				js += print('function ' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '(', _indent, 0);
+				js += translateParameters(methodConstruct, construct);
+				js += print(')', 0, 1);
+				js += print('{', _indent, 1);
+				js += translateDefaultParameterValues(methodConstruct, construct);
+				if ($es4.$$get(methodConstruct, null, null, 'UNIMPLEMENTEDToken') && release)
+				{
+					js += print("throw new Error('" + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + "');", 0, 0);
+				}
+				else
+				{
+					js += print(translateStatements($es4.$$get(methodConstruct, null, null, 'bodyStatements'), _indent + 1, construct), 0, 0);
+				}
+				js += print('}', _indent, 2);
+				var name = '$$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.$$p.$$' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data');
+				js += print('return ' + name + ' || (' + name + ' = ' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + ');', _indent, 1);
+				downLevel();
+				js += print('}};', _indent, 1);
+				return js;
+			}
+;
+
+			function translateOther() 
+			{
+				var js = '';
+				js += print('Object.defineProperty(' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.prototype, \'' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '\', {', _indent, 1);
+				js += print('get:function ()', _indent, 1);
+				js += print('{', _indent, 1);
+				js += print('var $$this = this;', _indent + 1, 2);
+				upLevel();
+				js += print('function ' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '(', _indent, 0);
+				js += translateParameters(methodConstruct, construct);
+				js += print(')', 0, 1);
+				js += print('{', _indent, 1);
+				js += translateDefaultParameterValues(methodConstruct, construct);
+				if ($es4.$$get(methodConstruct, null, null, 'UNIMPLEMENTEDToken') && release)
+				{
+					js += print("throw new Error('" + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + "');", 0, 0);
+				}
+				else
+				{
+					js += print(translateStatements($es4.$$get(methodConstruct, null, null, 'bodyStatements'), _indent + 1, construct), 0, 0);
+				}
+				js += print('}', _indent, 2);
+				var name = '$$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.$$' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data');
+				js += print('return ' + name + ' || (' + name + ' = ' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + ');', _indent, 1);
+				downLevel();
+				js += print('}});', _indent, 1);
+				return js;
+			}
+;
+		}
+;
+
+		function translateNoCustomNamespaceJavaScriptInstanceMethod($$$$construct, $$$$methodConstruct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+			var methodConstruct = $$$$methodConstruct;
+
+			upLevel();
+			upLevel();
+			var js = '';
+			var namespaceObj = $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj');
+			var type = $es4.$$get(methodConstruct, null, null, 'identifier', 'type');
+			js += print('//' + $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj', 'name') + ' instance method', _indent, 1);
+			js += ($es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj', 'isPrivate')) ? translatePrivate() : translateOther();
+			downLevel();
+			downLevel();
+			return js;
+
+			function translatePrivate() 
+			{
+				var js = '';
+				js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.prototype.$$v.' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + ' = {', _indent, 1);
+				js += print('get:function ()', _indent, 1);
+				js += print('{', _indent, 1);
+				js += print('var $$this = this.$$this;', _indent + 1, 2);
+				upLevel();
+				js += print('function ' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '(', _indent, 0);
+				js += translateParameters(methodConstruct, construct);
+				js += print(')', 0, 1);
+				js += print('{', _indent, 1);
+				js += translateDefaultParameterValues(methodConstruct, construct);
+				js += $es4.$$get(methodConstruct, null, null, 'javaScriptString');
+				js += print('', 0, 1);
+				js += print('}', _indent, 2);
+				var name = '$$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.$$p.$$' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data');
+				if (getTranslatedTypeName(type))
+				{
+					js += print('return ' + name + ' || (' + name + ' = function () { return $es4.$$coerce(' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '.apply($$this, arguments), ' + getTranslatedTypeName(type) + '); });', _indent, 1);
+				}
+				else
+				{
+					js += print('return ' + name + ' || (' + name + ' = function () { return ' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '.apply($$this, arguments); });', _indent, 1);
+				}
+				downLevel();
+				js += print('}};', _indent, 1);
+				return js;
+			}
+;
+
+			function translateOther() 
+			{
+				var js = '';
+				js += print('Object.defineProperty(' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.prototype, \'' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '\', {', _indent, 0);
+				js += print(' get:function ()', 0, 0);
+				js += print(' {', 0, 0);
+				js += print(' var $$this = this; ', 0, 0);
+				js += print('return $$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + ' || ' + '($$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + ' = ', 0, 0);
+				if (getTranslatedTypeName(type))
+				{
+					js += print('function () { return $es4.$$coerce(' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '.apply($$this, arguments), ' + getTranslatedTypeName(type) + '); }); }});', 0, 1);
+				}
+				else
+				{
+					js += print('function () { return ' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '.apply($$this, arguments); }); }});', 0, 1);
+				}
+				js += print('function ' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '(', _indent, 0);
+				js += translateParameters(methodConstruct, construct);
+				js += print(')', 0, 1);
+				js += print('{', _indent, (!$es4.$$get(methodConstruct, null, null, 'parameterConstructs', 'length')) ? 0 : 1);
+				js += translateDefaultParameterValues(methodConstruct, construct);
+				js += $es4.$$get(methodConstruct, null, null, 'javaScriptString');
+				js += print('}', 0, 1);
+				return js;
+			}
+;
+		}
+;
+
+		function translateCustomNamespaceJavaScriptInstanceMethod($$$$construct, $$$$methodConstruct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+			var methodConstruct = $$$$methodConstruct;
+
+			return 'TODO translateCustomNamespaceJavaScriptInstanceMethod';
+		}
+;
+
+		function translateStaticAccessors($$$$construct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+
+			_inStaticFunction = true;
+			var js = '';
+
+			function getMethodConstructJS($$$$methodConstruct, $$$$type) 
+			{
+				//set default parameter values
+				var methodConstruct = $$$$methodConstruct;
+				var type = $$$$type;
+
+				if (!methodConstruct)
+				{
+					return 'null';
+				}
+				upLevel();
+				var js = 'function (';
+				js += translateParameters(methodConstruct, construct);
+				js += print(')', 0, 1);
+				js += print('{', _indent, ($es4.$$get(methodConstruct, null, null, 'javaScriptString')) ? 0 : 1);
+				js += print('if (' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit !== undefined) ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit();', _indent + 1, ($es4.$$get(methodConstruct, null, null, 'isJavaScript')) ? 0 : 2);
+				js += translateDefaultParameterValues(methodConstruct, construct);
+				if ($es4.$$get(methodConstruct, null, null, 'isNative'))
+				{
+					throw $es4.$$primitive(new (Error)('accessor cannot be native: ' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data')));
+				}
+				if ($es4.$$get(methodConstruct, null, null, 'isJavaScript'))
+				{
+					js += $es4.$$get(methodConstruct, null, null, 'javaScriptString');
+				}
+				else if ($es4.$$get(methodConstruct, null, null, 'UNIMPLEMENTEDToken') && release)
+				{
+					js += print("throw new Error('" + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + "');", 0, 0);
+				}
+				else
+				{
+					js += translateStatements($es4.$$get(methodConstruct, null, null, 'bodyStatements'), _indent + 1, construct);
+				}
+				js += print('}', ($es4.$$get(methodConstruct, null, null, 'javaScriptString')) ? 0 : _indent, 0);
+				downLevel();
+				return js;
+			}
+;
+
+			for (var i = 0; i < $es4.$$get(construct, null, null, 'staticAccessorConstructs', 'length'); i++)
+			{
+				var setterMethodConstruct = $es4.$$get(construct, null, null, 'staticAccessorConstructs', i, 'setter');
+				var getterMethodConstruct = $es4.$$get(construct, null, null, 'staticAccessorConstructs', i, 'getter');
+				var methodConstruct = setterMethodConstruct || getterMethodConstruct;
+				if ($es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj', 'isCustom'))
+				{
+					throw $es4.$$primitive(new (Error)('custom namespaced accessor not supported at this time'));
+				}
+				var namespaceObj = $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj');
+				js += print('Object.defineProperty(' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ', \'' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '\', {', _indent + 1, 0);
+				var type = (getterMethodConstruct) ? $es4.$$get(getterMethodConstruct, null, null, 'identifier', 'type') : $es4.$$get(setterMethodConstruct, null, null, 'identifier', 'type');
+				if (getterMethodConstruct)
+				{
+					js += 'get:';
+					if ($es4.$$get(methodConstruct, null, null, 'isJavaScript') && getTranslatedTypeName(type))
+					{
+						js += 'function () { return $es4.$$coerce((';
+					}
+					js += getMethodConstructJS(getterMethodConstruct, type);
+					if ($es4.$$get(methodConstruct, null, null, 'isJavaScript') && getTranslatedTypeName(type))
+					{
+						js += ')(), ' + getTranslatedTypeName(type) + ');}';
+					}
+					if (setterMethodConstruct)
+					{
+						js += ', ';
+					}
+				}
+				if (setterMethodConstruct)
+				{
+					js += 'set:';
+					js += getMethodConstructJS(setterMethodConstruct, type);
+				}
+				js += print('});', 0, 1);
+			}
+			_inStaticFunction = false;
+			return js;
+		}
+;
+
+		function translateInstanceAccessors($$$$construct) 
+		{
+			//set default parameter values
+			var construct = $$$$construct;
+
+			upLevel();
+			var js = '';
+
+			function getMethodConstructJS($$$$methodConstruct, $$$$type, $$$$isPrivate) 
+			{
+				//set default parameter values
+				var methodConstruct = $$$$methodConstruct;
+				var type = $$$$type;
+				var isPrivate = $$$$isPrivate;
+
+				if (!methodConstruct)
+				{
+					return 'null';
+				}
+				upLevel();
+				var js = 'function (';
+				js += translateParameters(methodConstruct, construct);
+				js += print(')', 0, 1);
+				js += print('{', _indent, ($es4.$$get(methodConstruct, null, null, 'javaScriptString')) ? 0 : 1);
+				js += translateDefaultParameterValues(methodConstruct, construct);
+				if ($es4.$$get(methodConstruct, null, null, 'isNative'))
+				{
+					throw $es4.$$primitive(new (Error)('accessor cannot be native: ' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data')));
+				}
+				if (!isPrivate)
+				{
+					js += print('var $$this = this;', _indent + 1, 1);
+				}
+				else
+				{
+					js += print('var $$this = this.$$this;', _indent + 1, 1);
+				}
+				if ($es4.$$get(methodConstruct, null, null, 'isJavaScript'))
+				{
+					js += $es4.$$get(methodConstruct, null, null, 'javaScriptString');
+				}
+				else if ($es4.$$get(methodConstruct, null, null, 'UNIMPLEMENTEDToken') && release)
+				{
+					js += print("throw new Error('" + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + "');", 0, 0);
+				}
+				else
+				{
+					js += translateStatements($es4.$$get(methodConstruct, null, null, 'bodyStatements'), _indent + 1, construct);
+				}
+				js += print('}', ($es4.$$get(methodConstruct, null, null, 'javaScriptString')) ? 0 : _indent, 0);
+				downLevel();
+				return js;
+			}
+;
+
+			for (var i = 0; i < $es4.$$get(construct, null, null, 'instanceAccessorConstructs', 'length'); i++)
+			{
+				var setterMethodConstruct = $es4.$$get(construct, null, null, 'instanceAccessorConstructs', i, 'setter');
+				var getterMethodConstruct = $es4.$$get(construct, null, null, 'instanceAccessorConstructs', i, 'getter');
+				var methodConstruct = setterMethodConstruct || getterMethodConstruct;
+				if ($es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj', 'isCustom'))
+				{
+					throw $es4.$$primitive(new (Error)('custom namespaced accessor not supported at this time'));
+				}
+				var namespaceObj = $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj');
+				var isPrivate = $es4.$$get(methodConstruct, null, null, 'namespaceToken', 'data') == 'private';
+				var hasGet = false;
+				if (isPrivate)
+				{
+					js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.prototype.$$v.' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + ' = {', _indent + 1, 0);
+				}
+				else
+				{
+					js += print('Object.defineProperty(' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.prototype, \'' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '\', {', _indent + 1, 0);
+				}
+				var type = (getterMethodConstruct) ? $es4.$$get(getterMethodConstruct, null, null, 'identifier', 'type') : $es4.$$get(setterMethodConstruct, null, null, 'identifier', 'type');
+				if (!getterMethodConstruct && $es4.$$get(methodConstruct, null, null, 'overrideToken'))
+				{
+					hasGet = true;
+					js += 'get:function ()';
+					js += print('{', _indent + 1, 1, 1);
+					js += print('var $$this = this; return $es4.$$super2($$this, ' + getTranslatedTypeName($es4.$$get(construct, null, null, 'extendsNameConstruct', 'type')) + ', \'$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '\', \'' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '\', \'get\');', _indent + 2, 0);
+					js += print('}', _indent + 1, 0, 1);
+				}
+				else if (getterMethodConstruct)
+				{
+					hasGet = true;
+					js += 'get:';
+					if ($es4.$$get(methodConstruct, null, null, 'isJavaScript') && getTranslatedTypeName(type))
+					{
+						js += 'function () { return $es4.$$coerce((';
+					}
+					js += getMethodConstructJS(getterMethodConstruct, type, isPrivate);
+					if ($es4.$$get(methodConstruct, null, null, 'isJavaScript') && getTranslatedTypeName(type))
+					{
+						js += ')(), ' + getTranslatedTypeName(type) + ');}';
+					}
+				}
+				if (!setterMethodConstruct && $es4.$$get(methodConstruct, null, null, 'overrideToken'))
+				{
+					if (hasGet)
+					{
+						js += ', ';
+					}
+					js += 'set:function ($$value)';
+					js += print('{', _indent + 1, 1, 1);
+					js += print('var $$this = this; $es4.$$super2($$this, ' + getTranslatedTypeName($es4.$$get(construct, null, null, 'extendsNameConstruct', 'type')) + ', \'$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '\', \'' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '\', \'set\', $$value);', _indent + 2, 0);
+					js += print('}', _indent + 1, 0, 1);
+				}
+				else if (setterMethodConstruct)
+				{
+					if (hasGet)
+					{
+						js += ', ';
+					}
+					js += 'set:';
+					js += getMethodConstructJS(setterMethodConstruct, type, isPrivate);
+				}
+				if (isPrivate)
+				{
+					js += print('};', 0, 1);
+				}
+				else
+				{
+					js += print('});', 0, 1);
+				}
+			}
+			downLevel();
+			return js;
+		}
+;
+
+		function translateParameters($$$$methodConstruct, $$$$construct) 
+		{
+			//set default parameter values
+			var methodConstruct = $$$$methodConstruct;
+			var construct = $$$$construct;
+
+			var js = '';
+			for (var i = 0; i < $es4.$$get(methodConstruct, null, null, 'parameterConstructs', 'length'); i++)
+			{
+				var parameterConstruct = $es4.$$get(methodConstruct, null, null, 'parameterConstructs', i);
+				js += '$$$$' + $es4.$$get(parameterConstruct, null, null, 'identifierToken', 'data');
+				if ((i + 1) < $es4.$$get(methodConstruct, null, null, 'parameterConstructs', 'length'))
+				{
+					js += ', ';
+				}
+			}
+			return js;
+		}
+;
+
+		function translateDefaultParameterValues($$$$methodConstruct, $$$$construct) 
+		{
+			//set default parameter values
+			var methodConstruct = $$$$methodConstruct;
+			var construct = $$$$construct;
+
+			var js = '';
+			for (var i = 0; i < $es4.$$get(methodConstruct, null, null, 'parameterConstructs', 'length'); i++)
+			{
+				var parameterConstruct = $es4.$$get(methodConstruct, null, null, 'parameterConstructs', i);
+				if (!js)
+				{
+					js += print('//set default parameter values', _indent + 1, 1);
+				}
+				if ($es4.$$get(parameterConstruct, null, null, 'restToken') || $es4.$$get(parameterConstruct, null, null, 'valueExpression'))
+				{
+					if ($es4.$$get(parameterConstruct, null, null, 'restToken'))
+					{
+						js += print('for (var $$i = ' + ($es4.$$get(methodConstruct, null, null, 'parameterConstructs', 'length') - 1) + ', $$length = arguments.length, ' + $es4.$$get(parameterConstruct, null, null, 'identifierToken', 'data') + ' = new Array($$length - ' + ($es4.$$get(methodConstruct, null, null, 'parameterConstructs', 'length') - 1) + '); $$i < $$length; $$i += 1) ' + $es4.$$get(parameterConstruct, null, null, 'identifierToken', 'data') + '[$$i - ' + ($es4.$$get(methodConstruct, null, null, 'parameterConstructs', 'length') - 1) + '] = arguments[$$i];', _indent + 1, 1);
+					}
+					else if ($es4.$$get(parameterConstruct, null, null, 'valueExpression'))
+					{
+						var coerceType = getTranslatedTypeName($es4.$$get(parameterConstruct, null, null, 'identifier', 'type'));
+						if (coerceType)
+						{
+							js += print('var ' + $es4.$$get(parameterConstruct, null, null, 'identifierToken', 'data') + ' = (' + i + ' > arguments.length - 1) ? ' + translateExpression($es4.$$get(parameterConstruct, null, null, 'valueExpression'), 0, false, construct) + ' : $es4.$$coerce($$$$' + $es4.$$get(parameterConstruct, null, null, 'identifierToken', 'data') + ', ' + coerceType + ');', _indent + 1, 1);
+						}
+						else
+						{
+							js += print('var ' + $es4.$$get(parameterConstruct, null, null, 'identifierToken', 'data') + ' = (' + i + ' > arguments.length - 1) ? ' + translateExpression($es4.$$get(parameterConstruct, null, null, 'valueExpression'), 0, false, construct) + ' : $$$$' + $es4.$$get(parameterConstruct, null, null, 'identifierToken', 'data') + ';', _indent + 1, 1);
+						}
+					}
+				}
+				else
+				{
+					var coerceType = getTranslatedTypeName($es4.$$get(parameterConstruct, null, null, 'identifier', 'type'));
+					if (coerceType)
+					{
+						js += print('var ' + $es4.$$get(parameterConstruct, null, null, 'identifierToken', 'data') + ' = $es4.$$coerce($$$$' + $es4.$$get(parameterConstruct, null, null, 'identifierToken', 'data') + ', ' + coerceType + ');', _indent + 1, 1);
+					}
+					else
+					{
+						js += print('var ' + $es4.$$get(parameterConstruct, null, null, 'identifierToken', 'data') + ' = $$$$' + $es4.$$get(parameterConstruct, null, null, 'identifierToken', 'data') + ';', _indent + 1, 1);
+					}
+				}
+			}
+			if (js)
+			{
+				js += print('', 0, 1);
+			}
+			return js;
+		}
+;
+
+		function translateStatements($$$$statements, $$$$indent, $$$$construct) 
+		{
+			//set default parameter values
+			var statements = $$$$statements;
+			var indent = $$$$indent;
+			var construct = $$$$construct;
+
+			if (!indent)
+			{
+				indent = _indent;
+			}
+			else
+			{
+				indent--;
+			}
+			var js = '';
+			for (var i = 0; i < $es4.$$get(statements, null, null, 'length'); i++)
+			{
+				var statement = $es4.$$get(statements, null, null, i);
+				if (i != 0 && $es4.$$get(statements, null, null, i - 1, 'constructor') != $es4.$$get(Construct, null, null, 'FunctionExpression') && $es4.$$get(statements, null, null, i, 'constructor') == $es4.$$get(Construct, null, null, 'FunctionExpression'))
+				{
+					js += '\n';
+				}
+				js += translateStatement(statement, indent + 1, false, construct);
+				if (i + 1 < $es4.$$get(statements, null, null, 'length') && $es4.$$get(statement, null, null, 'constructor') == 'FunctionExpression')
+				{
+					js += '\n';
+				}
+			}
+			return js;
+		}
+;
+
+		function translateStatement($$$$statement, $$$$_indent, $$$$inline, $$$$construct) 
+		{
+			//set default parameter values
+			var statement = $$$$statement;
+			var _indent = $$$$_indent;
+			var inline = $$$$inline;
+			var construct = $$$$construct;
+
+			if (!construct)
+			{
+				throw $es4.$$primitive(new (Error)('construct null in translate statement'));
+			}
+			var js = '';
+			switch ($es4.$$get(statement, null, null, 'constructor'))
+			{
+				case $es4.$$get(Construct, null, null, 'EmptyStatement'):
+					break;
+				case $es4.$$get(Construct, null, null, 'IfStatement'):
+					_inIfStatement++;
+					js += print('if (' + translateExpression($es4.$$get(statement, null, null, 'conditionExpression'), _indent, false, construct) + ')', _indent, 1);
+					js += print('{', _indent, 1);
+					js += translateStatements($es4.$$get(statement, null, null, 'bodyStatements'), _indent + 1, construct);
+					js += print('}', _indent, 1);
+					for (var i = 0; i < $es4.$$get(statement, null, null, 'elseIfStatements', 'length'); i++)
+					{
+						js += translateStatement($es4.$$get(statement, null, null, 'elseIfStatements', i), _indent, false, construct);
+					}
+					if ($es4.$$get(statement, null, null, 'elseStatement'))
+					{
+						js += translateStatement($es4.$$get(statement, null, null, 'elseStatement'), _indent, false, construct);
+					}
+					_inIfStatement--;
+					break;
+				case $es4.$$get(Construct, null, null, 'ElseIfStatement'):
+					_inIfStatement++;
+					js += print('else if (' + translateExpression($es4.$$get(statement, null, null, 'conditionExpression'), _indent, false, construct) + ')', _indent, 1);
+					js += print('{', _indent, 1);
+					js += translateStatements($es4.$$get(statement, null, null, 'bodyStatements'), _indent + 1, construct);
+					js += print('}', _indent, 1);
+					_inIfStatement--;
+					break;
+				case $es4.$$get(Construct, null, null, 'ElseStatement'):
+					_inIfStatement++;
+					js += print('else', _indent, 1);
+					js += print('{', _indent, 1);
+					js += translateStatements($es4.$$get(statement, null, null, 'bodyStatements'), _indent + 1, construct);
+					js += print('}', _indent, 1);
+					_inIfStatement--;
+					break;
+				case $es4.$$get(Construct, null, null, 'WhileStatement'):
+					js += print('while (' + translateExpression($es4.$$get(statement, null, null, 'conditionExpression'), _indent, false, construct) + ')', _indent, 1);
+					js += print('{', _indent, 1);
+					js += translateStatements($es4.$$get(statement, null, null, 'bodyStatements'), _indent + 1, construct);
+					js += print('}', _indent, 1);
+					break;
+				case $es4.$$get(Construct, null, null, 'DoWhileStatement'):
+					js += print('do', _indent, 1);
+					js += print('{', _indent, 1);
+					js += translateStatements($es4.$$get(statement, null, null, 'bodyStatements'), _indent + 1, construct);
+					js += print('}', _indent, 1);
+					js += print('while (' + translateExpression($es4.$$get(statement, null, null, 'conditionExpression'), _indent, false, construct) + ')', _indent, 1);
+					break;
+				case $es4.$$get(Construct, null, null, 'ForStatement'):
+					js += print('for (', _indent, 0);
+					if ($es4.$$get(statement, null, null, 'variableStatement'))
+					{
+						js += translateStatement($es4.$$get(statement, null, null, 'variableStatement'), 0, true, construct);
+					}
+					js += ';';
+					if ($es4.$$get(statement, null, null, 'conditionExpression'))
+					{
+						js += ' ' + translateExpression($es4.$$get(statement, null, null, 'conditionExpression'), _indent, false, construct);
+					}
+					js += ';';
+					if ($es4.$$get(statement, null, null, 'afterthoughtExpression'))
+					{
+						js += ' ' + translateExpression($es4.$$get(statement, null, null, 'afterthoughtExpression'), _indent, false, construct);
+					}
+					js += ')\n';
+					js += print('{', _indent, 1);
+					js += translateStatements($es4.$$get(statement, null, null, 'bodyStatements'), _indent + 1, construct);
+					js += print('}', _indent, 1);
+					break;
+				case $es4.$$get(Construct, null, null, 'ForEachStatement'):
+					_count++;
+					var object = translateExpression($es4.$$get(statement, null, null, 'arrayExpression'), _indent, false, construct);
+					var index = '$$i' + _count;
+					if (_dynamicPropertyAccess)
+					{
+						js += print('for (var ' + index + ' = (' + object + ' || $es4.$$EMPTY_OBJECT).$$nextNameIndex(0); ' + index + ' != 0; ' + index + ' = ' + object + '.$$nextNameIndex(' + index + '))', _indent, 1);
+					}
+					else
+					{
+						js += print('for (var ' + index + ' in ' + object + ')', _indent, 1);
+					}
+					js += print('{', _indent, 1);
+					var valueJS = '';
+					if (_dynamicPropertyAccess)
+					{
+						valueJS += object + '.$$nextValue(' + index + ')';
+					}
+					else
+					{
+						valueJS += object + '[' + index + ']';
+					}
+					var typeString = getTranslatedTypeName($es4.$$get(statement, null, null, 'variableStatement', 'identifier', 'type'));
+					if (typeString)
+					{
+						js += print(translateStatement($es4.$$get(statement, null, null, 'variableStatement'), 0, true, construct) + ' = $es4.$$coerce(' + valueJS + ', ' + typeString + ');', _indent + 1, 2);
+					}
+					else
+					{
+						js += print(translateStatement($es4.$$get(statement, null, null, 'variableStatement'), 0, true, construct) + ' = ' + valueJS + ';', _indent + 1, 2);
+					}
+					js += translateStatements($es4.$$get(statement, null, null, 'bodyStatements'), _indent + 1, construct);
+					js += print('}', _indent, 1);
+					break;
+				case $es4.$$get(Construct, null, null, 'ForInStatement'):
+					_count++;
+					var object = translateExpression($es4.$$get(statement, null, null, 'objectExpression'), _indent, false, construct);
+					var index = '$$i' + _count;
+					if (_dynamicPropertyAccess)
+					{
+						js += print('for (var ' + index + ' = (' + object + ' || $es4.$$EMPTY_OBJECT).$$nextNameIndex(0); ' + index + ' != 0; ' + index + ' = ' + object + '.$$nextNameIndex(' + index + '))', _indent, 1);
+					}
+					else
+					{
+						js += print('for (' + translateStatement($es4.$$get(statement, null, null, 'variableStatement'), 0, true, construct) + ' in ' + translateExpression($es4.$$get(statement, null, null, 'objectExpression'), _indent, false, construct) + ')', _indent, 1);
+					}
+					js += print('{', _indent, 1);
+					if (_dynamicPropertyAccess)
+					{
+						valueJS = object + '.$$nextName(' + index + ')';
+						var typeString = getTranslatedTypeName($es4.$$get(statement, null, null, 'variableStatement', 'identifier', 'type'));
+						if (typeString)
+						{
+							js += print(translateStatement($es4.$$get(statement, null, null, 'variableStatement'), 0, true, construct) + ' = $es4.$$coerce(' + valueJS + ', ' + typeString + ');', _indent + 1, 2);
+						}
+						else
+						{
+							js += print(translateStatement($es4.$$get(statement, null, null, 'variableStatement'), 0, true, construct) + ' = ' + valueJS + ';', _indent + 1, 2);
+						}
+					}
+					js += translateStatements($es4.$$get(statement, null, null, 'bodyStatements'), _indent + 1, construct);
+					js += print('}', _indent, 1);
+					break;
+				case $es4.$$get(Construct, null, null, 'BreakStatement'):
+					js += print('break', _indent, 0);
+					if ($es4.$$get(statement, null, null, 'identifierToken'))
+					{
+						js += ' ' + $es4.$$get(statement, null, null, 'identifierToken', 'data');
+					}
+					js += ';\n';
+					break;
+				case $es4.$$get(Construct, null, null, 'ContinueStatement'):
+					js += print('continue', _indent, 0);
+					if ($es4.$$get(statement, null, null, 'identifierToken'))
+					{
+						js += ' ' + $es4.$$get(statement, null, null, 'identifierToken', 'data');
+					}
+					js += ';\n';
+					break;
+				case $es4.$$get(Construct, null, null, 'ThrowStatement'):
+					js += print('throw', _indent, 0);
+					if ($es4.$$get(statement, null, null, 'expression'))
+					{
+						js += ' ' + translateExpression($es4.$$get(statement, null, null, 'expression'), _indent, false, construct);
+					}
+					js += ';\n';
+					break;
+				case $es4.$$get(Construct, null, null, 'TryStatement'):
+					js += print('try', _indent, 1);
+					js += print('{', _indent, 1);
+					js += translateStatements($es4.$$get(statement, null, null, 'bodyStatements'), _indent + 1, construct);
+					js += print('}', _indent, 1);
+					if ($es4.$$get(statement, null, null, 'catchStatements', 'length') == 1)
+					{
+						js += print('catch (' + $es4.$$get(statement, null, null, 'catchStatements', 0, 'identifierToken', 'data') + ')', _indent, 1);
+					}
+					else
+					{
+						js += print('catch ($$error)', _indent, 1);
+					}
+					js += print('{', _indent, 1);
+					for (var i = 0; i < $es4.$$get(statement, null, null, 'catchStatements', 'length'); i++)
+					{
+						upLevel();
+						var catchStatement = $es4.$$get(statement, null, null, 'catchStatements', i);
+						var typeName = $es4.$$get(catchStatement, null, null, 'identifier', 'type', 'name');
+						if (i == 0 && $es4.$$get(statement, null, null, 'catchStatements', 'length') == 1)
+						{
+							if (typeName == 'void' || typeName == 'Error')
+							{
+								js += translateStatements($es4.$$get(catchStatement, null, null, 'bodyStatements'), _indent + 1, construct);
+							}
+							else
+							{
+								js += print('if ($es4.$$is(' + $es4.$$get(catchStatement, null, null, 'identifierToken', 'data') + ', ' + typeName + '))', _indent + 1, 1);
+								js += print('{', _indent + 1, 1);
+								js += translateStatements($es4.$$get(catchStatement, null, null, 'bodyStatements'), _indent + 2, construct);
+								js += print('}', _indent + 1, 1);
+							}
+							downLevel();
+							break;
+						}
+						if (typeName == 'void' || typeName == 'Error')
+						{
+							js += print('else', _indent + 1, 1);
+							js += print('{', _indent + 1, 1);
+							js += print('var ' + $es4.$$get(catchStatement, null, null, 'identifierToken', 'data') + ' = $$error;', _indent + 2, 1);
+							js += translateStatements($es4.$$get(catchStatement, null, null, 'bodyStatements'), _indent + 2, construct);
+							js += print('}', _indent + 1, 1);
+							downLevel();
+							break;
+						}
+						js += print(((i == 0) ? 'if' : 'else if') + ' ($es4.$$is($$error, ' + typeName + '))', _indent + 1, 1);
+						js += print('{', _indent + 1, 1);
+						js += print('var ' + $es4.$$get(catchStatement, null, null, 'identifierToken', 'data') + ' = $$error;', _indent + 2, 1);
+						js += translateStatements($es4.$$get(catchStatement, null, null, 'bodyStatements'), _indent + 2, construct);
+						js += print('}', _indent + 1, 1);
+						downLevel();
+					}
+					js += print('}', _indent, 1);
+					if ($es4.$$get(statement, null, null, 'finallyStatement'))
+					{
+						js += print('finally', _indent, 1);
+						js += print('{', _indent, 1);
+						js += translateStatements($es4.$$get(statement, null, null, 'finallyStatement', 'bodyStatements'), _indent + 1, construct);
+						js += print('}', _indent, 1);
+					}
+					break;
+				case $es4.$$get(Construct, null, null, 'UseStatement'):
+					break;
+				case $es4.$$get(Construct, null, null, 'VarStatement'):
+					var translateVarValueExpression = function ($$$$statement) 
+					{
+				//set default parameter values
+				var statement = $$$$statement;
+
+						var valueJS = translateExpression($es4.$$get(statement, null, null, 'valueExpression'), _indent, false, construct);
+						var typeString = getTranslatedTypeName($es4.$$get(statement, null, null, 'identifier', 'type'));
+						if (isCoerceRequired(statement, typeString, valueJS))
+						{
+							valueJS = '$es4.$$coerce(' + valueJS + ', ' + typeString + ')';
+						}
+						return ' = ' + valueJS;
+					}
+;
+					js += print('var ' + $es4.$$get(statement, null, null, 'identifierToken', 'data'), _indent, 0);
+					if ($es4.$$get(statement, null, null, 'valueExpression'))
+					{
+						js += translateVarValueExpression(statement);
+					}
+					for (var i = 0; i < $es4.$$get(statement, null, null, 'innerVarStatements', 'length'); i++)
+					{
+						var innerVarStatement = $es4.$$get(statement, null, null, 'innerVarStatements', i);
+						js += ', ' + $es4.$$get(innerVarStatement, null, null, 'identifierToken', 'data');
+						if ($es4.$$get(innerVarStatement, null, null, 'valueExpression'))
+						{
+							js += translateVarValueExpression(innerVarStatement);
+						}
+					}
+					if (!inline)
+					{
+						js += ';\n';
+					}
+					break;
+				case $es4.$$get(Construct, null, null, 'SwitchStatement'):
+					js += print('switch (' + translateExpression($es4.$$get(statement, null, null, 'valueExpression'), _indent, false, construct) + ')', _indent, 1);
+					js += print('{', _indent, 1);
+					for (var i = 0; i < $es4.$$get(statement, null, null, 'caseStatements', 'length'); i++)
+					{
+						js += translateStatement($es4.$$get(statement, null, null, 'caseStatements', i), _indent + 1, false, construct);
+					}
+					js += print('}', _indent, 1);
+					break;
+				case $es4.$$get(Construct, null, null, 'CaseStatement'):
+					if ($es4.$$get(statement, null, null, 'defaultToken'))
+					{
+						js += print('default:', _indent, 1);
+					}
+					else
+					{
+						js += print('case ' + translateExpression($es4.$$get(statement, null, null, 'valueExpression'), _indent, false, construct) + ':', _indent, 1);
+					}
+					js += translateStatements($es4.$$get(statement, null, null, 'bodyStatements'), _indent + 1, construct);
+					break;
+				case $es4.$$get(Construct, null, null, 'LabelStatement'):
+					js += print($es4.$$get(statement, null, null, 'identifierToken', 'data') + ':', _indent, 0);
+					break;
+				default:
+					if (inline)
+					{
+						js += print(translateExpression(statement, _indent, false, construct), _indent, 0);
+					}
+					else
+					{
+						js += print(translateExpression(statement, _indent, false, construct) + ';', _indent, 1);
+					}
+			}
+			return js;
+		}
+;
+
+		function translateExpression($$$$expression, $$$$_indent, $$$$toString, $$$$construct, $$$$operator, $$$$expressionString) 
+		{
+			//set default parameter values
+			var expression = $$$$expression;
+			var _indent = $$$$_indent;
+			var toString = $$$$toString;
+			var construct = $$$$construct;
+			var operator = (4 > arguments.length - 1) ? null : $$$$operator;
+			var expressionString = (5 > arguments.length - 1) ? null : $$$$expressionString;
+
+			if (!construct)
+			{
+				throw $es4.$$primitive(new (Error)('construct null in translate expression'));
+			}
+			if (!_indent)
+			{
+				_indent = 0;
+			}
+			var js = '';
+			outerSwitch:			switch ($es4.$$get(expression, null, null, 'constructor'))
+			{
+				case $es4.$$get(Construct, null, null, 'ParenExpression'):
+					js += '(' + translateExpression($es4.$$get(expression, null, null, 'expression'), _indent, toString, construct, operator, expressionString) + ')';
+					break;
+				case $es4.$$get(Construct, null, null, 'PropertyExpression'):
+					js += translatePropertyExpressionDynamic(expression, toString, expressionString, operator, construct);
+					break;
+				case $es4.$$get(Construct, null, null, 'NumberExpression'):
+					js += $es4.$$get(expression, null, null, 'numberToken', 'data');
+					break;
+				case $es4.$$get(Construct, null, null, 'StringExpression'):
+					if (toString && $es4.$$get(expression, null, null, 'stringToken', 'data') == "'")
+					{
+						js += '\\' + $es4.$$get(expression, null, null, 'stringToken', 'data');
+					}
+					else
+					{
+						js += $es4.$$get(expression, null, null, 'stringToken', 'data');
+					}
+					for (var i = 0; i < $es4.$$get(expression, null, null, 'stringChunkTokens', 'length'); i++)
+					{
+						js += $es4.$$get(expression, null, null, 'stringChunkTokens', i, 'data');
+						if (i + 1 < $es4.$$get(expression, null, null, 'stringChunkTokens', 'length'))
+						{
+							js += '\n';
+						}
+					}
+					if (toString && $es4.$$get(expression, null, null, 'stringToken', 'data') == "'")
+					{
+						js += '\\' + $es4.$$get(expression, null, null, 'stringToken', 'data');
+					}
+					else
+					{
+						js += $es4.$$get(expression, null, null, 'stringToken', 'data');
+					}
+					break;
+				case $es4.$$get(Construct, null, null, 'ReturnExpression'):
+					js += 'return';
+					if ($es4.$$get(expression, null, null, 'expression'))
+					{
+						var typeName = getTranslatedTypeName($es4.$$get(expression, null, null, 'expectedType'));
+						var valueJS = translateExpression($es4.$$get(expression, null, null, 'expression'), 0, toString, construct);
+						if (typeName && isCoerceRequired(expression, typeName, valueJS))
+						{
+							js += ' $es4.$$coerce(' + valueJS + ', ' + typeName + ')';
+						}
+						else
+						{
+							js += ' ' + valueJS;
+						}
+					}
+					break;
+				case $es4.$$get(Construct, null, null, 'DeleteExpression'):
+					js += translatePropertyExpressionDynamic($es4.$$get(expression, null, null, 'expression'), toString, undefined, undefined, construct, true);
+					break;
+				case $es4.$$get(Construct, null, null, 'FunctionExpression'):
+					upLevel();
+					var wasInClosure = _inClosure;
+					_inClosure = true;
+					if (!$es4.$$get(expression, null, null, 'identifierToken'))
+					{
+						js += print('function (', 0, 0);
+					}
+					else
+					{
+						if (_inIfStatement)
+						{
+							throw $es4.$$primitive(new (Error)('support for named closures in if/elseif/else statements is not supported at this time.'));
+						}
+						js += print('function ' + $es4.$$get(expression, null, null, 'identifierToken', 'data') + '(', 0, 0);
+					}
+					js += translateParameters(expression, construct);
+					js += print(') ', 0, 1);
+					js += print('{', _indent, 1);
+					js += translateDefaultParameterValues(expression, construct);
+					js += translateStatements($es4.$$get(expression, null, null, 'bodyStatements'), _indent + 1, construct);
+					js += print('}', _indent, 1);
+					if (!wasInClosure)
+					{
+						_inClosure = false;
+					}
+					downLevel();
+					break;
+				case $es4.$$get(Construct, null, null, 'ObjectExpression'):
+					js += '{';
+					for (var i = 0; i < $es4.$$get(expression, null, null, 'objectPropertyConstructs', 'length'); i++)
+					{
+						var prop;
+						if ($es4.$$get(expression, null, null, 'objectPropertyConstructs', i, 'expression', 'constructor') == $es4.$$get(Construct, null, null, 'PropertyExpression'))
+						{
+							prop = $es4.$$get(expression, null, null, 'objectPropertyConstructs', i, 'expression', 'construct', 'identifierToken', 'data');
+						}
+						else
+						{
+							prop = translateExpression($es4.$$get(expression, null, null, 'objectPropertyConstructs', i, 'expression'), 0, toString, construct);
+						}
+						js += prop + ':' + translateExpression($es4.$$get(expression, null, null, 'objectPropertyConstructs', i, 'valueExpression'), 0, toString, construct);
+						if ((i + 1) < $es4.$$get(expression, null, null, 'objectPropertyConstructs', 'length'))
+						{
+							js += ', ';
+						}
+					}
+					js += '}';
+					break;
+				case $es4.$$get(Construct, null, null, 'ArrayExpression'):
+					js += '[';
+					for (var i = 0; i < $es4.$$get(expression, null, null, 'valueExpressions', 'length'); i++)
+					{
+						if (!$es4.$$get(expression, null, null, 'valueExpressions', i))
+						{
+							trace('invalid 20');
+						}
+						js += translateExpression($es4.$$get(expression, null, null, 'valueExpressions', i), 0, toString, construct);
+						if ((i + 1) < $es4.$$get(expression, null, null, 'valueExpressions', 'length'))
+						{
+							js += ', ';
+						}
+					}
+					js += ']';
+					break;
+				case $es4.$$get(Construct, null, null, 'BooleanExpression'):
+					js += $es4.$$get(expression, null, null, 'booleanToken', 'data');
+					break;
+				case $es4.$$get(Construct, null, null, 'Expression'):
+					if ($es4.$$get(expression, null, null, 'token', 'type') == $es4.$$get(Token, null, null, 'TypeofTokenType'))
+					{
+						if (!$es4.$$get(expression, null, null, 'expression'))
+						{
+							trace('invalid 21');
+						}
+						js += '$es4.$$typeof(' + translateExpression($es4.$$get(expression, null, null, 'expression'), 0, toString, construct) + ')';
+						break;
+					}
+					if ($es4.$$get(expression, null, null, 'token', 'type') == $es4.$$get(Token, null, null, 'VoidTokenType'))
+					{
+						if ($es4.$$get(expression, null, null, 'expression', 'constructor') == $es4.$$get(Construct, null, null, 'EmptyExpression'))
+						{
+							js += 'void 0';
+						}
+						else
+						{
+							if (!$es4.$$get(expression, null, null, 'expression'))
+							{
+								trace('invalid 01');
+							}
+							js += 'void ' + translateExpression($es4.$$get(expression, null, null, 'expression'), 0, toString, construct);
+						}
+						break;
+					}
+					js += $es4.$$get(expression, null, null, 'token', 'data');
+					if ($es4.$$get(expression, null, null, 'expression'))
+					{
+						if (!$es4.$$get(expression, null, null, 'expression'))
+						{
+							trace('invalid 22');
+						}
+						js += translateExpression($es4.$$get(expression, null, null, 'expression'), 0, toString, construct);
+					}
+					break;
+				case $es4.$$get(Construct, null, null, 'XMLExpression'):
+					js += 'new XML(\'' + $es4.$$get(expression, null, null, 'string') + '\')';
+					break;
+				case $es4.$$get(Construct, null, null, 'XMLListExpression'):
+					js += 'new XMLList(\'' + $es4.$$get(expression, null, null, 'string') + '\')';
+					break;
+				case $es4.$$get(Construct, null, null, 'EmptyExpression'):
+					break;
+				case $es4.$$get(Construct, null, null, 'RegExpression'):
+					js += $es4.$$get(expression, null, null, 'string');
+					break;
+				case $es4.$$get(Construct, null, null, 'PrefixExpression'):
+					js += translatePropertyExpressionDynamic($es4.$$get(expression, null, null, 'expression'), toString, '\'prefix\'', ($es4.$$get(expression, null, null, 'decrementToken')) ? '--' : '++', construct);
+					break;
+				case $es4.$$get(Construct, null, null, 'PostfixExpression'):
+					js += translatePropertyExpressionDynamic($es4.$$get(expression, null, null, 'expression'), toString, '\'postfix\'', ($es4.$$get(expression, null, null, 'decrementToken')) ? '--' : '++', construct);
+					break;
+				case $es4.$$get(Construct, null, null, 'NewExpression'):
+					if ($es4.$$get(expression, null, null, 'expression', 'constructor') == $es4.$$get(Construct, null, null, 'ParenExpression'))
+					{
+						if (!$es4.$$get(expression, null, null, 'expression'))
+						{
+							trace('invalid 02');
+						}
+						js += '$es4.$$primitive(new ' + translateExpression($es4.$$get(expression, null, null, 'expression'), 0, toString, construct) + ')';
+					}
+					else
+					{
+						js += translatePropertyExpressionDynamic($es4.$$get(expression, null, null, 'expression'), toString, null, null, construct, null, true);
+					}
+					break;
+				case $es4.$$get(Construct, null, null, 'BinaryExpression'):
+					if ($es4.$$get(expression, null, null, 'token', 'type') == $es4.$$get(Token, null, null, 'IsTokenType'))
+					{
+						if (!$es4.$$get(expression, null, null, 'leftExpression'))
+						{
+							trace('invalid 04');
+						}
+						if (!$es4.$$get(expression, null, null, 'rightExpression'))
+						{
+							trace('invalid 05');
+						}
+						js += '$es4.$$is(' + translateExpression($es4.$$get(expression, null, null, 'leftExpression'), 0, toString, construct) + ', ' + translateExpression($es4.$$get(expression, null, null, 'rightExpression'), 0, toString, construct) + ')';
+						break;
+					}
+					if ($es4.$$get(expression, null, null, 'token', 'type') == $es4.$$get(Token, null, null, 'InstanceofTokenType'))
+					{
+						if (!$es4.$$get(expression, null, null, 'leftExpression'))
+						{
+							trace('invalid 06');
+						}
+						if (!$es4.$$get(expression, null, null, 'rightExpression'))
+						{
+							trace('invalid 07');
+						}
+						js += '$es4.$$instanceof(' + translateExpression($es4.$$get(expression, null, null, 'leftExpression'), 0, toString, construct) + ', ' + translateExpression($es4.$$get(expression, null, null, 'rightExpression'), 0, toString, construct) + ')';
+						break;
+					}
+					if ($es4.$$get(expression, null, null, 'token', 'type') == $es4.$$get(Token, null, null, 'AsTokenType'))
+					{
+						if (!$es4.$$get(expression, null, null, 'leftExpression'))
+						{
+							trace('invalid 08');
+						}
+						if (!$es4.$$get(expression, null, null, 'rightExpression'))
+						{
+							trace('invalid 09');
+						}
+						js += '$es4.$$as(' + translateExpression($es4.$$get(expression, null, null, 'leftExpression'), 0, toString, construct) + ', ' + translateExpression($es4.$$get(expression, null, null, 'rightExpression'), 0, toString, construct) + ')';
+						break;
+					}
+					innerSwitch:					switch ($es4.$$get(expression, null, null, 'token', 'type'))
+					{
+						case $es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType'):
+						case $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType'):
+						case $es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType'):
+						case $es4.$$get(Token, null, null, 'AddWithAssignmentTokenType'):
+						case $es4.$$get(Token, null, null, 'DivWithAssignmentTokenType'):
+						case $es4.$$get(Token, null, null, 'ModWithAssignmentTokenType'):
+						case $es4.$$get(Token, null, null, 'MulWithAssignmentTokenType'):
+						case $es4.$$get(Token, null, null, 'SubWithAssignmentTokenType'):
+						case $es4.$$get(Token, null, null, 'AssignmentTokenType'):
+						case $es4.$$get(Token, null, null, 'AndWithAssignmentTokenType'):
+						case $es4.$$get(Token, null, null, 'OrWithAssignmentTokenType'):
+						case $es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType'):
+						case $es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType'):
+						case $es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType'):
+							var leftExpression = $es4.$$get(expression, null, null, 'leftExpression');
+							while ($es4.$$get(leftExpression, null, null, 'constructor') == $es4.$$get(Construct, null, null, 'ParenExpression'))
+							{
+								leftExpression = $es4.$$get(leftExpression, null, null, 'expression');
+							}
+							var innerOperator = $es4.$$get(expression, null, null, 'token', 'data');
+							var innerExpressionString = '';
+							while ($es4.$$get(leftExpression, null, null, 'constructor') == $es4.$$get(Construct, null, null, 'BinaryExpression'))
+							{
+								$es4.$$set(expression, null, null, 'leftExpression', $es4.$$get(leftExpression, null, null, 'rightExpression'), '=');
+								if (!innerExpressionString)
+								{
+									if (!expression)
+									{
+										trace('invalid 10');
+									}
+									innerExpressionString = translateExpression(expression, _indent, toString, construct);
+								}
+								else
+								{
+									if (!$es4.$$get(expression, null, null, 'leftExpression'))
+									{
+										trace('invalid 11');
+									}
+									if (_dynamicPropertyAccess)
+									{
+										innerExpressionString = translateExpression($es4.$$get(expression, null, null, 'leftExpression'), _indent, toString, construct, innerOperator, innerExpressionString);
+									}
+									else
+									{
+										innerExpressionString = translateExpression($es4.$$get(expression, null, null, 'leftExpression'), _indent, toString, construct) + ' ' + innerOperator + ' ' + innerExpressionString;
+									}
+								}
+								expression = leftExpression;
+								innerOperator = $es4.$$get(expression, null, null, 'token', 'data');
+								leftExpression = $es4.$$get(expression, null, null, 'leftExpression');
+							}
+							var typeString;
+							if (!$es4.$$get(leftExpression, null, null, 'nextPropertyExpression') && $es4.$$get(leftExpression, null, null, 'construct') && $es4.$$get(leftExpression, null, null, 'construct', 'constructor') == $es4.$$get(Construct, null, null, 'IdentifierConstruct'))
+							{
+								var identifier = $es4.$$get(leftExpression, null, null, 'construct', 'identifier');
+								typeString = ($es4.$$get(identifier, null, null, 'isVar') && $es4.$$get(identifier, null, null, 'type')) ? getTranslatedTypeName($es4.$$get(identifier, null, null, 'type')) : '';
+							}
+							if (true)
+							{
+								if (!innerExpressionString)
+								{
+									if (!$es4.$$get(expression, null, null, 'rightExpression'))
+									{
+										trace('invalid 12');
+									}
+									innerExpressionString = translateExpression($es4.$$get(expression, null, null, 'rightExpression'), 0, toString, construct);
+								}
+								if (typeString && isCoerceRequired(leftExpression, typeString, innerExpressionString))
+								{
+									js += translatePropertyExpressionDynamic(leftExpression, toString, '$es4.$$coerce(' + innerExpressionString + ', ' + typeString + ')', innerOperator, construct);
+								}
+								else
+								{
+									js += translatePropertyExpressionDynamic(leftExpression, toString, innerExpressionString, innerOperator, construct);
+								}
+							}
+							else
+							{
+								if (!$es4.$$get(expression, null, null, 'leftExpression'))
+								{
+									trace('invalid 13');
+								}
+								js += translateExpression(leftExpression, 0, toString, construct);
+								if (!innerExpressionString)
+								{
+									if (!$es4.$$get(expression, null, null, 'rightExpression'))
+									{
+										trace('invalid 14');
+									}
+									innerExpressionString = translateExpression($es4.$$get(expression, null, null, 'rightExpression'), 0, toString, construct);
+								}
+								if (typeString && isCoerceRequired(leftExpression, typeString, innerExpressionString))
+								{
+									js += ' ' + innerOperator + ' $es4.$$coerce(' + innerExpressionString + ', ' + typeString + ')';
+								}
+								else
+								{
+									js += ' ' + innerOperator + ' ' + innerExpressionString;
+								}
+							}
+							break outerSwitch;
+					}
+					if (!$es4.$$get(expression, null, null, 'leftExpression'))
+					{
+						trace('invalid 15');
+					}
+					if (!$es4.$$get(expression, null, null, 'rightExpression'))
+					{
+						trace('invalid 16');
+					}
+					js += translateExpression($es4.$$get(expression, null, null, 'leftExpression'), 0, toString, construct) + ' ' + $es4.$$get(expression, null, null, 'token', 'data') + ' ' + translateExpression($es4.$$get(expression, null, null, 'rightExpression'), 0, toString, construct);
+					break;
+				case $es4.$$get(Construct, null, null, 'TernaryExpression'):
+					if (!$es4.$$get(expression, null, null, 'trueExpression'))
+					{
+						trace('invalid 34');
+					}
+					if (!$es4.$$get(expression, null, null, 'conditionExpression'))
+					{
+						trace('invalid 35');
+					}
+					if (!$es4.$$get(expression, null, null, 'falseExpression'))
+					{
+						trace('invalid 36');
+					}
+					js += translateExpression($es4.$$get(expression, null, null, 'conditionExpression'), 0, toString, construct) + ' ? ' + translateExpression($es4.$$get(expression, null, null, 'trueExpression'), 0, toString, construct) + ' : ' + translateExpression($es4.$$get(expression, null, null, 'falseExpression'), 0, toString, construct);
+					break;
+				default:
+					throw $es4.$$primitive(new (Error)('Unexpected expression found: ' + $es4.$$get(expression, null, null, 'constructor')));
+			}
+			return js;
+		}
+;
+
+		function translatePropertyExpressionDynamic($$$$expression, $$$$toString, $$$$setString, $$$$operator, $$$$construct, $$$$doDelete, $$$$doNew) 
+		{
+			//set default parameter values
+			var expression = $$$$expression;
+			var toString = $$$$toString;
+			var setString = $$$$setString;
+			var operator = $$$$operator;
+			var construct = $$$$construct;
+			var doDelete = (5 > arguments.length - 1) ? null : $$$$doDelete;
+			var doNew = (6 > arguments.length - 1) ? null : $$$$doNew;
+
+			var js = '';
+			if (!$es4.$$get(expression, null, null, 'construct'))
+			{
+				throw $es4.$$primitive(new (Error)('invalid expression passed to translatePropertyExpression: ' + $es4.$$get(expression, null, null, 'constructor')));
+			}
+			var identifier;
+			var namespaceIdentifier;
+			switch ($es4.$$get(expression, null, null, 'construct', 'constructor'))
+			{
+				case $es4.$$get(Construct, null, null, 'SuperConstruct'):
+				case $es4.$$get(Construct, null, null, 'ThisConstruct'):
+				case $es4.$$get(Construct, null, null, 'IdentifierConstruct'):
+					identifier = $es4.$$get(expression, null, null, 'construct', 'identifier');
+					break;
+				case $es4.$$get(Construct, null, null, 'ParenConstruct'):
+				case $es4.$$get(Construct, null, null, 'ArrayConstruct'):
+				case $es4.$$get(Construct, null, null, 'ObjectConstruct'):
+					break;
+				case $es4.$$get(Construct, null, null, 'NamespaceQualifierConstruct'):
+					namespaceIdentifier = $es4.$$get(expression, null, null, 'construct', 'namespaceIdentifier');
+					identifier = $es4.$$get(expression, null, null, 'construct', 'identifier');
+					break;
+				default:
+					throw $es4.$$primitive(new (Error)('unknown inner property expression: ' + $es4.$$get(expression, null, null, 'construct', 'constructor')));
+			}
+			var pname;
+			var name;
+			if (identifier && !namespaceIdentifier && ($es4.$$get(identifier, null, null, 'isProperty') || $es4.$$get(identifier, null, null, 'isMethod')) && !$es4.$$get(identifier, null, null, 'isImport') && $es4.$$get(identifier, null, null, 'namespaceObj', 'isCustom'))
+			{
+				namespaceIdentifier = $es4.$$get(identifier, null, null, 'namespaceObj', 'identifier');
+			}
+			if (identifier && namespaceIdentifier)
+			{
+				var pname = ($es4.$$get(namespaceIdentifier, null, null, 'isStatic')) ? $es4.$$get(namespaceIdentifier, null, null, 'scope', 'name') : '$$this';
+				var namespaceObj = $es4.$$get(namespaceIdentifier, null, null, 'namespaceObj');
+				var namespaceString = $es4.$$get(namespaceObj, null, null, 'normalizedImportID');
+				if ($es4.$$get(namespaceIdentifier, null, null, 'isStatic') && !namespaceString)
+				{
+					namespaceString = $es4.$$get(namespaceIdentifier, null, null, 'scope', 'name') + '.' + $es4.$$get(namespaceIdentifier, null, null, 'name');
+				}
+				else if (!namespaceString)
+				{
+					namespaceString = ($es4.$$get(namespaceIdentifier, null, null, 'namespaceObj') && $es4.$$get(namespaceIdentifier, null, null, 'namespaceObj', 'isPrivate') ? ('$$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.$$ns.') : '$$this.') + $es4.$$get(namespaceIdentifier, null, null, 'name');
+				}
+				pname += '.$$namespace(' + namespaceString + ')';
+				name = $es4.$$get(identifier, null, null, 'name');
+			}
+			else if (identifier)
+			{
+				name = $es4.$$get(identifier, null, null, 'name');
+				if ($es4.$$get(identifier, null, null, 'isStatic') && !$es4.$$get(identifier, null, null, 'isImport') && !$es4.$$get(identifier, null, null, 'isNative'))
+				{
+					pname = $es4.$$get(identifier, null, null, 'scope', 'name');
+				}
+				else if ($es4.$$get(identifier, null, null, 'isPrivate') && !$es4.$$get(identifier, null, null, 'isImport'))
+				{
+					pname = '$$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']);
+				}
+				else if (($es4.$$get(identifier, null, null, 'isProperty') || $es4.$$get(identifier, null, null, 'isMethod')) && !$es4.$$get(identifier, null, null, 'isImport'))
+				{
+					pname = '$$this';
+				}
+				else if ($es4.$$get(identifier, null, null, 'isPackage'))
+				{
+					name = '$es4.$$[\'' + $es4.$$get(identifier, null, null, 'name');
+					var packageName = $es4.$$get(identifier, null, null, 'name');
+					var tempInnerExpression = expression;
+					var lastExpression = tempInnerExpression;
+					while (tempInnerExpression = $es4.$$get(tempInnerExpression, null, null, 'nextPropertyExpression'))
+					{
+						if ($es4.$$get(_rootConstructs, null, null, packageName + '.' + $es4.$$get(tempInnerExpression, null, null, 'construct', 'identifierToken', 'data')))
+						{
+							expression = lastExpression;
+							break;
+						}
+						packageName += '.' + $es4.$$get(tempInnerExpression, null, null, 'construct', 'identifierToken', 'data');
+						name += '.' + $es4.$$get(tempInnerExpression, null, null, 'construct', 'identifierToken', 'data');
+						lastExpression = tempInnerExpression;
+					}
+					name += '\']';
+				}
+				var superString = ($es4.$$get(construct, null, null, 'extendsNameConstruct')) ? '$es4.$$super2($$this, ' + getTranslatedTypeName($es4.$$get(construct, null, null, 'extendsNameConstruct', 'type')) + ', \'$$' + $es4.$$get(construct, null, null, 'extendsNameConstruct', 'type', 'name') + '\', ***REPLACE1***, \'***REPLACE2***\', ***REPLACE3***)' : '____________________';
+				if (name == 'super')
+				{
+					if (_inNamespacedFunction && $es4.$$get(expression, null, null, 'nextPropertyExpression'))
+					{
+						name = '$$this.$$namespace(' + _inNamespacedFunction + ', $$this, $es4.$$super($$thisp))';
+					}
+					else
+					{
+						name = ($es4.$$get(expression, null, null, 'nextPropertyExpression')) ? superString : 'this';
+					}
+				}
+				if (name == 'this' && !_inClosure)
+				{
+					if ($es4.$$get(expression, null, null, 'nextPropertyExpression') && $es4.$$get(expression, null, null, 'nextPropertyExpression', 'construct', 'constructor') == $es4.$$get(Construct, null, null, 'DotConstruct') && $es4.$$get(expression, null, null, 'nextPropertyExpression', 'construct', 'identifier', 'isPrivate'))
+					{
+						name = '$$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']);
+					}
+					else
+					{
+						name = '$$this';
+					}
+				}
+			}
+			else
+			{
+				if (!$es4.$$get(expression, null, null, 'construct', 'expression'))
+				{
+					trace('invalid 37');
+				}
+				name = translateExpression($es4.$$get(expression, null, null, 'construct', 'expression'), 0, toString, construct);
+			}
+			js += (!pname) ? name : (pname + '.' + name);
+			var state = {doAssignment:setString != null, doDelete:doDelete, doNew:doNew, doPostfix:setString == '\'postfix\'', doPrefix:setString == '\'prefix\''};
+			var doSuper = name == superString;
+			var doSuperConstructor = doSuper && ($es4.$$get(expression, null, null, 'nextPropertyExpression') && $es4.$$get(expression, null, null, 'nextPropertyExpression', 'construct', 'constructor') == $es4.$$get(Construct, null, null, 'FunctionCallConstruct'));
+			var superExpression;
+			while (expression = $es4.$$get(expression, null, null, 'nextPropertyExpression'))
+			{
+				if ($es4.$$get(expression, null, null, 'construct', 'constructor') == $es4.$$get(Construct, null, null, 'DotConstruct') || $es4.$$get(expression, null, null, 'construct', 'constructor') == $es4.$$get(Construct, null, null, 'IdentifierConstruct'))
+				{
+					if (doSuper && !superExpression)
+					{
+						superExpression = '\'' + $es4.$$get(expression, null, null, 'construct', 'identifierToken', 'data') + '\'';
+					}
+					else
+					{
+						if ($es4.$$get(expression, null, null, 'construct', 'constructor') == $es4.$$get(Construct, null, null, 'DotConstruct'))
+						{
+							js += '.';
+						}
+						js += $es4.$$get(expression, null, null, 'construct', 'identifierToken', 'data');
+					}
+				}
+				else if ($es4.$$get(expression, null, null, 'construct', 'constructor') == $es4.$$get(Construct, null, null, 'ArrayAccessorConstruct'))
+				{
+					if (!$es4.$$get(expression, null, null, 'construct', 'expression'))
+					{
+						trace('invalid 38');
+					}
+					if (doSuper && !superExpression)
+					{
+						superExpression = translateExpression($es4.$$get(expression, null, null, 'construct', 'expression'), 0, toString, construct);
+					}
+					else
+					{
+						js += '[' + translateExpression($es4.$$get(expression, null, null, 'construct', 'expression'), 0, toString, construct) + ']';
+					}
+				}
+				else if ($es4.$$get(expression, null, null, 'construct', 'constructor') == $es4.$$get(Construct, null, null, 'NamespaceQualifierConstruct'))
+				{
+					namespaceIdentifier = $es4.$$get(expression, null, null, 'construct', 'namespaceIdentifier');
+					var namespaceObj = $es4.$$get(namespaceIdentifier, null, null, 'namespaceObj');
+					var namespaceString = $es4.$$get(namespaceObj, null, null, 'normalizedImportID');
+					if ($es4.$$get(namespaceIdentifier, null, null, 'isStatic') && !namespaceString)
+					{
+						namespaceString = $es4.$$get(namespaceIdentifier, null, null, 'scope', 'name') + '.' + $es4.$$get(namespaceIdentifier, null, null, 'name');
+					}
+					else if (!namespaceString)
+					{
+						namespaceString = ($es4.$$get(identifier, null, null, 'isPrivate')) ? ('$$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.$$ns.') + $es4.$$get(namespaceIdentifier, null, null, 'name') : '$$this.' + $es4.$$get(namespaceIdentifier, null, null, 'name');
+					}
+					js += '.$$namespace(' + namespaceString + ').' + $es4.$$get(expression, null, null, 'construct', 'namespaceIdentifierToken', 'data');
+				}
+				else if ($es4.$$get(expression, null, null, 'construct', 'constructor') == $es4.$$get(Construct, null, null, 'ParenConstruct'))
+				{
+					if (!$es4.$$get(expression, null, null, 'construct', 'expression'))
+					{
+						trace('invalid 39');
+					}
+					js += '(' + translateExpression($es4.$$get(expression, null, null, 'construct', 'expression'), 0, toString, construct) + ')';
+				}
+				else if ($es4.$$get(expression, null, null, 'construct', 'constructor') == $es4.$$get(Construct, null, null, 'AtIdentifierConstruct'))
+				{
+					throw $es4.$$primitive(new (Error)('E4X is not supported'));
+				}
+				if ($es4.$$get(expression, null, null, 'construct', 'constructor') == $es4.$$get(Construct, null, null, 'FunctionCallConstruct') || ($es4.$$get(expression, null, null, 'nextPropertyExpression') && $es4.$$get(expression, null, null, 'nextPropertyExpression', 'construct', 'constructor') == $es4.$$get(Construct, null, null, 'FunctionCallConstruct')))
+				{
+					var functionCallExpression = ($es4.$$get(expression, null, null, 'construct', 'constructor') == $es4.$$get(Construct, null, null, 'FunctionCallConstruct')) ? expression : $es4.$$get(expression, null, null, 'nextPropertyExpression');
+					if (doSuperConstructor)
+					{
+						js = getTranslatedTypeName($es4.$$get(construct, null, null, 'extendsNameConstruct', 'type')) + '.$$constructor.call($$this';
+						if ($es4.$$get(functionCallExpression, null, null, 'construct', 'argumentExpressions', 'length'))
+						{
+							js += ', ';
+						}
+						doSuperConstructor = false;
+					}
+					else
+					{
+						js += '(';
+					}
+					for (var i = 0; i < $es4.$$get(functionCallExpression, null, null, 'construct', 'argumentExpressions', 'length'); i++)
+					{
+						if (!$es4.$$get(functionCallExpression, null, null, 'construct', 'argumentExpressions', i))
+						{
+							trace('invalid 40');
+						}
+						js += translateExpression($es4.$$get(functionCallExpression, null, null, 'construct', 'argumentExpressions', i), 0, toString, construct);
+						if ((i + 1) < $es4.$$get(functionCallExpression, null, null, 'construct', 'argumentExpressions', 'length'))
+						{
+							js += ', ';
+						}
+					}
+					js += ')';
+					if ($es4.$$get(expression, null, null, 'nextPropertyExpression'))
+					{
+						expression = functionCallExpression;
+					}
+					continue;
+				}
+			}
+			if (doSuper && superExpression)
+			{
+				js = $es4.$$call($es4.$$call(js, null, null, 'split', ['***REPLACE1***']), null, null, 'join', [superExpression]);
+				if (setString)
+				{
+					js = $es4.$$call($es4.$$call(js, null, null, 'split', ['***REPLACE2***']), null, null, 'join', ['set']);
+					js = $es4.$$call($es4.$$call(js, null, null, 'split', ['***REPLACE3***']), null, null, 'join', [setString]);
+					$es4.$$set(state, null, null, 'doAssignment', false, '=');
+				}
+				else
+				{
+					js = $es4.$$call($es4.$$call(js, null, null, 'split', ['***REPLACE2***']), null, null, 'join', ['func']);
+					js = $es4.$$call($es4.$$call(js, null, null, 'split', ['***REPLACE3***']), null, null, 'join', ['undefined']);
+				}
+			}
+			if (!$es4.$$get(state, null, null, 'doPostfix') && !$es4.$$get(state, null, null, 'doPrefix'))
+			{
+				if ($es4.$$get(state, null, null, 'doAssignment') && operator == '||=' || operator == '&&=')
+				{
+					js += ' = ' + js + ((operator == '&&=') ? ' && (' : ' || (') + setString + ')';
+				}
+				else if ($es4.$$get(state, null, null, 'doAssignment'))
+				{
+					js += ' ' + operator + ' ' + setString;
+				}
+			}
+			else if ($es4.$$get(state, null, null, 'doPrefix'))
+			{
+				js = operator + js;
+			}
+			else if ($es4.$$get(state, null, null, 'doPostfix'))
+			{
+				js += operator;
+			}
+			if ($es4.$$get(state, null, null, 'doDelete'))
+			{
+				js = 'delete ' + js;
+			}
+			if ($es4.$$get(state, null, null, 'doNew'))
+			{
+				js = '$es4.$$primitive(new ' + js + ')';
+			}
+			return js;
+		}
+;
+
+		function isCoerceRequired($$$$statementOrExpression, $$$$typeName, $$$$valueJS) 
+		{
+			//set default parameter values
+			var statementOrExpression = $$$$statementOrExpression;
+			var typeName = $$$$typeName;
+			var valueJS = $$$$valueJS;
+
+			if (!$es4.$$get(statementOrExpression, null, null, 'coerce'))
+			{
+				return false;
+			}
+			switch (typeName)
+			{
+				case 'uint':
+					if (Number(valueJS) == (valueJS >>> 0))
+					{
+						return false;
+					}
+					break;
+				case 'int':
+					if (Number(valueJS) == (valueJS >> 0))
+					{
+						return false;
+					}
+					break;
+			}
+			return true;
+		}
+;
+
+		function print($$$$string, $$$$tabs, $$$$newlines, $$$$preNewLines) 
+		{
+			//set default parameter values
+			var string = $$$$string;
+			var tabs = $$$$tabs;
+			var newlines = $$$$newlines;
+			var preNewLines = (3 > arguments.length - 1) ? null : $$$$preNewLines;
+
+			if (tabs)
+			{
+				for (var i = 0; i < tabs; i++)
+				{
+					string = '\t' + string;
+				}
+			}
+			if (newlines)
+			{
+				for (var i = 0; i < newlines; i++)
+				{
+					string += '\n';
+				}
+			}
+			if (preNewLines)
+			{
+				for (var i = 0; i < preNewLines; i++)
+				{
+					string = '\n' + string;
+				}
+			}
+			return string;
+		}
+;
+	}));
+
+	function TranslatorPrototype()
+	{
+		//initialize class if not initialized
+		if (TranslatorPrototype.$$cinit !== undefined) TranslatorPrototype.$$cinit();
+
+		//save scope
+		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
+		var $$thisp = this;
+
+		//handle possible cast
+		if ($$this === $$thisp && (!($$this instanceof TranslatorPrototype) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], TranslatorPrototype) : $es4.$$throwArgumentError();
+		Object.defineProperty($$this, '$$t', {value:1});
+
+		//constructor
+		$es4.$$constructor($$thisp, (function ()
+		{
+		}));
+
+		//call construct if no arguments, or argument zero does not equal manual construct
+		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
+		{
+			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
+
+			$es4.$$construct($$this, $$args);
+		}
+	}
+
+	return $es4.$$class(TranslatorPrototype, null, 'sweetrush.core::TranslatorPrototype');
+})();
+//sweetrush.core.TranslatorPrototype
+
+
+//sweetrush.utils.Base64Util
+$es4.$$package('sweetrush.utils').Base64Util = (function ()
+{
+	//imports
+	var ByteArray;
+
+	//class initializer
+	Base64Util.$$cinit = (function ()
+	{
+		Base64Util.$$cinit = undefined;
+
+		//initialize imports
+		ByteArray = $es4.$$['flash.utils'].ByteArray;
+	});
+
+	//method
+	$es4.$$public_function('encodeString', Base64Util, (function ($$$$value)
+	{
+		if (Base64Util.$$cinit !== undefined) Base64Util.$$cinit();
+
+		//set default parameter values
+		var value = $es4.$$coerce($$$$value, String);
+
+		if (false)
+		{
+		}
+		if (true)
+		{
+			if ($es4.$$get(global, null, null, 'btoa') !== undefined)
+			{
+				return $es4.$$coerce($es4.$$call(global, null, null, 'btoa', [value]), String);
+			}
+			return $es4.$$coerce($es4.$$call($es4.$$call(global, null, null, 'Buffer', 'from', [value]), null, null, 'toString', ['base64']), String);
+		}
+	}));
+
+	//method
+	$es4.$$public_function('decodeString', Base64Util, (function ($$$$str)
+	{
+		if (Base64Util.$$cinit !== undefined) Base64Util.$$cinit();
+
+		//set default parameter values
+		var str = $es4.$$coerce($$$$str, String);
+
+		if (false)
+		{
+		}
+		if (true)
+		{
+			if ($es4.$$get(global, null, null, 'atob') !== undefined)
+			{
+				return $es4.$$coerce($es4.$$call(global, null, null, 'atob', [str]), String);
+			}
+			return $es4.$$coerce($es4.$$call($es4.$$call(global, null, null, 'Buffer', 'from', [str, 'base64']), null, null, 'toString', $es4.$$EMPTY_ARRAY), String);
+		}
+	}));
+
+	function Base64Util()
+	{
+		//initialize class if not initialized
+		if (Base64Util.$$cinit !== undefined) Base64Util.$$cinit();
+
+		//save scope
+		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
+		var $$thisp = this;
+
+		//handle possible cast
+		if ($$this === $$thisp && (!($$this instanceof Base64Util) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Base64Util) : $es4.$$throwArgumentError();
+		Object.defineProperty($$this, '$$t', {value:1});
+
+		//constructor
+		$es4.$$constructor($$thisp, (function ()
+		{
+		}));
+
+		//call construct if no arguments, or argument zero does not equal manual construct
+		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
+		{
+			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
+
+			$es4.$$construct($$this, $$args);
+		}
+	}
+
+	return $es4.$$class(Base64Util, null, 'sweetrush.utils::Base64Util');
+})();
+//sweetrush.utils.Base64Util
+
+
 //sweetrush.obj.Construct
 $es4.$$package('sweetrush.obj').Construct = (function ()
 {
@@ -29692,18 +34637,18 @@ $es4.$$package('sweetrush.core').TranslatorProto = (function ()
 	//imports
 	var Construct;
 	var Token;
-	var JsonUtil;
-	var SwcUtil;
-	var Parser;
-	var Token;
-	var Lexer;
-	var TranslatorProto;
-	var Construct;
-	var TranslatorPrototype;
-	var Analyzer;
-	var FileUtil;
-	var Transcompiler;
 	var Base64Util;
+	var Analyzer;
+	var TranslatorPrototype;
+	var FileUtil;
+	var SwcUtil;
+	var Construct;
+	var TranslatorProto;
+	var Lexer;
+	var JsonUtil;
+	var Token;
+	var Parser;
+	var Transcompiler;
 
 	//class initializer
 	TranslatorProto.$$cinit = (function ()
@@ -29713,15 +34658,15 @@ $es4.$$package('sweetrush.core').TranslatorProto = (function ()
 		//initialize imports
 		Construct = $es4.$$['sweetrush.obj'].Construct;
 		Token = $es4.$$['sweetrush.obj'].Token;
-		JsonUtil = $es4.$$['sweetrush.utils'].JsonUtil;
-		SwcUtil = $es4.$$['sweetrush.utils'].SwcUtil;
-		Parser = $es4.$$['sweetrush.core'].Parser;
-		Lexer = $es4.$$['sweetrush.core'].Lexer;
-		TranslatorPrototype = $es4.$$['sweetrush.core'].TranslatorPrototype;
-		Analyzer = $es4.$$['sweetrush.core'].Analyzer;
-		FileUtil = $es4.$$['sweetrush.utils'].FileUtil;
-		Transcompiler = $es4.$$['sweetrush'].Transcompiler;
 		Base64Util = $es4.$$['sweetrush.utils'].Base64Util;
+		Analyzer = $es4.$$['sweetrush.core'].Analyzer;
+		TranslatorPrototype = $es4.$$['sweetrush.core'].TranslatorPrototype;
+		FileUtil = $es4.$$['sweetrush.utils'].FileUtil;
+		SwcUtil = $es4.$$['sweetrush.utils'].SwcUtil;
+		Lexer = $es4.$$['sweetrush.core'].Lexer;
+		JsonUtil = $es4.$$['sweetrush.utils'].JsonUtil;
+		Parser = $es4.$$['sweetrush.core'].Parser;
+		Transcompiler = $es4.$$['sweetrush'].Transcompiler;
 	});
 
 	//method
@@ -32613,2086 +37558,24 @@ $es4.$$package('sweetrush.core').TranslatorProto = (function ()
 //sweetrush.core.TranslatorProto
 
 
-//sweetrush.utils.Base64Util
-$es4.$$package('sweetrush.utils').Base64Util = (function ()
-{
-	//imports
-	var ByteArray;
-
-	//class initializer
-	Base64Util.$$cinit = (function ()
-	{
-		Base64Util.$$cinit = undefined;
-
-		//initialize imports
-		ByteArray = $es4.$$['flash.utils'].ByteArray;
-	});
-
-	//method
-	$es4.$$public_function('encodeString', Base64Util, (function ($$$$value)
-	{
-		if (Base64Util.$$cinit !== undefined) Base64Util.$$cinit();
-
-		//set default parameter values
-		var value = $es4.$$coerce($$$$value, String);
-
-		if (false)
-		{
-		}
-		if (true)
-		{
-			if ($es4.$$get(global, null, null, 'btoa') !== undefined)
-			{
-				return $es4.$$coerce($es4.$$call(global, null, null, 'btoa', [value]), String);
-			}
-			return $es4.$$coerce($es4.$$call($es4.$$call(global, null, null, 'Buffer', 'from', [value]), null, null, 'toString', ['base64']), String);
-		}
-	}));
-
-	//method
-	$es4.$$public_function('decodeString', Base64Util, (function ($$$$str)
-	{
-		if (Base64Util.$$cinit !== undefined) Base64Util.$$cinit();
-
-		//set default parameter values
-		var str = $es4.$$coerce($$$$str, String);
-
-		if (false)
-		{
-		}
-		if (true)
-		{
-			if ($es4.$$get(global, null, null, 'atob') !== undefined)
-			{
-				return $es4.$$coerce($es4.$$call(global, null, null, 'atob', [str]), String);
-			}
-			return $es4.$$coerce($es4.$$call($es4.$$call(global, null, null, 'Buffer', 'from', [str, 'base64']), null, null, 'toString', $es4.$$EMPTY_ARRAY), String);
-		}
-	}));
-
-	function Base64Util()
-	{
-		//initialize class if not initialized
-		if (Base64Util.$$cinit !== undefined) Base64Util.$$cinit();
-
-		//save scope
-		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
-		var $$thisp = this;
-
-		//handle possible cast
-		if ($$this === $$thisp && (!($$this instanceof Base64Util) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Base64Util) : $es4.$$throwArgumentError();
-		Object.defineProperty($$this, '$$t', {value:1});
-
-		//constructor
-		$es4.$$constructor($$thisp, (function ()
-		{
-		}));
-
-		//call construct if no arguments, or argument zero does not equal manual construct
-		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
-		{
-			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
-
-			$es4.$$construct($$this, $$args);
-		}
-	}
-
-	return $es4.$$class(Base64Util, null, 'sweetrush.utils::Base64Util');
-})();
-//sweetrush.utils.Base64Util
-
-
-//sweetrush.utils.SwcUtil
-$es4.$$package('sweetrush.utils').SwcUtil = (function ()
-{
-	//imports
-	var JsonUtil;
-
-	//class initializer
-	SwcUtil.$$cinit = (function ()
-	{
-		SwcUtil.$$cinit = undefined;
-
-		//initialize imports
-		JsonUtil = $es4.$$['sweetrush.utils'].JsonUtil;
-	});
-
-	//method
-	$es4.$$public_function('stringifySWC', SwcUtil, (function ($$$$obj)
-	{
-		if (SwcUtil.$$cinit !== undefined) SwcUtil.$$cinit();
-
-		//set default parameter values
-		var obj = $$$$obj;
-
-		return '_SWC_' + ($es4.$$call($es4.$$primitive(new (JsonUtil)()), null, null, 'stringify', [obj]));
-	}));
-
-	//method
-	$es4.$$public_function('parseSWCString', SwcUtil, (function ($$$$contents)
-	{
-		if (SwcUtil.$$cinit !== undefined) SwcUtil.$$cinit();
-
-		//set default parameter values
-		var contents = $$$$contents;
-
-		return $es4.$$call($es4.$$primitive(new (JsonUtil)()), null, null, 'parse', [$es4.$$call(contents, null, null, 'substring', [5])]);
-	}));
-
-	//method
-	$es4.$$public_function('isValidSWCString', SwcUtil, (function ($$$$contents)
-	{
-		if (SwcUtil.$$cinit !== undefined) SwcUtil.$$cinit();
-
-		//set default parameter values
-		var contents = $$$$contents;
-
-		return $es4.$$call(contents, null, null, 'indexOf', ['_SWC_']) == 0;
-	}));
-
-	function SwcUtil()
-	{
-		//initialize class if not initialized
-		if (SwcUtil.$$cinit !== undefined) SwcUtil.$$cinit();
-
-		//save scope
-		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
-		var $$thisp = this;
-
-		//handle possible cast
-		if ($$this === $$thisp && (!($$this instanceof SwcUtil) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], SwcUtil) : $es4.$$throwArgumentError();
-		Object.defineProperty($$this, '$$t', {value:1});
-
-		//constructor
-		$es4.$$constructor($$thisp, (function ()
-		{
-		}));
-
-		//call construct if no arguments, or argument zero does not equal manual construct
-		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
-		{
-			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
-
-			$es4.$$construct($$this, $$args);
-		}
-	}
-
-	return $es4.$$class(SwcUtil, null, 'sweetrush.utils::SwcUtil');
-})();
-//sweetrush.utils.SwcUtil
-
-
-//sweetrush.obj.Token
-$es4.$$package('sweetrush.obj').Token = (function ()
-{
-	//imports
-	var Lexer;
-
-	//properties
-	$es4.$$private_property('whitespaceCharacters', Token, Object);
-	$es4.$$private_property('identifierStartCharacters', Token, Object);
-	Token.OpenParenTokenType = 'OpenParenTokenType';
-	Token.ClosedParenTokenType = 'ClosedParenTokenType';
-	Token.OpenBraceTokenType = 'OpenBraceTokenType';
-	Token.ClosedBraceTokenType = 'ClosedBraceTokenType';
-	Token.OpenBracketTokenType = 'OpenBracketTokenType';
-	Token.ClosedBracketTokenType = 'ClosedBracketTokenType';
-	Token.EOSTokenType = 'EOSTokenType';
-	Token.PackageTokenType = 'PackageTokenType';
-	Token.ImportTokenType = 'ImportTokenType';
-	Token.ClassTokenType = 'ClassTokenType';
-	Token.InterfaceTokenType = 'InterfaceTokenType';
-	Token.NewTokenType = 'NewTokenType';
-	Token.UseTokenType = 'UseTokenType';
-	Token.CaseTokenType = 'CaseTokenType';
-	Token.FunctionTokenType = 'FunctionTokenType';
-	Token.GetTokenType = 'GetTokenType';
-	Token.SetTokenType = 'SetTokenType';
-	Token.RestTokenType = 'RestTokenType';
-	Token.ExtendsTokenType = 'ExtendsTokenType';
-	Token.ImplementsTokenType = 'ImplementsTokenType';
-	Token.CommentTokenType = 'CommentTokenType';
-	Token.CommentChunkTokenType = 'CommentChunkTokenType';
-	Token.MultiLineCommentTokenType = 'MultiLineCommentTokenType';
-	Token.MultiLineCommentChunkTokenType = 'MultiLineCommentChunkTokenType';
-	Token.MultiLineCommentEndTokenType = 'MultiLineCommentEndTokenType';
-	Token.OverrideTokenType = 'OverrideTokenType';
-	Token.StaticTokenType = 'StaticTokenType';
-	Token.DynamicTokenType = 'DynamicTokenType';
-	Token.FinalTokenType = 'FinalTokenType';
-	Token.VarTokenType = 'VarTokenType';
-	Token.ConstTokenType = 'ConstTokenType';
-	Token.IdentifierTokenType = 'IdentifierTokenType';
-	Token.BooleanTokenType = 'BooleanTokenType';
-	Token.ThisTokenType = 'ThisTokenType';
-	Token.TypeofTokenType = 'TypeofTokenType';
-	Token.NullTokenType = 'NullTokenType';
-	Token.VoidTokenType = 'VoidTokenType';
-	Token.UndefinedTokenType = 'UndefinedTokenType';
-	Token.IsTokenType = 'IsTokenType';
-	Token.NaNTokenType = 'NaNTokenType';
-	Token.InstanceofTokenType = 'InstanceofTokenType';
-	Token.ReturnTokenType = 'ReturnTokenType';
-	Token.SwitchTokenType = 'SwitchTokenType';
-	Token.SuperTokenType = 'SuperTokenType';
-	Token.ThrowTokenType = 'ThrowTokenType';
-	Token.DotDotTokenType = 'DotDotTokenType';
-	Token.DotTokenType = 'DotTokenType';
-	Token.NotTokenType = 'NotTokenType';
-	Token.BitwiseNotTokenType = 'BitwiseNotTokenType';
-	Token.ColonTokenType = 'ColonTokenType';
-	Token.CommaTokenType = 'CommaTokenType';
-	Token.TernaryTokenType = 'TernaryTokenType';
-	Token.IncrementTokenType = 'IncrementTokenType';
-	Token.DecrementTokenType = 'DecrementTokenType';
-	Token.BreakTokenType = 'BreakTokenType';
-	Token.ContinueTokenType = 'ContinueTokenType';
-	Token.DefaultTokenType = 'DefaultTokenType';
-	Token.InTokenType = 'InTokenType';
-	Token.AsTokenType = 'AsTokenType';
-	Token.DeleteTokenType = 'DeleteTokenType';
-	Token.IfTokenType = 'IfTokenType';
-	Token.ElseTokenType = 'ElseTokenType';
-	Token.EachTokenType = 'EachTokenType';
-	Token.ForTokenType = 'ForTokenType';
-	Token.WhileTokenType = 'WhileTokenType';
-	Token.DoTokenType = 'DoTokenType';
-	Token.WithTokenType = 'WithTokenType';
-	Token.TryTokenType = 'TryTokenType';
-	Token.CatchTokenType = 'CatchTokenType';
-	Token.RegExpTokenType = 'RegExpTokenType';
-	Token.SpecialUFOTokenType = 'SpecialUFOTokenType';
-	Token.FinallyTokenType = 'FinallyTokenType';
-	Token.AtTokenType = 'AtTokenType';
-	Token.BitwiseLeftShiftAssignmentTokenType = 'BitwiseLeftShiftAssignmentTokenType';
-	Token.BitwiseRightShiftAssignmentTokenType = 'BitwiseRightShiftAssignmentTokenType';
-	Token.BitwiseUnsignedRightShiftAssignmentTokenType = 'BitwiseUnsignedRightShiftAssignmentTokenType';
-	Token.BitwiseAndAssignmentTokenType = 'BitwiseAndAssignmentTokenType';
-	Token.BitwiseOrAssignmentTokenType = 'BitwiseOrAssignmentTokenType';
-	Token.BitwiseXorAssignmentTokenType = 'BitwiseXorAssignmentTokenType';
-	Token.AddWithAssignmentTokenType = 'AddWithAssignmentTokenType';
-	Token.DivWithAssignmentTokenType = 'DivWithAssignmentTokenType';
-	Token.ModWithAssignmentTokenType = 'ModWithAssignmentTokenType';
-	Token.MulWithAssignmentTokenType = 'MulWithAssignmentTokenType';
-	Token.SubWithAssignmentTokenType = 'SubWithAssignmentTokenType';
-	Token.EqualityTokenType = 'EqualityTokenType';
-	Token.RelationalTokenType = 'RelationalTokenType';
-	Token.BitwiseAndTokenType = 'BitwiseAndTokenType';
-	Token.BitwiseXorTokenType = 'BitwiseXorTokenType';
-	Token.BitwiseOrTokenType = 'BitwiseOrTokenType';
-	Token.AndTokenType = 'AndTokenType';
-	Token.AndWithAssignmentTokenType = 'AndWithAssignmentTokenType';
-	Token.OrTokenType = 'OrTokenType';
-	Token.OrWithAssignmentTokenType = 'OrWithAssignmentTokenType';
-	Token.BitwiseLeftShiftTokenType = 'BitwiseLeftShiftTokenType';
-	Token.BitwiseRightShiftTokenType = 'BitwiseRightShiftTokenType';
-	Token.BitwiseUnsignedRightShiftTokenType = 'BitwiseUnsignedRightShiftTokenType';
-	Token.SubTokenType = 'SubTokenType';
-	Token.AddTokenType = 'AddTokenType';
-	Token.DivTokenType = 'DivTokenType';
-	Token.MulTokenType = 'MulTokenType';
-	Token.ModTokenType = 'ModTokenType';
-	Token.AssignmentTokenType = 'AssignmentTokenType';
-	Token.NamespaceKeywordTokenType = 'NamespaceKeywordTokenType';
-	Token.XMLTokenType = 'XMLTokenType';
-	Token.XMLIdentifierTokenType = 'XMLIdentifierTokenType';
-	Token.XMLTextTokenType = 'XMLTextTokenType';
-	Token.XMLCDATATokenType = 'XMLCDATATokenType';
-	Token.XMLCDATAChunkTokenType = 'XMLCDATAChunkTokenType';
-	Token.XMLCDATAEndTokenType = 'XMLCDATAEndTokenType';
-	Token.XMLOpenArrowTokenType = 'XMLOpenArrowTokenType';
-	Token.XMLClosedArrowTokenType = 'XMLClosedArrowTokenType';
-	Token.XMLForwardSlashTokenType = 'XMLForwardSlashTokenType';
-	Token.NamespaceQualifierTokenType = 'NamespaceQualifierTokenType';
-	Token.VectorDotOpenArrowTokenType = 'VectorDotOpenArrowTokenType';
-	Token.VectorClosedArrowTokenType = 'VectorClosedArrowTokenType';
-	Token.StringTokenType = 'StringTokenType';
-	Token.StringChunkTokenType = 'StringChunkTokenType';
-	Token.StringMultiLineDelimiterTokenType = 'StringMultiLineDelimiterTokenType';
-	Token.StringEndTokenType = 'StringEndTokenType';
-	Token.NumberTokenType = 'NumberTokenType';
-	Token.SpaceTokenType = 'SpaceTokenType';
-	Token.TabTokenType = 'TabTokenType';
-	Token.NewLineTokenType = 'NewLineTokenType';
-	Token.UFOTokenType = 'UFOTokenType';
-	$es4.$$public_property('tokenFunctions', Token, Object);
-
-	//class initializer
-	Token.$$cinit = (function ()
-	{
-		Token.$$cinit = undefined;
-
-		//initialize imports
-		Lexer = $es4.$$['sweetrush.core'].Lexer;
-
-		//initialize properties
-		Token.whitespaceCharacters = {'\u0020':true, '\u0009':true, '\u000A':true, '\u000C':true, '\u000D':true};
-		Token.identifierStartCharacters = {'_':true, '$':true, 'a':true, 'b':true, 'c':true, 'd':true, 'e':true, 'f':true, 'g':true, 'h':true, 'i':true, 'j':true, 'k':true, 'l':true, 'm':true, 'n':true, 'o':true, 'p':true, 'q':true, 'r':true, 's':true, 't':true, 'u':true, 'v':true, 'w':true, 'x':true, 'y':true, 'z':true, 'A':true, 'B':true, 'C':true, 'D':true, 'E':true, 'F':true, 'G':true, 'H':true, 'I':true, 'J':true, 'K':true, 'L':true, 'M':true, 'N':true, 'O':true, 'P':true, 'Q':true, 'R':true, 'S':true, 'T':true, 'U':true, 'V':true, 'W':true, 'X':true, 'Y':true, 'Z':true};
-		Token.tokenFunctions = {};
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OpenParenTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClosedParenTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OpenBraceTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClosedBraceTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OpenBracketTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClosedBracketTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EOSTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'PackageTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ImportTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClassTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InterfaceTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UseTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CaseTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FunctionTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'GetTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SetTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RestTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ExtendsTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ImplementsTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CommentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CommentChunkTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MultiLineCommentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MultiLineCommentChunkTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MultiLineCommentEndTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OverrideTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StaticTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DynamicTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinalTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VarTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ConstTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IdentifierTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BooleanTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ThisTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TypeofTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NullTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VoidTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UndefinedTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IsTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NaNTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InstanceofTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ReturnTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SwitchTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SuperTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ThrowTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DotDotTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DotTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NotTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseNotTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ColonTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CommaTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TernaryTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IncrementTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DecrementTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BreakTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ContinueTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DefaultTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AsTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DeleteTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IfTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ElseTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EachTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ForTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WhileTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DoTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WithTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TryTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CatchTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RegExpTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SpecialUFOTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinallyTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AtTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AddWithAssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DivWithAssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ModWithAssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MulWithAssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SubWithAssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EqualityTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RelationalTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseAndTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseXorTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseOrTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AndTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AndWithAssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OrTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OrWithAssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseLeftShiftTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseRightShiftTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SubTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AddTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DivTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MulTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ModTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NamespaceKeywordTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLIdentifierTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLTextTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLCDATATokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLCDATAChunkTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLCDATAEndTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLOpenArrowTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLClosedArrowTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VectorClosedArrowTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StringTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StringChunkTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StringMultiLineDelimiterTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StringEndTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NumberTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SpaceTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TabTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewLineTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UFOTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OpenParenTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '(') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'OpenParenTokenType'), '(']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClosedParenTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == ')') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'ClosedParenTokenType'), ')']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OpenBraceTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '{') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'OpenBraceTokenType'), '{']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClosedBraceTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '}') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'ClosedBraceTokenType'), '}']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OpenBracketTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '[') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'OpenBracketTokenType'), '[']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClosedBracketTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == ']') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'ClosedBracketTokenType'), ']']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EOSTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == ';') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'EOSTokenType'), ';']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'PackageTokenType'), 'keyword', 'package', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'PackageTokenType'), 'terminator', /^([\s]|\{)/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'PackageTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'p' || $es4.$$call(input, null, null, 'charAt', [1]) != 'a') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'PackageTokenType'), [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType'), $es4.$$get(Token, null, null, 'IdentifierTokenType'), $es4.$$get(Token, null, null, 'DotTokenType')]]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ImportTokenType'), 'keyword', 'import', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ImportTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 'm') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'import', $es4.$$get(Token, null, null, 'ImportTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClassTokenType'), 'keyword', 'class', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClassTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'c' || $es4.$$call(input, null, null, 'charAt', [1]) != 'l') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'class', $es4.$$get(Token, null, null, 'ClassTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InterfaceTokenType'), 'keyword', 'interface', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InterfaceTokenType'), 'terminator', /^[\s]/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InterfaceTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 'n') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'interface', $es4.$$get(Token, null, null, 'InterfaceTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewTokenType'), 'keyword', 'new', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewTokenType'), 'terminator', /^[\s]/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'n' || $es4.$$call(input, null, null, 'charAt', [1]) != 'e') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'NewTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UseTokenType'), 'keyword', 'use', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UseTokenType'), 'terminator', /^[\s]/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UseTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'u' || $es4.$$call(input, null, null, 'charAt', [1]) != 's') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'UseTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CaseTokenType'), 'keyword', 'case', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CaseTokenType'), 'terminator', /^[\s]/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CaseTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'c' || $es4.$$call(input, null, null, 'charAt', [1]) != 'a') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'CaseTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FunctionTokenType'), 'keyword', 'function', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FunctionTokenType'), 'terminator', /^[\s]|\(/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FunctionTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	if ($es4.$$call(input, null, null, 'charAt', [0]) != 'f')
-	{
-		return null;
-	}
-	var result = $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'FunctionTokenType'), [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType'), $es4.$$get(Token, null, null, 'GetTokenType'), $es4.$$get(Token, null, null, 'SetTokenType'), $es4.$$get(Token, null, null, 'IdentifierTokenType')]]);
-	if (!result)
-	{
-		return null;
-	}
-	var tokens = $es4.$$get(result, null, null, 'tokens');
-	var index = $es4.$$get(result, null, null, 'index');
-	result = $es4.$$call(Lexer, null, null, 'lex', [$es4.$$call(input, null, null, 'slice', [index + 1]), [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType'), $es4.$$get(Token, null, null, 'OpenParenTokenType'), $es4.$$get(Token, null, null, 'ClosedParenTokenType'), $es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType'), $es4.$$get(Token, null, null, 'VectorClosedArrowTokenType'), $es4.$$get(Token, null, null, 'VoidTokenType'), $es4.$$get(Token, null, null, 'StringTokenType'), $es4.$$get(Token, null, null, 'BooleanTokenType'), $es4.$$get(Token, null, null, 'SubTokenType'), $es4.$$get(Token, null, null, 'AddTokenType'), $es4.$$get(Token, null, null, 'RestTokenType'), $es4.$$get(Token, null, null, 'NumberTokenType'), $es4.$$get(Token, null, null, 'NullTokenType'), $es4.$$get(Token, null, null, 'UndefinedTokenType'), $es4.$$get(Token, null, null, 'NaNTokenType'), $es4.$$get(Token, null, null, 'ColonTokenType'), $es4.$$get(Token, null, null, 'MulTokenType'), $es4.$$get(Token, null, null, 'CommaTokenType'), $es4.$$get(Token, null, null, 'AssignmentTokenType'), $es4.$$get(Token, null, null, 'IdentifierTokenType'), $es4.$$get(Token, null, null, 'DotTokenType')], true]);
-	tokens = $es4.$$call(tokens, null, null, 'concat', [$es4.$$get(result, null, null, 'tokens')]);
-	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, $es4.$$get(result, null, null, 'index') + index]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'GetTokenType'), 'keyword', 'get', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'GetTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'g' || $es4.$$call(input, null, null, 'charAt', [1]) != 'e') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'get', $es4.$$get(Token, null, null, 'GetTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SetTokenType'), 'keyword', 'set', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SetTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 's' || $es4.$$call(input, null, null, 'charAt', [1]) != 'e') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'set', $es4.$$get(Token, null, null, 'SetTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RestTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '.' || $es4.$$call(input, null, null, 'charAt', [1]) != '.') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, '...', $es4.$$get(Token, null, null, 'RestTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), false]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ExtendsTokenType'), 'keyword', 'extends', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ExtendsTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'e' || $es4.$$call(input, null, null, 'charAt', [1]) != 'x') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'extends', $es4.$$get(Token, null, null, 'ExtendsTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ImplementsTokenType'), 'keyword', 'implements', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ImplementsTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 'm') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'implements', $es4.$$get(Token, null, null, 'ImplementsTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CommentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	if ($es4.$$call(input, null, null, 'charAt', [0]) != '/' || $es4.$$call(input, null, null, 'charAt', [1]) != '/')
-	{
-		return null;
-	}
-	var tokens = [];
-	var i = 2;
-	var commentChunk = '';
-	var token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'CommentTokenType'), $es4.$$call(input, null, null, 'charAt', [0]) + $es4.$$call(input, null, null, 'charAt', [1])]);
-	$es4.$$call(tokens, null, null, 'push', [token]);
-	while (i < $es4.$$get(input, null, null, 'length'))
-	{
-		if ($es4.$$call($es4.$$call(input, null, null, 'charAt', [i]), null, null, 'match', [/[\r\n]/]))
-		{
-			break;
-		}
-		commentChunk += $es4.$$call(input, null, null, 'charAt', [i]);
-		i++;
-	}
-	if (i > 2)
-	{
-		token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'CommentChunkTokenType'), commentChunk]);
-		$es4.$$call(tokens, null, null, 'push', [token]);
-	}
-	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, i - 1]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MultiLineCommentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	if ($es4.$$call(input, null, null, 'charAt', [0]) != '/' || $es4.$$call(input, null, null, 'charAt', [1]) != '*')
-	{
-		return null;
-	}
-	var tokens = [];
-	var token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MultiLineCommentTokenType'), $es4.$$call(input, null, null, 'charAt', [0]) + $es4.$$call(input, null, null, 'charAt', [1])]);
-	$es4.$$call(tokens, null, null, 'push', [token]);
-	var i = 2;
-	var lastChar;
-	var commentChunk = '';
-	while (i < $es4.$$get(input, null, null, 'length'))
-	{
-		if ($es4.$$call($es4.$$call(input, null, null, 'charAt', [i]), null, null, 'match', [/[\r\n]/]))
-		{
-			if ($es4.$$get(commentChunk, null, null, 'length') > 0)
-			{
-				token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MultiLineCommentChunkTokenType'), commentChunk]);
-				$es4.$$call(tokens, null, null, 'push', [token]);
-			}
-			token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$call(input, null, null, 'charAt', [i])]);
-			$es4.$$call(tokens, null, null, 'push', [token]);
-			commentChunk = '';
-		}
-		else if (lastChar == '*' && $es4.$$call(input, null, null, 'charAt', [i]) == '/')
-		{
-			commentChunk = $es4.$$call(commentChunk, null, null, 'slice', [0, $es4.$$get(commentChunk, null, null, 'length') - 1]);
-			i--;
-			break;
-		}
-		else
-		{
-			commentChunk += $es4.$$call(input, null, null, 'charAt', [i]);
-		}
-		lastChar = $es4.$$call(input, null, null, 'charAt', [i]);
-		i++;
-	}
-	if ($es4.$$get(commentChunk, null, null, 'length') > 0)
-	{
-		token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MultiLineCommentChunkTokenType'), commentChunk]);
-		$es4.$$call(tokens, null, null, 'push', [token]);
-	}
-	token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MultiLineCommentEndTokenType'), $es4.$$call(input, null, null, 'charAt', [i]) + $es4.$$call(input, null, null, 'charAt', [i + 1])]);
-	$es4.$$call(tokens, null, null, 'push', [token]);
-	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, i + 1]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OverrideTokenType'), 'keyword', 'override', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OverrideTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'o' || $es4.$$call(input, null, null, 'charAt', [1]) != 'v') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'override', $es4.$$get(Token, null, null, 'OverrideTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StaticTokenType'), 'keyword', 'static', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StaticTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 's' || $es4.$$call(input, null, null, 'charAt', [1]) != 't') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'static', $es4.$$get(Token, null, null, 'StaticTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DynamicTokenType'), 'keyword', 'dynamic', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DynamicTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'd' || $es4.$$call(input, null, null, 'charAt', [1]) != 'y') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'dynamic', $es4.$$get(Token, null, null, 'DynamicTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinalTokenType'), 'keyword', 'final', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinalTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'f' || $es4.$$call(input, null, null, 'charAt', [1]) != 'i') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'final', $es4.$$get(Token, null, null, 'FinalTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VarTokenType'), 'keyword', 'var', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VarTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'v' || $es4.$$call(input, null, null, 'charAt', [1]) != 'a') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'var', $es4.$$get(Token, null, null, 'VarTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ConstTokenType'), 'keyword', 'const', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ConstTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'c' || $es4.$$call(input, null, null, 'charAt', [1]) != 'o') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'const', $es4.$$get(Token, null, null, 'ConstTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IdentifierTokenType'), 'regex', /^[a-zA-Z_$][a-zA-Z_0-9$]*/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IdentifierTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'IdentifierTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BooleanTokenType'), 'regex', /^(true|false)(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BooleanTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 't' && $es4.$$call(input, null, null, 'charAt', [0]) != 'f') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BooleanTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ThisTokenType'), 'regex', /^this(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ThisTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 't' || $es4.$$call(input, null, null, 'charAt', [1]) != 'h') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'ThisTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TypeofTokenType'), 'regex', /^typeof(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TypeofTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 't' || $es4.$$call(input, null, null, 'charAt', [1]) != 'y') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'TypeofTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NullTokenType'), 'regex', /^null(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NullTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'n' || $es4.$$call(input, null, null, 'charAt', [1]) != 'u') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'NullTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VoidTokenType'), 'regex', /^void(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VoidTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'v' || $es4.$$call(input, null, null, 'charAt', [1]) != 'o') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'VoidTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UndefinedTokenType'), 'regex', /^undefined(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UndefinedTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'u' || $es4.$$call(input, null, null, 'charAt', [1]) != 'n') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'UndefinedTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IsTokenType'), 'regex', /^is(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IsTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 's') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'IsTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NaNTokenType'), 'regex', /^NaN(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NaNTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'N' || $es4.$$call(input, null, null, 'charAt', [1]) != 'a') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'NaNTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InstanceofTokenType'), 'regex', /^instanceof(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InstanceofTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 'n') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'InstanceofTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ReturnTokenType'), 'regex', /^return(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ReturnTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'r' || $es4.$$call(input, null, null, 'charAt', [1]) != 'e') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'ReturnTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SwitchTokenType'), 'regex', /^switch(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SwitchTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 's' || $es4.$$call(input, null, null, 'charAt', [1]) != 'w') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'SwitchTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SuperTokenType'), 'regex', /^super(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SuperTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 's' || $es4.$$call(input, null, null, 'charAt', [1]) != 'u') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'SuperTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ThrowTokenType'), 'regex', /^throw(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ThrowTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 't' || $es4.$$call(input, null, null, 'charAt', [1]) != 'h') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'ThrowTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DotDotTokenType'), 'regex', /^\.\./, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DotDotTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '.' || $es4.$$call(input, null, null, 'charAt', [1]) != '.') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'DotDotTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DotTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '.') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'DotTokenType'), '.']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NotTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '!') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'NotTokenType'), '!']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseNotTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '~') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseNotTokenType'), '~']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ColonTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == ':') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'ColonTokenType'), ':']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CommaTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == ',') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'CommaTokenType'), ',']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TernaryTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '?') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'TernaryTokenType'), '?']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IncrementTokenType'), 'regex', /^\+\+/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IncrementTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '+' || $es4.$$call(input, null, null, 'charAt', [1]) != '+') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'IncrementTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DecrementTokenType'), 'regex', /^\-\-/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DecrementTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '-' || $es4.$$call(input, null, null, 'charAt', [1]) != '-') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'DecrementTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BreakTokenType'), 'regex', /^break(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BreakTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'b' || $es4.$$call(input, null, null, 'charAt', [1]) != 'r') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BreakTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ContinueTokenType'), 'regex', /^continue(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ContinueTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'c' || $es4.$$call(input, null, null, 'charAt', [1]) != 'o') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'ContinueTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DefaultTokenType'), 'regex', /^default(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DefaultTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'd' || $es4.$$call(input, null, null, 'charAt', [1]) != 'e') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'DefaultTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InTokenType'), 'regex', /^in(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 'n') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'InTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AsTokenType'), 'regex', /^as(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AsTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'a' || $es4.$$call(input, null, null, 'charAt', [1]) != 's') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'AsTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DeleteTokenType'), 'regex', /^delete(?![a-zA-Z0-9_.(])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DeleteTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'd' || $es4.$$call(input, null, null, 'charAt', [1]) != 'e') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'DeleteTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IfTokenType'), 'keyword', 'if', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IfTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 'f') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'if', $es4.$$get(Token, null, null, 'IfTokenType'), '(', false]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ElseTokenType'), 'keyword', 'else', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ElseTokenType'), 'terminator', /^([\s]|\{)/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ElseTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'e' || $es4.$$call(input, null, null, 'charAt', [1]) != 'l') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'ElseTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EachTokenType'), 'keyword', 'each', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EachTokenType'), 'terminator', /^([\s]|\()/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EachTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'e' || $es4.$$call(input, null, null, 'charAt', [1]) != 'a') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'EachTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ForTokenType'), 'keyword', 'for', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ForTokenType'), 'terminator', /^([\s]|\()/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ForTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'f' || $es4.$$call(input, null, null, 'charAt', [1]) != 'o') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'ForTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WhileTokenType'), 'keyword', 'while', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WhileTokenType'), 'terminator', /^([\s]|\()/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WhileTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'w' || $es4.$$call(input, null, null, 'charAt', [1]) != 'h') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'WhileTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DoTokenType'), 'keyword', 'do', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DoTokenType'), 'terminator', /^([\s]|\{)/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DoTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'd' || $es4.$$call(input, null, null, 'charAt', [1]) != 'o') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'DoTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WithTokenType'), 'keyword', 'with', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WithTokenType'), 'terminator', /^([\s]|\{)/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WithTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'w' || $es4.$$call(input, null, null, 'charAt', [1]) != 'i') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'WithTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TryTokenType'), 'keyword', 'try', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TryTokenType'), 'terminator', /^([\s]|\{)/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TryTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 't' || $es4.$$call(input, null, null, 'charAt', [1]) != 'r') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'TryTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CatchTokenType'), 'keyword', 'catch', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CatchTokenType'), 'terminator', /^([\s]|\()/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CatchTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	if ($es4.$$call(input, null, null, 'charAt', [0]) != 'c' || $es4.$$call(input, null, null, 'charAt', [1]) != 'a')
-	{
-		return null;
-	}
-	var result = $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'CatchTokenType'), [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType')]]);
-	if (!result)
-	{
-		return null;
-	}
-	var tokens = $es4.$$get(result, null, null, 'tokens');
-	var index = $es4.$$get(result, null, null, 'index');
-	result = $es4.$$call(Lexer, null, null, 'lex', [$es4.$$call(input, null, null, 'slice', [index + 1]), [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType'), $es4.$$get(Token, null, null, 'OpenParenTokenType'), $es4.$$get(Token, null, null, 'ClosedParenTokenType'), $es4.$$get(Token, null, null, 'IdentifierTokenType'), $es4.$$get(Token, null, null, 'DotTokenType'), $es4.$$get(Token, null, null, 'ColonTokenType')], true]);
-	tokens = $es4.$$call(tokens, null, null, 'concat', [$es4.$$get(result, null, null, 'tokens')]);
-	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, $es4.$$get(result, null, null, 'index') + index]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RegExpTokenType'), 'find', function ($$$$input, $$$$foundTokens) 
-{
-		//set default parameter values
-		var input = $$$$input;
-		var foundTokens = $$$$foundTokens;
-
-	if ($es4.$$call(input, null, null, 'charAt', [0]) != '/')
-	{
-		return null;
-	}
-	outer:	for (var j = $es4.$$get(foundTokens, null, null, 'length') - 1; j >= 0; j--)
-	{
-		var tokens = $es4.$$get(foundTokens, null, null, j);
-		var token;
-		var i;
-		for (i = $es4.$$get(tokens, null, null, 'length') - 1; i >= 0; i--)
-		{
-			token = $es4.$$get(tokens, null, null, i);
-			switch ($es4.$$get(token, null, null, 'type'))
-			{
-				case $es4.$$get(Token, null, null, 'SpaceTokenType'):
-				case $es4.$$get(Token, null, null, 'TabTokenType'):
-				case $es4.$$get(Token, null, null, 'NewLineTokenType'):
-					break;
-				case $es4.$$get(Token, null, null, 'EOSTokenType'):
-				case $es4.$$get(Token, null, null, 'OpenBracketTokenType'):
-				case $es4.$$get(Token, null, null, 'OpenParenTokenType'):
-				case $es4.$$get(Token, null, null, 'EqualityTokenType'):
-				case $es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'BitwiseLeftShiftTokenType'):
-				case $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftTokenType'):
-				case $es4.$$get(Token, null, null, 'BitwiseRightShiftTokenType'):
-				case $es4.$$get(Token, null, null, 'RelationalTokenType'):
-				case $es4.$$get(Token, null, null, 'AddWithAssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'DivWithAssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'ModWithAssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'MulWithAssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'SubWithAssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'AssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'CommaTokenType'):
-				case $es4.$$get(Token, null, null, 'DeleteTokenType'):
-				case $es4.$$get(Token, null, null, 'InTokenType'):
-				case $es4.$$get(Token, null, null, 'WithTokenType'):
-				case $es4.$$get(Token, null, null, 'TypeofTokenType'):
-				case $es4.$$get(Token, null, null, 'VoidTokenType'):
-				case $es4.$$get(Token, null, null, 'ReturnTokenType'):
-				case $es4.$$get(Token, null, null, 'ThrowTokenType'):
-				case $es4.$$get(Token, null, null, 'NewTokenType'):
-				case $es4.$$get(Token, null, null, 'CaseTokenType'):
-				case $es4.$$get(Token, null, null, 'AndWithAssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'OrWithAssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'AndTokenType'):
-				case $es4.$$get(Token, null, null, 'OrTokenType'):
-				case $es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'BitwiseAndTokenType'):
-				case $es4.$$get(Token, null, null, 'BitwiseNotTokenType'):
-				case $es4.$$get(Token, null, null, 'BitwiseOrTokenType'):
-				case $es4.$$get(Token, null, null, 'BitwiseXorTokenType'):
-				case $es4.$$get(Token, null, null, 'NotTokenType'):
-				case $es4.$$get(Token, null, null, 'IncrementTokenType'):
-				case $es4.$$get(Token, null, null, 'DecrementTokenType'):
-				case $es4.$$get(Token, null, null, 'OpenBraceTokenType'):
-				case $es4.$$get(Token, null, null, 'IsTokenType'):
-				case $es4.$$get(Token, null, null, 'InstanceofTokenType'):
-				case $es4.$$get(Token, null, null, 'AddTokenType'):
-				case $es4.$$get(Token, null, null, 'RegExpTokenType'):
-				case $es4.$$get(Token, null, null, 'SubTokenType'):
-				case $es4.$$get(Token, null, null, 'DivTokenType'):
-				case $es4.$$get(Token, null, null, 'MulTokenType'):
-				case $es4.$$get(Token, null, null, 'ModTokenType'):
-					break outer;
-				default:
-					return null;
-			}
-		}
-	}
-	var result = $es4.$$call(Lexer, null, null, 'lex', [$es4.$$call(input, null, null, 'slice', [1]), [$es4.$$get(Token, null, null, 'SpecialUFOTokenType')], true]);
-	var previousToken;
-	var tokens = $es4.$$get(result, null, null, 'tokens');
-	var foundEnd = false;
-	for (i = 0; i < $es4.$$get(tokens, null, null, 'length'); i++)
-	{
-		token = $es4.$$get(tokens, null, null, i);
-		if (foundEnd)
-		{
-			if ($es4.$$get(token, null, null, 'data') == ',' || $es4.$$get(token, null, null, 'data') == ';' || $es4.$$get(token, null, null, 'data') == ']' || $es4.$$get(token, null, null, 'data') == ')' || $es4.$$get(token, null, null, 'data') == ']' || $es4.$$get(token, null, null, 'data') == '.' || $es4.$$get(token, null, null, 'data') == ' ' || $es4.$$get(token, null, null, 'data') == '	' || $es4.$$call(token, null, null, 'data', 'match', [/[\r\n]/]))
-			{
-				i++;
-				break;
-			}
-		}
-		else if ($es4.$$get(token, null, null, 'data') == '/' && previousToken && $es4.$$get(previousToken, null, null, 'data') != '\\')
-		{
-			foundEnd = true;
-		}
-		previousToken = token;
-	}
-	if (!foundEnd)
-	{
-		return null;
-	}
-	tokens = $es4.$$call(tokens, null, null, 'splice', [0, i - 1]);
-	$es4.$$call(tokens, null, null, 'unshift', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'RegExpTokenType'), '/'])]);
-	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, i - 1]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SpecialUFOTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	if ($es4.$$call(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewLineTokenType'), 'find', [input]) != null)
-	{
-		return null;
-	}
-	return $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'SpecialUFOTokenType'), $es4.$$call(input, null, null, 'charAt', [0])]), 0]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinallyTokenType'), 'keyword', 'finally', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinallyTokenType'), 'terminator', /^([\s]|\{)/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinallyTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'f' || $es4.$$call(input, null, null, 'charAt', [1]) != 'i') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'FinallyTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AtTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '@') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'AtTokenType'), '@']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType'), 'regex', /^<<=/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '<' || $es4.$$call(input, null, null, 'charAt', [1]) != '<') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType'), 'regex', /^>>=/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '>' || $es4.$$call(input, null, null, 'charAt', [1]) != '>') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType'), 'regex', /^>>>=/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '>' || $es4.$$call(input, null, null, 'charAt', [1]) != '>') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType'), 'regex', /^&=/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '&' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType'), 'regex', /^\|=/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '|' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType'), 'regex', /^\^=/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '^' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AddWithAssignmentTokenType'), 'regex', /^\+\=/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AddWithAssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '+' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'AddWithAssignmentTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DivWithAssignmentTokenType'), 'regex', /^\/\=/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DivWithAssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '/' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'DivWithAssignmentTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ModWithAssignmentTokenType'), 'regex', /^\%\=/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ModWithAssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '%' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'ModWithAssignmentTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MulWithAssignmentTokenType'), 'regex', /^\*\=/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MulWithAssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '*' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'MulWithAssignmentTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SubWithAssignmentTokenType'), 'regex', /^\-\=/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SubWithAssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '-' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'SubWithAssignmentTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EqualityTokenType'), 'operators', ['===', '!==', '==', '!='], '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EqualityTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	if ($es4.$$call(input, null, null, 'charAt', [0]) != '=' && $es4.$$call(input, null, null, 'charAt', [0]) != '!')
-	{
-		return null;
-	}
-	for (var i = 0; i < $es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EqualityTokenType'), 'operators', 'length'); i++)
-	{
-		var operator = $es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EqualityTokenType'), 'operators', i);
-		var match = $es4.$$call(input, null, null, 'match', [$es4.$$primitive(new (RegExp)("^" + operator))]);
-		if (!match)
-		{
-			continue;
-		}
-		var token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'EqualityTokenType'), operator]);
-		return $es4.$$call(Token, null, null, 'getNewResult', [token, $es4.$$get(operator, null, null, 'length') - 1]);
-	}
-	return null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RelationalTokenType'), 'operators', ['>=', '>', '<=', '<'], '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RelationalTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	if ($es4.$$call(input, null, null, 'charAt', [0]) != '>' && $es4.$$call(input, null, null, 'charAt', [0]) != '<')
-	{
-		return null;
-	}
-	for (var i = 0; i < $es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RelationalTokenType'), 'operators', 'length'); i++)
-	{
-		var operator = $es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RelationalTokenType'), 'operators', i);
-		var match = $es4.$$call(input, null, null, 'match', [$es4.$$primitive(new (RegExp)("^" + operator))]);
-		if (!match)
-		{
-			continue;
-		}
-		var token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'RelationalTokenType'), operator]);
-		return $es4.$$call(Token, null, null, 'getNewResult', [token, $es4.$$get(operator, null, null, 'length') - 1]);
-	}
-	return null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseAndTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '&') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseAndTokenType'), '&']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseXorTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '^') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseXorTokenType'), '^']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseOrTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '|') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseOrTokenType'), '|']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AndTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '&' && $es4.$$call(input, null, null, 'charAt', [1]) == '&') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'AndTokenType'), '&&']), 1]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AndWithAssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '&' && $es4.$$call(input, null, null, 'charAt', [1]) == '&' && $es4.$$call(input, null, null, 'charAt', [2]) == '=') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'AndWithAssignmentTokenType'), '&&=']), 2]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OrTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '|' && $es4.$$call(input, null, null, 'charAt', [1]) == '|') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'OrTokenType'), '||']), 1]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OrWithAssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '|' && $es4.$$call(input, null, null, 'charAt', [1]) == '|' && $es4.$$call(input, null, null, 'charAt', [2]) == '=') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'OrWithAssignmentTokenType'), '||=']), 2]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseLeftShiftTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '<' && $es4.$$call(input, null, null, 'charAt', [1]) == '<') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseLeftShiftTokenType'), '<<']), 1]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseRightShiftTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '>' && $es4.$$call(input, null, null, 'charAt', [1]) == '>') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseRightShiftTokenType'), '>>']), 1]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '>' && $es4.$$call(input, null, null, 'charAt', [1]) == '>' && $es4.$$call(input, null, null, 'charAt', [2]) == '>') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftTokenType'), '>>>']), 2]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SubTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '-') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'SubTokenType'), '-']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AddTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '+') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'AddTokenType'), '+']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DivTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '/') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'DivTokenType'), '/']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MulTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '*') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MulTokenType'), '*']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ModTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '%') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'ModTokenType'), '%']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '=') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'AssignmentTokenType'), '=']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NamespaceKeywordTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == 'n') ? $es4.$$call(Token, null, null, 'keywordFind2', [input, 'namespace', $es4.$$get(Token, null, null, 'NamespaceKeywordTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	if ($es4.$$call(input, null, null, 'charAt', [0]) != '<')
-	{
-		return null;
-	}
-	var isXMLList = $es4.$$call(input, null, null, 'charAt', [1]) == '>';
-	var resultTokens = [];
-	var index = -1;
-	var openNodes = 0;
-	while (true)
-	{
-		var result = $es4.$$call(Lexer, null, null, 'lex', [input, [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType'), $es4.$$get(Token, null, null, 'StringTokenType'), $es4.$$get(Token, null, null, 'AssignmentTokenType'), $es4.$$get(Token, null, null, 'ColonTokenType'), $es4.$$get(Token, null, null, 'XMLOpenArrowTokenType'), $es4.$$get(Token, null, null, 'XMLIdentifierTokenType'), $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType')], true]);
-		if (!$es4.$$get(result, null, null, 'tokens', 'length'))
-		{
-			break;
-		}
-		if ($es4.$$call(input, null, null, 'charAt', [$es4.$$get(result, null, null, 'index')]) != '>')
-		{
-			break;
-		}
-		var tokens = $es4.$$call(result, null, null, 'tokens', 'concat', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLClosedArrowTokenType'), '>'])]);
-		input = $es4.$$call(input, null, null, 'slice', [$es4.$$get(result, null, null, 'index') + 1]);
-		index += $es4.$$get(result, null, null, 'index') + 1;
-		resultTokens = $es4.$$call(resultTokens, null, null, 'concat', [tokens]);
-		if ($es4.$$get(tokens, null, null, 1, 'type') != $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'))
-		{
-			openNodes++;
-		}
-		if ($es4.$$get(tokens, null, null, 1, 'type') == $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'))
-		{
-			openNodes--;
-		}
-		else if ($es4.$$get(tokens, null, null, $es4.$$get(tokens, null, null, 'length') - 2, 'type') == $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'))
-		{
-			openNodes--;
-		}
-		if (!openNodes)
-		{
-			break;
-		}
-		if (isXMLList && openNodes == 1)
-		{
-			result = $es4.$$call(Lexer, null, null, 'lex', [input, [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType')], true]);
-			if (!$es4.$$get(result, null, null, 'tokens', 'length'))
-			{
-				continue;
-			}
-			input = $es4.$$call(input, null, null, 'slice', [$es4.$$get(result, null, null, 'index')]);
-			index += $es4.$$get(result, null, null, 'index');
-			resultTokens = $es4.$$call(resultTokens, null, null, 'concat', [$es4.$$get(result, null, null, 'tokens')]);
-		}
-		else
-		{
-			result = $es4.$$call(Lexer, null, null, 'lex', [input, [$es4.$$get(Token, null, null, 'XMLTextTokenType'), $es4.$$get(Token, null, null, 'XMLCDATATokenType')], true]);
-			if (!$es4.$$get(result, null, null, 'tokens', 'length'))
-			{
-				continue;
-			}
-			input = $es4.$$call(input, null, null, 'slice', [$es4.$$get(result, null, null, 'index')]);
-			index += $es4.$$get(result, null, null, 'index');
-			resultTokens = $es4.$$call(resultTokens, null, null, 'concat', [$es4.$$get(result, null, null, 'tokens')]);
-		}
-	}
-	if (openNodes || !$es4.$$get(resultTokens, null, null, 'length'))
-	{
-		return null;
-	}
-	return $es4.$$call(Token, null, null, 'getNewResult', [resultTokens, index]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLIdentifierTokenType'), 'regex', /^[a-zA-Z_][a-zA-Z_0-9]*/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLIdentifierTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'XMLIdentifierTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLTextTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	if ($es4.$$call(input, null, null, 'charAt', [0]) == '<')
-	{
-		return null;
-	}
-	var token;
-	var tokens = [];
-	var i = 0;
-	var chunk = '';
-	while (i < $es4.$$get(input, null, null, 'length'))
-	{
-		if ($es4.$$call($es4.$$call(input, null, null, 'charAt', [i]), null, null, 'match', [/[\r\n]/]))
-		{
-			if ($es4.$$get(chunk, null, null, 'length') > 0)
-			{
-				token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLTextTokenType'), chunk]);
-				$es4.$$call(tokens, null, null, 'push', [token]);
-			}
-			token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$call(input, null, null, 'charAt', [i])]);
-			$es4.$$call(tokens, null, null, 'push', [token]);
-			chunk = '';
-		}
-		else if ($es4.$$call(input, null, null, 'charAt', [i]) == '<')
-		{
-			i--;
-			break;
-		}
-		else
-		{
-			chunk += $es4.$$call(input, null, null, 'charAt', [i]);
-		}
-		i++;
-	}
-	if ($es4.$$get(chunk, null, null, 'length') > 0)
-	{
-		token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLTextTokenType'), chunk]);
-		$es4.$$call(tokens, null, null, 'push', [token]);
-	}
-	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, i]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLCDATATokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	if ($es4.$$call(input, null, null, 'charAt', [0]) != '<' || $es4.$$call(input, null, null, 'charAt', [1]) != '!' || $es4.$$call(input, null, null, 'charAt', [2]) != '[' || $es4.$$call(input, null, null, 'indexOf', ['<![CDATA[']) != 0)
-	{
-		return null;
-	}
-	var tokens = [];
-	var token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLCDATATokenType'), '<![CDATA[']);
-	$es4.$$call(tokens, null, null, 'push', [token]);
-	var i = 9;
-	var chunk = '';
-	while (i < $es4.$$get(input, null, null, 'length'))
-	{
-		if ($es4.$$call($es4.$$call(input, null, null, 'charAt', [i]), null, null, 'match', [/[\r\n]/]))
-		{
-			if ($es4.$$get(chunk, null, null, 'length') > 0)
-			{
-				token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLCDATAChunkTokenType'), chunk]);
-				$es4.$$call(tokens, null, null, 'push', [token]);
-			}
-			token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$call(input, null, null, 'charAt', [i])]);
-			$es4.$$call(tokens, null, null, 'push', [token]);
-			chunk = '';
-		}
-		else if ($es4.$$call(input, null, null, 'charAt', [i - 2]) == ']' && $es4.$$call(input, null, null, 'charAt', [i - 1]) == ']' && $es4.$$call(input, null, null, 'charAt', [i]) == '>')
-		{
-			chunk = $es4.$$call(chunk, null, null, 'slice', [0, $es4.$$get(chunk, null, null, 'length') - 2]);
-			break;
-		}
-		else
-		{
-			chunk += $es4.$$call(input, null, null, 'charAt', [i]);
-		}
-		i++;
-	}
-	if ($es4.$$get(chunk, null, null, 'length') > 0)
-	{
-		token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLCDATAChunkTokenType'), chunk]);
-		$es4.$$call(tokens, null, null, 'push', [token]);
-	}
-	token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLCDATAEndTokenType'), ']]>']);
-	$es4.$$call(tokens, null, null, 'push', [token]);
-	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, i]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLOpenArrowTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '<') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLOpenArrowTokenType'), '<']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLClosedArrowTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '>') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLClosedArrowTokenType'), '>']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'), 'regex', /^\//, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '/') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType'), 'regex', /^::/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != ':' || $es4.$$call(input, null, null, 'charAt', [1]) != ':') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType'), 'regex', /^\.\</, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	if ($es4.$$call(input, null, null, 'charAt', [0]) != '.')
-	{
-		return null;
-	}
-	var result = $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType')]);
-	if (!result)
-	{
-		return null;
-	}
-	var tokens = $es4.$$get(result, null, null, 'tokens');
-	var index = $es4.$$get(result, null, null, 'index');
-	result = $es4.$$call(Lexer, null, null, 'lex', [$es4.$$call(input, null, null, 'slice', [index + 1]), [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType'), $es4.$$get(Token, null, null, 'IdentifierTokenType'), $es4.$$get(Token, null, null, 'DotTokenType'), $es4.$$get(Token, null, null, 'VectorClosedArrowTokenType')], true]);
-	tokens = $es4.$$call(tokens, null, null, 'concat', [$es4.$$get(result, null, null, 'tokens')]);
-	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, $es4.$$get(result, null, null, 'index') + index]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VectorClosedArrowTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '>') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'VectorClosedArrowTokenType'), '>']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StringTokenType'), 'prefixAllowed', ["'", '"'], '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StringTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	if ($es4.$$call(input, null, null, 'charAt', [0]) != "'" && $es4.$$call(input, null, null, 'charAt', [0]) != '"')
-	{
-		return null;
-	}
-	var tokens = [];
-	var token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'StringTokenType'), $es4.$$call(input, null, null, 'charAt', [0])]);
-	$es4.$$call(tokens, null, null, 'push', [token]);
-	var i = 1;
-	var ignore = false;
-	var lastChar;
-	var stringChunk = '';
-	while (i < $es4.$$get(input, null, null, 'length') && ($es4.$$call(input, null, null, 'charAt', [0]) != $es4.$$call(input, null, null, 'charAt', [i]) || ignore))
-	{
-		if (lastChar == '\\' && $es4.$$call($es4.$$call(input, null, null, 'charAt', [i]), null, null, 'match', [/[\r\n]/]) && !ignore)
-		{
-			if ($es4.$$get(stringChunk, null, null, 'length') - 1 > 0)
-			{
-				token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'StringChunkTokenType'), $es4.$$call(stringChunk, null, null, 'slice', [0, $es4.$$get(stringChunk, null, null, 'length') - 1])]);
-				$es4.$$call(tokens, null, null, 'push', [token]);
-			}
-			token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'StringMultiLineDelimiterTokenType'), lastChar]);
-			$es4.$$call(tokens, null, null, 'push', [token]);
-			token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$call(input, null, null, 'charAt', [i])]);
-			$es4.$$call(tokens, null, null, 'push', [token]);
-			stringChunk = '';
-		}
-		else
-		{
-			stringChunk += $es4.$$call(input, null, null, 'charAt', [i]);
-		}
-		lastChar = $es4.$$call(input, null, null, 'charAt', [i]);
-		ignore = lastChar == '\\' && !ignore;
-		i++;
-	}
-	if ($es4.$$get(stringChunk, null, null, 'length') > 0)
-	{
-		token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'StringChunkTokenType'), stringChunk]);
-		$es4.$$call(tokens, null, null, 'push', [token]);
-	}
-	token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'StringEndTokenType'), $es4.$$call(input, null, null, 'charAt', [i])]);
-	$es4.$$call(tokens, null, null, 'push', [token]);
-	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, i]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NumberTokenType'), 'regex1', /^([0-9]|[\.][0-9\.]+)[0-9\.]*(e[+-][0-9]+)*/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NumberTokenType'), 'regex2', /^0x[a-fA-F0-9]+/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NumberTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	if ($es4.$$call(input, null, null, 'charAt', [0]) == '0' && $es4.$$call(input, null, null, 'charAt', [1]) == 'x')
-	{
-		return $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'NumberTokenType'), $es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NumberTokenType'), 'regex2')]);
-	}
-	if ($es4.$$call(input, null, null, 'charAt', [0]) != '0' && $es4.$$call(input, null, null, 'charAt', [0]) != '1' && $es4.$$call(input, null, null, 'charAt', [0]) != '2' && $es4.$$call(input, null, null, 'charAt', [0]) != '3' && $es4.$$call(input, null, null, 'charAt', [0]) != '4' && $es4.$$call(input, null, null, 'charAt', [0]) != '5' && $es4.$$call(input, null, null, 'charAt', [0]) != '6' && $es4.$$call(input, null, null, 'charAt', [0]) != '7' && $es4.$$call(input, null, null, 'charAt', [0]) != '8' && $es4.$$call(input, null, null, 'charAt', [0]) != '9' && $es4.$$call(input, null, null, 'charAt', [0]) != '.')
-	{
-		return;
-	}
-	return $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'NumberTokenType'), $es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NumberTokenType'), 'regex1')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SpaceTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == ' ') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'SpaceTokenType'), ' ']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TabTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '	') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'TabTokenType'), '	']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewLineTokenType'), 'regex', /[\r\n]/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewLineTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	var tokens;
-	var index = -1;
-	while ($es4.$$call($es4.$$call(input, null, null, 'charAt', [index + 1]), null, null, 'match', [$es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewLineTokenType'), 'regex')]))
-	{
-		if (!tokens)
-		{
-			tokens = [];
-		}
-		$es4.$$call(tokens, null, null, 'push', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$call(input, null, null, 'charAt', [index + 1])])]);
-		index++;
-	}
-	return (index == -1) ? null : $es4.$$call(Token, null, null, 'getNewResult', [tokens, index]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UFOTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'UFOTokenType'), $es4.$$call(input, null, null, 'charAt', [0])]), 0]);
-}
-, '=');
-	});
-
-	//method
-	$es4.$$public_function('getNewToken', Token, (function ($$$$type, $$$$data)
-	{
-		if (Token.$$cinit !== undefined) Token.$$cinit();
-
-		//set default parameter values
-		var type = $es4.$$coerce($$$$type, String);
-		var data = $$$$data;
-
-		return {constructor:"token", type:type, data:data, line:NaN, position:NaN};
-	}));
-
-	//method
-	$es4.$$public_function('getNewResult', Token, (function ($$$$tokens, $$$$index)
-	{
-		if (Token.$$cinit !== undefined) Token.$$cinit();
-
-		//set default parameter values
-		var tokens = $$$$tokens;
-		var index = $es4.$$coerce($$$$index, Number);
-
-		if (!($es4.$$is(tokens, Array)))
-		{
-			tokens = [tokens];
-		}
-		return {tokens:tokens, index:index};
-	}));
-
-	//method
-	$es4.$$public_function('keywordFind2', Token, (function ($$$$input, $$$$keyword, $$$$TokenType, $$$$matchNext, $$$$requireWhitespace)
-	{
-		if (Token.$$cinit !== undefined) Token.$$cinit();
-
-		//set default parameter values
-		var input = $$$$input;
-		var keyword = $$$$keyword;
-		var TokenType = $$$$TokenType;
-		var matchNext = $$$$matchNext;
-		var requireWhitespace = $es4.$$coerce($$$$requireWhitespace, Boolean);
-
-		if ($es4.$$call(input, null, null, 'substring', [0, $es4.$$get(keyword, null, null, 'length')]) != keyword)
-		{
-			return null;
-		}
-		var cur = null;
-		var whitespace = 0;
-		var inputLength = $es4.$$get(input, null, null, 'length');
-		for (var i = $es4.$$get(keyword, null, null, 'length'); i < inputLength; i++)
-		{
-			cur = $es4.$$call(input, null, null, 'charAt', [i]);
-			if ($es4.$$get(Token, null, null, 'whitespaceCharacters', cur) === undefined)
-			{
-				break;
-			}
-			whitespace++;
-		}
-		if (requireWhitespace && whitespace === 0)
-		{
-			return null;
-		}
-		if ($es4.$$is(matchNext, String))
-		{
-			if (cur != matchNext)
-			{
-				return null;
-			}
-		}
-		else
-		{
-			if ($es4.$$get(matchNext, null, null, cur) === undefined)
-			{
-				return null;
-			}
-		}
-		return $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [TokenType, keyword]), $es4.$$get(keyword, null, null, 'length') - 1]);
-	}));
-
-	//method
-	$es4.$$public_function('keywordFind', Token, (function ($$$$input, $$$$TokenType, $$$$grammer)
-	{
-		if (Token.$$cinit !== undefined) Token.$$cinit();
-
-		//set default parameter values
-		var input = $$$$input;
-		var TokenType = $$$$TokenType;
-		var grammer = (2 > arguments.length - 1) ? null : $$$$grammer;
-
-		for (var i = 0; i < $es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'keyword', 'length'); i++)
-		{
-			if ($es4.$$call(Token, null, null, 'tokenFunctions', TokenType, 'keyword', 'charAt', [i]) !== $es4.$$call(input, null, null, 'charAt', [i]))
-			{
-				return null;
-			}
-		}
-		if (!$es4.$$call($es4.$$call(input, null, null, 'charAt', [i]), null, null, 'match', [$es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'terminator')]))
-		{
-			return null;
-		}
-		if (!grammer)
-		{
-			return $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [TokenType, $es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'keyword')]), $es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'keyword', 'length') - 1]);
-		}
-		var result = $es4.$$call(Lexer, null, null, 'lex', [$es4.$$call(input, null, null, 'slice', [$es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'keyword', 'length')]), grammer, true]);
-		$es4.$$call(result, null, null, 'tokens', 'unshift', [$es4.$$call(Token, null, null, 'getNewToken', [TokenType, $es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'keyword')])]);
-		return $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$get(result, null, null, 'tokens'), $es4.$$get(result, null, null, 'index') + $es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'keyword', 'length') - 1]);
-	}));
-
-	//method
-	$es4.$$public_function('regexFind', Token, (function ($$$$input, $$$$TokenType, $$$$regex)
-	{
-		if (Token.$$cinit !== undefined) Token.$$cinit();
-
-		//set default parameter values
-		var input = $$$$input;
-		var TokenType = $$$$TokenType;
-		var regex = (2 > arguments.length - 1) ? null : $$$$regex;
-
-		if (!regex)
-		{
-			regex = $es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'regex');
-		}
-		var match = $es4.$$call(input, null, null, 'match', [regex]);
-		if (!match)
-		{
-			return null;
-		}
-		return $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [TokenType, $es4.$$get(match, null, null, 0)]), $es4.$$get(match, null, null, 0, 'length') - 1]);
-	}));
-
-	function Token()
-	{
-		//initialize class if not initialized
-		if (Token.$$cinit !== undefined) Token.$$cinit();
-
-		//save scope
-		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
-		var $$thisp = this;
-
-		//handle possible cast
-		if ($$this === $$thisp && (!($$this instanceof Token) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Token) : $es4.$$throwArgumentError();
-		Object.defineProperty($$this, '$$t', {value:1});
-
-		//constructor
-		$es4.$$constructor($$thisp, (function ()
-		{
-		}));
-
-		//call construct if no arguments, or argument zero does not equal manual construct
-		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
-		{
-			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
-
-			$es4.$$construct($$this, $$args);
-		}
-	}
-
-	return $es4.$$class(Token, null, 'sweetrush.obj::Token');
-})();
-//sweetrush.obj.Token
-
-
 //sweetrush.core.Analyzer
 $es4.$$package('sweetrush.core').Analyzer = (function ()
 {
 	//imports
 	var Construct;
 	var Token;
-	var JsonUtil;
-	var SwcUtil;
-	var Parser;
-	var Token;
-	var Lexer;
-	var TranslatorProto;
-	var Construct;
-	var TranslatorPrototype;
-	var Analyzer;
-	var FileUtil;
-	var Transcompiler;
 	var Base64Util;
+	var Analyzer;
+	var TranslatorPrototype;
+	var FileUtil;
+	var SwcUtil;
+	var Construct;
+	var TranslatorProto;
+	var Lexer;
+	var JsonUtil;
+	var Token;
+	var Parser;
+	var Transcompiler;
 
 	//properties
 	$es4.$$private_property('globalIdentifiers', Analyzer, Array);
@@ -34706,15 +37589,15 @@ $es4.$$package('sweetrush.core').Analyzer = (function ()
 		//initialize imports
 		Construct = $es4.$$['sweetrush.obj'].Construct;
 		Token = $es4.$$['sweetrush.obj'].Token;
-		JsonUtil = $es4.$$['sweetrush.utils'].JsonUtil;
-		SwcUtil = $es4.$$['sweetrush.utils'].SwcUtil;
-		Parser = $es4.$$['sweetrush.core'].Parser;
-		Lexer = $es4.$$['sweetrush.core'].Lexer;
-		TranslatorProto = $es4.$$['sweetrush.core'].TranslatorProto;
+		Base64Util = $es4.$$['sweetrush.utils'].Base64Util;
 		TranslatorPrototype = $es4.$$['sweetrush.core'].TranslatorPrototype;
 		FileUtil = $es4.$$['sweetrush.utils'].FileUtil;
+		SwcUtil = $es4.$$['sweetrush.utils'].SwcUtil;
+		TranslatorProto = $es4.$$['sweetrush.core'].TranslatorProto;
+		Lexer = $es4.$$['sweetrush.core'].Lexer;
+		JsonUtil = $es4.$$['sweetrush.utils'].JsonUtil;
+		Parser = $es4.$$['sweetrush.core'].Parser;
 		Transcompiler = $es4.$$['sweetrush'].Transcompiler;
-		Base64Util = $es4.$$['sweetrush.utils'].Base64Util;
 
 		//initialize properties
 		Analyzer.globalIdentifiers = [{name:'trace', returnType:'void'}, {name:'parseInt', returnType:'Number'}, {name:'parseFloat', returnType:'Number'}, {name:'isNaN', returnType:'Boolean'}, {name:'isFinite', returnType:'Boolean'}, {name:'escape', returnType:'String'}, {name:'unescape', returnType:'String'}, {name:'decodeURIComponent', returnType:'String'}, {name:'encodeURIComponent', returnType:'String'}, {name:'decodeURI', returnType:'String'}, {name:'encodeURI', returnType:'String'}, {name:'isXMLName', returnType:'Boolean'}, {name:'$es4', returnType:'Object'}, {name:'window', returnType:'Object'}, {name:'document', returnType:'Object'}, {name:'console', returnType:'Object'}, {name:'$', returnType:'Object'}, {name:'_', returnType:'Object'}, {name:'alert', returnType:'Object'}, {name:'debugger', returnType:'Object'}, {name:'setInterval', returnType:'Object'}, {name:'clearInterval', returnType:'Object'}, {name:'setTimeout', returnType:'Object'}, {name:'clearTimeout', returnType:'Object'}, {name:'require', returnType:'Object'}, {name:'global', returnType:'Object'}, {name:'process', returnType:'Object'}, {name:'__dirname', returnType:'String'}];
@@ -38335,24 +41218,214 @@ $es4.$$package('sweetrush.core').Analyzer = (function ()
 //sweetrush.core.Analyzer
 
 
+//sweetrush.core.Lexer
+$es4.$$package('sweetrush.core').Lexer = (function ()
+{
+	//imports
+	var Transcompiler;
+	var Token;
+	var Base64Util;
+	var Analyzer;
+	var TranslatorPrototype;
+	var FileUtil;
+	var SwcUtil;
+	var Construct;
+	var TranslatorProto;
+	var Lexer;
+	var JsonUtil;
+	var Token;
+	var Parser;
+	var Transcompiler;
+
+	//properties
+	$es4.$$private_property('grammar', Lexer, Array);
+
+	//class initializer
+	Lexer.$$cinit = (function ()
+	{
+		Lexer.$$cinit = undefined;
+
+		//initialize imports
+		Transcompiler = $es4.$$['sweetrush'].Transcompiler;
+		Token = $es4.$$['sweetrush.obj'].Token;
+		Base64Util = $es4.$$['sweetrush.utils'].Base64Util;
+		Analyzer = $es4.$$['sweetrush.core'].Analyzer;
+		TranslatorPrototype = $es4.$$['sweetrush.core'].TranslatorPrototype;
+		FileUtil = $es4.$$['sweetrush.utils'].FileUtil;
+		SwcUtil = $es4.$$['sweetrush.utils'].SwcUtil;
+		Construct = $es4.$$['sweetrush.obj'].Construct;
+		TranslatorProto = $es4.$$['sweetrush.core'].TranslatorProto;
+		JsonUtil = $es4.$$['sweetrush.utils'].JsonUtil;
+		Parser = $es4.$$['sweetrush.core'].Parser;
+
+		//initialize properties
+		Lexer.grammar = [$es4.$$get(Token, null, null, 'SpaceTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'EOSTokenType'), $es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'OpenBracketTokenType'), $es4.$$get(Token, null, null, 'ClosedBracketTokenType'), $es4.$$get(Token, null, null, 'OpenParenTokenType'), $es4.$$get(Token, null, null, 'ClosedParenTokenType'), $es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType'), $es4.$$get(Token, null, null, 'XMLTokenType'), $es4.$$get(Token, null, null, 'XMLCDATATokenType'), $es4.$$get(Token, null, null, 'EqualityTokenType'), $es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType'), $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType'), $es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType'), $es4.$$get(Token, null, null, 'BitwiseLeftShiftTokenType'), $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftTokenType'), $es4.$$get(Token, null, null, 'BitwiseRightShiftTokenType'), $es4.$$get(Token, null, null, 'RelationalTokenType'), $es4.$$get(Token, null, null, 'AddWithAssignmentTokenType'), $es4.$$get(Token, null, null, 'DivWithAssignmentTokenType'), $es4.$$get(Token, null, null, 'ModWithAssignmentTokenType'), $es4.$$get(Token, null, null, 'MulWithAssignmentTokenType'), $es4.$$get(Token, null, null, 'SubWithAssignmentTokenType'), $es4.$$get(Token, null, null, 'AssignmentTokenType'), $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType'), $es4.$$get(Token, null, null, 'ColonTokenType'), $es4.$$get(Token, null, null, 'CommaTokenType'), $es4.$$get(Token, null, null, 'BooleanTokenType'), $es4.$$get(Token, null, null, 'StringTokenType'), $es4.$$get(Token, null, null, 'AsTokenType'), $es4.$$get(Token, null, null, 'DeleteTokenType'), $es4.$$get(Token, null, null, 'IfTokenType'), $es4.$$get(Token, null, null, 'ElseTokenType'), $es4.$$get(Token, null, null, 'EachTokenType'), $es4.$$get(Token, null, null, 'ForTokenType'), $es4.$$get(Token, null, null, 'WhileTokenType'), $es4.$$get(Token, null, null, 'DoTokenType'), $es4.$$get(Token, null, null, 'TryTokenType'), $es4.$$get(Token, null, null, 'CatchTokenType'), $es4.$$get(Token, null, null, 'BreakTokenType'), $es4.$$get(Token, null, null, 'InTokenType'), $es4.$$get(Token, null, null, 'ContinueTokenType'), $es4.$$get(Token, null, null, 'DefaultTokenType'), $es4.$$get(Token, null, null, 'ConstTokenType'), $es4.$$get(Token, null, null, 'WithTokenType'), $es4.$$get(Token, null, null, 'FinallyTokenType'), $es4.$$get(Token, null, null, 'ThisTokenType'), $es4.$$get(Token, null, null, 'TypeofTokenType'), $es4.$$get(Token, null, null, 'NullTokenType'), $es4.$$get(Token, null, null, 'UndefinedTokenType'), $es4.$$get(Token, null, null, 'VoidTokenType'), $es4.$$get(Token, null, null, 'SuperTokenType'), $es4.$$get(Token, null, null, 'ReturnTokenType'), $es4.$$get(Token, null, null, 'ThrowTokenType'), $es4.$$get(Token, null, null, 'TernaryTokenType'), $es4.$$get(Token, null, null, 'ClassTokenType'), $es4.$$get(Token, null, null, 'ImportTokenType'), $es4.$$get(Token, null, null, 'ExtendsTokenType'), $es4.$$get(Token, null, null, 'ImplementsTokenType'), $es4.$$get(Token, null, null, 'OverrideTokenType'), $es4.$$get(Token, null, null, 'StaticTokenType'), $es4.$$get(Token, null, null, 'DynamicTokenType'), $es4.$$get(Token, null, null, 'InterfaceTokenType'), $es4.$$get(Token, null, null, 'FinalTokenType'), $es4.$$get(Token, null, null, 'NamespaceKeywordTokenType'), $es4.$$get(Token, null, null, 'NewTokenType'), $es4.$$get(Token, null, null, 'UseTokenType'), $es4.$$get(Token, null, null, 'CaseTokenType'), $es4.$$get(Token, null, null, 'FunctionTokenType'), $es4.$$get(Token, null, null, 'VarTokenType'), $es4.$$get(Token, null, null, 'NumberTokenType'), $es4.$$get(Token, null, null, 'AndWithAssignmentTokenType'), $es4.$$get(Token, null, null, 'OrWithAssignmentTokenType'), $es4.$$get(Token, null, null, 'AndTokenType'), $es4.$$get(Token, null, null, 'OrTokenType'), $es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType'), $es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType'), $es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType'), $es4.$$get(Token, null, null, 'BitwiseAndTokenType'), $es4.$$get(Token, null, null, 'BitwiseNotTokenType'), $es4.$$get(Token, null, null, 'BitwiseOrTokenType'), $es4.$$get(Token, null, null, 'BitwiseXorTokenType'), $es4.$$get(Token, null, null, 'AtTokenType'), $es4.$$get(Token, null, null, 'SwitchTokenType'), $es4.$$get(Token, null, null, 'DotDotTokenType'), $es4.$$get(Token, null, null, 'DotTokenType'), $es4.$$get(Token, null, null, 'NotTokenType'), $es4.$$get(Token, null, null, 'IncrementTokenType'), $es4.$$get(Token, null, null, 'DecrementTokenType'), $es4.$$get(Token, null, null, 'OpenBraceTokenType'), $es4.$$get(Token, null, null, 'ClosedBraceTokenType'), $es4.$$get(Token, null, null, 'PackageTokenType'), $es4.$$get(Token, null, null, 'IsTokenType'), $es4.$$get(Token, null, null, 'NaNTokenType'), $es4.$$get(Token, null, null, 'InstanceofTokenType'), $es4.$$get(Token, null, null, 'IdentifierTokenType'), $es4.$$get(Token, null, null, 'CommentTokenType'), $es4.$$get(Token, null, null, 'MultiLineCommentTokenType'), $es4.$$get(Token, null, null, 'AddTokenType'), $es4.$$get(Token, null, null, 'SubTokenType'), $es4.$$get(Token, null, null, 'RegExpTokenType'), $es4.$$get(Token, null, null, 'DivTokenType'), $es4.$$get(Token, null, null, 'MulTokenType'), $es4.$$get(Token, null, null, 'ModTokenType'), $es4.$$get(Token, null, null, 'UFOTokenType')];
+	});
+
+	//method
+	$es4.$$public_function('lex', Lexer, (function ($$$$input, $$$$grammar, $$$$internal_)
+	{
+		if (Lexer.$$cinit !== undefined) Lexer.$$cinit();
+
+		//set default parameter values
+		var input = $es4.$$coerce($$$$input, String);
+		var grammar = (1 > arguments.length - 1) ? null : $es4.$$coerce($$$$grammar, Array);
+		var internal_ = (2 > arguments.length - 1) ? null : $$$$internal_;
+
+		var s = $es4.$$call(($es4.$$primitive(new (Date)())), null, null, 'getTime', $es4.$$EMPTY_ARRAY);
+		if (!grammar)
+		{
+			grammar = $es4.$$get(Lexer, null, null, 'grammar');
+		}
+		if (!internal_)
+		{
+			input = $es4.$$call($es4.$$call(input, null, null, 'split', [/\r\n/]), null, null, 'join', ['\n']);
+		}
+		var token;
+		var tokens = [];
+		var matcherObj = $es4.$$call(Lexer, null, null, 'matcher', [input, grammar, internal_]);
+		while ((token = $es4.$$call(matcherObj, null, null, 'find', $es4.$$EMPTY_ARRAY)) != null)
+		{
+			$es4.$$call(tokens, null, null, 'push', [token]);
+		}
+		if ($es4.$$get(Transcompiler, null, null, 'DEBUG') >= 5 && !internal_)
+		{
+			trace('Tokens length: ' + $es4.$$get(tokens, null, null, 'length') + ', Total time: ' + (($es4.$$call(($es4.$$primitive(new (Date)())), null, null, 'getTime', $es4.$$EMPTY_ARRAY) - s) / 1000) + ' seconds.\n');
+		}
+		return $es4.$$call(Token, null, null, 'getNewResult', [tokens, $es4.$$call(matcherObj, null, null, 'getIndex', $es4.$$EMPTY_ARRAY)]);
+	}));
+
+	//method
+	$es4.$$private_function('matcher', Lexer, (function ($$$$input, $$$$grammar, $$$$internal_)
+	{
+		if (Lexer.$$cinit !== undefined) Lexer.$$cinit();
+
+		//set default parameter values
+		var input = $$$$input;
+		var grammar = $$$$grammar;
+		var internal_ = $$$$internal_;
+
+		var tokensIndex = 0;
+		var tokens = [];
+		var currentLine = 1;
+		var currentPosition = 0;
+		var length = $es4.$$get(input, null, null, 'length');
+		var foundTokens = [];
+		var find = function () 
+		{
+			if ($es4.$$get(tokens, null, null, 'length'))
+			{
+				var token = $es4.$$get(tokens, null, null, tokensIndex);
+				if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'NewLineTokenType'))
+				{
+					$es4.$$set(token, null, null, 'position', currentPosition + 1, '=');
+					$es4.$$set(token, null, null, 'line', currentLine, '=');
+					currentLine++;
+					currentPosition = 0;
+				}
+				else
+				{
+					$es4.$$set(token, null, null, 'position', currentPosition + 1, '=');
+					$es4.$$set(token, null, null, 'line', currentLine, '=');
+					currentPosition += $es4.$$get(token, null, null, 'data', 'length');
+				}
+				if ($es4.$$get(Transcompiler, null, null, 'DEBUG') >= 4 && !internal_)
+				{
+					trace($es4.$$get(token, null, null, 'line') + ' : ' + $es4.$$get(token, null, null, 'position') + ' : ' + $es4.$$get(token, null, null, 'type', 'name') + ' => ' + $es4.$$get(token, null, null, 'data'));
+				}
+				if (++tokensIndex == $es4.$$get(tokens, null, null, 'length'))
+				{
+					tokens = [];
+					tokensIndex = 0;
+				}
+				return token;
+			}
+			if (!$es4.$$get(input, null, null, 'length'))
+			{
+				return null;
+			}
+			var grammarLength = $es4.$$get(grammar, null, null, 'length');
+			for (var i = 0; i < grammarLength; i++)
+			{
+				var type = $es4.$$get(grammar, null, null, i);
+				var result = $es4.$$call(Token, null, null, 'tokenFunctions', type, 'find', [input, foundTokens]);
+				if (result)
+				{
+					input = $es4.$$call(input, null, null, 'slice', [$es4.$$get(result, null, null, 'index') + 1]);
+					tokens = $es4.$$get(result, null, null, 'tokens');
+					tokensIndex = 0;
+					$es4.$$call(foundTokens, null, null, 'push', [tokens]);
+					return find();
+				}
+			}
+			if (!internal_ && $es4.$$get(input, null, null, 'length'))
+			{
+				throw $es4.$$primitive(new (Error)('Unknown token found on line ' + currentLine + ', at position ' + (currentPosition + 1)));
+			}
+			return null;
+		}
+;
+		var getIndex = function () 
+		{
+			return length - $es4.$$get(input, null, null, 'length');
+		}
+;
+		var api = {};
+		$es4.$$set(api, null, null, 'find', find, '=');
+		$es4.$$set(api, null, null, 'getIndex', getIndex, '=');
+		return api;
+	}));
+
+	function Lexer()
+	{
+		//initialize class if not initialized
+		if (Lexer.$$cinit !== undefined) Lexer.$$cinit();
+
+		//save scope
+		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
+		var $$thisp = this;
+
+		//handle possible cast
+		if ($$this === $$thisp && (!($$this instanceof Lexer) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Lexer) : $es4.$$throwArgumentError();
+		Object.defineProperty($$this, '$$t', {value:1});
+
+		//constructor
+		$es4.$$constructor($$thisp, (function ()
+		{
+		}));
+
+		//call construct if no arguments, or argument zero does not equal manual construct
+		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
+		{
+			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
+
+			$es4.$$construct($$this, $$args);
+		}
+	}
+
+	return $es4.$$class(Lexer, null, 'sweetrush.core::Lexer');
+})();
+//sweetrush.core.Lexer
+
+
 //sweetrush.core.Parser
 $es4.$$package('sweetrush.core').Parser = (function ()
 {
 	//imports
 	var Construct;
 	var Token;
-	var JsonUtil;
-	var SwcUtil;
-	var Parser;
-	var Token;
-	var Lexer;
-	var TranslatorProto;
-	var Construct;
-	var TranslatorPrototype;
-	var Analyzer;
-	var FileUtil;
-	var Transcompiler;
 	var Base64Util;
+	var Analyzer;
+	var TranslatorPrototype;
+	var FileUtil;
+	var SwcUtil;
+	var Construct;
+	var TranslatorProto;
+	var Lexer;
+	var JsonUtil;
+	var Token;
+	var Parser;
+	var Transcompiler;
 
 	//class initializer
 	Parser.$$cinit = (function ()
@@ -38362,15 +41435,15 @@ $es4.$$package('sweetrush.core').Parser = (function ()
 		//initialize imports
 		Construct = $es4.$$['sweetrush.obj'].Construct;
 		Token = $es4.$$['sweetrush.obj'].Token;
-		JsonUtil = $es4.$$['sweetrush.utils'].JsonUtil;
-		SwcUtil = $es4.$$['sweetrush.utils'].SwcUtil;
-		Lexer = $es4.$$['sweetrush.core'].Lexer;
-		TranslatorProto = $es4.$$['sweetrush.core'].TranslatorProto;
-		TranslatorPrototype = $es4.$$['sweetrush.core'].TranslatorPrototype;
-		Analyzer = $es4.$$['sweetrush.core'].Analyzer;
-		FileUtil = $es4.$$['sweetrush.utils'].FileUtil;
-		Transcompiler = $es4.$$['sweetrush'].Transcompiler;
 		Base64Util = $es4.$$['sweetrush.utils'].Base64Util;
+		Analyzer = $es4.$$['sweetrush.core'].Analyzer;
+		TranslatorPrototype = $es4.$$['sweetrush.core'].TranslatorPrototype;
+		FileUtil = $es4.$$['sweetrush.utils'].FileUtil;
+		SwcUtil = $es4.$$['sweetrush.utils'].SwcUtil;
+		TranslatorProto = $es4.$$['sweetrush.core'].TranslatorProto;
+		Lexer = $es4.$$['sweetrush.core'].Lexer;
+		JsonUtil = $es4.$$['sweetrush.utils'].JsonUtil;
+		Transcompiler = $es4.$$['sweetrush'].Transcompiler;
 	});
 
 	//method
@@ -40540,2942 +43613,65 @@ $es4.$$package('sweetrush.core').Parser = (function ()
 //sweetrush.core.Parser
 
 
-//sweetrush.core.TranslatorPrototype
-$es4.$$package('sweetrush.core').TranslatorPrototype = (function ()
+//sweetrush.utils.SwcUtil
+$es4.$$package('sweetrush.utils').SwcUtil = (function ()
 {
 	//imports
-	var Construct;
-	var Token;
 	var JsonUtil;
-	var SwcUtil;
-	var Parser;
-	var Token;
-	var Lexer;
-	var TranslatorProto;
-	var Construct;
-	var TranslatorPrototype;
-	var Analyzer;
-	var FileUtil;
-	var Transcompiler;
-	var Base64Util;
 
 	//class initializer
-	TranslatorPrototype.$$cinit = (function ()
+	SwcUtil.$$cinit = (function ()
 	{
-		TranslatorPrototype.$$cinit = undefined;
+		SwcUtil.$$cinit = undefined;
 
 		//initialize imports
-		Construct = $es4.$$['sweetrush.obj'].Construct;
-		Token = $es4.$$['sweetrush.obj'].Token;
 		JsonUtil = $es4.$$['sweetrush.utils'].JsonUtil;
-		SwcUtil = $es4.$$['sweetrush.utils'].SwcUtil;
-		Parser = $es4.$$['sweetrush.core'].Parser;
-		Lexer = $es4.$$['sweetrush.core'].Lexer;
-		TranslatorProto = $es4.$$['sweetrush.core'].TranslatorProto;
-		Analyzer = $es4.$$['sweetrush.core'].Analyzer;
-		FileUtil = $es4.$$['sweetrush.utils'].FileUtil;
-		Transcompiler = $es4.$$['sweetrush'].Transcompiler;
-		Base64Util = $es4.$$['sweetrush.utils'].Base64Util;
 	});
 
 	//method
-	$es4.$$public_function('translate', TranslatorPrototype, (function ($$$$rootConstruct, $$$$rootConstructs, $$$$dynamicPropertyAccess, $$$$release, $$$$fastPropertyAccess)
+	$es4.$$public_function('stringifySWC', SwcUtil, (function ($$$$obj)
 	{
-		if (TranslatorPrototype.$$cinit !== undefined) TranslatorPrototype.$$cinit();
+		if (SwcUtil.$$cinit !== undefined) SwcUtil.$$cinit();
 
 		//set default parameter values
-		var rootConstruct = $$$$rootConstruct;
-		var rootConstructs = $$$$rootConstructs;
-		var dynamicPropertyAccess = (2 > arguments.length - 1) ? false : $es4.$$coerce($$$$dynamicPropertyAccess, Boolean);
-		var release = (3 > arguments.length - 1) ? false : $es4.$$coerce($$$$release, Boolean);
-		var fastPropertyAccess = (4 > arguments.length - 1) ? false : $es4.$$coerce($$$$fastPropertyAccess, Boolean);
+		var obj = $$$$obj;
 
-		var _rootConstruct = rootConstruct;
-		var _rootConstructs = rootConstructs;
-		var _indent = -1;
-		var _count = -1;
-		var _level = 0;
-		var _fastPropertyAccess = fastPropertyAccess = false;
-		var _dynamicPropertyAccess = false;
-		var _inClosure = false;
-		var _inNamespacedFunction = false;
-		var _inStaticFunction = false;
-		var _inIfStatement = 0;
-		var _importNameConflicts = {};
-		var _extendsNameConflict = false;
-
-		function upLevel() 
-		{
-			_indent++;
-			_level++;
-			return _level;
-		}
-;
-
-		function downLevel() 
-		{
-			_indent--;
-			_level--;
-			return _level;
-		}
-;
-
-		function lookupConstructInRootConstruct($$$$rootConstruct, $$$$object) 
-		{
-			//set default parameter values
-			var rootConstruct = $$$$rootConstruct;
-			var object = $$$$object;
-
-			if (!rootConstruct || !object)
-			{
-				throw $es4.$$primitive(new (Error)('cannot lookup empty rootConstruct/object: ' + rootConstruct + ', ' + object));
-			}
-			else if ($es4.$$is(object, String))
-			{
-				for (var i = 0; i < $es4.$$get(rootConstruct, null, null, 'classConstructs', 'length'); i++)
-				{
-					if ($es4.$$get(rootConstruct, null, null, 'classConstructs', i, 'identifierToken', 'data') == object)
-					{
-						return $es4.$$get(rootConstruct, null, null, 'classConstructs', i);
-					}
-				}
-				for (var i = 0; i < $es4.$$get(rootConstruct, null, null, 'interfaceConstructs', 'length'); i++)
-				{
-					if ($es4.$$get(rootConstruct, null, null, 'interfaceConstructs', i, 'identifierToken', 'data') == object)
-					{
-						return $es4.$$get(rootConstruct, null, null, 'interfaceConstructs', i);
-					}
-				}
-				if ($es4.$$get(rootConstruct, null, null, 'packageConstruct', 'classConstruct'))
-				{
-					return $es4.$$get(rootConstruct, null, null, 'packageConstruct', 'classConstruct');
-				}
-				if ($es4.$$get(rootConstruct, null, null, 'packageConstruct', 'interfaceConstruct'))
-				{
-					return $es4.$$get(rootConstruct, null, null, 'packageConstruct', 'interfaceConstruct');
-				}
-				if ($es4.$$get(rootConstruct, null, null, 'packageConstruct', 'propertyConstruct'))
-				{
-					return $es4.$$get(rootConstruct, null, null, 'packageConstruct', 'propertyConstruct');
-				}
-				if ($es4.$$get(rootConstruct, null, null, 'packageConstruct', 'methodConstruct'))
-				{
-					return $es4.$$get(rootConstruct, null, null, 'packageConstruct', 'methodConstruct');
-				}
-				throw $es4.$$primitive(new (Error)('could not lookup construct in construct: ' + object));
-			}
-			if ($es4.$$get(object, null, null, 'constructor') == $es4.$$get(Construct, null, null, 'NameConstruct'))
-			{
-				return lookupConstructInRootConstruct(rootConstruct, $es4.$$call(Construct, null, null, 'nameConstructToString', [object]));
-			}
-			else if ($es4.$$get(object, null, null, 'constructor') == $es4.$$get(Construct, null, null, 'ImportConstruct'))
-			{
-				return lookupConstructInRootConstruct(rootConstruct, $es4.$$call(Construct, null, null, 'nameConstructToString', [$es4.$$get(object, null, null, 'nameConstruct')]));
-			}
-		}
-;
-
-		var packageConstruct = $es4.$$get(rootConstruct, null, null, 'packageConstruct');
-		var js = print('$es4.$$package(\'' + ($es4.$$get(packageConstruct, null, null, 'nameConstruct') ? $es4.$$call(Construct, null, null, 'nameConstructToString', [$es4.$$get(packageConstruct, null, null, 'nameConstruct')]) : '') + '\').', _indent, 0);
-		if ($es4.$$get(packageConstruct, null, null, 'classConstruct'))
-		{
-			if ($es4.$$get(packageConstruct, null, null, 'classConstruct', 'UNIMPLEMENTEDToken'))
-			{
-				if (release)
-				{
-					js += $es4.$$get(packageConstruct, null, null, 'classConstruct', 'identifierToken', 'data') + ' = null;\n';
-					return js;
-				}
-				js = ($es4.$$get(packageConstruct, null, null, 'nameConstruct')) ? '$$package(\'' + $es4.$$call(Construct, null, null, 'nameConstructToString', [$es4.$$get(packageConstruct, null, null, 'nameConstruct')]) + '\')' : 'global';
-				js += '.' + $es4.$$get(packageConstruct, null, null, 'classConstruct', 'identifierToken', 'data');
-				js += ' = function () { throw new Error(\'Use of unimplemented class: ' + $es4.$$get(packageConstruct, null, null, 'classConstruct', 'identifierToken', 'data') + '\'); }';
-				js += '\n';
-				return js;
-			}
-			js += print(translateClassConstruct($es4.$$get(packageConstruct, null, null, 'classConstruct')), _indent, 0);
-		}
-		js += ($es4.$$get(packageConstruct, null, null, 'interfaceConstruct')) ? print(translateInterfaceConstruct($es4.$$get(packageConstruct, null, null, 'interfaceConstruct')), _indent, 0) : '';
-		js += ($es4.$$get(packageConstruct, null, null, 'propertyConstruct')) ? print(translatePropertyConstruct($es4.$$get(packageConstruct, null, null, 'propertyConstruct')), _indent, 0) : '';
-		if ($es4.$$get(packageConstruct, null, null, 'methodConstruct'))
-		{
-			if ($es4.$$get(packageConstruct, null, null, 'methodConstruct', 'UNIMPLEMENTEDToken'))
-			{
-				if (release)
-				{
-					js += $es4.$$get(packageConstruct, null, null, 'methodConstruct', 'identifierToken', 'data') + ' = null;\n';
-					return js;
-				}
-				js = ($es4.$$get(packageConstruct, null, null, 'nameConstruct')) ? '$es4.$$package(\'' + $es4.$$call(Construct, null, null, 'nameConstructToString', [$es4.$$get(packageConstruct, null, null, 'nameConstruct')]) + '\')' : 'global';
-				js += '.' + $es4.$$get(packageConstruct, null, null, 'methodConstruct', 'identifierToken', 'data');
-				js += ' = function () { throw new Error(\'Use of unimplemented function: ' + $es4.$$get(packageConstruct, null, null, 'methodConstruct', 'identifierToken', 'data') + '\'); }';
-				js += '\n';
-				return js;
-			}
-			_inStaticFunction = true;
-			js += print(translateFunctionConstruct($es4.$$get(packageConstruct, null, null, 'methodConstruct')), _indent, 0);
-		}
-		return js;
-
-		function getTranslatedTypeName($$$$type) 
-		{
-			//set default parameter values
-			var type = $$$$type;
-
-			if ($es4.$$get(type, null, null, 'name') == '*' || $es4.$$get(type, null, null, 'name') == 'void')
-			{
-				return '';
-			}
-			if ($es4.$$get(_importNameConflicts, null, null, $es4.$$get(type, null, null, 'name')))
-			{
-				var fullyQualifiedName = $es4.$$get(type, null, null, 'fullyQualifiedName');
-				var parts = $es4.$$call(fullyQualifiedName, null, null, 'split', ['.']);
-				var name = $es4.$$call(parts, null, null, 'pop', $es4.$$EMPTY_ARRAY);
-				return '$es4.$$[\'' + $es4.$$call(parts, null, null, 'join', ['.']) + '\'].' + name;
-			}
-			return $es4.$$get(type, null, null, 'name');
-		}
-;
-
-		function translateInterfaceConstruct($$$$construct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-
-			upLevel();
-			var js = print($es4.$$get(construct, null, null, 'identifierToken', 'data') + ' = (function ()', 0, 1);
-			js += print('{', _indent, 1);
-			js += print('function ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '()', _indent + 1, 1);
-			js += print('{', _indent + 1, 1);
-			js += print('//handle cast', _indent + 2, 1);
-			js += print('return $es4.$$as(arguments[0], ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ');', _indent + 2, 1);
-			js += print('}', _indent + 1, 1);
-			var comma = false;
-			var innerJS = '';
-			if ($es4.$$get(construct, null, null, 'extendsNameConstructs', 'length'))
-			{
-				innerJS += 'IMPLEMENTS:[';
-				for (var i = 0; i < $es4.$$get(construct, null, null, 'extendsNameConstructs', 'length'); i++)
-				{
-					if (comma)
-					{
-						innerJS += ', ';
-					}
-					var type = $es4.$$get(construct, null, null, 'extendsNameConstructs', i, 'type');
-					var innerConstruct = lookupConstructInRootConstruct($es4.$$get(construct, null, null, 'rootConstruct'), $es4.$$get(construct, null, null, 'extendsNameConstructs', i));
-					if ($es4.$$get(innerConstruct, null, null, 'isInternal'))
-					{
-						innerJS += comma = $es4.$$get(type, null, null, 'fullyQualifiedName');
-					}
-					else
-					{
-						innerJS += comma = '\'' + $es4.$$get(type, null, null, 'fullyQualifiedName') + '\'';
-					}
-				}
-				innerJS += comma = ']';
-			}
-			if (!$es4.$$get(construct, null, null, 'isInternal'))
-			{
-				if ($es4.$$get(_rootConstruct, null, null, 'classConstructs', 'length'))
-				{
-					if (comma)
-					{
-						innerJS += ', ';
-					}
-					innerJS += 'CLASSES:[';
-					comma = false;
-					for (var i = 0; i < $es4.$$get(_rootConstruct, null, null, 'classConstructs', 'length'); i++)
-					{
-						if (comma)
-						{
-							innerJS += ', ';
-						}
-						innerJS += comma = $es4.$$get(_rootConstruct, null, null, 'classConstructs', i, 'identifierToken', 'data');
-					}
-					innerJS += comma = ']';
-				}
-				if ($es4.$$get(_rootConstruct, null, null, 'interfaceConstructs', 'length'))
-				{
-					if (comma)
-					{
-						innerJS += ', ';
-					}
-					innerJS += 'INTERFACES:[';
-					comma = false;
-					for (var i = 0; i < $es4.$$get(_rootConstruct, null, null, 'interfaceConstructs', 'length'); i++)
-					{
-						if (comma)
-						{
-							innerJS += ', ';
-						}
-						innerJS += comma = $es4.$$get(_rootConstruct, null, null, 'interfaceConstructs', i, 'identifierToken', 'data');
-					}
-					innerJS += comma = ']';
-				}
-			}
-			var packageName = $es4.$$get(construct, null, null, 'packageName');
-			var fullyQualifiedName = (packageName) ? packageName + '::' + $es4.$$get(construct, null, null, 'identifierToken', 'data') : $es4.$$get(construct, null, null, 'identifierToken', 'data');
-			if (innerJS)
-			{
-				js += print('return $es4.$$interface(' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ', ', _indent + 1, 0, 1);
-				js += '{' + innerJS + '}';
-				js += print(', \'' + fullyQualifiedName + '\');', 0, 1);
-			}
-			else
-			{
-				js += print('return $es4.$$interface(' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ', null, ', _indent + 1, 0);
-				js += print('\'' + fullyQualifiedName + '\');', 0, 1);
-			}
-			js += print('})();', _indent, 1);
-			downLevel();
-			return js;
-		}
-;
-
-		function translatePropertyConstruct($$$$construct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-
-			return print($es4.$$get(construct, null, null, 'identifierToken', 'data') + ' = $es4.$$namespace(' + translateExpression($es4.$$get(construct, null, null, 'valueExpression'), _indent, false, construct) + ', true);', 0, 1);
-		}
-;
-
-		function translateFunctionConstruct($$$$construct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-
-			upLevel();
-			var importConstructs = $es4.$$get(_rootConstruct, null, null, 'packageConstruct', 'importConstructs');
-			var js = '';
-			var innerJS;
-			var cr = false;
-			var accessor = $es4.$$get(construct, null, null, 'getToken') || $es4.$$get(construct, null, null, 'setToken');
-			js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + ' = (function ()', 0, 1);
-			js += print('{', _indent, 1);
-			js += print('var $$this = ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ', $$thisp = ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ';', _indent + 1, 1);
-			js += (innerJS = translateImports(construct)) ? cr = innerJS : '';
-			js += (innerJS = translateClassInitializer(construct)) ? cr = print(innerJS, 0, 0, (cr) ? 1 : 0) : '';
-			js += (innerJS = translateClassFunction(construct)) ? print(innerJS, 0, 0, 1) : '';
-			if (accessor)
-			{
-				js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$pcinit = ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ';', _indent + 1, 1, 1);
-				js += print('return ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ';', _indent + 1, 1, 0);
-			}
-			else
-			{
-				js += print('return $es4.$$function (' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ');', _indent + 1, 1, 1);
-			}
-			js += print('})();', _indent, 1);
-			downLevel();
-			return js;
-
-			function translateImports($$$$construct) 
-			{
-				//set default parameter values
-				var construct = $$$$construct;
-
-				var js = '';
-				if ($es4.$$get(importConstructs, null, null, 'length'))
-				{
-					js += print('//imports', _indent + 1, 1);
-				}
-				for (var i = 0; i < $es4.$$get(importConstructs, null, null, 'length'); i++)
-				{
-					js += print('var ' + $es4.$$get(importConstructs, null, null, i, 'nameConstruct', 'identifierTokens', $es4.$$get(importConstructs, null, null, i, 'nameConstruct', 'identifierTokens', 'length') - 1, 'data') + ';', _indent + 1, 1);
-				}
-				return js;
-			}
-;
-
-			function translateClassInitializer($$$$construct) 
-			{
-				//set default parameter values
-				var construct = $$$$construct;
-
-				_inStaticFunction = true;
-				var js = print('//function initializer', _indent + 1, 1);
-				js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit = (function ()', _indent + 1, 1);
-				js += print('{', _indent + 1, 1);
-				js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit = undefined;', _indent + 2, 1);
-				var importConstructs = ($es4.$$get(construct, null, null, 'isInternal')) ? $es4.$$get(_rootConstruct, null, null, 'importConstructs') : $es4.$$get(_rootConstruct, null, null, 'packageConstruct', 'importConstructs');
-				if ($es4.$$get(importConstructs, null, null, 'length'))
-				{
-					js += print('//initialize imports', _indent + 2, 1, 1);
-				}
-				var importNames = {};
-				$es4.$$set(importNames, null, null, $es4.$$get(construct, null, null, 'identifierToken', 'data'), true, '=');
-				for (var i = 0; i < $es4.$$get(importConstructs, null, null, 'length'); i++)
-				{
-					var name = $es4.$$get(importConstructs, null, null, i, 'nameConstruct', 'identifierTokens', $es4.$$get(importConstructs, null, null, i, 'nameConstruct', 'identifierTokens', 'length') - 1, 'data');
-					var packageName = '';
-					if ($es4.$$get(importConstructs, null, null, i, 'nameConstruct', 'identifierTokens', 'length') > 1)
-					{
-						var fullyQualifiedName = $es4.$$call(Construct, null, null, 'nameConstructToString', [$es4.$$get(importConstructs, null, null, i, 'nameConstruct')]);
-						fullyQualifiedName = $es4.$$call(fullyQualifiedName, null, null, 'split', ['.']);
-						$es4.$$call(fullyQualifiedName, null, null, 'pop', $es4.$$EMPTY_ARRAY);
-						packageName = $es4.$$call(fullyQualifiedName, null, null, 'join', ['.']);
-					}
-					if ($es4.$$get(importNames, null, null, name))
-					{
-						$es4.$$set(_importNameConflicts, null, null, name, true, '=');
-						continue;
-					}
-					else
-					{
-						$es4.$$set(importNames, null, null, name, true, '=');
-					}
-					js += print(name + ' = $es4.$$[\'' + packageName + '\'].' + name + ';', _indent + 2, 1);
-				}
-				js += print('});', _indent + 1, 1);
-				_inStaticFunction = false;
-				return js;
-			}
-;
-
-			function translateClassFunction($$$$construct) 
-			{
-				//set default parameter values
-				var construct = $$$$construct;
-
-				upLevel();
-				var js = '';
-				if (accessor)
-				{
-					var name = $es4.$$get(construct, null, null, 'getToken') ? 'getter' : 'setter';
-					js += print('function ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '() { $es4.$$' + name + '(\'' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '\', ' + '$es4.$$package(\'' + ($es4.$$get(construct, null, null, 'packageConstruct', 'nameConstruct') ? $es4.$$call(Construct, null, null, 'nameConstructToString', [$es4.$$get(construct, null, null, 'packageConstruct', 'nameConstruct')]) : '') + '\'), (function ()', _indent, 1);
-				}
-				else
-				{
-					js += print('function ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '(', _indent, 0);
-				}
-				js += translateParameters(construct, construct);
-				if (!accessor)
-				{
-					js += print(')', 0, (_indent) ? 1 : 0);
-				}
-				js += print('{', _indent, (_indent) ? 1 : 0);
-				js += print('//initialize function if not initialized', _indent + 1, 1);
-				js += print('if (' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit !== undefined) ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit();', _indent + 1, 2);
-				js += translateDefaultParameterValues(construct, construct);
-				if (accessor)
-				{
-					js += print('//change reference', _indent + 1, 1, 1);
-					js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + ' = this;', _indent + 1, $es4.$$get(construct, null, null, 'bodyStatements', 'length') ? 2 : 1);
-				}
-				if ($es4.$$get(construct, null, null, 'isJavaScript'))
-				{
-					js += $es4.$$get(construct, null, null, 'javaScriptString');
-				}
-				else
-				{
-					js += translateStatements($es4.$$get(construct, null, null, 'bodyStatements'), _indent + 1, construct);
-				}
-				if (accessor)
-				{
-					js += print('})', ($es4.$$get(construct, null, null, 'isJavaScript')) ? 0 : _indent, 0);
-					js += print(');}', 0, 1);
-				}
-				else
-				{
-					js += print('}', 0, 1);
-				}
-				downLevel();
-				return js;
-			}
-;
-		}
-;
-
-		function translateClassConstruct($$$$construct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-
-			var js = '';
-			upLevel();
-			_extendsNameConflict = $es4.$$get(construct, null, null, 'extendsNameConflict');
-			var innerJS;
-			var cr = false;
-			js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + ' = (function ()', 0, 1);
-			js += print('{', _indent, 1);
-			js += (innerJS = translateImports(construct)) ? cr = innerJS : '';
-			js += (innerJS = translateNamespaces(construct, true)) ? cr = print(innerJS, 0, 0, (cr) ? 1 : 0) : '';
-			js += (innerJS = translateStaticProperties(construct)) ? cr = print(innerJS, 0, 0, (cr) ? 1 : 0) : '';
-			js += (innerJS = translateClassPreInitializer(construct)) ? cr = print(innerJS, 0, 0, (cr) ? 1 : 0) : '';
-			js += (innerJS = translateClassInitializer(construct)) ? cr = print(innerJS, 0, 0, (cr) ? 1 : 0) : '';
-			js += (innerJS = translateStaticMethods(construct)) ? print(innerJS, 0, 0, 1) : '';
-			js += (innerJS = translateStaticAccessors(construct)) ? print(innerJS, 0, 0, 1) : '';
-			js += (innerJS = translateClassFunction(construct)) ? print(innerJS, 0, 0, 1) : '';
-			js += (innerJS = translateConstruct(construct)) ? print(innerJS, 0, 0, 1) : '';
-			js += (innerJS = translateInitializer(construct)) ? print(innerJS, 0, 0, 1) : '';
-			js += (innerJS = translateConstructor(construct)) ? print(innerJS, 0, 0, 1) : '';
-			js += (innerJS = translateInternalClasses(construct)) ? print(innerJS, 0, 0, 1) : '';
-			js += (innerJS = translateInternalInterfaces(construct)) ? print(innerJS, 0, 0, 1) : '';
-			js += (innerJS = translateClassReturnStatement(construct)) ? print(innerJS, 0, 0, 1) : '';
-			js += print('})();', _indent, 1);
-			downLevel();
-			return js;
-		}
-;
-
-		function translateClassPreInitializer($$$$construct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-
-			_inStaticFunction = true;
-			var js = print('//class pre initializer', _indent + 1, 1);
-			js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$sinit = (function ()', _indent + 1, 1);
-			js += print('{', _indent + 1, 1);
-			js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$sinit = undefined;', _indent + 2, 2);
-			var importConstructs = ($es4.$$get(construct, null, null, 'isInternal')) ? $es4.$$get(_rootConstruct, null, null, 'importConstructs') : $es4.$$get(_rootConstruct, null, null, 'packageConstruct', 'importConstructs');
-			if ($es4.$$get(importConstructs, null, null, 'length'))
-			{
-				js += print('//initialize imports', _indent + 2, 1);
-			}
-			var found = false;
-			var extraCR = 0;
-			var importNames = {};
-			$es4.$$set(importNames, null, null, $es4.$$get(construct, null, null, 'identifierToken', 'data'), true, '=');
-			for (var i = 0; i < $es4.$$get(importConstructs, null, null, 'length'); i++)
-			{
-				found = true;
-				var name = $es4.$$get(importConstructs, null, null, i, 'nameConstruct', 'identifierTokens', $es4.$$get(importConstructs, null, null, i, 'nameConstruct', 'identifierTokens', 'length') - 1, 'data');
-				var packageName = '';
-				if ($es4.$$get(importConstructs, null, null, i, 'nameConstruct', 'identifierTokens', 'length') > 1)
-				{
-					var fullyQualifiedName = $es4.$$call(Construct, null, null, 'nameConstructToString', [$es4.$$get(importConstructs, null, null, i, 'nameConstruct')]);
-					fullyQualifiedName = $es4.$$call(fullyQualifiedName, null, null, 'split', ['.']);
-					$es4.$$call(fullyQualifiedName, null, null, 'pop', $es4.$$EMPTY_ARRAY);
-					packageName = $es4.$$call(fullyQualifiedName, null, null, 'join', ['.']);
-				}
-				if ($es4.$$get(importNames, null, null, name))
-				{
-					$es4.$$set(_importNameConflicts, null, null, name, true, '=');
-					continue;
-				}
-				else
-				{
-					$es4.$$set(importNames, null, null, name, true, '=');
-				}
-				extraCR = 1;
-				js += print(name + ' = $es4.$$[\'' + packageName + '\'].' + name + ';', _indent + 2, 1);
-			}
-			var className = $es4.$$get(construct, null, null, 'identifierToken', 'data');
-			var superClassName = 'Object';
-			if ($es4.$$get(construct, null, null, 'extendsNameConstruct'))
-			{
-				superClassName = getTranslatedTypeName($es4.$$get(construct, null, null, 'extendsNameConstruct', 'type'));
-				js += print('//ensure $$sinit is called on super class', _indent + 2, 1, extraCR);
-				js += print('if (' + superClassName + '.$$sinit !== undefined) ' + superClassName + '.$$sinit();', _indent + 2, 1);
-			}
-			js += print('//set prototype and constructor', _indent + 2, 1, extraCR);
-			js += print(className + '.prototype = Object.create(' + superClassName + '.prototype);', _indent + 2, 1);
-			js += print('Object.defineProperty(' + className + '.prototype, "constructor", { value: ' + className + ', enumerable: false });', _indent + 2, 2);
-			extraCR = 0;
-			js += print('//hold private values', _indent + 2, 1);
-			js += print('Object.defineProperty(' + className + '.prototype, \'$$v\', {value:{}});', _indent + 2, 1);
-			var innerJS;
-			js += (innerJS = translateInstanceMethods(construct)) ? print(innerJS, 0, 0, 1) : '';
-			js += (innerJS = translateInstanceAccessors(construct)) ? print(innerJS, 0, 0, 1) : '';
-			js += (innerJS = translateInstanceProperties(construct)) ? print(innerJS, 0, 0, 1) : '';
-			js += print('});', _indent + 1, 1);
-			_inStaticFunction = false;
-			return js;
-		}
-;
-
-		function translateClassInitializer($$$$construct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-
-			_inStaticFunction = true;
-			var js = print('//class initializer', _indent + 1, 1);
-			js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit = (function ()', _indent + 1, 1);
-			js += print('{', _indent + 1, 1);
-			js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit = undefined;', _indent + 2, 1);
-			var found = false;
-			for (var i = 0; i < $es4.$$get(construct, null, null, 'propertyConstructs', 'length'); i++)
-			{
-				var propertyConstruct = $es4.$$get(construct, null, null, 'propertyConstructs', i);
-				if (!$es4.$$get(propertyConstruct, null, null, 'staticToken'))
-				{
-					continue;
-				}
-				if ($es4.$$get(propertyConstruct, null, null, 'translatedEarlier'))
-				{
-					continue;
-				}
-				if (!found)
-				{
-					found = true;
-					js += print('//initialize properties', _indent + 2, 1, 1);
-				}
-				var namespaceObj = $es4.$$get(propertyConstruct, null, null, 'identifier', 'namespaceObj');
-				var type = getTranslatedTypeName($es4.$$get(propertyConstruct, null, null, 'identifier', 'type'));
-				js += print('$$j.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + ' = ', _indent + 2, 0);
-				if (type)
-				{
-					js += '$es4.$$coerce(';
-				}
-				js += ($es4.$$get(propertyConstruct, null, null, 'valueExpression')) ? translateExpression($es4.$$get(propertyConstruct, null, null, 'valueExpression'), _indent, false, construct) : 'undefined';
-				if (type)
-				{
-					js += ', ' + type + ')';
-				}
-				js += print(';', 0, 1);
-			}
-			if (found)
-			{
-				js += print('', _indent + 1, 1);
-			}
-			js += translateStatements($es4.$$get(construct, null, null, 'initializerStatements'), _indent + 2, construct);
-			js += print('});', _indent + 1, 1);
-			_inStaticFunction = false;
-			return js;
-		}
-;
-
-		function translateClassFunction($$$$construct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-
-			var js = '';
-			upLevel();
-			var js = print('function ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '()', _indent, 1);
-			js += print('{', _indent, 1);
-			js += print('var $$this;', _indent + 1, 2);
-			js += print('//save scope', _indent + 1, 1);
-			js += print('if (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) $$this = arguments[1];', _indent + 1, 1);
-			js += print('else', _indent + 1, 1);
-			js += print('{', _indent + 1, 1);
-			js += print('var $$this = this;', _indent + 2, 2);
-			js += print('if (!($$this instanceof ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ') || $$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + ' !== undefined) return (arguments.length !== 0) ? $es4.$$as(arguments[0], ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ') : $es4.$$throwArgumentError();', _indent + 2, 1);
-			js += print('}', _indent + 1, 1);
-			var innerJS;
-			js += print('//call construct if no arguments, or argument zero does not equal manual construct', _indent + 1, 1, 1);
-			js += print('if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)', _indent + 1, 1);
-			js += print('{', _indent + 1, 1);
-			js += print('for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];', _indent + 2, 2);
-			js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$construct($$this, $$args);', _indent + 2, 1);
-			js += print('}', _indent + 1, 1);
-			js += print('}', _indent, 1);
-			downLevel();
-			return js;
-		}
-;
-
-		function translateConstruct($$$$construct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-
-			_inStaticFunction = true;
-			var js = print('//construct', _indent + 1, 1);
-			js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$construct = (function ($$this, args)', _indent + 1, 1);
-			js += print('{', _indent + 1, 1);
-			js += print('//initialize function if not initialized', _indent + 2, 1);
-			js += print('if (' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit !== undefined) ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit();', _indent + 2, 2);
-			js += print('//hold property values, and methods', _indent + 2, 1);
-			js += print('Object.defineProperty($$this, \'$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '\', {value:{$$this:$$this, $$p:{}, $$ns:{}}});', _indent + 2, 2);
-			upLevel();
-			var innerJS;
-			innerJS = translateNamespaces(construct, false);
-			if (innerJS)
-			{
-				js += print(innerJS, 0, 0, 1);
-			}
-			js += translateNamespaceInstanceMethods(construct);
-			downLevel();
-			var propertyConstructs = $es4.$$get(construct, null, null, 'instancePropertyConstructs');
-			for (var i = 0; i < $es4.$$get(propertyConstructs, null, null, 'length'); i++)
-			{
-				var propertyConstruct = $es4.$$get(propertyConstructs, null, null, i);
-				var namespaceObj = $es4.$$get(propertyConstruct, null, null, 'identifier', 'namespaceObj');
-				if (!$es4.$$get(namespaceObj, null, null, 'isPrivate'))
-				{
-					continue;
-				}
-				js += print('Object.defineProperty($$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + ', \'' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + '\', ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.prototype.$$v.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + ');', _indent + 2, 1);
-			}
-			for (var i = 0; i < $es4.$$get(construct, null, null, 'instanceAccessorConstructs', 'length'); i++)
-			{
-				var setterMethodConstruct = $es4.$$get(construct, null, null, 'instanceAccessorConstructs', i, 'setter');
-				var getterMethodConstruct = $es4.$$get(construct, null, null, 'instanceAccessorConstructs', i, 'getter');
-				var methodConstruct = setterMethodConstruct || getterMethodConstruct;
-				var namespaceObj = $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj');
-				var isPrivate = $es4.$$get(methodConstruct, null, null, 'namespaceToken', 'data') == 'private';
-				if (!isPrivate)
-				{
-					continue;
-				}
-				js += print('Object.defineProperty($$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + ', \'' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '\', ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.prototype.$$v.' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + ');', _indent + 2, 1);
-			}
-			js += print(innerJS, 0, 0, 1);
-			for (var i = 0; i < $es4.$$get(construct, null, null, 'instanceMethodConstructs', 'length'); i++)
-			{
-				var methodConstruct = $es4.$$get(construct, null, null, 'instanceMethodConstructs', i);
-				var namespaceObj = $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj');
-				if ($es4.$$get(namespaceObj, null, null, 'isCustom'))
-				{
-					continue;
-				}
-				if (!$es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj', 'isPrivate'))
-				{
-					continue;
-				}
-				var type = $es4.$$get(methodConstruct, null, null, 'identifier', 'type');
-				js += print('//' + $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj', 'name') + ' instance method', _indent + 2, 1);
-				js += print('Object.defineProperty($$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + ', \'' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '\', ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.prototype.$$v.' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + ');', _indent + 2, 2);
-			}
-			if ($es4.$$get(construct, null, null, 'extendsNameConstruct'))
-			{
-				var superClassName = getTranslatedTypeName($es4.$$get(construct, null, null, 'extendsNameConstruct', 'type'));
-				js += print('//call construct on super', _indent + 2, 1);
-				js += print(superClassName + '.$$construct($$this);', _indent + 2, 2, 0);
-			}
-			js += print('//initialize properties', _indent + 2, 1);
-			js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$iinit($$this);', _indent + 2, 2, 0);
-			js += print('//call constructor', _indent + 2, 1);
-			js += print('if (args !== undefined) ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$constructor.apply($$this, args);', _indent + 2, 1, 0);
-			js += print('});', _indent + 1, 1);
-			_inStaticFunction = false;
-			return js;
-		}
-;
-
-		function translateInitializer($$$$construct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-
-			_inStaticFunction = true;
-			var js = print('//initializer', _indent + 1, 1);
-			js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$iinit = (function ($$this)', _indent + 1, 1);
-			js += print('{', _indent + 1, 1);
-			var found = false;
-			for (var i = 0; i < $es4.$$get(construct, null, null, 'instancePropertyConstructs', 'length'); i++)
-			{
-				var propertyConstruct = $es4.$$get(construct, null, null, 'instancePropertyConstructs', i);
-				if (!found)
-				{
-					found = true;
-					js += print('//initialize properties', _indent + 2, 1);
-				}
-				var namespaceObj = $es4.$$get(propertyConstruct, null, null, 'identifier', 'namespaceObj');
-				var type = getTranslatedTypeName($es4.$$get(propertyConstruct, null, null, 'identifier', 'type'));
-				if (!$es4.$$get(namespaceObj, null, null, 'isPrivate'))
-				{
-					js += print('$$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + ' = ', _indent + 2, 0);
-				}
-				else
-				{
-					js += print('$$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.$$p.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + ' = ', _indent + 2, 0);
-				}
-				if (type)
-				{
-					js += '$es4.$$coerce(';
-				}
-				js += ($es4.$$get(propertyConstruct, null, null, 'valueExpression')) ? translateExpression($es4.$$get(propertyConstruct, null, null, 'valueExpression'), _indent, false, construct) : 'undefined';
-				if (type)
-				{
-					js += ', ' + type + ')';
-				}
-				js += print(';', 0, 1);
-			}
-			if (found)
-			{
-				js += print('', _indent + 1, 1);
-			}
-			if ($es4.$$get(construct, null, null, 'extendsNameConstruct'))
-			{
-				var superClassName = getTranslatedTypeName($es4.$$get(construct, null, null, 'extendsNameConstruct', 'type'));
-				js += print('//call iinit on super', _indent + 2, 1);
-				js += print(superClassName + '.$$iinit($$this);', _indent + 2, 1, 0);
-			}
-			js += print('});', _indent + 1, 1);
-			_inStaticFunction = false;
-			return js;
-		}
-;
-
-		function translateConstructor($$$$construct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-
-			upLevel();
-			var methodConstruct = $es4.$$get(construct, null, null, 'constructorMethodConstruct');
-			var js = print('//constructor', _indent, 1);
-			js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$constructor = (function (', _indent, 0);
-			if (methodConstruct)
-			{
-				js += translateParameters(methodConstruct, construct);
-			}
-			js += print(')', 0, 1);
-			js += print('{', _indent, 1);
-			js += print('var $$this = this;', _indent + 1, 1, 0);
-			if (methodConstruct)
-			{
-				js += translateDefaultParameterValues(methodConstruct, construct);
-			}
-			var carriage = false;
-			if ($es4.$$get(construct, null, null, 'extendsNameConstruct') && (!methodConstruct || (methodConstruct && !$es4.$$get(methodConstruct, null, null, 'callsSuper'))))
-			{
-				var superClassName = getTranslatedTypeName($es4.$$get(construct, null, null, 'extendsNameConstruct', 'type'));
-				js += print(superClassName + '.$$constructor.call($$this);', _indent + 1, 1, 1);
-				carriage = true;
-			}
-			if (methodConstruct)
-			{
-				var innerJS = print(translateStatements($es4.$$get(methodConstruct, null, null, 'bodyStatements'), _indent + 1, construct), 0, 0);
-				if (innerJS && carriage)
-				{
-					js += print('', 0, 1);
-				}
-				if (innerJS)
-				{
-					js += innerJS;
-				}
-			}
-			js += print('});', _indent, 1);
-			downLevel();
-			return js;
-		}
-;
-
-		function translateInternalClasses($$$$construct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-
-			if ($es4.$$get(construct, null, null, 'isInternal'))
-			{
-				return '';
-			}
-			var js = '';
-			for (var i = 0; i < $es4.$$get(_rootConstruct, null, null, 'classConstructs', 'length'); i++)
-			{
-				if (js)
-				{
-					js += print('', 0, 1);
-				}
-				js += print('////////////////INTERNAL CLASS////////////////', _indent + 1, 1);
-				js += print('var ' + translateClassConstruct($es4.$$get(_rootConstruct, null, null, 'classConstructs', i)), 1, 0);
-			}
-			return js;
-		}
-;
-
-		function translateInternalInterfaces($$$$construct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-
-			if ($es4.$$get(construct, null, null, 'isInternal'))
-			{
-				return '';
-			}
-			var js = '';
-			for (var i = 0; i < $es4.$$get(_rootConstruct, null, null, 'interfaceConstructs', 'length'); i++)
-			{
-				if (js)
-				{
-					js += print('', 0, 1);
-				}
-				js += print('////////////////INTERNAL INTERFACE////////////////', _indent + 1, 1);
-				js += print('var ' + translateInterfaceConstruct($es4.$$get(_rootConstruct, null, null, 'interfaceConstructs', i)), 1, 0);
-			}
-			return js;
-		}
-;
-
-		function translateClassReturnStatement($$$$construct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-
-			var js = print('return $es4.$$class(' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ', ', _indent + 1, 0);
-			var comma = false;
-			var innerJS = '';
-			if ($es4.$$get(construct, null, null, 'extendsNameConstruct'))
-			{
-				var type = $es4.$$get(construct, null, null, 'extendsNameConstruct', 'type');
-				var innerConstruct = lookupConstructInRootConstruct($es4.$$get(construct, null, null, 'rootConstruct'), $es4.$$get(construct, null, null, 'extendsNameConstruct'));
-				if ($es4.$$get(innerConstruct, null, null, 'isInternal'))
-				{
-					innerJS += comma = 'EXTENDS:' + $es4.$$get(type, null, null, 'fullyQualifiedName');
-				}
-				else
-				{
-					innerJS += comma = 'EXTENDS:\'' + $es4.$$get(type, null, null, 'fullyQualifiedName') + '\'';
-				}
-			}
-			if ($es4.$$get(construct, null, null, 'implementsNameConstructs', 'length'))
-			{
-				if (comma)
-				{
-					innerJS += ', ';
-				}
-				innerJS += 'IMPLEMENTS:[';
-				comma = false;
-				for (var i = 0; i < $es4.$$get(construct, null, null, 'implementsNameConstructs', 'length'); i++)
-				{
-					if (comma)
-					{
-						innerJS += ', ';
-					}
-					var type = $es4.$$get(construct, null, null, 'implementsNameConstructs', i, 'type');
-					var innerConstruct = lookupConstructInRootConstruct($es4.$$get(construct, null, null, 'rootConstruct'), $es4.$$get(construct, null, null, 'implementsNameConstructs', i));
-					if ($es4.$$get(innerConstruct, null, null, 'isInternal'))
-					{
-						innerJS += comma = $es4.$$get(type, null, null, 'fullyQualifiedName');
-					}
-					else
-					{
-						innerJS += comma = '\'' + $es4.$$get(type, null, null, 'fullyQualifiedName') + '\'';
-					}
-				}
-				innerJS += comma = ']';
-			}
-			if (!$es4.$$get(construct, null, null, 'isInternal'))
-			{
-				if ($es4.$$get(_rootConstruct, null, null, 'classConstructs', 'length'))
-				{
-					if (comma)
-					{
-						innerJS += ', ';
-					}
-					innerJS += 'CLASSES:[';
-					comma = false;
-					for (var i = 0; i < $es4.$$get(_rootConstruct, null, null, 'classConstructs', 'length'); i++)
-					{
-						if (comma)
-						{
-							innerJS += ', ';
-						}
-						innerJS += comma = $es4.$$get(_rootConstruct, null, null, 'classConstructs', i, 'identifierToken', 'data');
-					}
-					innerJS += comma = ']';
-				}
-				if ($es4.$$get(_rootConstruct, null, null, 'interfaceConstructs', 'length'))
-				{
-					if (comma)
-					{
-						innerJS += ', ';
-					}
-					innerJS += 'INTERFACES:[';
-					comma = false;
-					for (var i = 0; i < $es4.$$get(_rootConstruct, null, null, 'interfaceConstructs', 'length'); i++)
-					{
-						if (comma)
-						{
-							innerJS += ', ';
-						}
-						innerJS += comma = $es4.$$get(_rootConstruct, null, null, 'interfaceConstructs', i, 'identifierToken', 'data');
-					}
-					innerJS += comma = ']';
-				}
-			}
-			var packageName = $es4.$$get(construct, null, null, 'packageName');
-			var fullyQualifiedName = (packageName) ? packageName + '::' + $es4.$$get(construct, null, null, 'identifierToken', 'data') : $es4.$$get(construct, null, null, 'identifierToken', 'data');
-			if (innerJS)
-			{
-				js += '{' + innerJS + '}';
-				js += print(', \'' + fullyQualifiedName + '\');', 0, 1);
-			}
-			else
-			{
-				js = print('return $es4.$$class(' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ', null, ', _indent + 1, 0);
-				js += print('\'' + fullyQualifiedName + '\');', 0, 1);
-			}
-			return js;
-		}
-;
-
-		function translateImports($$$$construct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-
-			var js = '';
-			var importConstructs = ($es4.$$get(construct, null, null, 'isInternal')) ? $es4.$$get(_rootConstruct, null, null, 'importConstructs') : $es4.$$get(_rootConstruct, null, null, 'packageConstruct', 'importConstructs');
-			if ($es4.$$get(importConstructs, null, null, 'length'))
-			{
-				js += print('//imports', _indent + 1, 1);
-			}
-			for (var i = 0; i < $es4.$$get(importConstructs, null, null, 'length'); i++)
-			{
-				js += print('var ' + $es4.$$get(importConstructs, null, null, i, 'nameConstruct', 'identifierTokens', $es4.$$get(importConstructs, null, null, i, 'nameConstruct', 'identifierTokens', 'length') - 1, 'data') + ';', _indent + 1, 1);
-			}
-			return js;
-		}
-;
-
-		function translateNamespaces($$$$construct, $$$$isClassLevel) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-			var isClassLevel = $$$$isClassLevel;
-
-			var js = '';
-			var propertyConstructs = $es4.$$get(construct, null, null, 'namespacePropertyConstructs');
-			var counter = 0;
-			for (var i = 0; i < $es4.$$get(propertyConstructs, null, null, 'length'); i++)
-			{
-				var propertyConstruct = $es4.$$get(propertyConstructs, null, null, i);
-				if (!js)
-				{
-					js += print('//namespaces', _indent + 1, 1);
-				}
-				js += print('$es4.$$' + $es4.$$get(propertyConstruct, null, null, 'identifier', 'namespaceObj', 'name') + '_namespace(' + ($es4.$$get(propertyConstruct, null, null, 'valueExpression') ? translateExpression($es4.$$get(propertyConstruct, null, null, 'valueExpression'), _indent, false, construct) : '\'$$uniqueNS_' + (counter++) + '_' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '\'') + ', ' + ((isClassLevel) ? $es4.$$get(construct, null, null, 'identifierToken', 'data') : ($es4.$$get(propertyConstruct, null, null, 'namespaceToken', 'data') == 'private' ? ('$$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.$$ns') : '$$this')) + ', \'' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + '\');', _indent + 1, 1);
-			}
-			return js;
-		}
-;
-
-		function translateStaticProperties($$$$construct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-
-			var js = '';
-			var propertyConstructs = $es4.$$get(construct, null, null, 'staticPropertyConstructs');
-			for (var i = 0; i < $es4.$$get(propertyConstructs, null, null, 'length'); i++)
-			{
-				var propertyConstruct = $es4.$$get(propertyConstructs, null, null, i);
-				if (!js)
-				{
-					js += print('//properties', _indent + 1, 1);
-					js += print('var $$j = {};', _indent + 1, 1);
-				}
-				var namespaceObj = $es4.$$get(propertyConstruct, null, null, 'identifier', 'namespaceObj');
-				var type = $es4.$$get(propertyConstruct, null, null, 'identifier', 'type');
-				var scope = $es4.$$get(construct, null, null, 'identifierToken', 'data');
-				if ($es4.$$get(namespaceObj, null, null, 'isCustom'))
-				{
-					throw $es4.$$primitive(new (Error)('custom static properties not supported at the moment'));
-				}
-				var returnString = getTranslatedTypeName(type);
-				if ($es4.$$get(propertyConstruct, null, null, 'constToken') && $es4.$$get(propertyConstruct, null, null, 'valueExpression'))
-				{
-					if (returnString == 'String' || returnString == 'uint' || returnString == 'int' || returnString == 'Number' || returnString == 'Boolean')
-					{
-						var constructor = $es4.$$get(propertyConstruct, null, null, 'valueExpression', 'constructor');
-						if (constructor === $es4.$$get(Construct, null, null, 'StringExpression') || constructor === $es4.$$get(Construct, null, null, 'NumberExpression') || constructor === $es4.$$get(Construct, null, null, 'BooleanExpression'))
-						{
-							var valueJS = translateExpression($es4.$$get(propertyConstruct, null, null, 'valueExpression'), _indent, false, construct);
-							var coerce = false;
-							if (constructor === $es4.$$get(Construct, null, null, 'StringExpression') && returnString != 'String')
-							{
-								coerce = true;
-							}
-							else if (constructor === $es4.$$get(Construct, null, null, 'BooleanExpression') && returnString != 'Boolean')
-							{
-								coerce = true;
-							}
-							else if (constructor === $es4.$$get(Construct, null, null, 'NumberExpression'))
-							{
-								if (returnString == 'uint')
-								{
-									if (parseInt(valueJS) != (valueJS >>> 0))
-									{
-										coerce = true;
-									}
-								}
-								else if (returnString == 'int')
-								{
-									if (parseInt(valueJS) != (valueJS >> 0))
-									{
-										coerce = true;
-									}
-								}
-							}
-							if (coerce)
-							{
-								js += print(scope + '.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + ' = $es4.$$coerce(' + valueJS + ', ' + returnString + ');', _indent + 1, 1);
-							}
-							else
-							{
-								js += print(scope + '.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + ' = ' + valueJS + ';', _indent + 1, 1);
-							}
-							$es4.$$set(propertyConstruct, null, null, 'translatedEarlier', true, '=');
-							continue;
-						}
-					}
-				}
-				js += print('Object.defineProperty(' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ', \'' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + '\', {', _indent + 1, 1);
-				js += print('get:function () { ', _indent + 1, 0);
-				js += 'if (' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit !== undefined) ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit(); ';
-				js += print('return $$j.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + '; },', 0, 1);
-				js += print('set:function (value) { ', _indent + 1, 0);
-				js += 'if (' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit !== undefined) ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit(); ';
-				if (returnString)
-				{
-					js += print('$$j.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + ' = $es4.$$coerce(value, ' + returnString + '); }', 0, 1);
-				}
-				else
-				{
-					js += print('$$j.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + ' = value }', 0, 1);
-				}
-				js += print('});', _indent + 1, 2);
-			}
-			return js;
-		}
-;
-
-		function translateInstanceProperties($$$$construct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-
-			var js = '';
-			var propertyConstructs = $es4.$$get(construct, null, null, 'instancePropertyConstructs');
-			for (var i = 0; i < $es4.$$get(propertyConstructs, null, null, 'length'); i++)
-			{
-				var propertyConstruct = $es4.$$get(propertyConstructs, null, null, i);
-				if (!js)
-				{
-					js += print('//properties', _indent + 2, 1);
-				}
-				var namespaceObj = $es4.$$get(propertyConstruct, null, null, 'identifier', 'namespaceObj');
-				if ($es4.$$get(namespaceObj, null, null, 'isCustom'))
-				{
-					throw $es4.$$primitive(new (Error)('custom namespace properties not supported at this time'));
-				}
-				var returnString = getTranslatedTypeName($es4.$$get(propertyConstruct, null, null, 'identifier', 'type'));
-				if ($es4.$$get(namespaceObj, null, null, 'isPrivate'))
-				{
-					js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.prototype.$$v.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + ' = {', _indent + 2, 1);
-					js += print('get:function () { var $$this = this.$$this; return $$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.$$p.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + '; },', _indent + 2, 1);
-					if (returnString)
-					{
-						js += print('set:function (value) { var $$this = this.$$this; $$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.$$p.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + ' = $es4.$$coerce(value, ' + returnString + '); }', _indent + 2, 1);
-					}
-					else
-					{
-						js += print('set:function (value) { var $$this = this.$$this; $$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.$$p.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + ' = value }', _indent + 2, 1);
-					}
-					js += print('};', _indent + 2, 2);
-					continue;
-				}
-				js += print('Object.defineProperty(' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.prototype, \'' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + '\', {', _indent + 2, 1);
-				js += print('get:function () { var $$this = this; return $$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + '; },', _indent + 2, 1);
-				if (returnString)
-				{
-					js += print('set:function (value) { var $$this = this; $$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + ' = $es4.$$coerce(value, ' + returnString + '); }', _indent + 2, 1);
-				}
-				else
-				{
-					js += print('set:function (value) { var $$this = this; $$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.' + $es4.$$get(propertyConstruct, null, null, 'identifierToken', 'data') + ' = value }', _indent + 2, 1);
-				}
-				js += print('});', _indent + 2, 2);
-			}
-			return js;
-		}
-;
-
-		function translateStaticMethods($$$$construct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-
-			var js = '';
-			for (var i = 0; i < $es4.$$get(construct, null, null, 'staticMethodConstructs', 'length'); i++)
-			{
-				var methodConstruct = $es4.$$get(construct, null, null, 'staticMethodConstructs', i);
-				var namespaceObj = $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj');
-				if ($es4.$$get(methodConstruct, null, null, 'isJavaScript'))
-				{
-					if ($es4.$$get(namespaceObj, null, null, 'isCustom'))
-					{
-						js += translateCustomNamespaceJavaScriptStaticMethod(construct, methodConstruct);
-					}
-					else
-					{
-						js += translateNoCustomNamespaceJavaScriptStaticMethod(construct, methodConstruct);
-					}
-				}
-				else
-				{
-					if ($es4.$$get(namespaceObj, null, null, 'isCustom'))
-					{
-						js += translateCustomNamespaceStaticMethod(construct, methodConstruct);
-					}
-					else
-					{
-						js += translateNoCustomNamespaceStaticMethod(construct, methodConstruct);
-					}
-				}
-				if (i + 1 < $es4.$$get(construct, null, null, 'staticMethodConstructs', 'length'))
-				{
-					js += print('', 0, 2);
-				}
-			}
-			return js;
-		}
-;
-
-		function translateNoCustomNamespaceJavaScriptStaticMethod($$$$construct, $$$$methodConstruct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-			var methodConstruct = $$$$methodConstruct;
-
-			_inStaticFunction = true;
-			var js = '';
-			var namespaceObj = $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj');
-			var type = $es4.$$get(methodConstruct, null, null, 'identifier', 'type');
-			upLevel();
-			js += print('//' + $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj', 'name') + ' static method', _indent, 1, (js) ? 1 : 0);
-			if (getTranslatedTypeName(type))
-			{
-				js += translateJavaScriptWithReturnTypeStaticMethod(construct, methodConstruct);
-			}
-			else
-			{
-				js += translateJavaScriptWithoutReturnTypeStaticMethod(construct, methodConstruct);
-			}
-			downLevel();
-			_inStaticFunction = false;
-			return js;
-
-			function translateJavaScriptWithReturnTypeStaticMethod($$$$construct, $$$$methodConstruct) 
-			{
-				//set default parameter values
-				var construct = $$$$construct;
-				var methodConstruct = $$$$methodConstruct;
-
-				var js = '';
-				js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + ' = (function () { return $es4.$$coerce((function (', _indent, 0);
-				js += translateParameters(methodConstruct, construct);
-				js += print(')', 0, 1);
-				js += print('{', _indent, 1);
-				js += print('if (' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit !== undefined) ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit();', _indent + 1, 2);
-				js += translateDefaultParameterValues(methodConstruct, construct);
-				js += $es4.$$get(methodConstruct, null, null, 'javaScriptString');
-				js += print('', 0, 1);
-				js += print('}).apply(this, arguments), ' + getTranslatedTypeName(type) + ');});', _indent, 1);
-				return js;
-			}
-;
-
-			function translateJavaScriptWithoutReturnTypeStaticMethod($$$$construct, $$$$methodConstruct) 
-			{
-				//set default parameter values
-				var construct = $$$$construct;
-				var methodConstruct = $$$$methodConstruct;
-
-				var js = '';
-				js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + ' = (function (', _indent, 0);
-				js += translateParameters(methodConstruct, construct);
-				js += print(')', 0, 1);
-				js += print('{', _indent, 1);
-				js += print('if (' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit !== undefined) ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit();', _indent + 1, 2);
-				js += translateDefaultParameterValues(methodConstruct, construct);
-				js += $es4.$$get(methodConstruct, null, null, 'javaScriptString');
-				js += print('', _indent, 1);
-				js += print('});', _indent, 0);
-				return js;
-			}
-;
-		}
-;
-
-		function translateCustomNamespaceJavaScriptStaticMethod($$$$construct, $$$$methodConstruct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-			var methodConstruct = $$$$methodConstruct;
-
-			return 'TODO translateCustomNamespaceJavaScriptStaticMethod';
-		}
-;
-
-		function translateNoCustomNamespaceStaticMethod($$$$construct, $$$$methodConstruct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-			var methodConstruct = $$$$methodConstruct;
-
-			_inStaticFunction = true;
-			var js = '';
-			var namespaceObj = $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj');
-			upLevel();
-			var type = $es4.$$get(methodConstruct, null, null, 'identifier', 'type');
-			js += print('//' + $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj', 'name') + ' static method', _indent, 1, (js) ? 1 : 0);
-			js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + ' = (function (', _indent, 0);
-			js += translateParameters(methodConstruct, construct);
-			js += print(')', 0, 1);
-			js += print('{', _indent, ($es4.$$get(methodConstruct, null, null, 'isJavaScript')) ? 0 : 1);
-			js += print('if (' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit !== undefined) ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit();', _indent + 1, 2);
-			js += translateDefaultParameterValues(methodConstruct, construct);
-			if ($es4.$$get(methodConstruct, null, null, 'UNIMPLEMENTEDToken') && release)
-			{
-				js += print("throw new Error('" + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + "');", 0, 0);
-			}
-			else
-			{
-				js += print(translateStatements($es4.$$get(methodConstruct, null, null, 'bodyStatements'), _indent + 1, construct), 0, 0);
-			}
-			js += print('});', _indent, 0);
-			downLevel();
-			_inStaticFunction = false;
-			return js;
-		}
-;
-
-		function translateCustomNamespaceStaticMethod($$$$construct, $$$$methodConstruct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-			var methodConstruct = $$$$methodConstruct;
-
-			return 'TODO translateCustomNamespaceStaticMethod';
-		}
-;
-
-		function translateInstanceMethods($$$$construct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-
-			var js = '';
-			for (var i = 0; i < $es4.$$get(construct, null, null, 'instanceMethodConstructs', 'length'); i++)
-			{
-				var methodConstruct = $es4.$$get(construct, null, null, 'instanceMethodConstructs', i);
-				var namespaceObj = $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj');
-				var type = $es4.$$get(methodConstruct, null, null, 'identifier', 'type');
-				if ($es4.$$get(methodConstruct, null, null, 'isJavaScript'))
-				{
-					if ($es4.$$get(namespaceObj, null, null, 'isCustom'))
-					{
-						continue;
-					}
-					else
-					{
-						js += translateNoCustomNamespaceJavaScriptInstanceMethod(construct, methodConstruct);
-					}
-				}
-				else
-				{
-					if ($es4.$$get(namespaceObj, null, null, 'isCustom'))
-					{
-						continue;
-					}
-					else
-					{
-						js += translateNoCustomNamespaceInstanceMethod(construct, methodConstruct);
-					}
-				}
-				if (i + 1 < $es4.$$get(construct, null, null, 'instanceMethodConstructs', 'length'))
-				{
-					js += print('', 0, 2);
-				}
-			}
-			return js;
-		}
-;
-
-		function translateNamespaceInstanceMethods($$$$construct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-
-			var js = '';
-			for (var i = 0; i < $es4.$$get(construct, null, null, 'instanceMethodConstructs', 'length'); i++)
-			{
-				var methodConstruct = $es4.$$get(construct, null, null, 'instanceMethodConstructs', i);
-				var namespaceObj = $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj');
-				var type = $es4.$$get(methodConstruct, null, null, 'identifier', 'type');
-				if (!$es4.$$get(namespaceObj, null, null, 'isCustom'))
-				{
-					continue;
-				}
-				if ($es4.$$get(methodConstruct, null, null, 'isJavaScript'))
-				{
-					js += translateCustomNamespaceJavaScriptInstanceMethod(construct, methodConstruct);
-				}
-				else
-				{
-					js += translateCustomNamespaceInstanceMethod(construct, methodConstruct);
-				}
-				if (i + 1 < $es4.$$get(construct, null, null, 'instanceMethodConstructs', 'length'))
-				{
-					js += print('', 0, 2);
-				}
-			}
-			return js;
-		}
-;
-
-		function translateCustomNamespaceInstanceMethod($$$$construct, $$$$methodConstruct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-			var methodConstruct = $$$$methodConstruct;
-
-			upLevel();
-			upLevel();
-			var js = '';
-			var namespaceObj = $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj');
-			var type = $es4.$$get(methodConstruct, null, null, 'identifier', 'type');
-			js += print('//custom namespace method', _indent, 1, 1);
-			var namespaceString = ($es4.$$get(namespaceObj, null, null, 'importID')) ? ', ' + $es4.$$get(namespaceObj, null, null, 'normalizedImportID') : ', ' + ($es4.$$get(namespaceObj, null, null, 'namespaceIsPrivate') ? ('$$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.$$ns.') : '$$this.') + $es4.$$get(namespaceObj, null, null, 'normalizedName');
-			js += print('$es4.$$cnamespace_function(\'' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '\', $$this, ' + ('$$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.$$ns') + namespaceString + ', (function (', _indent, 0);
-			js += translateParameters(methodConstruct, construct);
-			js += print(')', 0, 1);
-			js += print('{', _indent, 1);
-			js += translateDefaultParameterValues(methodConstruct, construct);
-			if ($es4.$$get(methodConstruct, null, null, 'UNIMPLEMENTEDToken') && release)
-			{
-				js += print("throw new Error('" + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + "');", 0, 0);
-			}
-			else
-			{
-				_inNamespacedFunction = ($es4.$$get(namespaceObj, null, null, 'importID')) ? $es4.$$get(namespaceObj, null, null, 'importID') : ('$$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.$$ns.') + $es4.$$get(namespaceObj, null, null, 'name');
-				js += print(translateStatements($es4.$$get(methodConstruct, null, null, 'bodyStatements'), _indent + 1, construct), 0, 0);
-				_inNamespacedFunction = false;
-			}
-			js += print('})', _indent, 0);
-			js += print(');', 0, 1);
-			downLevel();
-			downLevel();
-			return js;
-		}
-;
-
-		function translateNoCustomNamespaceInstanceMethod($$$$construct, $$$$methodConstruct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-			var methodConstruct = $$$$methodConstruct;
-
-			upLevel();
-			upLevel();
-			var js = '';
-			var namespaceObj = $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj');
-			var type = $es4.$$get(methodConstruct, null, null, 'identifier', 'type');
-			js += print('//' + $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj', 'name') + ' instance method', _indent, 1);
-			js += ($es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj', 'isPrivate')) ? translatePrivate() : translateOther();
-			downLevel();
-			downLevel();
-			return js;
-
-			function translatePrivate() 
-			{
-				var js = '';
-				js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.prototype.$$v.' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + ' = {', _indent, 1);
-				js += print('get:function ()', _indent, 1);
-				js += print('{', _indent, 1);
-				js += print('var $$this = this.$$this;', _indent + 1, 2);
-				upLevel();
-				js += print('function ' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '(', _indent, 0);
-				js += translateParameters(methodConstruct, construct);
-				js += print(')', 0, 1);
-				js += print('{', _indent, 1);
-				js += translateDefaultParameterValues(methodConstruct, construct);
-				if ($es4.$$get(methodConstruct, null, null, 'UNIMPLEMENTEDToken') && release)
-				{
-					js += print("throw new Error('" + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + "');", 0, 0);
-				}
-				else
-				{
-					js += print(translateStatements($es4.$$get(methodConstruct, null, null, 'bodyStatements'), _indent + 1, construct), 0, 0);
-				}
-				js += print('}', _indent, 2);
-				var name = '$$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.$$p.$$' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data');
-				js += print('return ' + name + ' || (' + name + ' = ' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + ');', _indent, 1);
-				downLevel();
-				js += print('}};', _indent, 1);
-				return js;
-			}
-;
-
-			function translateOther() 
-			{
-				var js = '';
-				js += print('Object.defineProperty(' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.prototype, \'' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '\', {', _indent, 1);
-				js += print('get:function ()', _indent, 1);
-				js += print('{', _indent, 1);
-				js += print('var $$this = this;', _indent + 1, 2);
-				upLevel();
-				js += print('function ' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '(', _indent, 0);
-				js += translateParameters(methodConstruct, construct);
-				js += print(')', 0, 1);
-				js += print('{', _indent, 1);
-				js += translateDefaultParameterValues(methodConstruct, construct);
-				if ($es4.$$get(methodConstruct, null, null, 'UNIMPLEMENTEDToken') && release)
-				{
-					js += print("throw new Error('" + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + "');", 0, 0);
-				}
-				else
-				{
-					js += print(translateStatements($es4.$$get(methodConstruct, null, null, 'bodyStatements'), _indent + 1, construct), 0, 0);
-				}
-				js += print('}', _indent, 2);
-				var name = '$$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.$$' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data');
-				js += print('return ' + name + ' || (' + name + ' = ' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + ');', _indent, 1);
-				downLevel();
-				js += print('}});', _indent, 1);
-				return js;
-			}
-;
-		}
-;
-
-		function translateNoCustomNamespaceJavaScriptInstanceMethod($$$$construct, $$$$methodConstruct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-			var methodConstruct = $$$$methodConstruct;
-
-			upLevel();
-			upLevel();
-			var js = '';
-			var namespaceObj = $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj');
-			var type = $es4.$$get(methodConstruct, null, null, 'identifier', 'type');
-			js += print('//' + $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj', 'name') + ' instance method', _indent, 1);
-			js += ($es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj', 'isPrivate')) ? translatePrivate() : translateOther();
-			downLevel();
-			downLevel();
-			return js;
-
-			function translatePrivate() 
-			{
-				var js = '';
-				js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.prototype.$$v.' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + ' = {', _indent, 1);
-				js += print('get:function ()', _indent, 1);
-				js += print('{', _indent, 1);
-				js += print('var $$this = this.$$this;', _indent + 1, 2);
-				upLevel();
-				js += print('function ' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '(', _indent, 0);
-				js += translateParameters(methodConstruct, construct);
-				js += print(')', 0, 1);
-				js += print('{', _indent, 1);
-				js += translateDefaultParameterValues(methodConstruct, construct);
-				js += $es4.$$get(methodConstruct, null, null, 'javaScriptString');
-				js += print('', 0, 1);
-				js += print('}', _indent, 2);
-				var name = '$$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.$$p.$$' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data');
-				if (getTranslatedTypeName(type))
-				{
-					js += print('return ' + name + ' || (' + name + ' = function () { return $es4.$$coerce(' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '.apply($$this, arguments), ' + getTranslatedTypeName(type) + '); });', _indent, 1);
-				}
-				else
-				{
-					js += print('return ' + name + ' || (' + name + ' = function () { return ' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '.apply($$this, arguments); });', _indent, 1);
-				}
-				downLevel();
-				js += print('}};', _indent, 1);
-				return js;
-			}
-;
-
-			function translateOther() 
-			{
-				var js = '';
-				js += print('Object.defineProperty(' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.prototype, \'' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '\', {', _indent, 0);
-				js += print(' get:function ()', 0, 0);
-				js += print(' {', 0, 0);
-				js += print(' var $$this = this; ', 0, 0);
-				js += print('return $$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + ' || ' + '($$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + ' = ', 0, 0);
-				if (getTranslatedTypeName(type))
-				{
-					js += print('function () { return $es4.$$coerce(' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '.apply($$this, arguments), ' + getTranslatedTypeName(type) + '); }); }});', 0, 1);
-				}
-				else
-				{
-					js += print('function () { return ' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '.apply($$this, arguments); }); }});', 0, 1);
-				}
-				js += print('function ' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '(', _indent, 0);
-				js += translateParameters(methodConstruct, construct);
-				js += print(')', 0, 1);
-				js += print('{', _indent, (!$es4.$$get(methodConstruct, null, null, 'parameterConstructs', 'length')) ? 0 : 1);
-				js += translateDefaultParameterValues(methodConstruct, construct);
-				js += $es4.$$get(methodConstruct, null, null, 'javaScriptString');
-				js += print('}', 0, 1);
-				return js;
-			}
-;
-		}
-;
-
-		function translateCustomNamespaceJavaScriptInstanceMethod($$$$construct, $$$$methodConstruct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-			var methodConstruct = $$$$methodConstruct;
-
-			return 'TODO translateCustomNamespaceJavaScriptInstanceMethod';
-		}
-;
-
-		function translateStaticAccessors($$$$construct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-
-			_inStaticFunction = true;
-			var js = '';
-
-			function getMethodConstructJS($$$$methodConstruct, $$$$type) 
-			{
-				//set default parameter values
-				var methodConstruct = $$$$methodConstruct;
-				var type = $$$$type;
-
-				if (!methodConstruct)
-				{
-					return 'null';
-				}
-				upLevel();
-				var js = 'function (';
-				js += translateParameters(methodConstruct, construct);
-				js += print(')', 0, 1);
-				js += print('{', _indent, ($es4.$$get(methodConstruct, null, null, 'javaScriptString')) ? 0 : 1);
-				js += print('if (' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit !== undefined) ' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.$$cinit();', _indent + 1, ($es4.$$get(methodConstruct, null, null, 'isJavaScript')) ? 0 : 2);
-				js += translateDefaultParameterValues(methodConstruct, construct);
-				if ($es4.$$get(methodConstruct, null, null, 'isNative'))
-				{
-					throw $es4.$$primitive(new (Error)('accessor cannot be native: ' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data')));
-				}
-				if ($es4.$$get(methodConstruct, null, null, 'isJavaScript'))
-				{
-					js += $es4.$$get(methodConstruct, null, null, 'javaScriptString');
-				}
-				else if ($es4.$$get(methodConstruct, null, null, 'UNIMPLEMENTEDToken') && release)
-				{
-					js += print("throw new Error('" + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + "');", 0, 0);
-				}
-				else
-				{
-					js += translateStatements($es4.$$get(methodConstruct, null, null, 'bodyStatements'), _indent + 1, construct);
-				}
-				js += print('}', ($es4.$$get(methodConstruct, null, null, 'javaScriptString')) ? 0 : _indent, 0);
-				downLevel();
-				return js;
-			}
-;
-
-			for (var i = 0; i < $es4.$$get(construct, null, null, 'staticAccessorConstructs', 'length'); i++)
-			{
-				var setterMethodConstruct = $es4.$$get(construct, null, null, 'staticAccessorConstructs', i, 'setter');
-				var getterMethodConstruct = $es4.$$get(construct, null, null, 'staticAccessorConstructs', i, 'getter');
-				var methodConstruct = setterMethodConstruct || getterMethodConstruct;
-				if ($es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj', 'isCustom'))
-				{
-					throw $es4.$$primitive(new (Error)('custom namespaced accessor not supported at this time'));
-				}
-				var namespaceObj = $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj');
-				js += print('Object.defineProperty(' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + ', \'' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '\', {', _indent + 1, 0);
-				var type = (getterMethodConstruct) ? $es4.$$get(getterMethodConstruct, null, null, 'identifier', 'type') : $es4.$$get(setterMethodConstruct, null, null, 'identifier', 'type');
-				if (getterMethodConstruct)
-				{
-					js += 'get:';
-					if ($es4.$$get(methodConstruct, null, null, 'isJavaScript') && getTranslatedTypeName(type))
-					{
-						js += 'function () { return $es4.$$coerce((';
-					}
-					js += getMethodConstructJS(getterMethodConstruct, type);
-					if ($es4.$$get(methodConstruct, null, null, 'isJavaScript') && getTranslatedTypeName(type))
-					{
-						js += ')(), ' + getTranslatedTypeName(type) + ');}';
-					}
-					if (setterMethodConstruct)
-					{
-						js += ', ';
-					}
-				}
-				if (setterMethodConstruct)
-				{
-					js += 'set:';
-					js += getMethodConstructJS(setterMethodConstruct, type);
-				}
-				js += print('});', 0, 1);
-			}
-			_inStaticFunction = false;
-			return js;
-		}
-;
-
-		function translateInstanceAccessors($$$$construct) 
-		{
-			//set default parameter values
-			var construct = $$$$construct;
-
-			upLevel();
-			var js = '';
-
-			function getMethodConstructJS($$$$methodConstruct, $$$$type, $$$$isPrivate) 
-			{
-				//set default parameter values
-				var methodConstruct = $$$$methodConstruct;
-				var type = $$$$type;
-				var isPrivate = $$$$isPrivate;
-
-				if (!methodConstruct)
-				{
-					return 'null';
-				}
-				upLevel();
-				var js = 'function (';
-				js += translateParameters(methodConstruct, construct);
-				js += print(')', 0, 1);
-				js += print('{', _indent, ($es4.$$get(methodConstruct, null, null, 'javaScriptString')) ? 0 : 1);
-				js += translateDefaultParameterValues(methodConstruct, construct);
-				if ($es4.$$get(methodConstruct, null, null, 'isNative'))
-				{
-					throw $es4.$$primitive(new (Error)('accessor cannot be native: ' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data')));
-				}
-				if (!isPrivate)
-				{
-					js += print('var $$this = this;', _indent + 1, 1);
-				}
-				else
-				{
-					js += print('var $$this = this.$$this;', _indent + 1, 1);
-				}
-				if ($es4.$$get(methodConstruct, null, null, 'isJavaScript'))
-				{
-					js += $es4.$$get(methodConstruct, null, null, 'javaScriptString');
-				}
-				else if ($es4.$$get(methodConstruct, null, null, 'UNIMPLEMENTEDToken') && release)
-				{
-					js += print("throw new Error('" + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + "');", 0, 0);
-				}
-				else
-				{
-					js += translateStatements($es4.$$get(methodConstruct, null, null, 'bodyStatements'), _indent + 1, construct);
-				}
-				js += print('}', ($es4.$$get(methodConstruct, null, null, 'javaScriptString')) ? 0 : _indent, 0);
-				downLevel();
-				return js;
-			}
-;
-
-			for (var i = 0; i < $es4.$$get(construct, null, null, 'instanceAccessorConstructs', 'length'); i++)
-			{
-				var setterMethodConstruct = $es4.$$get(construct, null, null, 'instanceAccessorConstructs', i, 'setter');
-				var getterMethodConstruct = $es4.$$get(construct, null, null, 'instanceAccessorConstructs', i, 'getter');
-				var methodConstruct = setterMethodConstruct || getterMethodConstruct;
-				if ($es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj', 'isCustom'))
-				{
-					throw $es4.$$primitive(new (Error)('custom namespaced accessor not supported at this time'));
-				}
-				var namespaceObj = $es4.$$get(methodConstruct, null, null, 'identifier', 'namespaceObj');
-				var isPrivate = $es4.$$get(methodConstruct, null, null, 'namespaceToken', 'data') == 'private';
-				var hasGet = false;
-				if (isPrivate)
-				{
-					js += print($es4.$$get(construct, null, null, 'identifierToken', 'data') + '.prototype.$$v.' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + ' = {', _indent + 1, 0);
-				}
-				else
-				{
-					js += print('Object.defineProperty(' + $es4.$$get(construct, null, null, 'identifierToken', 'data') + '.prototype, \'' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '\', {', _indent + 1, 0);
-				}
-				var type = (getterMethodConstruct) ? $es4.$$get(getterMethodConstruct, null, null, 'identifier', 'type') : $es4.$$get(setterMethodConstruct, null, null, 'identifier', 'type');
-				if (!getterMethodConstruct && $es4.$$get(methodConstruct, null, null, 'overrideToken'))
-				{
-					hasGet = true;
-					js += 'get:function ()';
-					js += print('{', _indent + 1, 1, 1);
-					js += print('var $$this = this; return $es4.$$super2($$this, ' + getTranslatedTypeName($es4.$$get(construct, null, null, 'extendsNameConstruct', 'type')) + ', \'$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '\', \'' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '\', \'get\');', _indent + 2, 0);
-					js += print('}', _indent + 1, 0, 1);
-				}
-				else if (getterMethodConstruct)
-				{
-					hasGet = true;
-					js += 'get:';
-					if ($es4.$$get(methodConstruct, null, null, 'isJavaScript') && getTranslatedTypeName(type))
-					{
-						js += 'function () { return $es4.$$coerce((';
-					}
-					js += getMethodConstructJS(getterMethodConstruct, type, isPrivate);
-					if ($es4.$$get(methodConstruct, null, null, 'isJavaScript') && getTranslatedTypeName(type))
-					{
-						js += ')(), ' + getTranslatedTypeName(type) + ');}';
-					}
-				}
-				if (!setterMethodConstruct && $es4.$$get(methodConstruct, null, null, 'overrideToken'))
-				{
-					if (hasGet)
-					{
-						js += ', ';
-					}
-					js += 'set:function ($$value)';
-					js += print('{', _indent + 1, 1, 1);
-					js += print('var $$this = this; $es4.$$super2($$this, ' + getTranslatedTypeName($es4.$$get(construct, null, null, 'extendsNameConstruct', 'type')) + ', \'$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '\', \'' + $es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') + '\', \'set\', $$value);', _indent + 2, 0);
-					js += print('}', _indent + 1, 0, 1);
-				}
-				else if (setterMethodConstruct)
-				{
-					if (hasGet)
-					{
-						js += ', ';
-					}
-					js += 'set:';
-					js += getMethodConstructJS(setterMethodConstruct, type, isPrivate);
-				}
-				if (isPrivate)
-				{
-					js += print('};', 0, 1);
-				}
-				else
-				{
-					js += print('});', 0, 1);
-				}
-			}
-			downLevel();
-			return js;
-		}
-;
-
-		function translateParameters($$$$methodConstruct, $$$$construct) 
-		{
-			//set default parameter values
-			var methodConstruct = $$$$methodConstruct;
-			var construct = $$$$construct;
-
-			var js = '';
-			for (var i = 0; i < $es4.$$get(methodConstruct, null, null, 'parameterConstructs', 'length'); i++)
-			{
-				var parameterConstruct = $es4.$$get(methodConstruct, null, null, 'parameterConstructs', i);
-				js += '$$$$' + $es4.$$get(parameterConstruct, null, null, 'identifierToken', 'data');
-				if ((i + 1) < $es4.$$get(methodConstruct, null, null, 'parameterConstructs', 'length'))
-				{
-					js += ', ';
-				}
-			}
-			return js;
-		}
-;
-
-		function translateDefaultParameterValues($$$$methodConstruct, $$$$construct) 
-		{
-			//set default parameter values
-			var methodConstruct = $$$$methodConstruct;
-			var construct = $$$$construct;
-
-			var js = '';
-			for (var i = 0; i < $es4.$$get(methodConstruct, null, null, 'parameterConstructs', 'length'); i++)
-			{
-				var parameterConstruct = $es4.$$get(methodConstruct, null, null, 'parameterConstructs', i);
-				if (!js)
-				{
-					js += print('//set default parameter values', _indent + 1, 1);
-				}
-				if ($es4.$$get(parameterConstruct, null, null, 'restToken') || $es4.$$get(parameterConstruct, null, null, 'valueExpression'))
-				{
-					if ($es4.$$get(parameterConstruct, null, null, 'restToken'))
-					{
-						js += print('for (var $$i = ' + ($es4.$$get(methodConstruct, null, null, 'parameterConstructs', 'length') - 1) + ', $$length = arguments.length, ' + $es4.$$get(parameterConstruct, null, null, 'identifierToken', 'data') + ' = new Array($$length - ' + ($es4.$$get(methodConstruct, null, null, 'parameterConstructs', 'length') - 1) + '); $$i < $$length; $$i += 1) ' + $es4.$$get(parameterConstruct, null, null, 'identifierToken', 'data') + '[$$i - ' + ($es4.$$get(methodConstruct, null, null, 'parameterConstructs', 'length') - 1) + '] = arguments[$$i];', _indent + 1, 1);
-					}
-					else if ($es4.$$get(parameterConstruct, null, null, 'valueExpression'))
-					{
-						var coerceType = getTranslatedTypeName($es4.$$get(parameterConstruct, null, null, 'identifier', 'type'));
-						if (coerceType)
-						{
-							js += print('var ' + $es4.$$get(parameterConstruct, null, null, 'identifierToken', 'data') + ' = (' + i + ' > arguments.length - 1) ? ' + translateExpression($es4.$$get(parameterConstruct, null, null, 'valueExpression'), 0, false, construct) + ' : $es4.$$coerce($$$$' + $es4.$$get(parameterConstruct, null, null, 'identifierToken', 'data') + ', ' + coerceType + ');', _indent + 1, 1);
-						}
-						else
-						{
-							js += print('var ' + $es4.$$get(parameterConstruct, null, null, 'identifierToken', 'data') + ' = (' + i + ' > arguments.length - 1) ? ' + translateExpression($es4.$$get(parameterConstruct, null, null, 'valueExpression'), 0, false, construct) + ' : $$$$' + $es4.$$get(parameterConstruct, null, null, 'identifierToken', 'data') + ';', _indent + 1, 1);
-						}
-					}
-				}
-				else
-				{
-					var coerceType = getTranslatedTypeName($es4.$$get(parameterConstruct, null, null, 'identifier', 'type'));
-					if (coerceType)
-					{
-						js += print('var ' + $es4.$$get(parameterConstruct, null, null, 'identifierToken', 'data') + ' = $es4.$$coerce($$$$' + $es4.$$get(parameterConstruct, null, null, 'identifierToken', 'data') + ', ' + coerceType + ');', _indent + 1, 1);
-					}
-					else
-					{
-						js += print('var ' + $es4.$$get(parameterConstruct, null, null, 'identifierToken', 'data') + ' = $$$$' + $es4.$$get(parameterConstruct, null, null, 'identifierToken', 'data') + ';', _indent + 1, 1);
-					}
-				}
-			}
-			if (js)
-			{
-				js += print('', 0, 1);
-			}
-			return js;
-		}
-;
-
-		function translateStatements($$$$statements, $$$$indent, $$$$construct) 
-		{
-			//set default parameter values
-			var statements = $$$$statements;
-			var indent = $$$$indent;
-			var construct = $$$$construct;
-
-			if (!indent)
-			{
-				indent = _indent;
-			}
-			else
-			{
-				indent--;
-			}
-			var js = '';
-			for (var i = 0; i < $es4.$$get(statements, null, null, 'length'); i++)
-			{
-				var statement = $es4.$$get(statements, null, null, i);
-				if (i != 0 && $es4.$$get(statements, null, null, i - 1, 'constructor') != $es4.$$get(Construct, null, null, 'FunctionExpression') && $es4.$$get(statements, null, null, i, 'constructor') == $es4.$$get(Construct, null, null, 'FunctionExpression'))
-				{
-					js += '\n';
-				}
-				js += translateStatement(statement, indent + 1, false, construct);
-				if (i + 1 < $es4.$$get(statements, null, null, 'length') && $es4.$$get(statement, null, null, 'constructor') == 'FunctionExpression')
-				{
-					js += '\n';
-				}
-			}
-			return js;
-		}
-;
-
-		function translateStatement($$$$statement, $$$$_indent, $$$$inline, $$$$construct) 
-		{
-			//set default parameter values
-			var statement = $$$$statement;
-			var _indent = $$$$_indent;
-			var inline = $$$$inline;
-			var construct = $$$$construct;
-
-			if (!construct)
-			{
-				throw $es4.$$primitive(new (Error)('construct null in translate statement'));
-			}
-			var js = '';
-			switch ($es4.$$get(statement, null, null, 'constructor'))
-			{
-				case $es4.$$get(Construct, null, null, 'EmptyStatement'):
-					break;
-				case $es4.$$get(Construct, null, null, 'IfStatement'):
-					_inIfStatement++;
-					js += print('if (' + translateExpression($es4.$$get(statement, null, null, 'conditionExpression'), _indent, false, construct) + ')', _indent, 1);
-					js += print('{', _indent, 1);
-					js += translateStatements($es4.$$get(statement, null, null, 'bodyStatements'), _indent + 1, construct);
-					js += print('}', _indent, 1);
-					for (var i = 0; i < $es4.$$get(statement, null, null, 'elseIfStatements', 'length'); i++)
-					{
-						js += translateStatement($es4.$$get(statement, null, null, 'elseIfStatements', i), _indent, false, construct);
-					}
-					if ($es4.$$get(statement, null, null, 'elseStatement'))
-					{
-						js += translateStatement($es4.$$get(statement, null, null, 'elseStatement'), _indent, false, construct);
-					}
-					_inIfStatement--;
-					break;
-				case $es4.$$get(Construct, null, null, 'ElseIfStatement'):
-					_inIfStatement++;
-					js += print('else if (' + translateExpression($es4.$$get(statement, null, null, 'conditionExpression'), _indent, false, construct) + ')', _indent, 1);
-					js += print('{', _indent, 1);
-					js += translateStatements($es4.$$get(statement, null, null, 'bodyStatements'), _indent + 1, construct);
-					js += print('}', _indent, 1);
-					_inIfStatement--;
-					break;
-				case $es4.$$get(Construct, null, null, 'ElseStatement'):
-					_inIfStatement++;
-					js += print('else', _indent, 1);
-					js += print('{', _indent, 1);
-					js += translateStatements($es4.$$get(statement, null, null, 'bodyStatements'), _indent + 1, construct);
-					js += print('}', _indent, 1);
-					_inIfStatement--;
-					break;
-				case $es4.$$get(Construct, null, null, 'WhileStatement'):
-					js += print('while (' + translateExpression($es4.$$get(statement, null, null, 'conditionExpression'), _indent, false, construct) + ')', _indent, 1);
-					js += print('{', _indent, 1);
-					js += translateStatements($es4.$$get(statement, null, null, 'bodyStatements'), _indent + 1, construct);
-					js += print('}', _indent, 1);
-					break;
-				case $es4.$$get(Construct, null, null, 'DoWhileStatement'):
-					js += print('do', _indent, 1);
-					js += print('{', _indent, 1);
-					js += translateStatements($es4.$$get(statement, null, null, 'bodyStatements'), _indent + 1, construct);
-					js += print('}', _indent, 1);
-					js += print('while (' + translateExpression($es4.$$get(statement, null, null, 'conditionExpression'), _indent, false, construct) + ')', _indent, 1);
-					break;
-				case $es4.$$get(Construct, null, null, 'ForStatement'):
-					js += print('for (', _indent, 0);
-					if ($es4.$$get(statement, null, null, 'variableStatement'))
-					{
-						js += translateStatement($es4.$$get(statement, null, null, 'variableStatement'), 0, true, construct);
-					}
-					js += ';';
-					if ($es4.$$get(statement, null, null, 'conditionExpression'))
-					{
-						js += ' ' + translateExpression($es4.$$get(statement, null, null, 'conditionExpression'), _indent, false, construct);
-					}
-					js += ';';
-					if ($es4.$$get(statement, null, null, 'afterthoughtExpression'))
-					{
-						js += ' ' + translateExpression($es4.$$get(statement, null, null, 'afterthoughtExpression'), _indent, false, construct);
-					}
-					js += ')\n';
-					js += print('{', _indent, 1);
-					js += translateStatements($es4.$$get(statement, null, null, 'bodyStatements'), _indent + 1, construct);
-					js += print('}', _indent, 1);
-					break;
-				case $es4.$$get(Construct, null, null, 'ForEachStatement'):
-					_count++;
-					var object = translateExpression($es4.$$get(statement, null, null, 'arrayExpression'), _indent, false, construct);
-					var index = '$$i' + _count;
-					if (_dynamicPropertyAccess)
-					{
-						js += print('for (var ' + index + ' = (' + object + ' || $es4.$$EMPTY_OBJECT).$$nextNameIndex(0); ' + index + ' != 0; ' + index + ' = ' + object + '.$$nextNameIndex(' + index + '))', _indent, 1);
-					}
-					else
-					{
-						js += print('for (var ' + index + ' in ' + object + ')', _indent, 1);
-					}
-					js += print('{', _indent, 1);
-					var valueJS = '';
-					if (_dynamicPropertyAccess)
-					{
-						valueJS += object + '.$$nextValue(' + index + ')';
-					}
-					else
-					{
-						valueJS += object + '[' + index + ']';
-					}
-					var typeString = getTranslatedTypeName($es4.$$get(statement, null, null, 'variableStatement', 'identifier', 'type'));
-					if (typeString)
-					{
-						js += print(translateStatement($es4.$$get(statement, null, null, 'variableStatement'), 0, true, construct) + ' = $es4.$$coerce(' + valueJS + ', ' + typeString + ');', _indent + 1, 2);
-					}
-					else
-					{
-						js += print(translateStatement($es4.$$get(statement, null, null, 'variableStatement'), 0, true, construct) + ' = ' + valueJS + ';', _indent + 1, 2);
-					}
-					js += translateStatements($es4.$$get(statement, null, null, 'bodyStatements'), _indent + 1, construct);
-					js += print('}', _indent, 1);
-					break;
-				case $es4.$$get(Construct, null, null, 'ForInStatement'):
-					_count++;
-					var object = translateExpression($es4.$$get(statement, null, null, 'objectExpression'), _indent, false, construct);
-					var index = '$$i' + _count;
-					if (_dynamicPropertyAccess)
-					{
-						js += print('for (var ' + index + ' = (' + object + ' || $es4.$$EMPTY_OBJECT).$$nextNameIndex(0); ' + index + ' != 0; ' + index + ' = ' + object + '.$$nextNameIndex(' + index + '))', _indent, 1);
-					}
-					else
-					{
-						js += print('for (' + translateStatement($es4.$$get(statement, null, null, 'variableStatement'), 0, true, construct) + ' in ' + translateExpression($es4.$$get(statement, null, null, 'objectExpression'), _indent, false, construct) + ')', _indent, 1);
-					}
-					js += print('{', _indent, 1);
-					if (_dynamicPropertyAccess)
-					{
-						valueJS = object + '.$$nextName(' + index + ')';
-						var typeString = getTranslatedTypeName($es4.$$get(statement, null, null, 'variableStatement', 'identifier', 'type'));
-						if (typeString)
-						{
-							js += print(translateStatement($es4.$$get(statement, null, null, 'variableStatement'), 0, true, construct) + ' = $es4.$$coerce(' + valueJS + ', ' + typeString + ');', _indent + 1, 2);
-						}
-						else
-						{
-							js += print(translateStatement($es4.$$get(statement, null, null, 'variableStatement'), 0, true, construct) + ' = ' + valueJS + ';', _indent + 1, 2);
-						}
-					}
-					js += translateStatements($es4.$$get(statement, null, null, 'bodyStatements'), _indent + 1, construct);
-					js += print('}', _indent, 1);
-					break;
-				case $es4.$$get(Construct, null, null, 'BreakStatement'):
-					js += print('break', _indent, 0);
-					if ($es4.$$get(statement, null, null, 'identifierToken'))
-					{
-						js += ' ' + $es4.$$get(statement, null, null, 'identifierToken', 'data');
-					}
-					js += ';\n';
-					break;
-				case $es4.$$get(Construct, null, null, 'ContinueStatement'):
-					js += print('continue', _indent, 0);
-					if ($es4.$$get(statement, null, null, 'identifierToken'))
-					{
-						js += ' ' + $es4.$$get(statement, null, null, 'identifierToken', 'data');
-					}
-					js += ';\n';
-					break;
-				case $es4.$$get(Construct, null, null, 'ThrowStatement'):
-					js += print('throw', _indent, 0);
-					if ($es4.$$get(statement, null, null, 'expression'))
-					{
-						js += ' ' + translateExpression($es4.$$get(statement, null, null, 'expression'), _indent, false, construct);
-					}
-					js += ';\n';
-					break;
-				case $es4.$$get(Construct, null, null, 'TryStatement'):
-					js += print('try', _indent, 1);
-					js += print('{', _indent, 1);
-					js += translateStatements($es4.$$get(statement, null, null, 'bodyStatements'), _indent + 1, construct);
-					js += print('}', _indent, 1);
-					if ($es4.$$get(statement, null, null, 'catchStatements', 'length') == 1)
-					{
-						js += print('catch (' + $es4.$$get(statement, null, null, 'catchStatements', 0, 'identifierToken', 'data') + ')', _indent, 1);
-					}
-					else
-					{
-						js += print('catch ($$error)', _indent, 1);
-					}
-					js += print('{', _indent, 1);
-					for (var i = 0; i < $es4.$$get(statement, null, null, 'catchStatements', 'length'); i++)
-					{
-						upLevel();
-						var catchStatement = $es4.$$get(statement, null, null, 'catchStatements', i);
-						var typeName = $es4.$$get(catchStatement, null, null, 'identifier', 'type', 'name');
-						if (i == 0 && $es4.$$get(statement, null, null, 'catchStatements', 'length') == 1)
-						{
-							if (typeName == 'void' || typeName == 'Error')
-							{
-								js += translateStatements($es4.$$get(catchStatement, null, null, 'bodyStatements'), _indent + 1, construct);
-							}
-							else
-							{
-								js += print('if ($es4.$$is(' + $es4.$$get(catchStatement, null, null, 'identifierToken', 'data') + ', ' + typeName + '))', _indent + 1, 1);
-								js += print('{', _indent + 1, 1);
-								js += translateStatements($es4.$$get(catchStatement, null, null, 'bodyStatements'), _indent + 2, construct);
-								js += print('}', _indent + 1, 1);
-							}
-							downLevel();
-							break;
-						}
-						if (typeName == 'void' || typeName == 'Error')
-						{
-							js += print('else', _indent + 1, 1);
-							js += print('{', _indent + 1, 1);
-							js += print('var ' + $es4.$$get(catchStatement, null, null, 'identifierToken', 'data') + ' = $$error;', _indent + 2, 1);
-							js += translateStatements($es4.$$get(catchStatement, null, null, 'bodyStatements'), _indent + 2, construct);
-							js += print('}', _indent + 1, 1);
-							downLevel();
-							break;
-						}
-						js += print(((i == 0) ? 'if' : 'else if') + ' ($es4.$$is($$error, ' + typeName + '))', _indent + 1, 1);
-						js += print('{', _indent + 1, 1);
-						js += print('var ' + $es4.$$get(catchStatement, null, null, 'identifierToken', 'data') + ' = $$error;', _indent + 2, 1);
-						js += translateStatements($es4.$$get(catchStatement, null, null, 'bodyStatements'), _indent + 2, construct);
-						js += print('}', _indent + 1, 1);
-						downLevel();
-					}
-					js += print('}', _indent, 1);
-					if ($es4.$$get(statement, null, null, 'finallyStatement'))
-					{
-						js += print('finally', _indent, 1);
-						js += print('{', _indent, 1);
-						js += translateStatements($es4.$$get(statement, null, null, 'finallyStatement', 'bodyStatements'), _indent + 1, construct);
-						js += print('}', _indent, 1);
-					}
-					break;
-				case $es4.$$get(Construct, null, null, 'UseStatement'):
-					break;
-				case $es4.$$get(Construct, null, null, 'VarStatement'):
-					var translateVarValueExpression = function ($$$$statement) 
-					{
-				//set default parameter values
-				var statement = $$$$statement;
-
-						var valueJS = translateExpression($es4.$$get(statement, null, null, 'valueExpression'), _indent, false, construct);
-						var typeString = getTranslatedTypeName($es4.$$get(statement, null, null, 'identifier', 'type'));
-						if (isCoerceRequired(statement, typeString, valueJS))
-						{
-							valueJS = '$es4.$$coerce(' + valueJS + ', ' + typeString + ')';
-						}
-						return ' = ' + valueJS;
-					}
-;
-					js += print('var ' + $es4.$$get(statement, null, null, 'identifierToken', 'data'), _indent, 0);
-					if ($es4.$$get(statement, null, null, 'valueExpression'))
-					{
-						js += translateVarValueExpression(statement);
-					}
-					for (var i = 0; i < $es4.$$get(statement, null, null, 'innerVarStatements', 'length'); i++)
-					{
-						var innerVarStatement = $es4.$$get(statement, null, null, 'innerVarStatements', i);
-						js += ', ' + $es4.$$get(innerVarStatement, null, null, 'identifierToken', 'data');
-						if ($es4.$$get(innerVarStatement, null, null, 'valueExpression'))
-						{
-							js += translateVarValueExpression(innerVarStatement);
-						}
-					}
-					if (!inline)
-					{
-						js += ';\n';
-					}
-					break;
-				case $es4.$$get(Construct, null, null, 'SwitchStatement'):
-					js += print('switch (' + translateExpression($es4.$$get(statement, null, null, 'valueExpression'), _indent, false, construct) + ')', _indent, 1);
-					js += print('{', _indent, 1);
-					for (var i = 0; i < $es4.$$get(statement, null, null, 'caseStatements', 'length'); i++)
-					{
-						js += translateStatement($es4.$$get(statement, null, null, 'caseStatements', i), _indent + 1, false, construct);
-					}
-					js += print('}', _indent, 1);
-					break;
-				case $es4.$$get(Construct, null, null, 'CaseStatement'):
-					if ($es4.$$get(statement, null, null, 'defaultToken'))
-					{
-						js += print('default:', _indent, 1);
-					}
-					else
-					{
-						js += print('case ' + translateExpression($es4.$$get(statement, null, null, 'valueExpression'), _indent, false, construct) + ':', _indent, 1);
-					}
-					js += translateStatements($es4.$$get(statement, null, null, 'bodyStatements'), _indent + 1, construct);
-					break;
-				case $es4.$$get(Construct, null, null, 'LabelStatement'):
-					js += print($es4.$$get(statement, null, null, 'identifierToken', 'data') + ':', _indent, 0);
-					break;
-				default:
-					if (inline)
-					{
-						js += print(translateExpression(statement, _indent, false, construct), _indent, 0);
-					}
-					else
-					{
-						js += print(translateExpression(statement, _indent, false, construct) + ';', _indent, 1);
-					}
-			}
-			return js;
-		}
-;
-
-		function translateExpression($$$$expression, $$$$_indent, $$$$toString, $$$$construct, $$$$operator, $$$$expressionString) 
-		{
-			//set default parameter values
-			var expression = $$$$expression;
-			var _indent = $$$$_indent;
-			var toString = $$$$toString;
-			var construct = $$$$construct;
-			var operator = (4 > arguments.length - 1) ? null : $$$$operator;
-			var expressionString = (5 > arguments.length - 1) ? null : $$$$expressionString;
-
-			if (!construct)
-			{
-				throw $es4.$$primitive(new (Error)('construct null in translate expression'));
-			}
-			if (!_indent)
-			{
-				_indent = 0;
-			}
-			var js = '';
-			outerSwitch:			switch ($es4.$$get(expression, null, null, 'constructor'))
-			{
-				case $es4.$$get(Construct, null, null, 'ParenExpression'):
-					js += '(' + translateExpression($es4.$$get(expression, null, null, 'expression'), _indent, toString, construct, operator, expressionString) + ')';
-					break;
-				case $es4.$$get(Construct, null, null, 'PropertyExpression'):
-					js += translatePropertyExpressionDynamic(expression, toString, expressionString, operator, construct);
-					break;
-				case $es4.$$get(Construct, null, null, 'NumberExpression'):
-					js += $es4.$$get(expression, null, null, 'numberToken', 'data');
-					break;
-				case $es4.$$get(Construct, null, null, 'StringExpression'):
-					if (toString && $es4.$$get(expression, null, null, 'stringToken', 'data') == "'")
-					{
-						js += '\\' + $es4.$$get(expression, null, null, 'stringToken', 'data');
-					}
-					else
-					{
-						js += $es4.$$get(expression, null, null, 'stringToken', 'data');
-					}
-					for (var i = 0; i < $es4.$$get(expression, null, null, 'stringChunkTokens', 'length'); i++)
-					{
-						js += $es4.$$get(expression, null, null, 'stringChunkTokens', i, 'data');
-						if (i + 1 < $es4.$$get(expression, null, null, 'stringChunkTokens', 'length'))
-						{
-							js += '\n';
-						}
-					}
-					if (toString && $es4.$$get(expression, null, null, 'stringToken', 'data') == "'")
-					{
-						js += '\\' + $es4.$$get(expression, null, null, 'stringToken', 'data');
-					}
-					else
-					{
-						js += $es4.$$get(expression, null, null, 'stringToken', 'data');
-					}
-					break;
-				case $es4.$$get(Construct, null, null, 'ReturnExpression'):
-					js += 'return';
-					if ($es4.$$get(expression, null, null, 'expression'))
-					{
-						var typeName = getTranslatedTypeName($es4.$$get(expression, null, null, 'expectedType'));
-						var valueJS = translateExpression($es4.$$get(expression, null, null, 'expression'), 0, toString, construct);
-						if (typeName && isCoerceRequired(expression, typeName, valueJS))
-						{
-							js += ' $es4.$$coerce(' + valueJS + ', ' + typeName + ')';
-						}
-						else
-						{
-							js += ' ' + valueJS;
-						}
-					}
-					break;
-				case $es4.$$get(Construct, null, null, 'DeleteExpression'):
-					js += translatePropertyExpressionDynamic($es4.$$get(expression, null, null, 'expression'), toString, undefined, undefined, construct, true);
-					break;
-				case $es4.$$get(Construct, null, null, 'FunctionExpression'):
-					upLevel();
-					var wasInClosure = _inClosure;
-					_inClosure = true;
-					if (!$es4.$$get(expression, null, null, 'identifierToken'))
-					{
-						js += print('function (', 0, 0);
-					}
-					else
-					{
-						if (_inIfStatement)
-						{
-							throw $es4.$$primitive(new (Error)('support for named closures in if/elseif/else statements is not supported at this time.'));
-						}
-						js += print('function ' + $es4.$$get(expression, null, null, 'identifierToken', 'data') + '(', 0, 0);
-					}
-					js += translateParameters(expression, construct);
-					js += print(') ', 0, 1);
-					js += print('{', _indent, 1);
-					js += translateDefaultParameterValues(expression, construct);
-					js += translateStatements($es4.$$get(expression, null, null, 'bodyStatements'), _indent + 1, construct);
-					js += print('}', _indent, 1);
-					if (!wasInClosure)
-					{
-						_inClosure = false;
-					}
-					downLevel();
-					break;
-				case $es4.$$get(Construct, null, null, 'ObjectExpression'):
-					js += '{';
-					for (var i = 0; i < $es4.$$get(expression, null, null, 'objectPropertyConstructs', 'length'); i++)
-					{
-						var prop;
-						if ($es4.$$get(expression, null, null, 'objectPropertyConstructs', i, 'expression', 'constructor') == $es4.$$get(Construct, null, null, 'PropertyExpression'))
-						{
-							prop = $es4.$$get(expression, null, null, 'objectPropertyConstructs', i, 'expression', 'construct', 'identifierToken', 'data');
-						}
-						else
-						{
-							prop = translateExpression($es4.$$get(expression, null, null, 'objectPropertyConstructs', i, 'expression'), 0, toString, construct);
-						}
-						js += prop + ':' + translateExpression($es4.$$get(expression, null, null, 'objectPropertyConstructs', i, 'valueExpression'), 0, toString, construct);
-						if ((i + 1) < $es4.$$get(expression, null, null, 'objectPropertyConstructs', 'length'))
-						{
-							js += ', ';
-						}
-					}
-					js += '}';
-					break;
-				case $es4.$$get(Construct, null, null, 'ArrayExpression'):
-					js += '[';
-					for (var i = 0; i < $es4.$$get(expression, null, null, 'valueExpressions', 'length'); i++)
-					{
-						if (!$es4.$$get(expression, null, null, 'valueExpressions', i))
-						{
-							trace('invalid 20');
-						}
-						js += translateExpression($es4.$$get(expression, null, null, 'valueExpressions', i), 0, toString, construct);
-						if ((i + 1) < $es4.$$get(expression, null, null, 'valueExpressions', 'length'))
-						{
-							js += ', ';
-						}
-					}
-					js += ']';
-					break;
-				case $es4.$$get(Construct, null, null, 'BooleanExpression'):
-					js += $es4.$$get(expression, null, null, 'booleanToken', 'data');
-					break;
-				case $es4.$$get(Construct, null, null, 'Expression'):
-					if ($es4.$$get(expression, null, null, 'token', 'type') == $es4.$$get(Token, null, null, 'TypeofTokenType'))
-					{
-						if (!$es4.$$get(expression, null, null, 'expression'))
-						{
-							trace('invalid 21');
-						}
-						js += '$es4.$$typeof(' + translateExpression($es4.$$get(expression, null, null, 'expression'), 0, toString, construct) + ')';
-						break;
-					}
-					if ($es4.$$get(expression, null, null, 'token', 'type') == $es4.$$get(Token, null, null, 'VoidTokenType'))
-					{
-						if ($es4.$$get(expression, null, null, 'expression', 'constructor') == $es4.$$get(Construct, null, null, 'EmptyExpression'))
-						{
-							js += 'void 0';
-						}
-						else
-						{
-							if (!$es4.$$get(expression, null, null, 'expression'))
-							{
-								trace('invalid 01');
-							}
-							js += 'void ' + translateExpression($es4.$$get(expression, null, null, 'expression'), 0, toString, construct);
-						}
-						break;
-					}
-					js += $es4.$$get(expression, null, null, 'token', 'data');
-					if ($es4.$$get(expression, null, null, 'expression'))
-					{
-						if (!$es4.$$get(expression, null, null, 'expression'))
-						{
-							trace('invalid 22');
-						}
-						js += translateExpression($es4.$$get(expression, null, null, 'expression'), 0, toString, construct);
-					}
-					break;
-				case $es4.$$get(Construct, null, null, 'XMLExpression'):
-					js += 'new XML(\'' + $es4.$$get(expression, null, null, 'string') + '\')';
-					break;
-				case $es4.$$get(Construct, null, null, 'XMLListExpression'):
-					js += 'new XMLList(\'' + $es4.$$get(expression, null, null, 'string') + '\')';
-					break;
-				case $es4.$$get(Construct, null, null, 'EmptyExpression'):
-					break;
-				case $es4.$$get(Construct, null, null, 'RegExpression'):
-					js += $es4.$$get(expression, null, null, 'string');
-					break;
-				case $es4.$$get(Construct, null, null, 'PrefixExpression'):
-					js += translatePropertyExpressionDynamic($es4.$$get(expression, null, null, 'expression'), toString, '\'prefix\'', ($es4.$$get(expression, null, null, 'decrementToken')) ? '--' : '++', construct);
-					break;
-				case $es4.$$get(Construct, null, null, 'PostfixExpression'):
-					js += translatePropertyExpressionDynamic($es4.$$get(expression, null, null, 'expression'), toString, '\'postfix\'', ($es4.$$get(expression, null, null, 'decrementToken')) ? '--' : '++', construct);
-					break;
-				case $es4.$$get(Construct, null, null, 'NewExpression'):
-					if ($es4.$$get(expression, null, null, 'expression', 'constructor') == $es4.$$get(Construct, null, null, 'ParenExpression'))
-					{
-						if (!$es4.$$get(expression, null, null, 'expression'))
-						{
-							trace('invalid 02');
-						}
-						js += '$es4.$$primitive(new ' + translateExpression($es4.$$get(expression, null, null, 'expression'), 0, toString, construct) + ')';
-					}
-					else
-					{
-						js += translatePropertyExpressionDynamic($es4.$$get(expression, null, null, 'expression'), toString, null, null, construct, null, true);
-					}
-					break;
-				case $es4.$$get(Construct, null, null, 'BinaryExpression'):
-					if ($es4.$$get(expression, null, null, 'token', 'type') == $es4.$$get(Token, null, null, 'IsTokenType'))
-					{
-						if (!$es4.$$get(expression, null, null, 'leftExpression'))
-						{
-							trace('invalid 04');
-						}
-						if (!$es4.$$get(expression, null, null, 'rightExpression'))
-						{
-							trace('invalid 05');
-						}
-						js += '$es4.$$is(' + translateExpression($es4.$$get(expression, null, null, 'leftExpression'), 0, toString, construct) + ', ' + translateExpression($es4.$$get(expression, null, null, 'rightExpression'), 0, toString, construct) + ')';
-						break;
-					}
-					if ($es4.$$get(expression, null, null, 'token', 'type') == $es4.$$get(Token, null, null, 'InstanceofTokenType'))
-					{
-						if (!$es4.$$get(expression, null, null, 'leftExpression'))
-						{
-							trace('invalid 06');
-						}
-						if (!$es4.$$get(expression, null, null, 'rightExpression'))
-						{
-							trace('invalid 07');
-						}
-						js += '$es4.$$instanceof(' + translateExpression($es4.$$get(expression, null, null, 'leftExpression'), 0, toString, construct) + ', ' + translateExpression($es4.$$get(expression, null, null, 'rightExpression'), 0, toString, construct) + ')';
-						break;
-					}
-					if ($es4.$$get(expression, null, null, 'token', 'type') == $es4.$$get(Token, null, null, 'AsTokenType'))
-					{
-						if (!$es4.$$get(expression, null, null, 'leftExpression'))
-						{
-							trace('invalid 08');
-						}
-						if (!$es4.$$get(expression, null, null, 'rightExpression'))
-						{
-							trace('invalid 09');
-						}
-						js += '$es4.$$as(' + translateExpression($es4.$$get(expression, null, null, 'leftExpression'), 0, toString, construct) + ', ' + translateExpression($es4.$$get(expression, null, null, 'rightExpression'), 0, toString, construct) + ')';
-						break;
-					}
-					innerSwitch:					switch ($es4.$$get(expression, null, null, 'token', 'type'))
-					{
-						case $es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType'):
-						case $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType'):
-						case $es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType'):
-						case $es4.$$get(Token, null, null, 'AddWithAssignmentTokenType'):
-						case $es4.$$get(Token, null, null, 'DivWithAssignmentTokenType'):
-						case $es4.$$get(Token, null, null, 'ModWithAssignmentTokenType'):
-						case $es4.$$get(Token, null, null, 'MulWithAssignmentTokenType'):
-						case $es4.$$get(Token, null, null, 'SubWithAssignmentTokenType'):
-						case $es4.$$get(Token, null, null, 'AssignmentTokenType'):
-						case $es4.$$get(Token, null, null, 'AndWithAssignmentTokenType'):
-						case $es4.$$get(Token, null, null, 'OrWithAssignmentTokenType'):
-						case $es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType'):
-						case $es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType'):
-						case $es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType'):
-							var leftExpression = $es4.$$get(expression, null, null, 'leftExpression');
-							while ($es4.$$get(leftExpression, null, null, 'constructor') == $es4.$$get(Construct, null, null, 'ParenExpression'))
-							{
-								leftExpression = $es4.$$get(leftExpression, null, null, 'expression');
-							}
-							var innerOperator = $es4.$$get(expression, null, null, 'token', 'data');
-							var innerExpressionString = '';
-							while ($es4.$$get(leftExpression, null, null, 'constructor') == $es4.$$get(Construct, null, null, 'BinaryExpression'))
-							{
-								$es4.$$set(expression, null, null, 'leftExpression', $es4.$$get(leftExpression, null, null, 'rightExpression'), '=');
-								if (!innerExpressionString)
-								{
-									if (!expression)
-									{
-										trace('invalid 10');
-									}
-									innerExpressionString = translateExpression(expression, _indent, toString, construct);
-								}
-								else
-								{
-									if (!$es4.$$get(expression, null, null, 'leftExpression'))
-									{
-										trace('invalid 11');
-									}
-									if (_dynamicPropertyAccess)
-									{
-										innerExpressionString = translateExpression($es4.$$get(expression, null, null, 'leftExpression'), _indent, toString, construct, innerOperator, innerExpressionString);
-									}
-									else
-									{
-										innerExpressionString = translateExpression($es4.$$get(expression, null, null, 'leftExpression'), _indent, toString, construct) + ' ' + innerOperator + ' ' + innerExpressionString;
-									}
-								}
-								expression = leftExpression;
-								innerOperator = $es4.$$get(expression, null, null, 'token', 'data');
-								leftExpression = $es4.$$get(expression, null, null, 'leftExpression');
-							}
-							var typeString;
-							if (!$es4.$$get(leftExpression, null, null, 'nextPropertyExpression') && $es4.$$get(leftExpression, null, null, 'construct') && $es4.$$get(leftExpression, null, null, 'construct', 'constructor') == $es4.$$get(Construct, null, null, 'IdentifierConstruct'))
-							{
-								var identifier = $es4.$$get(leftExpression, null, null, 'construct', 'identifier');
-								typeString = ($es4.$$get(identifier, null, null, 'isVar') && $es4.$$get(identifier, null, null, 'type')) ? getTranslatedTypeName($es4.$$get(identifier, null, null, 'type')) : '';
-							}
-							if (true)
-							{
-								if (!innerExpressionString)
-								{
-									if (!$es4.$$get(expression, null, null, 'rightExpression'))
-									{
-										trace('invalid 12');
-									}
-									innerExpressionString = translateExpression($es4.$$get(expression, null, null, 'rightExpression'), 0, toString, construct);
-								}
-								if (typeString && isCoerceRequired(leftExpression, typeString, innerExpressionString))
-								{
-									js += translatePropertyExpressionDynamic(leftExpression, toString, '$es4.$$coerce(' + innerExpressionString + ', ' + typeString + ')', innerOperator, construct);
-								}
-								else
-								{
-									js += translatePropertyExpressionDynamic(leftExpression, toString, innerExpressionString, innerOperator, construct);
-								}
-							}
-							else
-							{
-								if (!$es4.$$get(expression, null, null, 'leftExpression'))
-								{
-									trace('invalid 13');
-								}
-								js += translateExpression(leftExpression, 0, toString, construct);
-								if (!innerExpressionString)
-								{
-									if (!$es4.$$get(expression, null, null, 'rightExpression'))
-									{
-										trace('invalid 14');
-									}
-									innerExpressionString = translateExpression($es4.$$get(expression, null, null, 'rightExpression'), 0, toString, construct);
-								}
-								if (typeString && isCoerceRequired(leftExpression, typeString, innerExpressionString))
-								{
-									js += ' ' + innerOperator + ' $es4.$$coerce(' + innerExpressionString + ', ' + typeString + ')';
-								}
-								else
-								{
-									js += ' ' + innerOperator + ' ' + innerExpressionString;
-								}
-							}
-							break outerSwitch;
-					}
-					if (!$es4.$$get(expression, null, null, 'leftExpression'))
-					{
-						trace('invalid 15');
-					}
-					if (!$es4.$$get(expression, null, null, 'rightExpression'))
-					{
-						trace('invalid 16');
-					}
-					js += translateExpression($es4.$$get(expression, null, null, 'leftExpression'), 0, toString, construct) + ' ' + $es4.$$get(expression, null, null, 'token', 'data') + ' ' + translateExpression($es4.$$get(expression, null, null, 'rightExpression'), 0, toString, construct);
-					break;
-				case $es4.$$get(Construct, null, null, 'TernaryExpression'):
-					if (!$es4.$$get(expression, null, null, 'trueExpression'))
-					{
-						trace('invalid 34');
-					}
-					if (!$es4.$$get(expression, null, null, 'conditionExpression'))
-					{
-						trace('invalid 35');
-					}
-					if (!$es4.$$get(expression, null, null, 'falseExpression'))
-					{
-						trace('invalid 36');
-					}
-					js += translateExpression($es4.$$get(expression, null, null, 'conditionExpression'), 0, toString, construct) + ' ? ' + translateExpression($es4.$$get(expression, null, null, 'trueExpression'), 0, toString, construct) + ' : ' + translateExpression($es4.$$get(expression, null, null, 'falseExpression'), 0, toString, construct);
-					break;
-				default:
-					throw $es4.$$primitive(new (Error)('Unexpected expression found: ' + $es4.$$get(expression, null, null, 'constructor')));
-			}
-			return js;
-		}
-;
-
-		function translatePropertyExpressionDynamic($$$$expression, $$$$toString, $$$$setString, $$$$operator, $$$$construct, $$$$doDelete, $$$$doNew) 
-		{
-			//set default parameter values
-			var expression = $$$$expression;
-			var toString = $$$$toString;
-			var setString = $$$$setString;
-			var operator = $$$$operator;
-			var construct = $$$$construct;
-			var doDelete = (5 > arguments.length - 1) ? null : $$$$doDelete;
-			var doNew = (6 > arguments.length - 1) ? null : $$$$doNew;
-
-			var js = '';
-			if (!$es4.$$get(expression, null, null, 'construct'))
-			{
-				throw $es4.$$primitive(new (Error)('invalid expression passed to translatePropertyExpression: ' + $es4.$$get(expression, null, null, 'constructor')));
-			}
-			var identifier;
-			var namespaceIdentifier;
-			switch ($es4.$$get(expression, null, null, 'construct', 'constructor'))
-			{
-				case $es4.$$get(Construct, null, null, 'SuperConstruct'):
-				case $es4.$$get(Construct, null, null, 'ThisConstruct'):
-				case $es4.$$get(Construct, null, null, 'IdentifierConstruct'):
-					identifier = $es4.$$get(expression, null, null, 'construct', 'identifier');
-					break;
-				case $es4.$$get(Construct, null, null, 'ParenConstruct'):
-				case $es4.$$get(Construct, null, null, 'ArrayConstruct'):
-				case $es4.$$get(Construct, null, null, 'ObjectConstruct'):
-					break;
-				case $es4.$$get(Construct, null, null, 'NamespaceQualifierConstruct'):
-					namespaceIdentifier = $es4.$$get(expression, null, null, 'construct', 'namespaceIdentifier');
-					identifier = $es4.$$get(expression, null, null, 'construct', 'identifier');
-					break;
-				default:
-					throw $es4.$$primitive(new (Error)('unknown inner property expression: ' + $es4.$$get(expression, null, null, 'construct', 'constructor')));
-			}
-			var pname;
-			var name;
-			if (identifier && !namespaceIdentifier && ($es4.$$get(identifier, null, null, 'isProperty') || $es4.$$get(identifier, null, null, 'isMethod')) && !$es4.$$get(identifier, null, null, 'isImport') && $es4.$$get(identifier, null, null, 'namespaceObj', 'isCustom'))
-			{
-				namespaceIdentifier = $es4.$$get(identifier, null, null, 'namespaceObj', 'identifier');
-			}
-			if (identifier && namespaceIdentifier)
-			{
-				var pname = ($es4.$$get(namespaceIdentifier, null, null, 'isStatic')) ? $es4.$$get(namespaceIdentifier, null, null, 'scope', 'name') : '$$this';
-				var namespaceObj = $es4.$$get(namespaceIdentifier, null, null, 'namespaceObj');
-				var namespaceString = $es4.$$get(namespaceObj, null, null, 'normalizedImportID');
-				if ($es4.$$get(namespaceIdentifier, null, null, 'isStatic') && !namespaceString)
-				{
-					namespaceString = $es4.$$get(namespaceIdentifier, null, null, 'scope', 'name') + '.' + $es4.$$get(namespaceIdentifier, null, null, 'name');
-				}
-				else if (!namespaceString)
-				{
-					namespaceString = ($es4.$$get(namespaceIdentifier, null, null, 'namespaceObj') && $es4.$$get(namespaceIdentifier, null, null, 'namespaceObj', 'isPrivate') ? ('$$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.$$ns.') : '$$this.') + $es4.$$get(namespaceIdentifier, null, null, 'name');
-				}
-				pname += '.$$namespace(' + namespaceString + ')';
-				name = $es4.$$get(identifier, null, null, 'name');
-			}
-			else if (identifier)
-			{
-				name = $es4.$$get(identifier, null, null, 'name');
-				if ($es4.$$get(identifier, null, null, 'isStatic') && !$es4.$$get(identifier, null, null, 'isImport') && !$es4.$$get(identifier, null, null, 'isNative'))
-				{
-					pname = $es4.$$get(identifier, null, null, 'scope', 'name');
-				}
-				else if ($es4.$$get(identifier, null, null, 'isPrivate') && !$es4.$$get(identifier, null, null, 'isImport'))
-				{
-					pname = '$$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']);
-				}
-				else if (($es4.$$get(identifier, null, null, 'isProperty') || $es4.$$get(identifier, null, null, 'isMethod')) && !$es4.$$get(identifier, null, null, 'isImport'))
-				{
-					pname = '$$this';
-				}
-				else if ($es4.$$get(identifier, null, null, 'isPackage'))
-				{
-					name = '$es4.$$[\'' + $es4.$$get(identifier, null, null, 'name');
-					var packageName = $es4.$$get(identifier, null, null, 'name');
-					var tempInnerExpression = expression;
-					var lastExpression = tempInnerExpression;
-					while (tempInnerExpression = $es4.$$get(tempInnerExpression, null, null, 'nextPropertyExpression'))
-					{
-						if ($es4.$$get(_rootConstructs, null, null, packageName + '.' + $es4.$$get(tempInnerExpression, null, null, 'construct', 'identifierToken', 'data')))
-						{
-							expression = lastExpression;
-							break;
-						}
-						packageName += '.' + $es4.$$get(tempInnerExpression, null, null, 'construct', 'identifierToken', 'data');
-						name += '.' + $es4.$$get(tempInnerExpression, null, null, 'construct', 'identifierToken', 'data');
-						lastExpression = tempInnerExpression;
-					}
-					name += '\']';
-				}
-				var superString = ($es4.$$get(construct, null, null, 'extendsNameConstruct')) ? '$es4.$$super2($$this, ' + getTranslatedTypeName($es4.$$get(construct, null, null, 'extendsNameConstruct', 'type')) + ', \'$$' + $es4.$$get(construct, null, null, 'extendsNameConstruct', 'type', 'name') + '\', ***REPLACE1***, \'***REPLACE2***\', ***REPLACE3***)' : '____________________';
-				if (name == 'super')
-				{
-					if (_inNamespacedFunction && $es4.$$get(expression, null, null, 'nextPropertyExpression'))
-					{
-						name = '$$this.$$namespace(' + _inNamespacedFunction + ', $$this, $es4.$$super($$thisp))';
-					}
-					else
-					{
-						name = ($es4.$$get(expression, null, null, 'nextPropertyExpression')) ? superString : 'this';
-					}
-				}
-				if (name == 'this' && !_inClosure)
-				{
-					if ($es4.$$get(expression, null, null, 'nextPropertyExpression') && $es4.$$get(expression, null, null, 'nextPropertyExpression', 'construct', 'constructor') == $es4.$$get(Construct, null, null, 'DotConstruct') && $es4.$$get(expression, null, null, 'nextPropertyExpression', 'construct', 'identifier', 'isPrivate'))
-					{
-						name = '$$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']);
-					}
-					else
-					{
-						name = '$$this';
-					}
-				}
-			}
-			else
-			{
-				if (!$es4.$$get(expression, null, null, 'construct', 'expression'))
-				{
-					trace('invalid 37');
-				}
-				name = translateExpression($es4.$$get(expression, null, null, 'construct', 'expression'), 0, toString, construct);
-			}
-			js += (!pname) ? name : (pname + '.' + name);
-			var state = {doAssignment:setString != null, doDelete:doDelete, doNew:doNew, doPostfix:setString == '\'postfix\'', doPrefix:setString == '\'prefix\''};
-			var doSuper = name == superString;
-			var doSuperConstructor = doSuper && ($es4.$$get(expression, null, null, 'nextPropertyExpression') && $es4.$$get(expression, null, null, 'nextPropertyExpression', 'construct', 'constructor') == $es4.$$get(Construct, null, null, 'FunctionCallConstruct'));
-			var superExpression;
-			while (expression = $es4.$$get(expression, null, null, 'nextPropertyExpression'))
-			{
-				if ($es4.$$get(expression, null, null, 'construct', 'constructor') == $es4.$$get(Construct, null, null, 'DotConstruct') || $es4.$$get(expression, null, null, 'construct', 'constructor') == $es4.$$get(Construct, null, null, 'IdentifierConstruct'))
-				{
-					if (doSuper && !superExpression)
-					{
-						superExpression = '\'' + $es4.$$get(expression, null, null, 'construct', 'identifierToken', 'data') + '\'';
-					}
-					else
-					{
-						if ($es4.$$get(expression, null, null, 'construct', 'constructor') == $es4.$$get(Construct, null, null, 'DotConstruct'))
-						{
-							js += '.';
-						}
-						js += $es4.$$get(expression, null, null, 'construct', 'identifierToken', 'data');
-					}
-				}
-				else if ($es4.$$get(expression, null, null, 'construct', 'constructor') == $es4.$$get(Construct, null, null, 'ArrayAccessorConstruct'))
-				{
-					if (!$es4.$$get(expression, null, null, 'construct', 'expression'))
-					{
-						trace('invalid 38');
-					}
-					if (doSuper && !superExpression)
-					{
-						superExpression = translateExpression($es4.$$get(expression, null, null, 'construct', 'expression'), 0, toString, construct);
-					}
-					else
-					{
-						js += '[' + translateExpression($es4.$$get(expression, null, null, 'construct', 'expression'), 0, toString, construct) + ']';
-					}
-				}
-				else if ($es4.$$get(expression, null, null, 'construct', 'constructor') == $es4.$$get(Construct, null, null, 'NamespaceQualifierConstruct'))
-				{
-					namespaceIdentifier = $es4.$$get(expression, null, null, 'construct', 'namespaceIdentifier');
-					var namespaceObj = $es4.$$get(namespaceIdentifier, null, null, 'namespaceObj');
-					var namespaceString = $es4.$$get(namespaceObj, null, null, 'normalizedImportID');
-					if ($es4.$$get(namespaceIdentifier, null, null, 'isStatic') && !namespaceString)
-					{
-						namespaceString = $es4.$$get(namespaceIdentifier, null, null, 'scope', 'name') + '.' + $es4.$$get(namespaceIdentifier, null, null, 'name');
-					}
-					else if (!namespaceString)
-					{
-						namespaceString = ($es4.$$get(identifier, null, null, 'isPrivate')) ? ('$$this.$$' + $es4.$$call($es4.$$call((($es4.$$get(construct, null, null, 'packageName') && _extendsNameConflict ? $es4.$$get(construct, null, null, 'packageName') : '') + $es4.$$get(construct, null, null, 'identifierToken', 'data')), null, null, 'split', ['.']), null, null, 'join', ['']) + '.$$ns.') + $es4.$$get(namespaceIdentifier, null, null, 'name') : '$$this.' + $es4.$$get(namespaceIdentifier, null, null, 'name');
-					}
-					js += '.$$namespace(' + namespaceString + ').' + $es4.$$get(expression, null, null, 'construct', 'namespaceIdentifierToken', 'data');
-				}
-				else if ($es4.$$get(expression, null, null, 'construct', 'constructor') == $es4.$$get(Construct, null, null, 'ParenConstruct'))
-				{
-					if (!$es4.$$get(expression, null, null, 'construct', 'expression'))
-					{
-						trace('invalid 39');
-					}
-					js += '(' + translateExpression($es4.$$get(expression, null, null, 'construct', 'expression'), 0, toString, construct) + ')';
-				}
-				else if ($es4.$$get(expression, null, null, 'construct', 'constructor') == $es4.$$get(Construct, null, null, 'AtIdentifierConstruct'))
-				{
-					throw $es4.$$primitive(new (Error)('E4X is not supported'));
-				}
-				if ($es4.$$get(expression, null, null, 'construct', 'constructor') == $es4.$$get(Construct, null, null, 'FunctionCallConstruct') || ($es4.$$get(expression, null, null, 'nextPropertyExpression') && $es4.$$get(expression, null, null, 'nextPropertyExpression', 'construct', 'constructor') == $es4.$$get(Construct, null, null, 'FunctionCallConstruct')))
-				{
-					var functionCallExpression = ($es4.$$get(expression, null, null, 'construct', 'constructor') == $es4.$$get(Construct, null, null, 'FunctionCallConstruct')) ? expression : $es4.$$get(expression, null, null, 'nextPropertyExpression');
-					if (doSuperConstructor)
-					{
-						js = getTranslatedTypeName($es4.$$get(construct, null, null, 'extendsNameConstruct', 'type')) + '.$$constructor.call($$this';
-						if ($es4.$$get(functionCallExpression, null, null, 'construct', 'argumentExpressions', 'length'))
-						{
-							js += ', ';
-						}
-						doSuperConstructor = false;
-					}
-					else
-					{
-						js += '(';
-					}
-					for (var i = 0; i < $es4.$$get(functionCallExpression, null, null, 'construct', 'argumentExpressions', 'length'); i++)
-					{
-						if (!$es4.$$get(functionCallExpression, null, null, 'construct', 'argumentExpressions', i))
-						{
-							trace('invalid 40');
-						}
-						js += translateExpression($es4.$$get(functionCallExpression, null, null, 'construct', 'argumentExpressions', i), 0, toString, construct);
-						if ((i + 1) < $es4.$$get(functionCallExpression, null, null, 'construct', 'argumentExpressions', 'length'))
-						{
-							js += ', ';
-						}
-					}
-					js += ')';
-					if ($es4.$$get(expression, null, null, 'nextPropertyExpression'))
-					{
-						expression = functionCallExpression;
-					}
-					continue;
-				}
-			}
-			if (doSuper && superExpression)
-			{
-				js = $es4.$$call($es4.$$call(js, null, null, 'split', ['***REPLACE1***']), null, null, 'join', [superExpression]);
-				if (setString)
-				{
-					js = $es4.$$call($es4.$$call(js, null, null, 'split', ['***REPLACE2***']), null, null, 'join', ['set']);
-					js = $es4.$$call($es4.$$call(js, null, null, 'split', ['***REPLACE3***']), null, null, 'join', [setString]);
-					$es4.$$set(state, null, null, 'doAssignment', false, '=');
-				}
-				else
-				{
-					js = $es4.$$call($es4.$$call(js, null, null, 'split', ['***REPLACE2***']), null, null, 'join', ['func']);
-					js = $es4.$$call($es4.$$call(js, null, null, 'split', ['***REPLACE3***']), null, null, 'join', ['undefined']);
-				}
-			}
-			if (!$es4.$$get(state, null, null, 'doPostfix') && !$es4.$$get(state, null, null, 'doPrefix'))
-			{
-				if ($es4.$$get(state, null, null, 'doAssignment') && operator == '||=' || operator == '&&=')
-				{
-					js += ' = ' + js + ((operator == '&&=') ? ' && (' : ' || (') + setString + ')';
-				}
-				else if ($es4.$$get(state, null, null, 'doAssignment'))
-				{
-					js += ' ' + operator + ' ' + setString;
-				}
-			}
-			else if ($es4.$$get(state, null, null, 'doPrefix'))
-			{
-				js = operator + js;
-			}
-			else if ($es4.$$get(state, null, null, 'doPostfix'))
-			{
-				js += operator;
-			}
-			if ($es4.$$get(state, null, null, 'doDelete'))
-			{
-				js = 'delete ' + js;
-			}
-			if ($es4.$$get(state, null, null, 'doNew'))
-			{
-				js = '$es4.$$primitive(new ' + js + ')';
-			}
-			return js;
-		}
-;
-
-		function isCoerceRequired($$$$statementOrExpression, $$$$typeName, $$$$valueJS) 
-		{
-			//set default parameter values
-			var statementOrExpression = $$$$statementOrExpression;
-			var typeName = $$$$typeName;
-			var valueJS = $$$$valueJS;
-
-			if (!$es4.$$get(statementOrExpression, null, null, 'coerce'))
-			{
-				return false;
-			}
-			switch (typeName)
-			{
-				case 'uint':
-					if (Number(valueJS) == (valueJS >>> 0))
-					{
-						return false;
-					}
-					break;
-				case 'int':
-					if (Number(valueJS) == (valueJS >> 0))
-					{
-						return false;
-					}
-					break;
-			}
-			return true;
-		}
-;
-
-		function print($$$$string, $$$$tabs, $$$$newlines, $$$$preNewLines) 
-		{
-			//set default parameter values
-			var string = $$$$string;
-			var tabs = $$$$tabs;
-			var newlines = $$$$newlines;
-			var preNewLines = (3 > arguments.length - 1) ? null : $$$$preNewLines;
-
-			if (tabs)
-			{
-				for (var i = 0; i < tabs; i++)
-				{
-					string = '\t' + string;
-				}
-			}
-			if (newlines)
-			{
-				for (var i = 0; i < newlines; i++)
-				{
-					string += '\n';
-				}
-			}
-			if (preNewLines)
-			{
-				for (var i = 0; i < preNewLines; i++)
-				{
-					string = '\n' + string;
-				}
-			}
-			return string;
-		}
-;
+		return '_SWC_' + ($es4.$$call($es4.$$primitive(new (JsonUtil)()), null, null, 'stringify', [obj]));
 	}));
 
-	function TranslatorPrototype()
+	//method
+	$es4.$$public_function('parseSWCString', SwcUtil, (function ($$$$contents)
+	{
+		if (SwcUtil.$$cinit !== undefined) SwcUtil.$$cinit();
+
+		//set default parameter values
+		var contents = $$$$contents;
+
+		return $es4.$$call($es4.$$primitive(new (JsonUtil)()), null, null, 'parse', [$es4.$$call(contents, null, null, 'substring', [5])]);
+	}));
+
+	//method
+	$es4.$$public_function('isValidSWCString', SwcUtil, (function ($$$$contents)
+	{
+		if (SwcUtil.$$cinit !== undefined) SwcUtil.$$cinit();
+
+		//set default parameter values
+		var contents = $$$$contents;
+
+		return $es4.$$call(contents, null, null, 'indexOf', ['_SWC_']) == 0;
+	}));
+
+	function SwcUtil()
 	{
 		//initialize class if not initialized
-		if (TranslatorPrototype.$$cinit !== undefined) TranslatorPrototype.$$cinit();
+		if (SwcUtil.$$cinit !== undefined) SwcUtil.$$cinit();
 
 		//save scope
 		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
 		var $$thisp = this;
 
 		//handle possible cast
-		if ($$this === $$thisp && (!($$this instanceof TranslatorPrototype) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], TranslatorPrototype) : $es4.$$throwArgumentError();
+		if ($$this === $$thisp && (!($$this instanceof SwcUtil) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], SwcUtil) : $es4.$$throwArgumentError();
 		Object.defineProperty($$this, '$$t', {value:1});
 
 		//constructor
@@ -43492,538 +43688,9 @@ $es4.$$package('sweetrush.core').TranslatorPrototype = (function ()
 		}
 	}
 
-	return $es4.$$class(TranslatorPrototype, null, 'sweetrush.core::TranslatorPrototype');
+	return $es4.$$class(SwcUtil, null, 'sweetrush.utils::SwcUtil');
 })();
-//sweetrush.core.TranslatorPrototype
-
-
-//sweetrush.utils.JsonUtil
-$es4.$$package('sweetrush.utils').JsonUtil = (function ()
-{
-	//class initializer
-	JsonUtil.$$cinit = (function ()
-	{
-		JsonUtil.$$cinit = undefined;
-
-	});
-
-	function JsonUtil()
-	{
-		//initialize class if not initialized
-		if (JsonUtil.$$cinit !== undefined) JsonUtil.$$cinit();
-
-		//save scope
-		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
-		var $$thisp = this;
-
-		//handle possible cast
-		if ($$this === $$thisp && (!($$this instanceof JsonUtil) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], JsonUtil) : $es4.$$throwArgumentError();
-		Object.defineProperty($$this, '$$t', {value:1});
-
-		//constructor
-		$es4.$$constructor($$thisp, (function ()
-		{
-		}));
-
-		//method
-		$es4.$$public_function('parse', $$thisp, (function ($$$$string)
-		{
-			//set default parameter values
-			var string = $es4.$$coerce($$$$string, String);
-
-			return $es4.$$get($es4.$$primitive(new (Hydrate)(string)), $$this, $$thisp, 'result');
-		}));
-
-		//method
-		$es4.$$public_function('stringify', $$thisp, (function ($$$$obj)
-		{
-			//set default parameter values
-			var obj = $$$$obj;
-
-			return $es4.$$coerce($es4.$$get($es4.$$primitive(new (Dehydrate)(obj)), $$this, $$thisp, 'result'), String);
-		}));
-
-		//call construct if no arguments, or argument zero does not equal manual construct
-		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
-		{
-			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
-
-			$es4.$$construct($$this, $$args);
-		}
-	}
-
-	////////////////INTERNAL CLASS////////////////
-	var Hydrate = (function ()
-	{
-		//imports
-		var getDefinitionByName;
-		var getQualifiedClassName;
-		var Dictionary;
-		var Base64Util;
-
-		//class initializer
-		Hydrate.$$cinit = (function ()
-		{
-			Hydrate.$$cinit = undefined;
-
-			//initialize imports
-			getDefinitionByName = $es4.$$['flash.utils'].getDefinitionByName;
-			getQualifiedClassName = $es4.$$['flash.utils'].getQualifiedClassName;
-			Dictionary = $es4.$$['flash.utils'].Dictionary;
-			Base64Util = $es4.$$['sweetrush.utils'].Base64Util;
-		});
-
-		function Hydrate()
-		{
-			//initialize class if not initialized
-			if (Hydrate.$$cinit !== undefined) Hydrate.$$cinit();
-
-			//save scope
-			var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
-			var $$thisp = this;
-
-			//handle possible cast
-			if ($$this === $$thisp && (!($$this instanceof Hydrate) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Hydrate) : $es4.$$throwArgumentError();
-			Object.defineProperty($$this, '$$t', {value:1});
-
-			//properties
-			$es4.$$private_property('_dehydratedObj', $$thisp, Object);
-			$es4.$$private_property('_hydratedIDs', $$thisp, Object);
-			$es4.$$private_property('_result', $$thisp, Object);
-
-			//constructor
-			$es4.$$constructor($$thisp, (function ($$$$string)
-			{
-				//set default parameter values
-				var string = $es4.$$coerce($$$$string, String);
-
-				if (!string)
-				{
-					return;
-				}
-				$es4.$$set($$thisp, $$this, $$thisp, '_dehydratedObj', $es4.$$call(JSON, $$this, $$thisp, 'parse', [string]) || {}, '=');
-				$es4.$$get($$thisp, $$this, $$thisp, '_dehydratedObj', 'dehydrated') || {};
-				$es4.$$set($$thisp, $$this, $$thisp, '_hydratedIDs', {}, '=');
-				$es4.$$set($$thisp, $$this, $$thisp, '_result', $es4.$$call($$thisp, $$this, $$thisp, 'hydrateObject', [$es4.$$get($$thisp, $$this, $$thisp, '_dehydratedObj', 'dehydrated'), $es4.$$get($$thisp, $$this, $$thisp, '_dehydratedObj', 'type')]), '=');
-			}));
-
-			//method
-			$es4.$$private_function('hydrateObject', $$thisp, (function ($$$$object, $$$$type)
-			{
-				//set default parameter values
-				var object = $es4.$$coerce($$$$object, Object);
-				var type = $es4.$$coerce($$$$type, String);
-
-				if ($es4.$$get($$thisp, $$this, $$thisp, '_hydratedIDs', $es4.$$get(object, $$this, $$thisp, 'id')) !== undefined)
-				{
-					return $es4.$$get($$thisp, $$this, $$thisp, '_hydratedIDs', $es4.$$get(object, $$this, $$thisp, 'id'));
-				}
-				var properties = null;
-				var propertyName = null;
-				var robject = type === 'array' ? [] : {};
-				$es4.$$set($$thisp, $$this, $$thisp, '_hydratedIDs', $es4.$$get(object, $$this, $$thisp, 'id'), robject, '=');
-				properties = $es4.$$get(object, $$this, $$thisp, 'p') || {};
-				for (var $$i0 = (properties || $es4.$$EMPTY_OBJECT).$$nextNameIndex(0); $$i0 != 0; $$i0 = properties.$$nextNameIndex($$i0))
-				{
-					propertyName = $es4.$$coerce(properties.$$nextName($$i0), String);
-
-					$es4.$$set(robject, $$this, $$thisp, propertyName, $es4.$$call($$thisp, $$this, $$thisp, 'getValueObject', [$es4.$$get(properties, $$this, $$thisp, propertyName)]), '=');
-				}
-				return robject;
-			}));
-
-			//method
-			$es4.$$private_function('getValueObject', $$thisp, (function ($$$$object)
-			{
-				//set default parameter values
-				var object = $$$$object;
-
-				if ($es4.$$is(object, String) && object == '__NaN__')
-				{
-					return $es4.$$coerce(NaN, Object);
-				}
-				if ($es4.$$is(object, String))
-				{
-					return $es4.$$call(Base64Util, $$this, $$thisp, 'decodeString', [object]);
-				}
-				if ($es4.$$is(object, Number) || $es4.$$is(object, Boolean) || object == null)
-				{
-					return object;
-				}
-				if ($es4.$$get(object, $$this, $$thisp, 'constructor') == Object)
-				{
-					if ($es4.$$get(object, $$this, $$thisp, 'r') !== undefined)
-					{
-						var id = $es4.$$coerce($es4.$$get(object, $$this, $$thisp, 'r'), String);
-						var obj = $es4.$$get($$thisp, $$this, $$thisp, '_dehydratedObj', 'o');
-						return $es4.$$call($$thisp, $$this, $$thisp, 'hydrateObject', [$es4.$$get(obj, $$this, $$thisp, id), $es4.$$get(obj, $$this, $$thisp, id, 'type')]);
-					}
-				}
-				throw $es4.$$primitive(new (Error)('unknown value type'));
-			}));
-
-			//accessor
-			$es4.$$public_accessor('result', $$thisp, (function ()
-			{
-				return $es4.$$get($$thisp, $$this, $$thisp, '_result');
-			}), null);
-
-			//call construct if no arguments, or argument zero does not equal manual construct
-			if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
-			{
-				for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
-
-				$es4.$$construct($$this, $$args);
-			}
-		}
-
-		return $es4.$$class(Hydrate, null, 'Hydrate');
-	})();
-
-	////////////////INTERNAL CLASS////////////////
-	var Dehydrate = (function ()
-	{
-		//imports
-		var getDefinitionByName;
-		var getQualifiedClassName;
-		var Dictionary;
-		var Base64Util;
-
-		//class initializer
-		Dehydrate.$$cinit = (function ()
-		{
-			Dehydrate.$$cinit = undefined;
-
-			//initialize imports
-			getDefinitionByName = $es4.$$['flash.utils'].getDefinitionByName;
-			getQualifiedClassName = $es4.$$['flash.utils'].getQualifiedClassName;
-			Dictionary = $es4.$$['flash.utils'].Dictionary;
-			Base64Util = $es4.$$['sweetrush.utils'].Base64Util;
-		});
-
-		function Dehydrate()
-		{
-			//initialize class if not initialized
-			if (Dehydrate.$$cinit !== undefined) Dehydrate.$$cinit();
-
-			//save scope
-			var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
-			var $$thisp = this;
-
-			//handle possible cast
-			if ($$this === $$thisp && (!($$this instanceof Dehydrate) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Dehydrate) : $es4.$$throwArgumentError();
-			Object.defineProperty($$this, '$$t', {value:1});
-
-			//properties
-			$es4.$$private_property('_dehydratedObjects', $$thisp, Object);
-			$es4.$$private_property('_dehydratedNodes', $$thisp, Dictionary);
-			$es4.$$private_property('_idCounter', $$thisp, int);
-			$es4.$$private_property('_result', $$thisp, String);
-
-			//initializer
-			$es4.$$iinit($$thisp, (function ()
-			{
-				//initialize properties
-				$es4.$$set($$this, $$this, $$thisp, '_dehydratedObjects', {}, '=');
-				$es4.$$set($$this, $$this, $$thisp, '_dehydratedNodes', $es4.$$primitive(new (Dictionary)()), '=');
-				$es4.$$set($$this, $$this, $$thisp, '_idCounter', 1, '=');
-			}));
-
-			//constructor
-			$es4.$$constructor($$thisp, (function ($$$$persistable)
-			{
-				//set default parameter values
-				var persistable = $$$$persistable;
-
-				var dehydrated = $es4.$$call($$thisp, $$this, $$thisp, 'dehydrateObject', [persistable]);
-				var obj = {};
-				$es4.$$set(obj, $$this, $$thisp, 'dehydrated', dehydrated, '=');
-				$es4.$$set(obj, $$this, $$thisp, 'type', $es4.$$is(persistable, Array) ? 'array' : 'object', '=');
-				$es4.$$set(obj, $$this, $$thisp, 'o', $es4.$$get($$thisp, $$this, $$thisp, '_dehydratedObjects'), '=');
-				$es4.$$set($$thisp, $$this, $$thisp, '_result', $es4.$$call(JSON, $$this, $$thisp, 'stringify', [obj]), '=');
-			}));
-
-			//method
-			$es4.$$private_function('dehydrateObject', $$thisp, (function ($$$$object)
-			{
-				//set default parameter values
-				var object = $es4.$$coerce($$$$object, Object);
-
-				var dehydrated = $es4.$$call($$thisp, $$this, $$thisp, 'getDehydrated', [object]);
-				if (dehydrated)
-				{
-					return dehydrated;
-				}
-				dehydrated = {};
-				$es4.$$set(dehydrated, $$this, $$thisp, 'id', $es4.$$call($$thisp, $$this, $$thisp, 'generateID', $es4.$$EMPTY_ARRAY), '=');
-				$es4.$$set(dehydrated, $$this, $$thisp, 'type', $es4.$$is(object, Array) ? 'array' : 'object', '=');
-				$es4.$$set($$thisp, $$this, $$thisp, '_dehydratedNodes', object, dehydrated, '=');
-				if ($es4.$$is(object, Array) || $es4.$$is($es4.$$typeof($es4.$$call(object, $$this, $$thisp, 'valueOf', $es4.$$EMPTY_ARRAY)), Object))
-				{
-					$es4.$$set($$thisp, $$this, $$thisp, '_dehydratedObjects', $es4.$$get(dehydrated, $$this, $$thisp, 'id'), dehydrated, '=');
-					for (var $$i1 = (object || $es4.$$EMPTY_OBJECT).$$nextNameIndex(0); $$i1 != 0; $$i1 = object.$$nextNameIndex($$i1))
-					{
-						var property = $es4.$$coerce(object.$$nextName($$i1), String);
-
-						if ($es4.$$get(dehydrated, $$this, $$thisp, 'p') === undefined)
-						{
-							$es4.$$set(dehydrated, $$this, $$thisp, 'p', {}, '=');
-						}
-						$es4.$$set(dehydrated, $$this, $$thisp, 'p', property, $es4.$$call($$thisp, $$this, $$thisp, 'getValue', [$es4.$$get(object, $$this, $$thisp, property)]), '=');
-					}
-					return dehydrated;
-				}
-				throw $es4.$$primitive(new (Error)('Type is not supported for dehydration'));
-			}));
-
-			//method
-			$es4.$$private_function('getDehydrated', $$thisp, (function ($$$$object)
-			{
-				//set default parameter values
-				var object = $es4.$$coerce($$$$object, Object);
-
-				return $es4.$$get($$thisp, $$this, $$thisp, '_dehydratedNodes', object);
-			}));
-
-			//method
-			$es4.$$private_function('getValue', $$thisp, (function ($$$$object)
-			{
-				//set default parameter values
-				var object = $es4.$$coerce($$$$object, Object);
-
-				if ($es4.$$is(object, String))
-				{
-					return $es4.$$call(Base64Util, $$this, $$thisp, 'encodeString', [$es4.$$as(object, String)]);
-				}
-				if ($es4.$$is(object, Number) && isNaN($es4.$$as(object, Number)))
-				{
-					return '__NaN__';
-				}
-				if ($es4.$$is(object, Number) || $es4.$$is(object, Boolean) || object == null)
-				{
-					return object;
-				}
-				object = $es4.$$call($$thisp, $$this, $$thisp, 'dehydrateObject', [object]);
-				return {r:$es4.$$get(object, $$this, $$thisp, 'id')};
-			}));
-
-			//method
-			$es4.$$private_function('generateID', $$thisp, (function ()
-			{
-				return $es4.$$call(($es4.$$set($$thisp, $$this, $$thisp, '_idCounter', 'postfix', '++')), $$this, $$thisp, 'toString', $es4.$$EMPTY_ARRAY);
-			}));
-
-			//accessor
-			$es4.$$public_accessor('result', $$thisp, (function ()
-			{
-				return $es4.$$get($$thisp, $$this, $$thisp, '_result');
-			}), null);
-
-			//call construct if no arguments, or argument zero does not equal manual construct
-			if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
-			{
-				for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
-
-				$es4.$$construct($$this, $$args);
-			}
-		}
-
-		return $es4.$$class(Dehydrate, null, 'Dehydrate');
-	})();
-
-	return $es4.$$class(JsonUtil, {CLASSES:[Hydrate, Dehydrate]}, 'sweetrush.utils::JsonUtil');
-})();
-//sweetrush.utils.JsonUtil
-
-
-//sweetrush.core.Lexer
-$es4.$$package('sweetrush.core').Lexer = (function ()
-{
-	//imports
-	var Transcompiler;
-	var Token;
-	var JsonUtil;
-	var SwcUtil;
-	var Parser;
-	var Token;
-	var Lexer;
-	var TranslatorProto;
-	var Construct;
-	var TranslatorPrototype;
-	var Analyzer;
-	var FileUtil;
-	var Transcompiler;
-	var Base64Util;
-
-	//properties
-	$es4.$$private_property('grammar', Lexer, Array);
-
-	//class initializer
-	Lexer.$$cinit = (function ()
-	{
-		Lexer.$$cinit = undefined;
-
-		//initialize imports
-		Transcompiler = $es4.$$['sweetrush'].Transcompiler;
-		Token = $es4.$$['sweetrush.obj'].Token;
-		JsonUtil = $es4.$$['sweetrush.utils'].JsonUtil;
-		SwcUtil = $es4.$$['sweetrush.utils'].SwcUtil;
-		Parser = $es4.$$['sweetrush.core'].Parser;
-		TranslatorProto = $es4.$$['sweetrush.core'].TranslatorProto;
-		Construct = $es4.$$['sweetrush.obj'].Construct;
-		TranslatorPrototype = $es4.$$['sweetrush.core'].TranslatorPrototype;
-		Analyzer = $es4.$$['sweetrush.core'].Analyzer;
-		FileUtil = $es4.$$['sweetrush.utils'].FileUtil;
-		Base64Util = $es4.$$['sweetrush.utils'].Base64Util;
-
-		//initialize properties
-		Lexer.grammar = [$es4.$$get(Token, null, null, 'SpaceTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'EOSTokenType'), $es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'OpenBracketTokenType'), $es4.$$get(Token, null, null, 'ClosedBracketTokenType'), $es4.$$get(Token, null, null, 'OpenParenTokenType'), $es4.$$get(Token, null, null, 'ClosedParenTokenType'), $es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType'), $es4.$$get(Token, null, null, 'XMLTokenType'), $es4.$$get(Token, null, null, 'XMLCDATATokenType'), $es4.$$get(Token, null, null, 'EqualityTokenType'), $es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType'), $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType'), $es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType'), $es4.$$get(Token, null, null, 'BitwiseLeftShiftTokenType'), $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftTokenType'), $es4.$$get(Token, null, null, 'BitwiseRightShiftTokenType'), $es4.$$get(Token, null, null, 'RelationalTokenType'), $es4.$$get(Token, null, null, 'AddWithAssignmentTokenType'), $es4.$$get(Token, null, null, 'DivWithAssignmentTokenType'), $es4.$$get(Token, null, null, 'ModWithAssignmentTokenType'), $es4.$$get(Token, null, null, 'MulWithAssignmentTokenType'), $es4.$$get(Token, null, null, 'SubWithAssignmentTokenType'), $es4.$$get(Token, null, null, 'AssignmentTokenType'), $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType'), $es4.$$get(Token, null, null, 'ColonTokenType'), $es4.$$get(Token, null, null, 'CommaTokenType'), $es4.$$get(Token, null, null, 'BooleanTokenType'), $es4.$$get(Token, null, null, 'StringTokenType'), $es4.$$get(Token, null, null, 'AsTokenType'), $es4.$$get(Token, null, null, 'DeleteTokenType'), $es4.$$get(Token, null, null, 'IfTokenType'), $es4.$$get(Token, null, null, 'ElseTokenType'), $es4.$$get(Token, null, null, 'EachTokenType'), $es4.$$get(Token, null, null, 'ForTokenType'), $es4.$$get(Token, null, null, 'WhileTokenType'), $es4.$$get(Token, null, null, 'DoTokenType'), $es4.$$get(Token, null, null, 'TryTokenType'), $es4.$$get(Token, null, null, 'CatchTokenType'), $es4.$$get(Token, null, null, 'BreakTokenType'), $es4.$$get(Token, null, null, 'InTokenType'), $es4.$$get(Token, null, null, 'ContinueTokenType'), $es4.$$get(Token, null, null, 'DefaultTokenType'), $es4.$$get(Token, null, null, 'ConstTokenType'), $es4.$$get(Token, null, null, 'WithTokenType'), $es4.$$get(Token, null, null, 'FinallyTokenType'), $es4.$$get(Token, null, null, 'ThisTokenType'), $es4.$$get(Token, null, null, 'TypeofTokenType'), $es4.$$get(Token, null, null, 'NullTokenType'), $es4.$$get(Token, null, null, 'UndefinedTokenType'), $es4.$$get(Token, null, null, 'VoidTokenType'), $es4.$$get(Token, null, null, 'SuperTokenType'), $es4.$$get(Token, null, null, 'ReturnTokenType'), $es4.$$get(Token, null, null, 'ThrowTokenType'), $es4.$$get(Token, null, null, 'TernaryTokenType'), $es4.$$get(Token, null, null, 'ClassTokenType'), $es4.$$get(Token, null, null, 'ImportTokenType'), $es4.$$get(Token, null, null, 'ExtendsTokenType'), $es4.$$get(Token, null, null, 'ImplementsTokenType'), $es4.$$get(Token, null, null, 'OverrideTokenType'), $es4.$$get(Token, null, null, 'StaticTokenType'), $es4.$$get(Token, null, null, 'DynamicTokenType'), $es4.$$get(Token, null, null, 'InterfaceTokenType'), $es4.$$get(Token, null, null, 'FinalTokenType'), $es4.$$get(Token, null, null, 'NamespaceKeywordTokenType'), $es4.$$get(Token, null, null, 'NewTokenType'), $es4.$$get(Token, null, null, 'UseTokenType'), $es4.$$get(Token, null, null, 'CaseTokenType'), $es4.$$get(Token, null, null, 'FunctionTokenType'), $es4.$$get(Token, null, null, 'VarTokenType'), $es4.$$get(Token, null, null, 'NumberTokenType'), $es4.$$get(Token, null, null, 'AndWithAssignmentTokenType'), $es4.$$get(Token, null, null, 'OrWithAssignmentTokenType'), $es4.$$get(Token, null, null, 'AndTokenType'), $es4.$$get(Token, null, null, 'OrTokenType'), $es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType'), $es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType'), $es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType'), $es4.$$get(Token, null, null, 'BitwiseAndTokenType'), $es4.$$get(Token, null, null, 'BitwiseNotTokenType'), $es4.$$get(Token, null, null, 'BitwiseOrTokenType'), $es4.$$get(Token, null, null, 'BitwiseXorTokenType'), $es4.$$get(Token, null, null, 'AtTokenType'), $es4.$$get(Token, null, null, 'SwitchTokenType'), $es4.$$get(Token, null, null, 'DotDotTokenType'), $es4.$$get(Token, null, null, 'DotTokenType'), $es4.$$get(Token, null, null, 'NotTokenType'), $es4.$$get(Token, null, null, 'IncrementTokenType'), $es4.$$get(Token, null, null, 'DecrementTokenType'), $es4.$$get(Token, null, null, 'OpenBraceTokenType'), $es4.$$get(Token, null, null, 'ClosedBraceTokenType'), $es4.$$get(Token, null, null, 'PackageTokenType'), $es4.$$get(Token, null, null, 'IsTokenType'), $es4.$$get(Token, null, null, 'NaNTokenType'), $es4.$$get(Token, null, null, 'InstanceofTokenType'), $es4.$$get(Token, null, null, 'IdentifierTokenType'), $es4.$$get(Token, null, null, 'CommentTokenType'), $es4.$$get(Token, null, null, 'MultiLineCommentTokenType'), $es4.$$get(Token, null, null, 'AddTokenType'), $es4.$$get(Token, null, null, 'SubTokenType'), $es4.$$get(Token, null, null, 'RegExpTokenType'), $es4.$$get(Token, null, null, 'DivTokenType'), $es4.$$get(Token, null, null, 'MulTokenType'), $es4.$$get(Token, null, null, 'ModTokenType'), $es4.$$get(Token, null, null, 'UFOTokenType')];
-	});
-
-	//method
-	$es4.$$public_function('lex', Lexer, (function ($$$$input, $$$$grammar, $$$$internal_)
-	{
-		if (Lexer.$$cinit !== undefined) Lexer.$$cinit();
-
-		//set default parameter values
-		var input = $es4.$$coerce($$$$input, String);
-		var grammar = (1 > arguments.length - 1) ? null : $es4.$$coerce($$$$grammar, Array);
-		var internal_ = (2 > arguments.length - 1) ? null : $$$$internal_;
-
-		var s = $es4.$$call(($es4.$$primitive(new (Date)())), null, null, 'getTime', $es4.$$EMPTY_ARRAY);
-		if (!grammar)
-		{
-			grammar = $es4.$$get(Lexer, null, null, 'grammar');
-		}
-		if (!internal_)
-		{
-			input = $es4.$$call($es4.$$call(input, null, null, 'split', [/\r\n/]), null, null, 'join', ['\n']);
-		}
-		var token;
-		var tokens = [];
-		var matcherObj = $es4.$$call(Lexer, null, null, 'matcher', [input, grammar, internal_]);
-		while ((token = $es4.$$call(matcherObj, null, null, 'find', $es4.$$EMPTY_ARRAY)) != null)
-		{
-			$es4.$$call(tokens, null, null, 'push', [token]);
-		}
-		if ($es4.$$get(Transcompiler, null, null, 'DEBUG') >= 5 && !internal_)
-		{
-			trace('Tokens length: ' + $es4.$$get(tokens, null, null, 'length') + ', Total time: ' + (($es4.$$call(($es4.$$primitive(new (Date)())), null, null, 'getTime', $es4.$$EMPTY_ARRAY) - s) / 1000) + ' seconds.\n');
-		}
-		return $es4.$$call(Token, null, null, 'getNewResult', [tokens, $es4.$$call(matcherObj, null, null, 'getIndex', $es4.$$EMPTY_ARRAY)]);
-	}));
-
-	//method
-	$es4.$$private_function('matcher', Lexer, (function ($$$$input, $$$$grammar, $$$$internal_)
-	{
-		if (Lexer.$$cinit !== undefined) Lexer.$$cinit();
-
-		//set default parameter values
-		var input = $$$$input;
-		var grammar = $$$$grammar;
-		var internal_ = $$$$internal_;
-
-		var tokensIndex = 0;
-		var tokens = [];
-		var currentLine = 1;
-		var currentPosition = 0;
-		var length = $es4.$$get(input, null, null, 'length');
-		var foundTokens = [];
-		var find = function () 
-		{
-			if ($es4.$$get(tokens, null, null, 'length'))
-			{
-				var token = $es4.$$get(tokens, null, null, tokensIndex);
-				if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'NewLineTokenType'))
-				{
-					$es4.$$set(token, null, null, 'position', currentPosition + 1, '=');
-					$es4.$$set(token, null, null, 'line', currentLine, '=');
-					currentLine++;
-					currentPosition = 0;
-				}
-				else
-				{
-					$es4.$$set(token, null, null, 'position', currentPosition + 1, '=');
-					$es4.$$set(token, null, null, 'line', currentLine, '=');
-					currentPosition += $es4.$$get(token, null, null, 'data', 'length');
-				}
-				if ($es4.$$get(Transcompiler, null, null, 'DEBUG') >= 4 && !internal_)
-				{
-					trace($es4.$$get(token, null, null, 'line') + ' : ' + $es4.$$get(token, null, null, 'position') + ' : ' + $es4.$$get(token, null, null, 'type', 'name') + ' => ' + $es4.$$get(token, null, null, 'data'));
-				}
-				if (++tokensIndex == $es4.$$get(tokens, null, null, 'length'))
-				{
-					tokens = [];
-					tokensIndex = 0;
-				}
-				return token;
-			}
-			if (!$es4.$$get(input, null, null, 'length'))
-			{
-				return null;
-			}
-			var grammarLength = $es4.$$get(grammar, null, null, 'length');
-			for (var i = 0; i < grammarLength; i++)
-			{
-				var type = $es4.$$get(grammar, null, null, i);
-				var result = $es4.$$call(Token, null, null, 'tokenFunctions', type, 'find', [input, foundTokens]);
-				if (result)
-				{
-					input = $es4.$$call(input, null, null, 'slice', [$es4.$$get(result, null, null, 'index') + 1]);
-					tokens = $es4.$$get(result, null, null, 'tokens');
-					tokensIndex = 0;
-					$es4.$$call(foundTokens, null, null, 'push', [tokens]);
-					return find();
-				}
-			}
-			if (!internal_ && $es4.$$get(input, null, null, 'length'))
-			{
-				throw $es4.$$primitive(new (Error)('Unknown token found on line ' + currentLine + ', at position ' + (currentPosition + 1)));
-			}
-			return null;
-		}
-;
-		var getIndex = function () 
-		{
-			return length - $es4.$$get(input, null, null, 'length');
-		}
-;
-		var api = {};
-		$es4.$$set(api, null, null, 'find', find, '=');
-		$es4.$$set(api, null, null, 'getIndex', getIndex, '=');
-		return api;
-	}));
-
-	function Lexer()
-	{
-		//initialize class if not initialized
-		if (Lexer.$$cinit !== undefined) Lexer.$$cinit();
-
-		//save scope
-		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
-		var $$thisp = this;
-
-		//handle possible cast
-		if ($$this === $$thisp && (!($$this instanceof Lexer) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Lexer) : $es4.$$throwArgumentError();
-		Object.defineProperty($$this, '$$t', {value:1});
-
-		//constructor
-		$es4.$$constructor($$thisp, (function ()
-		{
-		}));
-
-		//call construct if no arguments, or argument zero does not equal manual construct
-		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
-		{
-			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
-
-			$es4.$$construct($$this, $$args);
-		}
-	}
-
-	return $es4.$$class(Lexer, null, 'sweetrush.core::Lexer');
-})();
-//sweetrush.core.Lexer
+//sweetrush.utils.SwcUtil
 
 
 //sweetrush.utils.FileUtil
@@ -44031,18 +43698,18 @@ $es4.$$package('sweetrush.utils').FileUtil = (function ()
 {
 	//imports
 	var ByteArray;
-	var JsonUtil;
-	var SwcUtil;
-	var Parser;
-	var Token;
-	var Lexer;
-	var TranslatorProto;
-	var Construct;
-	var TranslatorPrototype;
-	var Analyzer;
-	var FileUtil;
-	var Transcompiler;
 	var Base64Util;
+	var Analyzer;
+	var TranslatorPrototype;
+	var FileUtil;
+	var SwcUtil;
+	var Construct;
+	var TranslatorProto;
+	var Lexer;
+	var JsonUtil;
+	var Token;
+	var Parser;
+	var Transcompiler;
 
 	//properties
 	$es4.$$private_property('fs', FileUtil);
@@ -44055,17 +43722,17 @@ $es4.$$package('sweetrush.utils').FileUtil = (function ()
 
 		//initialize imports
 		ByteArray = $es4.$$['flash.utils'].ByteArray;
-		JsonUtil = $es4.$$['sweetrush.utils'].JsonUtil;
-		SwcUtil = $es4.$$['sweetrush.utils'].SwcUtil;
-		Parser = $es4.$$['sweetrush.core'].Parser;
-		Token = $es4.$$['sweetrush.obj'].Token;
-		Lexer = $es4.$$['sweetrush.core'].Lexer;
-		TranslatorProto = $es4.$$['sweetrush.core'].TranslatorProto;
-		Construct = $es4.$$['sweetrush.obj'].Construct;
-		TranslatorPrototype = $es4.$$['sweetrush.core'].TranslatorPrototype;
-		Analyzer = $es4.$$['sweetrush.core'].Analyzer;
-		Transcompiler = $es4.$$['sweetrush'].Transcompiler;
 		Base64Util = $es4.$$['sweetrush.utils'].Base64Util;
+		Analyzer = $es4.$$['sweetrush.core'].Analyzer;
+		TranslatorPrototype = $es4.$$['sweetrush.core'].TranslatorPrototype;
+		SwcUtil = $es4.$$['sweetrush.utils'].SwcUtil;
+		Construct = $es4.$$['sweetrush.obj'].Construct;
+		TranslatorProto = $es4.$$['sweetrush.core'].TranslatorProto;
+		Lexer = $es4.$$['sweetrush.core'].Lexer;
+		JsonUtil = $es4.$$['sweetrush.utils'].JsonUtil;
+		Token = $es4.$$['sweetrush.obj'].Token;
+		Parser = $es4.$$['sweetrush.core'].Parser;
+		Transcompiler = $es4.$$['sweetrush'].Transcompiler;
 
 		//initialize properties
 		FileUtil.fs = require('fs');
@@ -44661,29 +44328,368 @@ $es4.$$package('sweetrush.utils').FileUtil = (function ()
 //sweetrush.utils.FileUtil
 
 
+//sweetrush.utils.JsonUtil
+$es4.$$package('sweetrush.utils').JsonUtil = (function ()
+{
+	//class initializer
+	JsonUtil.$$cinit = (function ()
+	{
+		JsonUtil.$$cinit = undefined;
+
+	});
+
+	function JsonUtil()
+	{
+		//initialize class if not initialized
+		if (JsonUtil.$$cinit !== undefined) JsonUtil.$$cinit();
+
+		//save scope
+		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
+		var $$thisp = this;
+
+		//handle possible cast
+		if ($$this === $$thisp && (!($$this instanceof JsonUtil) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], JsonUtil) : $es4.$$throwArgumentError();
+		Object.defineProperty($$this, '$$t', {value:1});
+
+		//constructor
+		$es4.$$constructor($$thisp, (function ()
+		{
+		}));
+
+		//method
+		$es4.$$public_function('parse', $$thisp, (function ($$$$string)
+		{
+			//set default parameter values
+			var string = $es4.$$coerce($$$$string, String);
+
+			return $es4.$$get($es4.$$primitive(new (Hydrate)(string)), $$this, $$thisp, 'result');
+		}));
+
+		//method
+		$es4.$$public_function('stringify', $$thisp, (function ($$$$obj)
+		{
+			//set default parameter values
+			var obj = $$$$obj;
+
+			return $es4.$$coerce($es4.$$get($es4.$$primitive(new (Dehydrate)(obj)), $$this, $$thisp, 'result'), String);
+		}));
+
+		//call construct if no arguments, or argument zero does not equal manual construct
+		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
+		{
+			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
+
+			$es4.$$construct($$this, $$args);
+		}
+	}
+
+	////////////////INTERNAL CLASS////////////////
+	var Hydrate = (function ()
+	{
+		//imports
+		var getDefinitionByName;
+		var getQualifiedClassName;
+		var Dictionary;
+		var Base64Util;
+
+		//class initializer
+		Hydrate.$$cinit = (function ()
+		{
+			Hydrate.$$cinit = undefined;
+
+			//initialize imports
+			getDefinitionByName = $es4.$$['flash.utils'].getDefinitionByName;
+			getQualifiedClassName = $es4.$$['flash.utils'].getQualifiedClassName;
+			Dictionary = $es4.$$['flash.utils'].Dictionary;
+			Base64Util = $es4.$$['sweetrush.utils'].Base64Util;
+		});
+
+		function Hydrate()
+		{
+			//initialize class if not initialized
+			if (Hydrate.$$cinit !== undefined) Hydrate.$$cinit();
+
+			//save scope
+			var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
+			var $$thisp = this;
+
+			//handle possible cast
+			if ($$this === $$thisp && (!($$this instanceof Hydrate) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Hydrate) : $es4.$$throwArgumentError();
+			Object.defineProperty($$this, '$$t', {value:1});
+
+			//properties
+			$es4.$$private_property('_dehydratedObj', $$thisp, Object);
+			$es4.$$private_property('_hydratedIDs', $$thisp, Object);
+			$es4.$$private_property('_result', $$thisp, Object);
+
+			//constructor
+			$es4.$$constructor($$thisp, (function ($$$$string)
+			{
+				//set default parameter values
+				var string = $es4.$$coerce($$$$string, String);
+
+				if (!string)
+				{
+					return;
+				}
+				$es4.$$set($$thisp, $$this, $$thisp, '_dehydratedObj', $es4.$$call(JSON, $$this, $$thisp, 'parse', [string]) || {}, '=');
+				$es4.$$get($$thisp, $$this, $$thisp, '_dehydratedObj', 'dehydrated') || {};
+				$es4.$$set($$thisp, $$this, $$thisp, '_hydratedIDs', {}, '=');
+				$es4.$$set($$thisp, $$this, $$thisp, '_result', $es4.$$call($$thisp, $$this, $$thisp, 'hydrateObject', [$es4.$$get($$thisp, $$this, $$thisp, '_dehydratedObj', 'dehydrated'), $es4.$$get($$thisp, $$this, $$thisp, '_dehydratedObj', 'type')]), '=');
+			}));
+
+			//method
+			$es4.$$private_function('hydrateObject', $$thisp, (function ($$$$object, $$$$type)
+			{
+				//set default parameter values
+				var object = $es4.$$coerce($$$$object, Object);
+				var type = $es4.$$coerce($$$$type, String);
+
+				if ($es4.$$get($$thisp, $$this, $$thisp, '_hydratedIDs', $es4.$$get(object, $$this, $$thisp, 'id')) !== undefined)
+				{
+					return $es4.$$get($$thisp, $$this, $$thisp, '_hydratedIDs', $es4.$$get(object, $$this, $$thisp, 'id'));
+				}
+				var properties = null;
+				var propertyName = null;
+				var robject = type === 'array' ? [] : {};
+				$es4.$$set($$thisp, $$this, $$thisp, '_hydratedIDs', $es4.$$get(object, $$this, $$thisp, 'id'), robject, '=');
+				properties = $es4.$$get(object, $$this, $$thisp, 'p') || {};
+				for (var $$i0 = (properties || $es4.$$EMPTY_OBJECT).$$nextNameIndex(0); $$i0 != 0; $$i0 = properties.$$nextNameIndex($$i0))
+				{
+					propertyName = $es4.$$coerce(properties.$$nextName($$i0), String);
+
+					$es4.$$set(robject, $$this, $$thisp, propertyName, $es4.$$call($$thisp, $$this, $$thisp, 'getValueObject', [$es4.$$get(properties, $$this, $$thisp, propertyName)]), '=');
+				}
+				return robject;
+			}));
+
+			//method
+			$es4.$$private_function('getValueObject', $$thisp, (function ($$$$object)
+			{
+				//set default parameter values
+				var object = $$$$object;
+
+				if ($es4.$$is(object, String) && object == '__NaN__')
+				{
+					return $es4.$$coerce(NaN, Object);
+				}
+				if ($es4.$$is(object, String))
+				{
+					return $es4.$$call(Base64Util, $$this, $$thisp, 'decodeString', [object]);
+				}
+				if ($es4.$$is(object, Number) || $es4.$$is(object, Boolean) || object == null)
+				{
+					return object;
+				}
+				if ($es4.$$get(object, $$this, $$thisp, 'constructor') == Object)
+				{
+					if ($es4.$$get(object, $$this, $$thisp, 'r') !== undefined)
+					{
+						var id = $es4.$$coerce($es4.$$get(object, $$this, $$thisp, 'r'), String);
+						var obj = $es4.$$get($$thisp, $$this, $$thisp, '_dehydratedObj', 'o');
+						return $es4.$$call($$thisp, $$this, $$thisp, 'hydrateObject', [$es4.$$get(obj, $$this, $$thisp, id), $es4.$$get(obj, $$this, $$thisp, id, 'type')]);
+					}
+				}
+				throw $es4.$$primitive(new (Error)('unknown value type'));
+			}));
+
+			//accessor
+			$es4.$$public_accessor('result', $$thisp, (function ()
+			{
+				return $es4.$$get($$thisp, $$this, $$thisp, '_result');
+			}), null);
+
+			//call construct if no arguments, or argument zero does not equal manual construct
+			if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
+			{
+				for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
+
+				$es4.$$construct($$this, $$args);
+			}
+		}
+
+		return $es4.$$class(Hydrate, null, 'Hydrate');
+	})();
+
+	////////////////INTERNAL CLASS////////////////
+	var Dehydrate = (function ()
+	{
+		//imports
+		var getDefinitionByName;
+		var getQualifiedClassName;
+		var Dictionary;
+		var Base64Util;
+
+		//class initializer
+		Dehydrate.$$cinit = (function ()
+		{
+			Dehydrate.$$cinit = undefined;
+
+			//initialize imports
+			getDefinitionByName = $es4.$$['flash.utils'].getDefinitionByName;
+			getQualifiedClassName = $es4.$$['flash.utils'].getQualifiedClassName;
+			Dictionary = $es4.$$['flash.utils'].Dictionary;
+			Base64Util = $es4.$$['sweetrush.utils'].Base64Util;
+		});
+
+		function Dehydrate()
+		{
+			//initialize class if not initialized
+			if (Dehydrate.$$cinit !== undefined) Dehydrate.$$cinit();
+
+			//save scope
+			var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
+			var $$thisp = this;
+
+			//handle possible cast
+			if ($$this === $$thisp && (!($$this instanceof Dehydrate) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Dehydrate) : $es4.$$throwArgumentError();
+			Object.defineProperty($$this, '$$t', {value:1});
+
+			//properties
+			$es4.$$private_property('_dehydratedObjects', $$thisp, Object);
+			$es4.$$private_property('_dehydratedNodes', $$thisp, Dictionary);
+			$es4.$$private_property('_idCounter', $$thisp, int);
+			$es4.$$private_property('_result', $$thisp, String);
+
+			//initializer
+			$es4.$$iinit($$thisp, (function ()
+			{
+				//initialize properties
+				$es4.$$set($$this, $$this, $$thisp, '_dehydratedObjects', {}, '=');
+				$es4.$$set($$this, $$this, $$thisp, '_dehydratedNodes', $es4.$$primitive(new (Dictionary)()), '=');
+				$es4.$$set($$this, $$this, $$thisp, '_idCounter', 1, '=');
+			}));
+
+			//constructor
+			$es4.$$constructor($$thisp, (function ($$$$persistable)
+			{
+				//set default parameter values
+				var persistable = $$$$persistable;
+
+				var dehydrated = $es4.$$call($$thisp, $$this, $$thisp, 'dehydrateObject', [persistable]);
+				var obj = {};
+				$es4.$$set(obj, $$this, $$thisp, 'dehydrated', dehydrated, '=');
+				$es4.$$set(obj, $$this, $$thisp, 'type', $es4.$$is(persistable, Array) ? 'array' : 'object', '=');
+				$es4.$$set(obj, $$this, $$thisp, 'o', $es4.$$get($$thisp, $$this, $$thisp, '_dehydratedObjects'), '=');
+				$es4.$$set($$thisp, $$this, $$thisp, '_result', $es4.$$call(JSON, $$this, $$thisp, 'stringify', [obj]), '=');
+			}));
+
+			//method
+			$es4.$$private_function('dehydrateObject', $$thisp, (function ($$$$object)
+			{
+				//set default parameter values
+				var object = $es4.$$coerce($$$$object, Object);
+
+				var dehydrated = $es4.$$call($$thisp, $$this, $$thisp, 'getDehydrated', [object]);
+				if (dehydrated)
+				{
+					return dehydrated;
+				}
+				dehydrated = {};
+				$es4.$$set(dehydrated, $$this, $$thisp, 'id', $es4.$$call($$thisp, $$this, $$thisp, 'generateID', $es4.$$EMPTY_ARRAY), '=');
+				$es4.$$set(dehydrated, $$this, $$thisp, 'type', $es4.$$is(object, Array) ? 'array' : 'object', '=');
+				$es4.$$set($$thisp, $$this, $$thisp, '_dehydratedNodes', object, dehydrated, '=');
+				if ($es4.$$is(object, Array) || $es4.$$is($es4.$$typeof($es4.$$call(object, $$this, $$thisp, 'valueOf', $es4.$$EMPTY_ARRAY)), Object))
+				{
+					$es4.$$set($$thisp, $$this, $$thisp, '_dehydratedObjects', $es4.$$get(dehydrated, $$this, $$thisp, 'id'), dehydrated, '=');
+					for (var $$i1 = (object || $es4.$$EMPTY_OBJECT).$$nextNameIndex(0); $$i1 != 0; $$i1 = object.$$nextNameIndex($$i1))
+					{
+						var property = $es4.$$coerce(object.$$nextName($$i1), String);
+
+						if ($es4.$$get(dehydrated, $$this, $$thisp, 'p') === undefined)
+						{
+							$es4.$$set(dehydrated, $$this, $$thisp, 'p', {}, '=');
+						}
+						$es4.$$set(dehydrated, $$this, $$thisp, 'p', property, $es4.$$call($$thisp, $$this, $$thisp, 'getValue', [$es4.$$get(object, $$this, $$thisp, property)]), '=');
+					}
+					return dehydrated;
+				}
+				throw $es4.$$primitive(new (Error)('Type is not supported for dehydration'));
+			}));
+
+			//method
+			$es4.$$private_function('getDehydrated', $$thisp, (function ($$$$object)
+			{
+				//set default parameter values
+				var object = $es4.$$coerce($$$$object, Object);
+
+				return $es4.$$get($$thisp, $$this, $$thisp, '_dehydratedNodes', object);
+			}));
+
+			//method
+			$es4.$$private_function('getValue', $$thisp, (function ($$$$object)
+			{
+				//set default parameter values
+				var object = $es4.$$coerce($$$$object, Object);
+
+				if ($es4.$$is(object, String))
+				{
+					return $es4.$$call(Base64Util, $$this, $$thisp, 'encodeString', [$es4.$$as(object, String)]);
+				}
+				if ($es4.$$is(object, Number) && isNaN($es4.$$as(object, Number)))
+				{
+					return '__NaN__';
+				}
+				if ($es4.$$is(object, Number) || $es4.$$is(object, Boolean) || object == null)
+				{
+					return object;
+				}
+				object = $es4.$$call($$thisp, $$this, $$thisp, 'dehydrateObject', [object]);
+				return {r:$es4.$$get(object, $$this, $$thisp, 'id')};
+			}));
+
+			//method
+			$es4.$$private_function('generateID', $$thisp, (function ()
+			{
+				return $es4.$$call(($es4.$$set($$thisp, $$this, $$thisp, '_idCounter', 'postfix', '++')), $$this, $$thisp, 'toString', $es4.$$EMPTY_ARRAY);
+			}));
+
+			//accessor
+			$es4.$$public_accessor('result', $$thisp, (function ()
+			{
+				return $es4.$$get($$thisp, $$this, $$thisp, '_result');
+			}), null);
+
+			//call construct if no arguments, or argument zero does not equal manual construct
+			if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
+			{
+				for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
+
+				$es4.$$construct($$this, $$args);
+			}
+		}
+
+		return $es4.$$class(Dehydrate, null, 'Dehydrate');
+	})();
+
+	return $es4.$$class(JsonUtil, {CLASSES:[Hydrate, Dehydrate]}, 'sweetrush.utils::JsonUtil');
+})();
+//sweetrush.utils.JsonUtil
+
+
+$es4.$$['sweetrush.obj'].Token.$$pcinit();
+
+$es4.$$['sweetrush'].Transcompiler.$$pcinit();
+
+$es4.$$['sweetrush.core'].TranslatorPrototype.$$pcinit();
+
+$es4.$$['sweetrush.utils'].Base64Util.$$pcinit();
+
 $es4.$$['sweetrush.obj'].Construct.$$pcinit();
 
 $es4.$$['sweetrush.core'].TranslatorProto.$$pcinit();
 
-$es4.$$['sweetrush'].Transcompiler.$$pcinit();
-
-$es4.$$['sweetrush.utils'].Base64Util.$$pcinit();
-
-$es4.$$['sweetrush.utils'].SwcUtil.$$pcinit();
-
-$es4.$$['sweetrush.obj'].Token.$$pcinit();
-
 $es4.$$['sweetrush.core'].Analyzer.$$pcinit();
-
-$es4.$$['sweetrush.core'].Parser.$$pcinit();
-
-$es4.$$['sweetrush.core'].TranslatorPrototype.$$pcinit();
-
-$es4.$$['sweetrush.utils'].JsonUtil.$$pcinit();
 
 $es4.$$['sweetrush.core'].Lexer.$$pcinit();
 
+$es4.$$['sweetrush.core'].Parser.$$pcinit();
+
+$es4.$$['sweetrush.utils'].SwcUtil.$$pcinit();
+
 $es4.$$['sweetrush.utils'].FileUtil.$$pcinit();
+
+$es4.$$['sweetrush.utils'].JsonUtil.$$pcinit();
 
 window.as3_js = new $es4.$$['sweetrush'].Transcompiler($es4.$$MANUAL_CONSTRUCT)
 $es4.$$construct(window.as3_js, $es4.$$EMPTY_ARRAY);
