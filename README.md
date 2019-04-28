@@ -25,11 +25,11 @@ private var foo1:* = foo2; //undefined, not 5
 private var foo2:* = 5;
 ```
   - weak references
-  - named closures in conditionals
+  - named closures in conditionals:
  ```actionscript
 if (false) function foo() {} //compilation error
 ```
-  - non-unique custom namespace identifiers
+  - non-unique custom namespace identifiers:
  ```actionscript
 public var myNamespace; 
 namespace myNamespace = 'foo'; //conflict
@@ -158,6 +158,7 @@ trace(hello.say()); //outputs hello world to console
 * The original purpose of this project was to convert *valid* AS3 to JS, so consider first compiling with Apache Flex for improved error checking.
 * Outstanding bug: missing semicolons will cause compilation errors in some instances...recommend always using semicolons for now. 
 * Recommended IDE: [IntelliJ][intellij]
+* E4X support is limited *(see docs for details)*
 
    [swc]: <https://en.wikipedia.org/wiki/Adobe_SWC_file>
    [with]: <https://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/statements.html#with>
