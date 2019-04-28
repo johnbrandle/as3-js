@@ -1254,14 +1254,17 @@ $es4.$$window.isXMLName = function()
 	throw new Error('isXMLName is not supported at this time.');
 }
 
+/*
 $es4.$$window.onerror = function(errorMsg, url, lineNumber, colno, error) 
 {
-	var event = new CustomEvent('ERROR', {'detail':{'msg':errorMsg, 'url':url, 'line':lineNumber, 'error':error}});
+    var event = document.createEvent('CustomEvent');
+    event.initCustomEvent('ERROR', false, false, {'msg':errorMsg, 'url':url, 'line':lineNumber, 'error':error});
 	$es4.$$window.dispatchEvent(event);
 	
 	var message = errorMsg + ', ' + url + ', ' + lineNumber;
 	if (!trace(message)) console.log(message);
 };
+*/
 
 $es4.$$class(Number, undefined, 'Number');
 $es4.$$class(String, undefined, 'String');

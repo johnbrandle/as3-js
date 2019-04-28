@@ -48,7 +48,7 @@
     <!-- Settings for the application's initial window. Required. -->
     <initialWindow>
         <!-- The main SWF or HTML file of the application. Required. -->
-        <content>transcompiler.swf</content>
+        <content>as3_js.swf</content>
 
         <!-- The title of the main window. Optional. -->
         <!--<title></title>-->

@@ -39,8 +39,7 @@ package sweetrush
 
 		CONFIG::air
 		{
-			public static var baseDir = 'S:/Source_Control/git/transcompiler/tools/transcompiler';
-			//public static var baseDir = 'S:/Source_Control/srf/helium/4/framework/tools/transcompiler';
+			public static var baseDir = 'S:/Source_Control/git/as3-js';
 
 			public function Transcompiler()
 			{
@@ -51,17 +50,17 @@ package sweetrush
 			{
 				removeEventListener(flash.events.Event.ADDED_TO_STAGE, onAddedToStage);
 
-				var command:String = 'transcompiler';
+				var command:String = 'as3_js';
 				var translationMode:uint = 3;
 
 				switch (command)
 				{
-					case 'transcompiler':
+					case 'as3_js':
 						var result:Object = compileTranscompiler(1, 'node');
-						FileUtil.write(FileUtil.getExcludedPath() + '/_generated/transcompiler.js', result.js);
+						FileUtil.write(FileUtil.getExcludedPath() + '/_generated/as3_js.js', result.js);
 						break;
 					case 'tests':
-						var result:Object = compile({srcDir:FileUtil.getBasePath() + '/_excluded/tests', mainFile:"", compileConstants:{'CONFIG::air':'false', 'CONFIG::node':'true'}, includeBootstrap:false, includePlayerGlobal:false, expose:'', translationMode:translationMode, excludeDirectories:['_excluded', 'node_modules']}, 'node');
+						var result:Object = compile({srcDir:FileUtil.getBasePath() + '/_excluded/tests', mainFile:"", compileConstants:{'CONFIG::air':'false', 'CONFIG::node':'true'}, includeBootstrap:false, includePlayerGlobal:false, expose:'', translationMode:translationMode, excludeDirectories:['_excluded', 'node_modules'], platform:'node'});
 						trace(result.js);
 						break;
 
@@ -71,10 +70,10 @@ package sweetrush
 
 		public function compileTranscompiler(translationMode:Number=1, platform:String='node')
 		{
-			return compile({srcDir:FileUtil.getBasePath(), mainFile:"sweetrush/Transcompiler.as", compileConstants:{'CONFIG::air':'false', 'CONFIG::node':'true'}, includeBootstrap:true, includePlayerGlobal:true, expose:'transcompiler', translationMode:translationMode, excludeDirectories:['_excluded', 'node_modules']}, platform);
+			return compile({srcDir:FileUtil.getBasePath(), mainFile:"sweetrush/Transcompiler.as", compileConstants:{'CONFIG::air':'false', 'CONFIG::node':'true'}, includeBootstrap:true, includePlayerGlobal:true, expose:'as3_js', translationMode:translationMode, excludeDirectories:['_excluded', 'node_modules'], platform:platform});
 		}
 
-		public function compile(params:Object, platform:String='node') //the platform we are building for (node, browser, player (browser+))
+		public function compile(params:Object) //the platform we are building for (node, browser, player (browser+))
 		{
 			var srcDir:String = params.srcDir; //where your *.as files are located
 			var mainFile:String = params.mainFile; //e.g., sweetrush/Application.as
@@ -86,9 +85,10 @@ package sweetrush
 			var rootConstructs:Array = params.rootConstructs || []; //alternative to using swc
 			var swcOnly:Boolean = params.swcOnly; //compile swc only
 			var excludeDirectories:Array = params.excludeDirectories || []; //directories to exclude
-			var includeBootstrap:Boolean = params.includeBootstrap; //should bootstrap js be included in js output?
-			var includePlayerGlobal:Boolean = params.includePlayerGlobal; //should playerglobal js be included in the js output?
-			var expose:String = params.expose ? params.expose : null; //what, if any, variable name we will set the created instance to
+			var includeBootstrap:Boolean = params.includeBootstrap !== undefined ? params.includeBootstrap : true; //should bootstrap js be included in js output?
+			var includePlayerGlobal:Boolean = params.includePlayerGlobal !== undefined ? params.includePlayerGlobal : includeBootstrap; //should playerglobal js be included in the js output?
+			var expose:String = params.expose; //what, if any, variable name we will set the created instance to
+			var platform:String = params.platform || 'node';
 			var special:Boolean = params.special; //we are compiling either playerglobal or builtin; either way, do not add builtin or playerglobal swcs automatically
 
 			//fix all the paths
@@ -437,7 +437,7 @@ package sweetrush
 			if (!_builtinSWC)
 			{
 				var srcDir = FileUtil.getExcludedPath() + '/builtin';
-				var result = compile({srcDir:srcDir, translationMode:1, special:true}, platform);
+				var result = compile({srcDir:srcDir, translationMode:1, special:true, platform:platform});
 				FileUtil.write(builtinSWCFile, result.swc);
 
 				_builtinSWC = SwcUtil.parseSWCString(result.swc);
@@ -463,7 +463,7 @@ package sweetrush
 			if (!_playerGlobalSWC)
 			{
 				var srcDir = FileUtil.getExcludedPath() + '/playerglobal';
-				var result = compile({srcDir:srcDir, translationMode:translationMode, swcs:[getBuiltinSWC(platform)], special:true}, platform);
+				var result = compile({srcDir:srcDir, translationMode:translationMode, swcs:[getBuiltinSWC(platform)], special:true, platform:platform});
 				FileUtil.write(playerGlobalSWCFile, result.swc);
 				FileUtil.write(playerGlobalJSFile, result.js);
 

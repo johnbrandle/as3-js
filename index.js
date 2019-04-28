@@ -1,3 +1,1 @@
-const transcompiler = require('./_excluded/_generated/transcompiler');
-
-module.exports = transcompiler;
+module.exports = require('./_excluded/_generated/as3_js');
