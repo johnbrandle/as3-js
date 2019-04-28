@@ -2,6 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="342607d7-5e25-44ce-bad1-bffc82e2954e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.swf" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.swf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/builtin.browser.swc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/builtin.node.swc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/builtin.player.swc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/playerglobal.node.1.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/playerglobal.node.swc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/playerglobal.player.3.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/playerglobal.player.swc" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sweetrush/Transcompiler.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/Transcompiler.as" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -19,8 +29,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sweetrush/Transcompiler.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="439" column="137" selection-start-line="439" selection-start-column="137" selection-end-line="439" selection-end-column="137" />
+            <state relative-caret-position="756">
+              <caret line="471" column="71" selection-start-line="471" selection-start-column="71" selection-end-line="471" selection-end-column="71" />
             </state>
           </provider>
         </entry>
@@ -28,7 +38,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sweetrush/core/Analyzer.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2227">
+            <state relative-caret-position="2358">
               <caret line="131" selection-start-line="131" selection-end-line="131" />
             </state>
           </provider>
@@ -37,7 +47,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sweetrush/utils/JsonUtil.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1122">
+            <state relative-caret-position="1188">
               <caret line="66" column="23" selection-start-line="66" selection-start-column="23" selection-end-line="66" selection-end-column="23" />
             </state>
           </provider>
@@ -193,10 +203,10 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-12" />
-    <option name="y" value="-12" />
-    <option name="width" value="2580" />
-    <option name="height" value="1422" />
+    <option name="x" value="-10" />
+    <option name="y" value="-10" />
+    <option name="width" value="2150" />
+    <option name="height" value="1185" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -224,7 +234,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556485001611" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556488502705" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../srf/helium/4/framework/tools/build" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -357,12 +367,12 @@
       <workItem from="1555086226192" duration="604000" />
       <workItem from="1556469984299" duration="4778000" />
       <workItem from="1556479668074" duration="1339000" />
-      <workItem from="1556481017249" duration="1197000" />
+      <workItem from="1556481017249" duration="4223000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="259496000" />
+    <option name="totallyTimeSpent" value="262522000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -374,11 +384,11 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1721" height="944" extended-state="6" />
+    <frame x="-7" y="-7" width="2062" height="1136" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.82512313" visible="true" weight="0.23780856" />
-      <window_info id="Structure" order="1" sideWeight="0.17487685" side_tool="true" visible="true" weight="0.23780856" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8247012" visible="true" weight="0.1973027" />
+      <window_info id="Structure" order="1" sideWeight="0.17529881" side_tool="true" visible="true" weight="0.1973027" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
@@ -387,7 +397,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.22783251" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32968128" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.341133" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.28585657" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32978722" />
@@ -396,7 +406,7 @@
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
-      <window_info anchor="bottom" id="Messages" order="12" weight="0.20197044" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.20119523" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.24975026" />
@@ -713,21 +723,21 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sweetrush/Transcompiler.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="439" column="137" selection-start-line="439" selection-start-column="137" selection-end-line="439" selection-end-column="137" />
+        <state relative-caret-position="756">
+          <caret line="471" column="71" selection-start-line="471" selection-start-column="71" selection-end-line="471" selection-end-column="71" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sweetrush/core/Analyzer.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2227">
+        <state relative-caret-position="2358">
           <caret line="131" selection-start-line="131" selection-end-line="131" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sweetrush/utils/JsonUtil.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1122">
+        <state relative-caret-position="1188">
           <caret line="66" column="23" selection-start-line="66" selection-start-column="23" selection-end-line="66" selection-end-column="23" />
         </state>
       </provider>

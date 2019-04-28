@@ -30,12 +30,7 @@ package sweetrush
 	{
 		public static var DEBUG:Boolean = true;
 
-		private static var _builtinSWCString:String;
-		private static var _builtinSWC:Object;
-
-		private static var _playerGlobalSWCString:String;
-		private static var _playerGlobalSWC:Object;
-		private static var _playerGlobalJS:String;
+		private static var _swcs = {builtin:{}, playerGlobal:{}};
 
 		CONFIG::air
 		{
@@ -56,8 +51,20 @@ package sweetrush
 				switch (command)
 				{
 					case 'as3_js':
-						var result:Object = compileTranscompiler(1, 'node');
-						FileUtil.write(FileUtil.getExcludedPath() + '/_generated/as3_js.js', result.js);
+						var modes:Array = [1, 3];
+						var platforms:Array = ['node', 'browser', 'player'];
+						for (var i = platforms.length; i--;)
+						{
+							var platform:String = platforms[i];
+
+							for (var j = modes.length; j--;)
+							{
+								var mode:uint = modes[j];
+
+								var result:Object = compileTranscompiler(mode, platform);
+								FileUtil.write(FileUtil.getExcludedPath() + '/_generated/as3_js.' + platform + '.' + mode + '.js', result.js);
+							}
+						}
 						break;
 					case 'tests':
 						var result:Object = compile({srcDir:FileUtil.getBasePath() + '/_excluded/tests', mainFile:"", compileConstants:{'CONFIG::air':'false', 'CONFIG::node':'true'}, includeBootstrap:false, includePlayerGlobal:false, expose:'', translationMode:translationMode, excludeDirectories:['_excluded', 'node_modules'], platform:'node'});
@@ -426,60 +433,43 @@ package sweetrush
 
 		private function getBuiltinSWC(platform:String):Object
 		{
+			if (_swcs['builtin'][platform]) return _swcs['builtin'][platform];
+
 			var builtinSWCFile:String = FileUtil.getExcludedPath() + '/_generated/builtin.' + platform + '.swc';
 			var builtinSWCString:String = FileUtil.exists(builtinSWCFile) ? FileUtil.read(builtinSWCFile) : null;
-			if (builtinSWCString && _builtinSWCString != builtinSWCString && SwcUtil.isValidSWCString(builtinSWCString))
-			{
-				_builtinSWC = SwcUtil.parseSWCString(builtinSWCString);
-				_builtinSWCString = builtinSWCString;
-			}
+			if (builtinSWCString && SwcUtil.isValidSWCString(builtinSWCString)) return SwcUtil.parseSWCString(builtinSWCString);
 
-			if (!_builtinSWC)
-			{
-				var srcDir = FileUtil.getExcludedPath() + '/builtin';
-				var result = compile({srcDir:srcDir, translationMode:1, special:true, includeBootstrap:false, includePlayerGlobal:false, platform:platform});
-				FileUtil.write(builtinSWCFile, result.swc);
+			var srcDir = FileUtil.getExcludedPath() + '/builtin';
+			var result = compile({srcDir:srcDir, translationMode:1, special:true, includeBootstrap:false, includePlayerGlobal:false, platform:platform});
+			FileUtil.write(builtinSWCFile, result.swc);
 
-				_builtinSWC = SwcUtil.parseSWCString(result.swc);
-				_builtinSWCString = result.swc;
-			}
-
-			return _builtinSWC;
+			return _swcs['builtin'][platform] = SwcUtil.parseSWCString(result.swc);
 		}
 
 		private function getPlayerGlobalSWC(translationMode:Number, platform:String):Object
 		{
+			if (_swcs['builtin'][platform + '_' + translationMode]) return _swcs['builtin'][platform + '_' + translationMode][1];
+
 			var playerGlobalSWCFile:String = FileUtil.getExcludedPath() + '/_generated/playerglobal.' + platform + '.swc';
 			var playerGlobalJSFile:String = FileUtil.getExcludedPath() + '/_generated/playerglobal.' + platform + '.' + translationMode + '.js';
 			var playerGlobalSWCString:String = FileUtil.exists(playerGlobalSWCFile) ? FileUtil.read(playerGlobalSWCFile) : null;
 			var playerGlobalJS:String = FileUtil.exists(playerGlobalJSFile) ? FileUtil.read(playerGlobalJSFile) : null;
-			if (playerGlobalSWCString && playerGlobalJS && _playerGlobalSWCString != playerGlobalSWCString && SwcUtil.isValidSWCString(playerGlobalSWCString))
-			{
-				_playerGlobalSWC = SwcUtil.parseSWCString(playerGlobalSWCString);
-				_playerGlobalJS = playerGlobalJS;
-				_playerGlobalSWCString = playerGlobalSWCString;
-			}
+			if (playerGlobalSWCString && playerGlobalJS && SwcUtil.isValidSWCString(playerGlobalSWCString)) return SwcUtil.parseSWCString(playerGlobalSWCString);
 
-			if (!_playerGlobalSWC)
-			{
-				var srcDir = FileUtil.getExcludedPath() + '/playerglobal';
-				var result = compile({srcDir:srcDir, translationMode:translationMode, swcs:[getBuiltinSWC(platform)], special:true, includeBootstrap:false, includePlayerGlobal:false, platform:platform});
-				FileUtil.write(playerGlobalSWCFile, result.swc);
-				FileUtil.write(playerGlobalJSFile, result.js);
+			var srcDir = FileUtil.getExcludedPath() + '/playerglobal';
+			var result = compile({srcDir:srcDir, translationMode:translationMode, swcs:[getBuiltinSWC(platform)], special:true, includeBootstrap:false, includePlayerGlobal:false, platform:platform});
+			FileUtil.write(playerGlobalSWCFile, result.swc);
+			FileUtil.write(playerGlobalJSFile, result.js);
 
-				_playerGlobalSWC = SwcUtil.parseSWCString(result.swc);
-				_playerGlobalSWCString = result.swc;
-				_playerGlobalJS = result.js;
-			}
-
-			return _playerGlobalSWC;
+			_swcs['builtin'][platform + '_' + translationMode] = [playerGlobalJS];
+			return _swcs['builtin'][platform + '_' + translationMode][1] = SwcUtil.parseSWCString(result.swc);
 		}
 
 		private function getPlayerGlobalJS(translationMode:Number, platform:String):Object
 		{
-			if (!_playerGlobalSWC) getPlayerGlobalSWC(translationMode, platform);
+			if (!_swcs['builtin'][platform + '_' + translationMode]) getPlayerGlobalSWC(translationMode, platform);
 
-			return _playerGlobalJS;
+			return _swcs['builtin'][platform + '_' + translationMode][0];
 		}
 
 		public function getLexer():Class

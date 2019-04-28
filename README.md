@@ -83,7 +83,7 @@ fs.writeFileSync('c:/projects/hello/build/js/hello.js', result.js, 'utf8');
 ```
 ##### Browser (Runtime)
 ```html
-<script src="node_modules/@johnbrandle/as3-js/_excluded/_generated/as3_js.js"></script>
+<script src="node_modules/@johnbrandle/as3-js/_excluded/_generated/as3_js.browser.3.js"></script>
 <script>
     let request = new XMLHttpRequest();
     request.open('GET', 'node_modules/@johnbrandle/as3-js/_excluded/_generated/builtin.browser.swc', false); //recommend changing this to asynch
