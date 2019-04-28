@@ -13,8 +13,8 @@ as3-js is an ActionScript 3 to JavaScript compiler, with both browser and Node.j
   - Run-time compilation
   - [SWC files][swc]
   - flash.* API
-  - XML, XMLList, Proxy, Dictionary, and E4X (*see notes*)
-  - Almost all ActionScript 3 language features
+  - XML, XMLList, Proxy, Dictionary, and E4X* (*see docs*)
+  - Almost all AS3 language features
 
 # Does not support:
   - [with][with]
@@ -158,7 +158,6 @@ trace(hello.say()); //outputs hello world to console
 * The original purpose of this project was to convert *valid* AS3 to JS, so consider first compiling with Apache Flex for improved error checking.
 * Outstanding bug: missing semicolons will cause compilation errors in some instances...recommend always using semicolons for now. 
 * Recommended IDE: [IntelliJ][intellij]
-* E4X support is limited *(see docs for details)*
 
    [swc]: <https://en.wikipedia.org/wiki/Adobe_SWC_file>
    [with]: <https://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/statements.html#with>
