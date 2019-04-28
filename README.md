@@ -16,7 +16,7 @@ as3-js is an ActionScript 3 to JavaScript compiler, with both browser and Node.j
   - XML, XMLList, Proxy, Dictionary, and E4X (*see notes*)
   - Almost all ActionScript 3 language features
 
-## Does not support:
+# Does not support:
   - [with][with]
   - package-level static initializers (class-level supported)
   - lazy initialization of non-static property values:
@@ -35,7 +35,7 @@ as3-js is an ActionScript 3 to JavaScript compiler, with both browser and Node.j
         namespace myNamespace = 'foo'; //conflict
 ```
 
-## Basic Usage:
+# Basic Usage:
 
 ##### Browser
 ```actionscript
@@ -148,22 +148,16 @@ const hello = require('./modules/hello');
 trace(hello.say()); //outputs hello world to console
 ```
 
-
-
-## Advanced Usage:
+# Advanced Usage:
 
 *see docs*
 
+# Notes:
 
-
-
-
-## Notes:
-
-—For the "browser" platform, recommend loading compiled js files in an iframe *(see docs for details)*
-—The original purpose of this project was to convert *valid* AS3 to JS, so consider first compiling with Apache Flex for improved error checking.
-—Outstanding bug: missing semicolons can cause compilation errors in some instances. Recommend always using semicolons for now. 
-—Recommended: [IntelliJ][intellij]
+* For the "browser" platform, recommend loading compiled js files in an iframe *(see docs for details)*
+* The original purpose of this project was to convert *valid* AS3 to JS, so consider first compiling with Apache Flex for improved error checking.
+* Outstanding bug: missing semicolons can cause compilation errors in some instances. Recommend always using semicolons for now. 
+* Recommended IDE: [IntelliJ][intellij]
 
    [swc]: <https://en.wikipedia.org/wiki/Adobe_SWC_file>
    [with]: <https://help.adobe.com/en_US/FlashPlatform/reference/actionscript/3/statements.html#with>
