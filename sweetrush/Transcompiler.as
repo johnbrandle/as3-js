@@ -437,7 +437,7 @@ package sweetrush
 			if (!_builtinSWC)
 			{
 				var srcDir = FileUtil.getExcludedPath() + '/builtin';
-				var result = compile({srcDir:srcDir, translationMode:1, special:true, platform:platform});
+				var result = compile({srcDir:srcDir, translationMode:1, special:true, includeBootstrap:false, includePlayerGlobal:false, platform:platform});
 				FileUtil.write(builtinSWCFile, result.swc);
 
 				_builtinSWC = SwcUtil.parseSWCString(result.swc);
@@ -463,7 +463,7 @@ package sweetrush
 			if (!_playerGlobalSWC)
 			{
 				var srcDir = FileUtil.getExcludedPath() + '/playerglobal';
-				var result = compile({srcDir:srcDir, translationMode:translationMode, swcs:[getBuiltinSWC(platform)], special:true, platform:platform});
+				var result = compile({srcDir:srcDir, translationMode:translationMode, swcs:[getBuiltinSWC(platform)], special:true, includeBootstrap:false, includePlayerGlobal:false, platform:platform});
 				FileUtil.write(playerGlobalSWCFile, result.swc);
 				FileUtil.write(playerGlobalJSFile, result.js);
 

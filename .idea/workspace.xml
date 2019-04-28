@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="342607d7-5e25-44ce-bad1-bffc82e2954e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/_generated/transcompiler.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/_generated/transcompiler.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/_generated/transcompiler.swf" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/transcompiler.swf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/bootstrap/bootstrap.browser.player.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/bootstrap/bootstrap.browser.player.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sweetrush/Transcompiler.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/Transcompiler.as" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/transcompiler.iml" beforeDir="false" afterPath="$PROJECT_DIR$/as3_js.iml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -29,8 +19,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sweetrush/Transcompiler.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="730">
-              <caret line="134" selection-start-line="134" selection-end-line="134" />
+            <state relative-caret-position="221">
+              <caret line="439" column="137" selection-start-line="439" selection-start-column="137" selection-end-line="439" selection-end-column="137" />
             </state>
           </provider>
         </entry>
@@ -64,7 +54,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>convertArrayBufferToBase64String</find>
       <find>insertIncludes</find>
       <find>compileConstants[compileConstantIdentifier]</find>
       <find>window.URI</find>
@@ -94,6 +83,7 @@
       <find>expose</find>
       <find>Swc</find>
       <find>SwcUtil</find>
+      <find>includeBoo</find>
     </findStrings>
     <replaceStrings>
       <replace>grammar</replace>
@@ -234,7 +224,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556481056304" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1556485001611" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../srf/helium/4/framework/tools/build" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -367,12 +357,12 @@
       <workItem from="1555086226192" duration="604000" />
       <workItem from="1556469984299" duration="4778000" />
       <workItem from="1556479668074" duration="1339000" />
-      <workItem from="1556481017249" duration="39000" />
+      <workItem from="1556481017249" duration="1197000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="258338000" />
+    <option name="totallyTimeSpent" value="259496000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -385,8 +375,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1721" height="944" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.82512313" visible="true" weight="0.23780856" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.82512313" visible="true" weight="0.23780856" />
       <window_info id="Structure" order="1" sideWeight="0.17487685" side_tool="true" visible="true" weight="0.23780856" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -394,7 +385,7 @@
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.22808765" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.22783251" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32968128" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.341133" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
@@ -722,8 +713,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sweetrush/Transcompiler.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="730">
-          <caret line="134" selection-start-line="134" selection-end-line="134" />
+        <state relative-caret-position="221">
+          <caret line="439" column="137" selection-start-line="439" selection-start-column="137" selection-end-line="439" selection-end-column="137" />
         </state>
       </provider>
     </entry>
@@ -793,12 +784,11 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>as3_js</last-edited>
+          <last-edited>as3_js|as3_js</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.2" />
-                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
