@@ -20,17 +20,17 @@ as3-js is an ActionScript 3 to JavaScript compiler, with both browser and Node.j
   - [with][with]
   - package-level static initializers (class-level supported)
   - lazy initialization of non-static property values:
-```actionscript
+```actionscript3
 private var foo1:* = foo2; //undefined, not 5
 private var foo2:* = 5;
 ```
   - weak references
   - named closures in conditionals:
- ```actionscript
+ ```actionscript3
 if (false) function foo() {} //compilation error
 ```
   - non-unique custom namespace identifiers:
- ```actionscript
+ ```actionscript3
 public var myNamespace; 
 namespace myNamespace = 'foo'; //conflict
 ```
