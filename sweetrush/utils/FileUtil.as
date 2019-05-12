@@ -198,7 +198,7 @@ package sweetrush.utils
 		{
 			function filter(file, basePath)
 			{
-				return file;
+				return file.isHidden() ? null : file;
 			}
 
 			return filter;
@@ -385,7 +385,11 @@ internal class VFile
 
 	public function isHidden()
 	{
-		return false;
+		var parts = this.src.split('/');
+		if (!isDirectory()) parts.pop();
+		var src = parts.join('/');
+
+		return src.indexOf('/.') !== -1;
 	}
 
 	public function equals(file)

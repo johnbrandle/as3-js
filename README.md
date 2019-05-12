@@ -31,7 +31,7 @@ if (false) function foo() {} //compilation error
 ```
   - non-unique custom namespace identifiers:
  ```actionscript3
-public var myNamespace; 
+public var myNamespace;
 namespace myNamespace = 'foo'; //conflict
 ```
 
@@ -63,7 +63,7 @@ package com.foo
 
 const as3_js = require('@johnbrandle/as3-js');
 
-let props = 
+let props =
 {
 	srcDir:'c:/projects/hello/source', //where *.as files are located
 	mainFile:'/com/foo/Hello.as', //main class file relative location to srcDir
@@ -93,17 +93,17 @@ fs.writeFileSync('c:/projects/hello/build/js/hello.js', result.js, 'utf8');
     let request = new XMLHttpRequest();
     request.open('GET', 'node_modules/@johnbrandle/as3-js/_excluded/_generated/builtin.browser.swc', false); //recommend changing this to asynch
     request.send(null);
-  
+
     let constructs = as3_js.getSwcUtil().parseSWCString(request.responseText); //recommend caching result
-  
+
     let script = 'trace("hello world");';
     let code = 'package { public function actionScript(scope:Object, args:*):* { return (function() {' + script + '\n\n}).apply(scope, args || []); } }';  
-  
+
     let construct = as3_js.getAnalyzer().analyze(as3_js.getParser().parse(as3_js.getLexer().lex(code).tokens), constructs, 3, true, true);  
     let result = as3_js.getTranslator().translate(construct, constructs, true, false, false);  
 
-    let value = '(function() { var $window = this; var window = $window.parent || $window; var document = window.document; var $es4 = window.$es4 || (window.$es4 = {}); var _ = window._; var $ = window.$; var alert = window.alert;\n\n' + result + '\n\n})();';  
-  
+    let value = '(function() { var $window = this; var window = $window.parent || $window; var document = window.document; var $es4 = window.$es4 || (window.$es4 = {}); var _ = window._; var $ = window.$;\n\n' + result + '\n\n})();';  
+
     eval(value); //outputs hello world to console
 </script>
 ```
@@ -120,7 +120,7 @@ package com.foo
         public function say():String
         {
             const os = require('os');
-			
+
             return os.platform() == 'aix' ? global.Buffer.from('hello world').toString() : 'hello world';
         }
     }
@@ -132,7 +132,7 @@ package com.foo
 
 const as3_js = require('@johnbrandle/as3-js');
 
-let props = 
+let props =
 {
 	srcDir:'c:/projects/hello/source', //where *.as files are located
 	mainFile:'/com/foo/Hello.as', //main class file relative location to srcDir
@@ -161,7 +161,7 @@ trace(hello.say()); //outputs hello world to console
 
 * For the "browser" platform, recommend loading compiled js files in an iframe *(see docs for details)*
 * The original purpose of this project was to convert *valid* AS3 to JS, so consider first compiling with Apache Flex for improved error checking.
-* Outstanding bug: missing semicolons will cause compilation errors in some instances...recommend always using semicolons for now. 
+* Outstanding bug: missing semicolons will cause compilation errors in some instances...recommend always using semicolons for now.
 * Recommended IDE: [IntelliJ][intellij]
 
    [swc]: <https://en.wikipedia.org/wiki/Adobe_SWC_file>
