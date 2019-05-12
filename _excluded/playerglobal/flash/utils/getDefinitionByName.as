@@ -13,8 +13,8 @@ package flash.utils
 		var definitionName = parts.pop();
 		var packageName = parts.join('.');
 		
-		if ($$[packageName] === undefined || $$[packageName][definitionName] === undefined) throw new Error('Variable ' + name + ' is not defined.');
+		if ($es4.$$[packageName] === undefined || $es4.$$[packageName][definitionName] === undefined) throw new Error('Variable ' + name + ' is not defined.');
 		
-		return $$[packageName][definitionName];
+		return $es4.$$[packageName][definitionName];
 	}
 }

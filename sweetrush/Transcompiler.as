@@ -249,9 +249,9 @@ package sweetrush
 				var name = parts.pop();
 				var packageName = (parts.length) ? parts.join('.') : '';
 
-				returnObject = "return new $es4.$$['" + packageName + "']." + name + '($es4.$$MANUAL_CONSTRUCT)';
+				returnObject = "new $es4.$$['" + packageName + "']." + name + '($es4.$$MANUAL_CONSTRUCT)';
 			}
-			else returnObject = "return new $es4.$$['flash.display'].Sprite($es4.$$MANUAL_CONSTRUCT)";
+			else returnObject = "new $es4.$$['flash.display'].Sprite($es4.$$MANUAL_CONSTRUCT)";
 
 			var lastLine = '';
 			if (expose)
@@ -263,6 +263,7 @@ package sweetrush
 			}
 
 			if (includeBootstrap && includePlayerGlobal && !mainFile) lastLine += "return $es4.$$['player'].Player;";
+			else if (platform != 'node') lastLine += 'return ' + returnObject + ';';
 			else lastLine += returnObject + ';';
 
 			if (!special) js.push(lastLine);
