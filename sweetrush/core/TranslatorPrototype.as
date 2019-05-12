@@ -76,7 +76,7 @@ package sweetrush.core
                         js += packageConstruct.classConstruct.identifierToken.data + ' = null;\n';
                         return js;
                     }
-                    js = (packageConstruct.nameConstruct) ? '$$package(\'' + Construct.nameConstructToString(packageConstruct.nameConstruct) + '\')' : 'global';
+                    js = (packageConstruct.nameConstruct) ? '$es4.$$package(\'' + Construct.nameConstructToString(packageConstruct.nameConstruct) + '\')' : 'global';
                     js += '.' + packageConstruct.classConstruct.identifierToken.data;
                     js += ' = function () { throw new Error(\'Use of unimplemented class: ' + packageConstruct.classConstruct.identifierToken.data + '\'); }';
                     js += '\n';
