@@ -1,176 +1,232 @@
 //__ES4__
 
-(function() { var $window = this; var window = $window.parent || $window; var global = window; var document = window.document; var $es4 = window.$es4 || (window.$es4 = {}); var _ = window._; var $ = window.$; var alert = window.alert; 
+(function() { var $window = this; var window = $window.parent || $window; var global = window; var document = window.document; var $es4 = window.$es4 || (window.$es4 = {}); var _ = window._; var $ = window.$; 
 
 //flash.utils.flash_proxy
 $es4.$$package('flash.utils').flash_proxy = $es4.$$namespace('http://www.sweetrush.com/flash/proxy', true);
 //flash.utils.flash_proxy
 
 
-//flash.display.Sprite
-$es4.$$package('flash.display').Sprite = (function ()
-{
-	//class pre initializer
-	Sprite.$$sinit = (function ()
-	{
-		Sprite.$$sinit = undefined;
-
-		//set prototype and constructor
-		Sprite.prototype = Object.create(Object.prototype);
-		Object.defineProperty(Sprite.prototype, "constructor", { value: Sprite, enumerable: false });
-
-		//hold private values
-		Object.defineProperty(Sprite.prototype, '$$v', {value:{}});
-	});
-
-	//class initializer
-	Sprite.$$cinit = (function ()
-	{
-		Sprite.$$cinit = undefined;
-	});
-
-	function Sprite()
-	{
-		var $$this;
-
-		//save scope
-		if (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) $$this = arguments[1];
-		else
-		{
-			var $$this = this;
-
-			if (!($$this instanceof Sprite) || $$this.$$Sprite !== undefined) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Sprite) : $es4.$$throwArgumentError();
-		}
-
-		//call construct if no arguments, or argument zero does not equal manual construct
-		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
-		{
-			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
-
-			Sprite.$$construct($$this, $$args);
-		}
-	}
-
-	//construct
-	Sprite.$$construct = (function ($$this, args)
-	{
-		//initialize function if not initialized
-		if (Sprite.$$cinit !== undefined) Sprite.$$cinit();
-
-		//hold property values, and methods
-		Object.defineProperty($$this, '$$Sprite', {value:{$$this:$$this, $$p:{}, $$ns:{}}});
-
-
-		//initialize properties
-		Sprite.$$iinit($$this);
-
-		//call constructor
-		if (args !== undefined) Sprite.$$constructor.apply($$this, args);
-	});
-
-	//initializer
-	Sprite.$$iinit = (function ($$this)
-	{
-	});
-
-	//constructor
-	Sprite.$$constructor = (function ()
-	{
-		var $$this = this;
-	});
-
-	return $es4.$$class(Sprite, null, 'flash.display::Sprite');
-})();
-//flash.display.Sprite
-
-
-//flash.events.TextEvent
-$es4.$$package('flash.events').TextEvent = (function ()
+//flash.events.Event
+$es4.$$package('flash.events').Event = (function ()
 {
 	//imports
 	var Event;
-	var TextEvent;
-
-	//properties
-	var $$j = {};
-	TextEvent.LINK = "link";
-	TextEvent.TEXT_INPUT = "textInput";
 
 	//class pre initializer
-	TextEvent.$$sinit = (function ()
+	Event.$$sinit = (function ()
 	{
-		TextEvent.$$sinit = undefined;
+		Event.$$sinit = undefined;
 
 		//initialize imports
-		Event = $es4.$$['flash.events'].Event;
-
-		//ensure $$sinit is called on super class
-		if (Event.$$sinit !== undefined) Event.$$sinit();
-
 		//set prototype and constructor
-		TextEvent.prototype = Object.create(Event.prototype);
-		Object.defineProperty(TextEvent.prototype, "constructor", { value: TextEvent, enumerable: false });
+		Event.prototype = Object.create(Object.prototype);
+		Object.defineProperty(Event.prototype, "constructor", { value: Event, enumerable: false });
 
 		//hold private values
-		Object.defineProperty(TextEvent.prototype, '$$v', {value:{}});
+		Object.defineProperty(Event.prototype, '$$v', {value:{}});
 
 		//public instance method
-		Object.defineProperty(TextEvent.prototype, 'clone', {
+		Object.defineProperty(Event.prototype, '$__properties', {
+		get:function ()
+		{
+			var $$this = this;
+
+			function $__properties($$$$object)
+			{
+				//set default parameter values
+				var object = (0 > arguments.length - 1) ? null : $$$$object;
+
+				if ($$this.$$Event.$_properties === undefined)
+				{
+					object.EventScope = {$_target:null, $_currentTarget:null, $_eventPhase:null, $_withTarget:Event.$_withTarget, $_originalTarget:null};
+					object.TLScope = $$this;
+					return $$this.$$Event.$_properties = object;
+				}
+				return $$this.$$Event.$_properties;
+			}
+
+			return $$this.$$Event.$$$__properties || ($$this.$$Event.$$$__properties = $__properties);
+		}});
+
+
+		//public instance method
+		Object.defineProperty(Event.prototype, 'clone', {
 		get:function ()
 		{
 			var $$this = this;
 
 			function clone()
 			{
-				return $es4.$$coerce($es4.$$primitive(new TextEvent($$this.type, $$this.bubbles, $$this.cancelable, $$this.text)), Event);
+				return $es4.$$coerce($es4.$$primitive(new Event($$this.$$Event.$_properties.EventScope.$_type, $$this.$$Event.$_properties.EventScope.$_bubbles, $$this.$$Event.$_properties.EventScope.$_cancelable)), $es4.$$['flash.events'].Event);
 			}
 
-			return $$this.$$TextEvent.$$clone || ($$this.$$TextEvent.$$clone = clone);
+			return $$this.$$Event.$$clone || ($$this.$$Event.$$clone = clone);
 		}});
 
 
 		//public instance method
-		Object.defineProperty(TextEvent.prototype, 'toString', {
+		Object.defineProperty(Event.prototype, 'formatToString', {
+		get:function ()
+		{
+			var $$this = this;
+
+			function formatToString($$$$className, $$$$args)
+			{
+				//set default parameter values
+				var className = $es4.$$coerce($$$$className, String);
+				for (var $$i = 1, $$length = arguments.length, args = new Array($$length - 1); $$i < $$length; $$i += 1) args[$$i - 1] = arguments[$$i];
+
+				var str = '[' + className;
+				for (var i = 0; i < args.length; i++)
+				{
+					str += ' ' + args[i] + '="' + $$this[args[i]] + '"';
+				}
+				str += ']';
+				return str;
+			}
+
+			return $$this.$$Event.$$formatToString || ($$this.$$Event.$$formatToString = formatToString);
+		}});
+
+
+		//public instance method
+		Object.defineProperty(Event.prototype, 'isDefaultPrevented', {
+		get:function ()
+		{
+			var $$this = this;
+
+			function isDefaultPrevented()
+			{
+				return $es4.$$coerce($$this.$$Event.$_properties.EventScope.$_defaultPrevented, Boolean);
+			}
+
+			return $$this.$$Event.$$isDefaultPrevented || ($$this.$$Event.$$isDefaultPrevented = isDefaultPrevented);
+		}});
+
+
+		//public instance method
+		Object.defineProperty(Event.prototype, 'preventDefault', {
+		get:function ()
+		{
+			var $$this = this;
+
+			function preventDefault()
+			{
+				if ($$this.$$Event.$_properties.EventScope.$_cancelable)
+				{
+					$$this.$$Event.$_properties.EventScope.$_defaultPrevented = true;
+				}
+			}
+
+			return $$this.$$Event.$$preventDefault || ($$this.$$Event.$$preventDefault = preventDefault);
+		}});
+
+
+		//public instance method
+		Object.defineProperty(Event.prototype, 'stopImmediatePropagation', {
+		get:function ()
+		{
+			var $$this = this;
+
+			function stopImmediatePropagation()
+			{
+				$$this.$$Event.$_properties.EventScope.$_immediatePropagationStopped = true;
+			}
+
+			return $$this.$$Event.$$stopImmediatePropagation || ($$this.$$Event.$$stopImmediatePropagation = stopImmediatePropagation);
+		}});
+
+
+		//public instance method
+		Object.defineProperty(Event.prototype, 'stopPropagation', {
+		get:function ()
+		{
+			var $$this = this;
+
+			function stopPropagation()
+			{
+				$$this.$$Event.$_properties.EventScope.$_propagationStopped = true;
+			}
+
+			return $$this.$$Event.$$stopPropagation || ($$this.$$Event.$$stopPropagation = stopPropagation);
+		}});
+
+
+		//public instance method
+		Object.defineProperty(Event.prototype, 'toString', {
 		get:function ()
 		{
 			var $$this = this;
 
 			function toString()
 			{
-				return $$this.formatToString('TextEvent', 'bubbles', 'cancelable', 'text');
+				return $$this.formatToString('Event', 'type', 'bubbles', 'cancelable');
 			}
 
-			return $$this.$$TextEvent.$$toString || ($$this.$$TextEvent.$$toString = toString);
+			return $$this.$$Event.$$toString || ($$this.$$Event.$$toString = toString);
 		}});
 
-		Object.defineProperty(TextEvent.prototype, 'text', {get:function ()
+		Object.defineProperty(Event.prototype, 'bubbles', {get:function ()
 		{
 			var $$this = this;
-			return $$this.$$TextEvent._text;
-		}, set:function ($$$$value)
+			return $es4.$$coerce($$this.$$Event.$_properties.EventScope.$_bubbles, Boolean);
+		}});
+		Object.defineProperty(Event.prototype, 'cancelable', {get:function ()
 		{
-			//set default parameter values
-			var value = $es4.$$coerce($$$$value, String);
-
 			var $$this = this;
-			$$this.$$TextEvent._text = value;
+			return $es4.$$coerce($$this.$$Event.$_properties.EventScope.$_cancelable, Boolean);
+		}});
+		Object.defineProperty(Event.prototype, 'currentTarget', {get:function ()
+		{
+			var $$this = this;
+			return $$this.$$Event.$_properties.EventScope.$_currentTarget;
+		}});
+		Object.defineProperty(Event.prototype, 'eventPhase', {get:function ()
+		{
+			var $$this = this;
+			return $es4.$$coerce($$this.$$Event.$_properties.EventScope.$_eventPhase, uint);
+		}});
+		Object.defineProperty(Event.prototype, 'target', {get:function ()
+		{
+			var $$this = this;
+			return $$this.$$Event.$_properties.EventScope.$_target;
+		}});
+		Object.defineProperty(Event.prototype, 'type', {get:function ()
+		{
+			var $$this = this;
+			return $es4.$$coerce($$this.$$Event.$_properties.EventScope.$_type, String);
 		}});
 
 		//properties
-		TextEvent.prototype.$$v._text = {
-		get:function () { var $$this = this.$$this; return $$this.$$TextEvent.$$p._text; },
-		set:function (value) { var $$this = this.$$this; $$this.$$TextEvent.$$p._text = $es4.$$coerce(value, String); }
+		Event.prototype.$$v.$_properties = {
+		get:function () { var $$this = this.$$this; return $$this.$$Event.$$p.$_properties; },
+		set:function (value) { var $$this = this.$$this; $$this.$$Event.$$p.$_properties = value }
 		};
 
 	});
 
 	//class initializer
-	TextEvent.$$cinit = (function ()
+	Event.$$cinit = (function ()
 	{
-		TextEvent.$$cinit = undefined;
+		Event.$$cinit = undefined;
 	});
 
-	function TextEvent()
+	//private static method
+	Event.$_withTarget = (function ($$$$event, $$$$target)
+	{
+		if (Event.$$cinit !== undefined) Event.$$cinit();
+
+		//set default parameter values
+		var event = $es4.$$coerce($$$$event, $es4.$$['flash.events'].Event);
+		var target = $es4.$$coerce($$$$target, Object);
+
+		var properties = event.$__properties();
+		event = properties.EventScope.$_target ? event.clone() : event;
+		event.$__properties().EventScope.$_target = target;
+		return event;
+	});
+	function Event()
 	{
 		var $$this;
 
@@ -180,7 +236,7 @@ $es4.$$package('flash.events').TextEvent = (function ()
 		{
 			var $$this = this;
 
-			if (!($$this instanceof TextEvent) || $$this.$$TextEvent !== undefined) return (arguments.length !== 0) ? $es4.$$as(arguments[0], TextEvent) : $es4.$$throwArgumentError();
+			if (!($$this instanceof Event) || $$this.$$Event !== undefined) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Event) : $es4.$$throwArgumentError();
 		}
 
 		//call construct if no arguments, or argument zero does not equal manual construct
@@ -188,736 +244,58 @@ $es4.$$package('flash.events').TextEvent = (function ()
 		{
 			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
 
-			TextEvent.$$construct($$this, $$args);
+			Event.$$construct($$this, $$args);
 		}
 	}
 
 	//construct
-	TextEvent.$$construct = (function ($$this, args)
+	Event.$$construct = (function ($$this, args)
 	{
 		//initialize function if not initialized
-		if (TextEvent.$$cinit !== undefined) TextEvent.$$cinit();
+		if (Event.$$cinit !== undefined) Event.$$cinit();
 
 		//hold property values, and methods
-		Object.defineProperty($$this, '$$TextEvent', {value:{$$this:$$this, $$p:{}, $$ns:{}}});
+		Object.defineProperty($$this, '$$Event', {value:{$$this:$$this, $$p:{}, $$ns:{}}});
 
-		Object.defineProperty($$this.$$TextEvent, '_text', TextEvent.prototype.$$v._text);
-
-		//call construct on super
-		Event.$$construct($$this);
+		Object.defineProperty($$this.$$Event, '$_properties', Event.prototype.$$v.$_properties);
 
 		//initialize properties
-		TextEvent.$$iinit($$this);
-
-		//call constructor
-		if (args !== undefined) TextEvent.$$constructor.apply($$this, args);
-	});
-
-	//initializer
-	TextEvent.$$iinit = (function ($$this)
-	{
-		//initialize properties
-		$$this.$$TextEvent.$$p._text = $es4.$$coerce(undefined, String);
-	
-		//call iinit on super
 		Event.$$iinit($$this);
+
+		//call constructor
+		if (args !== undefined) Event.$$constructor.apply($$this, args);
+	});
+
+	//initializer
+	Event.$$iinit = (function ($$this)
+	{
+		//initialize properties
+		$$this.$$Event.$$p.$_properties = undefined;
+	
 	});
 
 	//constructor
-	TextEvent.$$constructor = (function ($$$$type, $$$$bubbles, $$$$cancelable, $$$$text)
+	Event.$$constructor = (function ($$$$type, $$$$bubbles, $$$$cancelable)
 	{
 		var $$this = this;
 		//set default parameter values
 		var type = $es4.$$coerce($$$$type, String);
 		var bubbles = (1 > arguments.length - 1) ? false : $es4.$$coerce($$$$bubbles, Boolean);
 		var cancelable = (2 > arguments.length - 1) ? false : $es4.$$coerce($$$$cancelable, Boolean);
-		var text = (3 > arguments.length - 1) ? "" : $es4.$$coerce($$$$text, String);
 
-		Event.$$constructor.call($$this, type, bubbles, cancelable);
-		$$this.$$TextEvent._text = text;
+		if ($$this.$$Event.$_properties === undefined)
+		{
+			$$this.$__properties({});
+		}
+		var properties = $$this.$$Event.$_properties.EventScope;
+		properties.$_type = type;
+		properties.$_bubbles = bubbles;
+		properties.$_cancelable = cancelable;
 	});
 
-	return $es4.$$class(TextEvent, {EXTENDS:'flash.events.Event'}, 'flash.events::TextEvent');
+	return $es4.$$class(Event, null, 'flash.events::Event');
 })();
-//flash.events.TextEvent
-
-
-//flash.net.ObjectEncoding
-$es4.$$package('flash.net').ObjectEncoding = (function ()
-{
-	//imports
-	var IDynamicPropertyWriter;
-
-	//properties
-	var $$j = {};
-	ObjectEncoding.AMF0 = 0;
-	ObjectEncoding.AMF3 = 3;
-	ObjectEncoding.DEFAULT = 3;
-
-	//class pre initializer
-	ObjectEncoding.$$sinit = (function ()
-	{
-		ObjectEncoding.$$sinit = undefined;
-
-		//initialize imports
-		IDynamicPropertyWriter = $es4.$$['flash.net'].IDynamicPropertyWriter;
-
-		//set prototype and constructor
-		ObjectEncoding.prototype = Object.create(Object.prototype);
-		Object.defineProperty(ObjectEncoding.prototype, "constructor", { value: ObjectEncoding, enumerable: false });
-
-		//hold private values
-		Object.defineProperty(ObjectEncoding.prototype, '$$v', {value:{}});
-	});
-
-	//class initializer
-	ObjectEncoding.$$cinit = (function ()
-	{
-		ObjectEncoding.$$cinit = undefined;
-	});
-
-	Object.defineProperty(ObjectEncoding, 'dynamicPropertyWriter', {get:function ()
-	{
-		if (ObjectEncoding.$$cinit !== undefined) ObjectEncoding.$$cinit();
-
-		throw $es4.$$primitive(new Error('ObjectEncoding: attempted call to an unimplemented function "dynamicPropertyWriter"'));
-	}, set:function ($$$$object)
-	{
-		if (ObjectEncoding.$$cinit !== undefined) ObjectEncoding.$$cinit();
-
-		//set default parameter values
-		var object = $es4.$$coerce($$$$object, IDynamicPropertyWriter);
-
-		throw $es4.$$primitive(new Error('ObjectEncoding: attempted call to an unimplemented function "dynamicPropertyWriter"'));
-	}});
-
-	function ObjectEncoding()
-	{
-		var $$this;
-
-		//save scope
-		if (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) $$this = arguments[1];
-		else
-		{
-			var $$this = this;
-
-			if (!($$this instanceof ObjectEncoding) || $$this.$$ObjectEncoding !== undefined) return (arguments.length !== 0) ? $es4.$$as(arguments[0], ObjectEncoding) : $es4.$$throwArgumentError();
-		}
-
-		//call construct if no arguments, or argument zero does not equal manual construct
-		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
-		{
-			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
-
-			ObjectEncoding.$$construct($$this, $$args);
-		}
-	}
-
-	//construct
-	ObjectEncoding.$$construct = (function ($$this, args)
-	{
-		//initialize function if not initialized
-		if (ObjectEncoding.$$cinit !== undefined) ObjectEncoding.$$cinit();
-
-		//hold property values, and methods
-		Object.defineProperty($$this, '$$ObjectEncoding', {value:{$$this:$$this, $$p:{}, $$ns:{}}});
-
-
-		//initialize properties
-		ObjectEncoding.$$iinit($$this);
-
-		//call constructor
-		if (args !== undefined) ObjectEncoding.$$constructor.apply($$this, args);
-	});
-
-	//initializer
-	ObjectEncoding.$$iinit = (function ($$this)
-	{
-	});
-
-	//constructor
-	ObjectEncoding.$$constructor = (function ()
-	{
-		var $$this = this;
-		throw $es4.$$primitive(new Error('ObjectEncoding: attempted call to an unimplemented constructor'));
-	});
-
-	return $es4.$$class(ObjectEncoding, null, 'flash.net::ObjectEncoding');
-})();
-//flash.net.ObjectEncoding
-
-
-//flash.utils.Proxy
-$es4.$$package('flash.utils').Proxy = (function ()
-{
-	//imports
-	var flash_proxy;
-
-	//class pre initializer
-	Proxy.$$sinit = (function ()
-	{
-		Proxy.$$sinit = undefined;
-
-		//initialize imports
-		flash_proxy = $es4.$$['flash.utils'].flash_proxy;
-
-		//set prototype and constructor
-		Proxy.prototype = Object.create(Object.prototype);
-		Object.defineProperty(Proxy.prototype, "constructor", { value: Proxy, enumerable: false });
-
-		//hold private values
-		Object.defineProperty(Proxy.prototype, '$$v', {value:{}});
-
-		//private instance method
-		Proxy.prototype.$$v.$$get = {
-		get:function ()
-		{
-			var $$this = this.$$this;
-
-			function $$get($$$$key)
-			{
-				//set default parameter values
-				var key = $$$$key;
-
-				return $$this.$$namespace($$this.flash_proxy).getProperty(key);
-			}
-
-			return $$this.$$Proxy.$$p.$$$$get || ($$this.$$Proxy.$$p.$$$$get = $$get);
-		}};
-
-
-		//private instance method
-		Proxy.prototype.$$v.$$set = {
-		get:function ()
-		{
-			var $$this = this.$$this;
-
-			function $$set($$$$key, $$$$value)
-			{
-				//set default parameter values
-				var key = $$$$key;
-				var value = $$$$value;
-
-				$$this.$$namespace($$this.flash_proxy).setProperty(key, value);
-				return value;
-			}
-
-			return $$this.$$Proxy.$$p.$$$$set || ($$this.$$Proxy.$$p.$$$$set = $$set);
-		}};
-
-
-		//private instance method
-		Proxy.prototype.$$v.$$call = {
-		get:function ()
-		{
-			var $$this = this.$$this;
-
-			function $$call($$$$name, $$$$args)
-			{
-				//set default parameter values
-				var name = $$$$name;
-				var args = $es4.$$coerce($$$$args, Array);
-
-				args.unshift(name);
-				return $$this.$$namespace($$this.flash_proxy).callProperty.apply($$this, args);
-			}
-
-			return $$this.$$Proxy.$$p.$$$$call || ($$this.$$Proxy.$$p.$$$$call = $$call);
-		}};
-
-
-		//private instance method
-		Proxy.prototype.$$v.$$delete = {
-		get:function ()
-		{
-			var $$this = this.$$this;
-
-			function $$delete($$$$key)
-			{
-				//set default parameter values
-				var key = $$$$key;
-
-				return $$this.$$namespace($$this.flash_proxy).deleteProperty(key);
-			}
-
-			return $$this.$$Proxy.$$p.$$$$delete || ($$this.$$Proxy.$$p.$$$$delete = $$delete);
-		}};
-
-
-		//private instance method
-		Proxy.prototype.$$v.$$nextName = {
-		get:function ()
-		{
-			var $$this = this.$$this;
-
-			function $$nextName($$$$index)
-			{
-				//set default parameter values
-				var index = $es4.$$coerce($$$$index, int);
-
-				return $$this.$$namespace($$this.flash_proxy).nextName(index);
-			}
-
-			return $$this.$$Proxy.$$p.$$$$nextName || ($$this.$$Proxy.$$p.$$$$nextName = $$nextName);
-		}};
-
-
-		//private instance method
-		Proxy.prototype.$$v.$$nextNameIndex = {
-		get:function ()
-		{
-			var $$this = this.$$this;
-
-			function $$nextNameIndex($$$$index)
-			{
-				//set default parameter values
-				var index = $es4.$$coerce($$$$index, int);
-
-				return $$this.$$namespace($$this.flash_proxy).nextNameIndex(index);
-			}
-
-			return $$this.$$Proxy.$$p.$$$$nextNameIndex || ($$this.$$Proxy.$$p.$$$$nextNameIndex = $$nextNameIndex);
-		}};
-
-
-		//private instance method
-		Proxy.prototype.$$v.$$nextValue = {
-		get:function ()
-		{
-			var $$this = this.$$this;
-
-			function $$nextValue($$$$index)
-			{
-				//set default parameter values
-				var index = $es4.$$coerce($$$$index, int);
-
-				return $$this.$$namespace($$this.flash_proxy).nextValue(index);
-			}
-
-			return $$this.$$Proxy.$$p.$$$$nextValue || ($$this.$$Proxy.$$p.$$$$nextValue = $$nextValue);
-		}};
-
-		//properties
-		Proxy.prototype.$$v.$$isProxy = {
-		get:function () { var $$this = this.$$this; return $$this.$$Proxy.$$p.$$isProxy; },
-		set:function (value) { var $$this = this.$$this; $$this.$$Proxy.$$p.$$isProxy = $es4.$$coerce(value, Boolean); }
-		};
-
-		Proxy.prototype.$$v.$keys = {
-		get:function () { var $$this = this.$$this; return $$this.$$Proxy.$$p.$keys; },
-		set:function (value) { var $$this = this.$$this; $$this.$$Proxy.$$p.$keys = $es4.$$coerce(value, Array); }
-		};
-
-		Proxy.prototype.$$v.$values = {
-		get:function () { var $$this = this.$$this; return $$this.$$Proxy.$$p.$values; },
-		set:function (value) { var $$this = this.$$this; $$this.$$Proxy.$$p.$values = $es4.$$coerce(value, Array); }
-		};
-
-	});
-
-	//class initializer
-	Proxy.$$cinit = (function ()
-	{
-		Proxy.$$cinit = undefined;
-	});
-
-	function Proxy()
-	{
-		var $$this;
-
-		//save scope
-		if (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) $$this = arguments[1];
-		else
-		{
-			var $$this = this;
-
-			if (!($$this instanceof Proxy) || $$this.$$Proxy !== undefined) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Proxy) : $es4.$$throwArgumentError();
-		}
-
-		//call construct if no arguments, or argument zero does not equal manual construct
-		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
-		{
-			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
-
-			Proxy.$$construct($$this, $$args);
-		}
-	}
-
-	//construct
-	Proxy.$$construct = (function ($$this, args)
-	{
-		//initialize function if not initialized
-		if (Proxy.$$cinit !== undefined) Proxy.$$cinit();
-
-		//hold property values, and methods
-		Object.defineProperty($$this, '$$Proxy', {value:{$$this:$$this, $$p:{}, $$ns:{}}});
-
-
-			//custom namespace method
-			$es4.$$cnamespace_function('deleteProperty', $$this, $$this.$$Proxy.$$ns, $['flash.utils'].flash_proxy, (function ($$$$name)
-			{
-				//set default parameter values
-				var name = $$$$name;
-
-				for (var i = 0; i < $$this.$$Proxy.$keys.length; i++)
-				{
-					if ($$this.$$Proxy.$keys[i] == name)
-					{
-						break;
-					}
-				}
-				if (i == $$this.$$Proxy.$keys.length)
-				{
-					return false;
-				}
-				$$this.$$Proxy.$keys.splice(i, 1);
-				$$this.$$Proxy.$values.splice(i, 1);
-				return true;
-			}));
-
-
-
-			//custom namespace method
-			$es4.$$cnamespace_function('getProperty', $$this, $$this.$$Proxy.$$ns, $['flash.utils'].flash_proxy, (function ($$$$name)
-			{
-				//set default parameter values
-				var name = $$$$name;
-
-				for (var i = 0; i < $$this.$$Proxy.$keys.length; i++)
-				{
-					if ($$this.$$Proxy.$keys[i] == name)
-					{
-						break;
-					}
-				}
-				if (i == $$this.$$Proxy.$keys.length)
-				{
-					return undefined;
-				}
-				return $$this.$$Proxy.$values[i];
-			}));
-
-
-
-			//custom namespace method
-			$es4.$$cnamespace_function('setProperty', $$this, $$this.$$Proxy.$$ns, $['flash.utils'].flash_proxy, (function ($$$$name, $$$$value)
-			{
-				//set default parameter values
-				var name = $$$$name;
-				var value = $$$$value;
-
-				for (var i = 0; i < $$this.$$Proxy.$keys.length; i++)
-				{
-					if ($$this.$$Proxy.$keys[i] == name)
-					{
-						break;
-					}
-				}
-				$$this.$$Proxy.$keys[i] = name;
-				$$this.$$Proxy.$values[i] = value;
-			}));
-
-
-
-			//custom namespace method
-			$es4.$$cnamespace_function('hasProperty', $$this, $$this.$$Proxy.$$ns, $['flash.utils'].flash_proxy, (function ($$$$name)
-			{
-				//set default parameter values
-				var name = $$$$name;
-
-				for (var i = 0; i < $$this.$$Proxy.$keys.length; i++)
-				{
-					if ($$this.$$Proxy.$keys[i] == name)
-					{
-						return true;
-					}
-				}
-				return false;
-			}));
-
-
-
-			//custom namespace method
-			$es4.$$cnamespace_function('nextName', $$this, $$this.$$Proxy.$$ns, $['flash.utils'].flash_proxy, (function ($$$$index)
-			{
-				//set default parameter values
-				var index = $es4.$$coerce($$$$index, int);
-
-				return $es4.$$coerce($$this.$$Proxy.$keys[index - 1], String);
-			}));
-
-
-
-			//custom namespace method
-			$es4.$$cnamespace_function('nextNameIndex', $$this, $$this.$$Proxy.$$ns, $['flash.utils'].flash_proxy, (function ($$$$index)
-			{
-				//set default parameter values
-				var index = $es4.$$coerce($$$$index, int);
-
-				return (index < $$this.$$Proxy.$keys.length) ? index + 1 : 0;
-			}));
-
-
-
-			//custom namespace method
-			$es4.$$cnamespace_function('nextValue', $$this, $$this.$$Proxy.$$ns, $['flash.utils'].flash_proxy, (function ($$$$index)
-			{
-				//set default parameter values
-				var index = $es4.$$coerce($$$$index, int);
-
-				return $$this.$$Proxy.$values[index - 1];
-			}));
-
-
-
-			//custom namespace method
-			$es4.$$cnamespace_function('callProperty', $$this, $$this.$$Proxy.$$ns, $['flash.utils'].flash_proxy, (function ($$$$name, $$$$rest)
-			{
-				//set default parameter values
-				var name = $$$$name;
-				for (var $$i = 1, $$length = arguments.length, rest = new Array($$length - 1); $$i < $$length; $$i += 1) rest[$$i - 1] = arguments[$$i];
-
-				for (var i = 0; i < $$this.$$Proxy.$keys.length; i++)
-				{
-					if ($$this.$$Proxy.$keys[i] == name)
-					{
-						break;
-					}
-				}
-				if (i == $$this.$$Proxy.$keys.length)
-				{
-					throw $es4.$$primitive(new Error('property not found'));
-				}
-				return $$this.$$Proxy.$values[i].apply($$this, rest);
-			}));
-
-
-
-			//custom namespace method
-			$es4.$$cnamespace_function('getDescendants', $$this, $$this.$$Proxy.$$ns, $['flash.utils'].flash_proxy, (function ($$$$name)
-			{
-				//set default parameter values
-				var name = $$$$name;
-
-				throw $es4.$$primitive(new Error('Proxy: not implemented'));
-			}));
-
-
-
-			//custom namespace method
-			$es4.$$cnamespace_function('isAttribute', $$this, $$this.$$Proxy.$$ns, $['flash.utils'].flash_proxy, (function ($$$$name)
-			{
-				//set default parameter values
-				var name = $$$$name;
-
-				throw $es4.$$primitive(new Error('Proxy: not implemented'));
-			}));
-
-
-		Object.defineProperty($$this.$$Proxy, '$$isProxy', Proxy.prototype.$$v.$$isProxy);
-		Object.defineProperty($$this.$$Proxy, '$keys', Proxy.prototype.$$v.$keys);
-		Object.defineProperty($$this.$$Proxy, '$values', Proxy.prototype.$$v.$values);
-
-		//private instance method
-		Object.defineProperty($$this.$$Proxy, '$$get', Proxy.prototype.$$v.$$get);
-
-		//private instance method
-		Object.defineProperty($$this.$$Proxy, '$$set', Proxy.prototype.$$v.$$set);
-
-		//private instance method
-		Object.defineProperty($$this.$$Proxy, '$$call', Proxy.prototype.$$v.$$call);
-
-		//private instance method
-		Object.defineProperty($$this.$$Proxy, '$$delete', Proxy.prototype.$$v.$$delete);
-
-		//private instance method
-		Object.defineProperty($$this.$$Proxy, '$$nextName', Proxy.prototype.$$v.$$nextName);
-
-		//private instance method
-		Object.defineProperty($$this.$$Proxy, '$$nextNameIndex', Proxy.prototype.$$v.$$nextNameIndex);
-
-		//private instance method
-		Object.defineProperty($$this.$$Proxy, '$$nextValue', Proxy.prototype.$$v.$$nextValue);
-
-		//initialize properties
-		Proxy.$$iinit($$this);
-
-		//call constructor
-		if (args !== undefined) Proxy.$$constructor.apply($$this, args);
-	});
-
-	//initializer
-	Proxy.$$iinit = (function ($$this)
-	{
-		//initialize properties
-		$$this.$$Proxy.$$p.$$isProxy = $es4.$$coerce(true, Boolean);
-		$$this.$$Proxy.$$p.$keys = $es4.$$coerce([], Array);
-		$$this.$$Proxy.$$p.$values = $es4.$$coerce([], Array);
-	
-	});
-
-	//constructor
-	Proxy.$$constructor = (function ()
-	{
-		var $$this = this;
-	});
-
-	return $es4.$$class(Proxy, null, 'flash.utils::Proxy');
-})();
-//flash.utils.Proxy
-
-
-//flash.events.ErrorEvent
-$es4.$$package('flash.events').ErrorEvent = (function ()
-{
-	//imports
-	var Event;
-	var TextEvent;
-	var ErrorEvent;
-
-	//properties
-	var $$j = {};
-	ErrorEvent.ERROR = 'error';
-
-	//class pre initializer
-	ErrorEvent.$$sinit = (function ()
-	{
-		ErrorEvent.$$sinit = undefined;
-
-		//initialize imports
-		Event = $es4.$$['flash.events'].Event;
-		TextEvent = $es4.$$['flash.events'].TextEvent;
-
-		//ensure $$sinit is called on super class
-		if (TextEvent.$$sinit !== undefined) TextEvent.$$sinit();
-
-		//set prototype and constructor
-		ErrorEvent.prototype = Object.create(TextEvent.prototype);
-		Object.defineProperty(ErrorEvent.prototype, "constructor", { value: ErrorEvent, enumerable: false });
-
-		//hold private values
-		Object.defineProperty(ErrorEvent.prototype, '$$v', {value:{}});
-
-		//public instance method
-		Object.defineProperty(ErrorEvent.prototype, 'clone', {
-		get:function ()
-		{
-			var $$this = this;
-
-			function clone()
-			{
-				return $es4.$$coerce($es4.$$primitive(new ErrorEvent($$this.type, $$this.bubbles, $$this.cancelable, $$this.text, $$this.errorID)), Event);
-			}
-
-			return $$this.$$ErrorEvent.$$clone || ($$this.$$ErrorEvent.$$clone = clone);
-		}});
-
-
-		//public instance method
-		Object.defineProperty(ErrorEvent.prototype, 'toString', {
-		get:function ()
-		{
-			var $$this = this;
-
-			function toString()
-			{
-				return $$this.formatToString('ErrorEvent', 'bubbles', 'cancelable', 'text', 'errorID');
-			}
-
-			return $$this.$$ErrorEvent.$$toString || ($$this.$$ErrorEvent.$$toString = toString);
-		}});
-
-		Object.defineProperty(ErrorEvent.prototype, 'errorID', {get:function ()
-		{
-			var $$this = this;
-			return $$this.$$ErrorEvent._errorID;
-		}});
-
-		//properties
-		ErrorEvent.prototype.$$v._errorID = {
-		get:function () { var $$this = this.$$this; return $$this.$$ErrorEvent.$$p._errorID; },
-		set:function (value) { var $$this = this.$$this; $$this.$$ErrorEvent.$$p._errorID = $es4.$$coerce(value, int); }
-		};
-
-	});
-
-	//class initializer
-	ErrorEvent.$$cinit = (function ()
-	{
-		ErrorEvent.$$cinit = undefined;
-	});
-
-	function ErrorEvent()
-	{
-		var $$this;
-
-		//save scope
-		if (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) $$this = arguments[1];
-		else
-		{
-			var $$this = this;
-
-			if (!($$this instanceof ErrorEvent) || $$this.$$ErrorEvent !== undefined) return (arguments.length !== 0) ? $es4.$$as(arguments[0], ErrorEvent) : $es4.$$throwArgumentError();
-		}
-
-		//call construct if no arguments, or argument zero does not equal manual construct
-		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
-		{
-			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
-
-			ErrorEvent.$$construct($$this, $$args);
-		}
-	}
-
-	//construct
-	ErrorEvent.$$construct = (function ($$this, args)
-	{
-		//initialize function if not initialized
-		if (ErrorEvent.$$cinit !== undefined) ErrorEvent.$$cinit();
-
-		//hold property values, and methods
-		Object.defineProperty($$this, '$$ErrorEvent', {value:{$$this:$$this, $$p:{}, $$ns:{}}});
-
-		Object.defineProperty($$this.$$ErrorEvent, '_errorID', ErrorEvent.prototype.$$v._errorID);
-
-		//call construct on super
-		TextEvent.$$construct($$this);
-
-		//initialize properties
-		ErrorEvent.$$iinit($$this);
-
-		//call constructor
-		if (args !== undefined) ErrorEvent.$$constructor.apply($$this, args);
-	});
-
-	//initializer
-	ErrorEvent.$$iinit = (function ($$this)
-	{
-		//initialize properties
-		$$this.$$ErrorEvent.$$p._errorID = $es4.$$coerce(0, int);
-	
-		//call iinit on super
-		TextEvent.$$iinit($$this);
-	});
-
-	//constructor
-	ErrorEvent.$$constructor = (function ($$$$type, $$$$bubbles, $$$$cancelable, $$$$text, $$$$id)
-	{
-		var $$this = this;
-		//set default parameter values
-		var type = $es4.$$coerce($$$$type, String);
-		var bubbles = (1 > arguments.length - 1) ? false : $es4.$$coerce($$$$bubbles, Boolean);
-		var cancelable = (2 > arguments.length - 1) ? false : $es4.$$coerce($$$$cancelable, Boolean);
-		var text = (3 > arguments.length - 1) ? "" : $es4.$$coerce($$$$text, String);
-		var id = (4 > arguments.length - 1) ? 0 : $es4.$$coerce($$$$id, int);
-
-		TextEvent.$$constructor.call($$this, type, bubbles, cancelable, text);
-		$$this.$$ErrorEvent._errorID = id;
-	});
-
-	return $es4.$$class(ErrorEvent, {EXTENDS:'flash.events.TextEvent'}, 'flash.events::ErrorEvent');
-})();
-//flash.events.ErrorEvent
+//flash.events.Event
 
 
 //flash.utils.Endian
@@ -1002,15 +380,455 @@ $es4.$$package('flash.utils').Endian = (function ()
 //flash.utils.Endian
 
 
+//flash.events.EventDispatcher
+$es4.$$package('flash.events').EventDispatcher = (function ()
+{
+	//imports
+	var Event;
+	var IEventDispatcher;
+	var EventPhase;
+
+	//class pre initializer
+	EventDispatcher.$$sinit = (function ()
+	{
+		EventDispatcher.$$sinit = undefined;
+
+		//initialize imports
+		Event = $es4.$$['flash.events'].Event;
+		IEventDispatcher = $es4.$$['flash.events'].IEventDispatcher;
+		EventPhase = $es4.$$['flash.events'].EventPhase;
+
+		//set prototype and constructor
+		EventDispatcher.prototype = Object.create(Object.prototype);
+		Object.defineProperty(EventDispatcher.prototype, "constructor", { value: EventDispatcher, enumerable: false });
+
+		//hold private values
+		Object.defineProperty(EventDispatcher.prototype, '$$v', {value:{}});
+
+		//public instance method
+		Object.defineProperty(EventDispatcher.prototype, '$__properties', {
+		get:function ()
+		{
+			var $$this = this;
+
+			function $__properties($$$$object)
+			{
+				//set default parameter values
+				var object = (0 > arguments.length - 1) ? null : $$$$object;
+
+				if ($$this.$$EventDispatcher.$_properties === undefined)
+				{
+					object.EventDispatcherScope = {$_listeners:{}};
+					object.TLScope = $$this;
+					return $$this.$$EventDispatcher.$_properties = object;
+				}
+				return $$this.$$EventDispatcher.$_properties;
+			}
+
+			return $$this.$$EventDispatcher.$$$__properties || ($$this.$$EventDispatcher.$$$__properties = $__properties);
+		}});
+
+
+		//public instance method
+		Object.defineProperty(EventDispatcher.prototype, 'addEventListener', {
+		get:function ()
+		{
+			var $$this = this;
+
+			function addEventListener($$$$type, $$$$listener, $$$$useCapture, $$$$priority, $$$$useWeakReference)
+			{
+				//set default parameter values
+				var type = $es4.$$coerce($$$$type, String);
+				var listener = $es4.$$coerce($$$$listener, Function);
+				var useCapture = (2 > arguments.length - 1) ? false : $es4.$$coerce($$$$useCapture, Boolean);
+				var priority = (3 > arguments.length - 1) ? 0 : $es4.$$coerce($$$$priority, int);
+				var useWeakReference = (4 > arguments.length - 1) ? false : $es4.$$coerce($$$$useWeakReference, Boolean);
+
+				if (useWeakReference)
+				{
+					trace('Warning: useWeakReference not supported in EventDispatacher addEventListener');
+				}
+				if (useCapture)
+				{
+					trace('Warning: useCapture not supported in EventDispatacher addEventListener');
+				}
+				var listenersByType = $$this.$$EventDispatcher.$_properties.EventDispatcherScope.$_listeners;
+				var eventObj = {type:type, method:listener, useCapture:useCapture, priority:priority, useWeakReference:useWeakReference};
+				if (!(type in listenersByType))
+				{
+					listenersByType[type] = [eventObj];
+				}
+				else
+				{
+					var listeners = $es4.$$coerce(listenersByType[type], Array);
+					for (var i = $es4.$$coerce(listeners.length, int); i--;)
+					{
+						if (listener == listeners[i].method)
+						{
+							return;
+						}
+					}
+					listenersByType[type].push(eventObj);
+				}
+				listenersByType[type].sort(eventCompare);
+
+				function eventCompare($$$$item1, $$$$item2) 
+				{
+					//set default parameter values
+					var item1 = $es4.$$coerce($$$$item1, Object);
+					var item2 = $es4.$$coerce($$$$item2, Object);
+
+					if (item1.priority > item2.priority)
+					{
+						return -1;
+					}
+					else if (item1.priority < item2.priority)
+					{
+						return 1;
+					}
+					else
+					{
+						return 0;
+					}
+				}
+;
+			}
+
+			return $$this.$$EventDispatcher.$$addEventListener || ($$this.$$EventDispatcher.$$addEventListener = addEventListener);
+		}});
+
+
+		//public instance method
+		Object.defineProperty(EventDispatcher.prototype, 'dispatchEvent', {
+		get:function ()
+		{
+			var $$this = this;
+
+			function dispatchEvent($$$$event)
+			{
+				//set default parameter values
+				var event = $es4.$$coerce($$$$event, Event);
+
+				var properties = event.$__properties().TLScope;
+				var listeners = $es4.$$coerce($$this.$$EventDispatcher.$_properties.EventDispatcherScope.$_listeners[event.type], Array);
+				var target = $$this.$$EventDispatcher.$_properties.EventDispatcherScope.$_target;
+				var bubble = false;
+				if (!bubble && !listeners)
+				{
+					return $es4.$$coerce(!properties.isDefaultPrevented(), Boolean);
+				}
+				var parents = null;
+				properties = event.$__properties().EventScope;
+				if (listeners && !properties.$_propagationStopped && !properties.$_immediatePropagationStopped)
+				{
+					event = $es4.$$coerce(properties.$_withTarget(event, target), Event);
+					properties = event.$__properties().EventScope;
+					properties.$_eventPhase = EventPhase.AT_TARGET;
+					properties.$_currentTarget = $$this.$$EventDispatcher.$_properties.EventDispatcherScope.$_target;
+					EventDispatcher.$_processListeners(event, listeners);
+				}
+				if (bubble && !properties.$_propagationStopped && !properties.$_immediatePropagationStopped)
+				{
+					var index = 0;
+					var parentsLength = parents.length;
+					while (parentsLength > index)
+					{
+						var currentTarget = parents[index];
+						var currentBubbleListeners = $es4.$$coerce(currentTarget.$__properties().EventDispatcherScope.$_listeners[event.type], Array);
+						if (currentBubbleListeners && currentBubbleListeners.length)
+						{
+							event = $es4.$$coerce(properties.$_withTarget(event, target), Event);
+							properties = event.$__properties().EventScope;
+							properties.$_eventPhase = EventPhase.BUBBLING_PHASE;
+							event.$__properties().EventScope.$_currentTarget = currentTarget;
+							EventDispatcher.$_processListeners(event, currentBubbleListeners);
+							if (properties.$_propagationStopped || properties.$_immediatePropagationStopped)
+							{
+								break;
+							}
+						}
+						index++;
+					}
+				}
+				properties = event.$__properties().TLScope;
+				return $es4.$$coerce(!properties.isDefaultPrevented(), Boolean);
+			}
+
+			return $$this.$$EventDispatcher.$$dispatchEvent || ($$this.$$EventDispatcher.$$dispatchEvent = dispatchEvent);
+		}});
+
+
+		//public instance method
+		Object.defineProperty(EventDispatcher.prototype, 'hasEventListener', {
+		get:function ()
+		{
+			var $$this = this;
+
+			function hasEventListener($$$$type)
+			{
+				//set default parameter values
+				var type = $es4.$$coerce($$$$type, String);
+
+				return $es4.$$coerce($$this.$$EventDispatcher.$_properties.EventDispatcherScope.$_listeners[type], Boolean);
+			}
+
+			return $$this.$$EventDispatcher.$$hasEventListener || ($$this.$$EventDispatcher.$$hasEventListener = hasEventListener);
+		}});
+
+
+		//public instance method
+		Object.defineProperty(EventDispatcher.prototype, 'removeEventListener', {
+		get:function ()
+		{
+			var $$this = this;
+
+			function removeEventListener($$$$type, $$$$listener, $$$$useCapture)
+			{
+				//set default parameter values
+				var type = $es4.$$coerce($$$$type, String);
+				var listener = $es4.$$coerce($$$$listener, Function);
+				var useCapture = (2 > arguments.length - 1) ? false : $es4.$$coerce($$$$useCapture, Boolean);
+
+				if (useCapture)
+				{
+					trace('Warning: useCapture not supported in EventDispatacher removeEventListener');
+				}
+				var listenersByType = $$this.$$EventDispatcher.$_properties.EventDispatcherScope.$_listeners;
+				var listeners = $es4.$$coerce(listenersByType[type], Array);
+				if (!listeners)
+				{
+					return;
+				}
+				for (var i = listeners.length; i--;)
+				{
+					if (listeners[i].method != listener)
+					{
+						continue;
+					}
+					if (listeners.length == 1)
+					{
+						delete listenersByType[type];
+					}
+					else
+					{
+						listeners.splice(i, 1);
+					}
+				}
+			}
+
+			return $$this.$$EventDispatcher.$$removeEventListener || ($$this.$$EventDispatcher.$$removeEventListener = removeEventListener);
+		}});
+
+
+		//public instance method
+		Object.defineProperty(EventDispatcher.prototype, 'willTrigger', {
+		get:function ()
+		{
+			var $$this = this;
+
+			function willTrigger($$$$type)
+			{
+				//set default parameter values
+				var type = $es4.$$coerce($$$$type, String);
+
+				return $es4.$$coerce($$this.$$EventDispatcher.$_properties.EventDispatcherScope.$_listeners[type], Boolean);
+			}
+
+			return $$this.$$EventDispatcher.$$willTrigger || ($$this.$$EventDispatcher.$$willTrigger = willTrigger);
+		}});
+
+		//properties
+		EventDispatcher.prototype.$$v.$_properties = {
+		get:function () { var $$this = this.$$this; return $$this.$$EventDispatcher.$$p.$_properties; },
+		set:function (value) { var $$this = this.$$this; $$this.$$EventDispatcher.$$p.$_properties = value }
+		};
+
+	});
+
+	//class initializer
+	EventDispatcher.$$cinit = (function ()
+	{
+		EventDispatcher.$$cinit = undefined;
+	});
+
+	//private static method
+	EventDispatcher.$_processListeners = (function ($$$$event, $$$$listeners)
+	{
+		if (EventDispatcher.$$cinit !== undefined) EventDispatcher.$$cinit();
+
+		//set default parameter values
+		var event = $es4.$$coerce($$$$event, Event);
+		var listeners = $es4.$$coerce($$$$listeners, Array);
+
+		listeners = listeners.slice();
+		var listenersLength = listeners.length;
+		var properties = event.$__properties();
+		for (var i = 0; i < listenersLength; i++)
+		{
+			if (listeners[i].method(event) === false)
+			{
+				properties.TLScope.stopPropagation();
+				properties.TLScope.preventDefault();
+			}
+			if (properties.EventScope.$_immediatePropagationStopped)
+			{
+				break;
+			}
+		}
+	});
+	function EventDispatcher()
+	{
+		var $$this;
+
+		//save scope
+		if (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) $$this = arguments[1];
+		else
+		{
+			var $$this = this;
+
+			if (!($$this instanceof EventDispatcher) || $$this.$$EventDispatcher !== undefined) return (arguments.length !== 0) ? $es4.$$as(arguments[0], EventDispatcher) : $es4.$$throwArgumentError();
+		}
+
+		//call construct if no arguments, or argument zero does not equal manual construct
+		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
+		{
+			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
+
+			EventDispatcher.$$construct($$this, $$args);
+		}
+	}
+
+	//construct
+	EventDispatcher.$$construct = (function ($$this, args)
+	{
+		//initialize function if not initialized
+		if (EventDispatcher.$$cinit !== undefined) EventDispatcher.$$cinit();
+
+		//hold property values, and methods
+		Object.defineProperty($$this, '$$EventDispatcher', {value:{$$this:$$this, $$p:{}, $$ns:{}}});
+
+		Object.defineProperty($$this.$$EventDispatcher, '$_properties', EventDispatcher.prototype.$$v.$_properties);
+
+		//initialize properties
+		EventDispatcher.$$iinit($$this);
+
+		//call constructor
+		if (args !== undefined) EventDispatcher.$$constructor.apply($$this, args);
+	});
+
+	//initializer
+	EventDispatcher.$$iinit = (function ($$this)
+	{
+		//initialize properties
+		$$this.$$EventDispatcher.$$p.$_properties = undefined;
+	
+	});
+
+	//constructor
+	EventDispatcher.$$constructor = (function ($$$$target)
+	{
+		var $$this = this;
+		//set default parameter values
+		var target = (0 > arguments.length - 1) ? null : $es4.$$coerce($$$$target, IEventDispatcher);
+
+		if ($$this.$$EventDispatcher.$_properties === undefined)
+		{
+			$$this.$__properties({});
+		}
+		$$this.$$EventDispatcher.$_properties.EventDispatcherScope.$_target = target || $$this;
+	});
+
+	return $es4.$$class(EventDispatcher, {IMPLEMENTS:['flash.events.IEventDispatcher']}, 'flash.events::EventDispatcher');
+})();
+//flash.events.EventDispatcher
+
+
+//flash.display.Sprite
+$es4.$$package('flash.display').Sprite = (function ()
+{
+	//class pre initializer
+	Sprite.$$sinit = (function ()
+	{
+		Sprite.$$sinit = undefined;
+
+		//set prototype and constructor
+		Sprite.prototype = Object.create(Object.prototype);
+		Object.defineProperty(Sprite.prototype, "constructor", { value: Sprite, enumerable: false });
+
+		//hold private values
+		Object.defineProperty(Sprite.prototype, '$$v', {value:{}});
+	});
+
+	//class initializer
+	Sprite.$$cinit = (function ()
+	{
+		Sprite.$$cinit = undefined;
+	});
+
+	function Sprite()
+	{
+		var $$this;
+
+		//save scope
+		if (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) $$this = arguments[1];
+		else
+		{
+			var $$this = this;
+
+			if (!($$this instanceof Sprite) || $$this.$$Sprite !== undefined) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Sprite) : $es4.$$throwArgumentError();
+		}
+
+		//call construct if no arguments, or argument zero does not equal manual construct
+		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
+		{
+			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
+
+			Sprite.$$construct($$this, $$args);
+		}
+	}
+
+	//construct
+	Sprite.$$construct = (function ($$this, args)
+	{
+		//initialize function if not initialized
+		if (Sprite.$$cinit !== undefined) Sprite.$$cinit();
+
+		//hold property values, and methods
+		Object.defineProperty($$this, '$$Sprite', {value:{$$this:$$this, $$p:{}, $$ns:{}}});
+
+
+		//initialize properties
+		Sprite.$$iinit($$this);
+
+		//call constructor
+		if (args !== undefined) Sprite.$$constructor.apply($$this, args);
+	});
+
+	//initializer
+	Sprite.$$iinit = (function ($$this)
+	{
+	});
+
+	//constructor
+	Sprite.$$constructor = (function ()
+	{
+		var $$this = this;
+	});
+
+	return $es4.$$class(Sprite, null, 'flash.display::Sprite');
+})();
+//flash.display.Sprite
+
+
 //flash.utils.ByteArray
 $es4.$$package('flash.utils').ByteArray = (function ()
 {
 	//imports
 	var ObjectEncoding;
+	var IDataInput;
+	var ByteArray;
 	var IDataOutput;
 	var Endian;
-	var ByteArray;
-	var IDataInput;
 
 	//properties
 	var $$j = {};
@@ -1023,9 +841,9 @@ $es4.$$package('flash.utils').ByteArray = (function ()
 
 		//initialize imports
 		ObjectEncoding = $es4.$$['flash.net'].ObjectEncoding;
+		IDataInput = $es4.$$['flash.utils'].IDataInput;
 		IDataOutput = $es4.$$['flash.utils'].IDataOutput;
 		Endian = $es4.$$['flash.utils'].Endian;
-		IDataInput = $es4.$$['flash.utils'].IDataInput;
 
 		//set prototype and constructor
 		ByteArray.prototype = Object.create(Object.prototype);
@@ -2150,226 +1968,87 @@ $es4.$$package('flash.utils').ByteArray = (function ()
 //flash.utils.ByteArray
 
 
-//flash.events.Event
-$es4.$$package('flash.events').Event = (function ()
+//flash.events.ErrorEvent
+$es4.$$package('flash.events').ErrorEvent = (function ()
 {
 	//imports
 	var Event;
+	var ErrorEvent;
+	var TextEvent;
+
+	//properties
+	var $$j = {};
+	ErrorEvent.ERROR = 'error';
 
 	//class pre initializer
-	Event.$$sinit = (function ()
+	ErrorEvent.$$sinit = (function ()
 	{
-		Event.$$sinit = undefined;
+		ErrorEvent.$$sinit = undefined;
 
 		//initialize imports
+		Event = $es4.$$['flash.events'].Event;
+		TextEvent = $es4.$$['flash.events'].TextEvent;
+
+		//ensure $$sinit is called on super class
+		if (TextEvent.$$sinit !== undefined) TextEvent.$$sinit();
+
 		//set prototype and constructor
-		Event.prototype = Object.create(Object.prototype);
-		Object.defineProperty(Event.prototype, "constructor", { value: Event, enumerable: false });
+		ErrorEvent.prototype = Object.create(TextEvent.prototype);
+		Object.defineProperty(ErrorEvent.prototype, "constructor", { value: ErrorEvent, enumerable: false });
 
 		//hold private values
-		Object.defineProperty(Event.prototype, '$$v', {value:{}});
+		Object.defineProperty(ErrorEvent.prototype, '$$v', {value:{}});
 
 		//public instance method
-		Object.defineProperty(Event.prototype, '$__properties', {
-		get:function ()
-		{
-			var $$this = this;
-
-			function $__properties($$$$object)
-			{
-				//set default parameter values
-				var object = (0 > arguments.length - 1) ? null : $$$$object;
-
-				if ($$this.$$Event.$_properties === undefined)
-				{
-					object.EventScope = {$_target:null, $_currentTarget:null, $_eventPhase:null, $_withTarget:Event.$_withTarget, $_originalTarget:null};
-					object.TLScope = $$this;
-					return $$this.$$Event.$_properties = object;
-				}
-				return $$this.$$Event.$_properties;
-			}
-
-			return $$this.$$Event.$$$__properties || ($$this.$$Event.$$$__properties = $__properties);
-		}});
-
-
-		//public instance method
-		Object.defineProperty(Event.prototype, 'clone', {
+		Object.defineProperty(ErrorEvent.prototype, 'clone', {
 		get:function ()
 		{
 			var $$this = this;
 
 			function clone()
 			{
-				return $es4.$$coerce($es4.$$primitive(new Event($$this.$$Event.$_properties.EventScope.$_type, $$this.$$Event.$_properties.EventScope.$_bubbles, $$this.$$Event.$_properties.EventScope.$_cancelable)), $es4.$$['flash.events'].Event);
+				return $es4.$$coerce($es4.$$primitive(new ErrorEvent($$this.type, $$this.bubbles, $$this.cancelable, $$this.text, $$this.errorID)), Event);
 			}
 
-			return $$this.$$Event.$$clone || ($$this.$$Event.$$clone = clone);
+			return $$this.$$ErrorEvent.$$clone || ($$this.$$ErrorEvent.$$clone = clone);
 		}});
 
 
 		//public instance method
-		Object.defineProperty(Event.prototype, 'formatToString', {
-		get:function ()
-		{
-			var $$this = this;
-
-			function formatToString($$$$className, $$$$args)
-			{
-				//set default parameter values
-				var className = $es4.$$coerce($$$$className, String);
-				for (var $$i = 1, $$length = arguments.length, args = new Array($$length - 1); $$i < $$length; $$i += 1) args[$$i - 1] = arguments[$$i];
-
-				var str = '[' + className;
-				for (var i = 0; i < args.length; i++)
-				{
-					str += ' ' + args[i] + '="' + $$this[args[i]] + '"';
-				}
-				str += ']';
-				return str;
-			}
-
-			return $$this.$$Event.$$formatToString || ($$this.$$Event.$$formatToString = formatToString);
-		}});
-
-
-		//public instance method
-		Object.defineProperty(Event.prototype, 'isDefaultPrevented', {
-		get:function ()
-		{
-			var $$this = this;
-
-			function isDefaultPrevented()
-			{
-				return $es4.$$coerce($$this.$$Event.$_properties.EventScope.$_defaultPrevented, Boolean);
-			}
-
-			return $$this.$$Event.$$isDefaultPrevented || ($$this.$$Event.$$isDefaultPrevented = isDefaultPrevented);
-		}});
-
-
-		//public instance method
-		Object.defineProperty(Event.prototype, 'preventDefault', {
-		get:function ()
-		{
-			var $$this = this;
-
-			function preventDefault()
-			{
-				if ($$this.$$Event.$_properties.EventScope.$_cancelable)
-				{
-					$$this.$$Event.$_properties.EventScope.$_defaultPrevented = true;
-				}
-			}
-
-			return $$this.$$Event.$$preventDefault || ($$this.$$Event.$$preventDefault = preventDefault);
-		}});
-
-
-		//public instance method
-		Object.defineProperty(Event.prototype, 'stopImmediatePropagation', {
-		get:function ()
-		{
-			var $$this = this;
-
-			function stopImmediatePropagation()
-			{
-				$$this.$$Event.$_properties.EventScope.$_immediatePropagationStopped = true;
-			}
-
-			return $$this.$$Event.$$stopImmediatePropagation || ($$this.$$Event.$$stopImmediatePropagation = stopImmediatePropagation);
-		}});
-
-
-		//public instance method
-		Object.defineProperty(Event.prototype, 'stopPropagation', {
-		get:function ()
-		{
-			var $$this = this;
-
-			function stopPropagation()
-			{
-				$$this.$$Event.$_properties.EventScope.$_propagationStopped = true;
-			}
-
-			return $$this.$$Event.$$stopPropagation || ($$this.$$Event.$$stopPropagation = stopPropagation);
-		}});
-
-
-		//public instance method
-		Object.defineProperty(Event.prototype, 'toString', {
+		Object.defineProperty(ErrorEvent.prototype, 'toString', {
 		get:function ()
 		{
 			var $$this = this;
 
 			function toString()
 			{
-				return $$this.formatToString('Event', 'type', 'bubbles', 'cancelable');
+				return $$this.formatToString('ErrorEvent', 'bubbles', 'cancelable', 'text', 'errorID');
 			}
 
-			return $$this.$$Event.$$toString || ($$this.$$Event.$$toString = toString);
+			return $$this.$$ErrorEvent.$$toString || ($$this.$$ErrorEvent.$$toString = toString);
 		}});
 
-		Object.defineProperty(Event.prototype, 'bubbles', {get:function ()
+		Object.defineProperty(ErrorEvent.prototype, 'errorID', {get:function ()
 		{
 			var $$this = this;
-			return $es4.$$coerce($$this.$$Event.$_properties.EventScope.$_bubbles, Boolean);
-		}});
-		Object.defineProperty(Event.prototype, 'cancelable', {get:function ()
-		{
-			var $$this = this;
-			return $es4.$$coerce($$this.$$Event.$_properties.EventScope.$_cancelable, Boolean);
-		}});
-		Object.defineProperty(Event.prototype, 'currentTarget', {get:function ()
-		{
-			var $$this = this;
-			return $$this.$$Event.$_properties.EventScope.$_currentTarget;
-		}});
-		Object.defineProperty(Event.prototype, 'eventPhase', {get:function ()
-		{
-			var $$this = this;
-			return $es4.$$coerce($$this.$$Event.$_properties.EventScope.$_eventPhase, uint);
-		}});
-		Object.defineProperty(Event.prototype, 'target', {get:function ()
-		{
-			var $$this = this;
-			return $$this.$$Event.$_properties.EventScope.$_target;
-		}});
-		Object.defineProperty(Event.prototype, 'type', {get:function ()
-		{
-			var $$this = this;
-			return $es4.$$coerce($$this.$$Event.$_properties.EventScope.$_type, String);
+			return $$this.$$ErrorEvent._errorID;
 		}});
 
 		//properties
-		Event.prototype.$$v.$_properties = {
-		get:function () { var $$this = this.$$this; return $$this.$$Event.$$p.$_properties; },
-		set:function (value) { var $$this = this.$$this; $$this.$$Event.$$p.$_properties = value }
+		ErrorEvent.prototype.$$v._errorID = {
+		get:function () { var $$this = this.$$this; return $$this.$$ErrorEvent.$$p._errorID; },
+		set:function (value) { var $$this = this.$$this; $$this.$$ErrorEvent.$$p._errorID = $es4.$$coerce(value, int); }
 		};
 
 	});
 
 	//class initializer
-	Event.$$cinit = (function ()
+	ErrorEvent.$$cinit = (function ()
 	{
-		Event.$$cinit = undefined;
+		ErrorEvent.$$cinit = undefined;
 	});
 
-	//private static method
-	Event.$_withTarget = (function ($$$$event, $$$$target)
-	{
-		if (Event.$$cinit !== undefined) Event.$$cinit();
-
-		//set default parameter values
-		var event = $es4.$$coerce($$$$event, $es4.$$['flash.events'].Event);
-		var target = $es4.$$coerce($$$$target, Object);
-
-		var properties = event.$__properties();
-		event = properties.EventScope.$_target ? event.clone() : event;
-		event.$__properties().EventScope.$_target = target;
-		return event;
-	});
-	function Event()
+	function ErrorEvent()
 	{
 		var $$this;
 
@@ -2379,7 +2058,7 @@ $es4.$$package('flash.events').Event = (function ()
 		{
 			var $$this = this;
 
-			if (!($$this instanceof Event) || $$this.$$Event !== undefined) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Event) : $es4.$$throwArgumentError();
+			if (!($$this instanceof ErrorEvent) || $$this.$$ErrorEvent !== undefined) return (arguments.length !== 0) ? $es4.$$as(arguments[0], ErrorEvent) : $es4.$$throwArgumentError();
 		}
 
 		//call construct if no arguments, or argument zero does not equal manual construct
@@ -2387,89 +2066,111 @@ $es4.$$package('flash.events').Event = (function ()
 		{
 			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
 
-			Event.$$construct($$this, $$args);
+			ErrorEvent.$$construct($$this, $$args);
 		}
 	}
 
 	//construct
-	Event.$$construct = (function ($$this, args)
+	ErrorEvent.$$construct = (function ($$this, args)
 	{
 		//initialize function if not initialized
-		if (Event.$$cinit !== undefined) Event.$$cinit();
+		if (ErrorEvent.$$cinit !== undefined) ErrorEvent.$$cinit();
 
 		//hold property values, and methods
-		Object.defineProperty($$this, '$$Event', {value:{$$this:$$this, $$p:{}, $$ns:{}}});
+		Object.defineProperty($$this, '$$ErrorEvent', {value:{$$this:$$this, $$p:{}, $$ns:{}}});
 
-		Object.defineProperty($$this.$$Event, '$_properties', Event.prototype.$$v.$_properties);
+		Object.defineProperty($$this.$$ErrorEvent, '_errorID', ErrorEvent.prototype.$$v._errorID);
+
+		//call construct on super
+		TextEvent.$$construct($$this);
 
 		//initialize properties
-		Event.$$iinit($$this);
+		ErrorEvent.$$iinit($$this);
 
 		//call constructor
-		if (args !== undefined) Event.$$constructor.apply($$this, args);
+		if (args !== undefined) ErrorEvent.$$constructor.apply($$this, args);
 	});
 
 	//initializer
-	Event.$$iinit = (function ($$this)
+	ErrorEvent.$$iinit = (function ($$this)
 	{
 		//initialize properties
-		$$this.$$Event.$$p.$_properties = undefined;
+		$$this.$$ErrorEvent.$$p._errorID = $es4.$$coerce(0, int);
 	
+		//call iinit on super
+		TextEvent.$$iinit($$this);
 	});
 
 	//constructor
-	Event.$$constructor = (function ($$$$type, $$$$bubbles, $$$$cancelable)
+	ErrorEvent.$$constructor = (function ($$$$type, $$$$bubbles, $$$$cancelable, $$$$text, $$$$id)
 	{
 		var $$this = this;
 		//set default parameter values
 		var type = $es4.$$coerce($$$$type, String);
 		var bubbles = (1 > arguments.length - 1) ? false : $es4.$$coerce($$$$bubbles, Boolean);
 		var cancelable = (2 > arguments.length - 1) ? false : $es4.$$coerce($$$$cancelable, Boolean);
+		var text = (3 > arguments.length - 1) ? "" : $es4.$$coerce($$$$text, String);
+		var id = (4 > arguments.length - 1) ? 0 : $es4.$$coerce($$$$id, int);
 
-		if ($$this.$$Event.$_properties === undefined)
-		{
-			$$this.$__properties({});
-		}
-		var properties = $$this.$$Event.$_properties.EventScope;
-		properties.$_type = type;
-		properties.$_bubbles = bubbles;
-		properties.$_cancelable = cancelable;
+		TextEvent.$$constructor.call($$this, type, bubbles, cancelable, text);
+		$$this.$$ErrorEvent._errorID = id;
 	});
 
-	return $es4.$$class(Event, null, 'flash.events::Event');
+	return $es4.$$class(ErrorEvent, {EXTENDS:'flash.events.TextEvent'}, 'flash.events::ErrorEvent');
 })();
-//flash.events.Event
+//flash.events.ErrorEvent
 
 
-//flash.events.EventPhase
-$es4.$$package('flash.events').EventPhase = (function ()
+//flash.net.ObjectEncoding
+$es4.$$package('flash.net').ObjectEncoding = (function ()
 {
+	//imports
+	var IDynamicPropertyWriter;
+
 	//properties
 	var $$j = {};
-	EventPhase.AT_TARGET = 2;
-	EventPhase.BUBBLING_PHASE = 3;
-	EventPhase.CAPTURING_PHASE = 1;
+	ObjectEncoding.AMF0 = 0;
+	ObjectEncoding.AMF3 = 3;
+	ObjectEncoding.DEFAULT = 3;
 
 	//class pre initializer
-	EventPhase.$$sinit = (function ()
+	ObjectEncoding.$$sinit = (function ()
 	{
-		EventPhase.$$sinit = undefined;
+		ObjectEncoding.$$sinit = undefined;
+
+		//initialize imports
+		IDynamicPropertyWriter = $es4.$$['flash.net'].IDynamicPropertyWriter;
 
 		//set prototype and constructor
-		EventPhase.prototype = Object.create(Object.prototype);
-		Object.defineProperty(EventPhase.prototype, "constructor", { value: EventPhase, enumerable: false });
+		ObjectEncoding.prototype = Object.create(Object.prototype);
+		Object.defineProperty(ObjectEncoding.prototype, "constructor", { value: ObjectEncoding, enumerable: false });
 
 		//hold private values
-		Object.defineProperty(EventPhase.prototype, '$$v', {value:{}});
+		Object.defineProperty(ObjectEncoding.prototype, '$$v', {value:{}});
 	});
 
 	//class initializer
-	EventPhase.$$cinit = (function ()
+	ObjectEncoding.$$cinit = (function ()
 	{
-		EventPhase.$$cinit = undefined;
+		ObjectEncoding.$$cinit = undefined;
 	});
 
-	function EventPhase()
+	Object.defineProperty(ObjectEncoding, 'dynamicPropertyWriter', {get:function ()
+	{
+		if (ObjectEncoding.$$cinit !== undefined) ObjectEncoding.$$cinit();
+
+		throw $es4.$$primitive(new Error('ObjectEncoding: attempted call to an unimplemented function "dynamicPropertyWriter"'));
+	}, set:function ($$$$object)
+	{
+		if (ObjectEncoding.$$cinit !== undefined) ObjectEncoding.$$cinit();
+
+		//set default parameter values
+		var object = $es4.$$coerce($$$$object, IDynamicPropertyWriter);
+
+		throw $es4.$$primitive(new Error('ObjectEncoding: attempted call to an unimplemented function "dynamicPropertyWriter"'));
+	}});
+
+	function ObjectEncoding()
 	{
 		var $$this;
 
@@ -2479,7 +2180,7 @@ $es4.$$package('flash.events').EventPhase = (function ()
 		{
 			var $$this = this;
 
-			if (!($$this instanceof EventPhase) || $$this.$$EventPhase !== undefined) return (arguments.length !== 0) ? $es4.$$as(arguments[0], EventPhase) : $es4.$$throwArgumentError();
+			if (!($$this instanceof ObjectEncoding) || $$this.$$ObjectEncoding !== undefined) return (arguments.length !== 0) ? $es4.$$as(arguments[0], ObjectEncoding) : $es4.$$throwArgumentError();
 		}
 
 		//call construct if no arguments, or argument zero does not equal manual construct
@@ -2487,41 +2188,42 @@ $es4.$$package('flash.events').EventPhase = (function ()
 		{
 			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
 
-			EventPhase.$$construct($$this, $$args);
+			ObjectEncoding.$$construct($$this, $$args);
 		}
 	}
 
 	//construct
-	EventPhase.$$construct = (function ($$this, args)
+	ObjectEncoding.$$construct = (function ($$this, args)
 	{
 		//initialize function if not initialized
-		if (EventPhase.$$cinit !== undefined) EventPhase.$$cinit();
+		if (ObjectEncoding.$$cinit !== undefined) ObjectEncoding.$$cinit();
 
 		//hold property values, and methods
-		Object.defineProperty($$this, '$$EventPhase', {value:{$$this:$$this, $$p:{}, $$ns:{}}});
+		Object.defineProperty($$this, '$$ObjectEncoding', {value:{$$this:$$this, $$p:{}, $$ns:{}}});
 
 
 		//initialize properties
-		EventPhase.$$iinit($$this);
+		ObjectEncoding.$$iinit($$this);
 
 		//call constructor
-		if (args !== undefined) EventPhase.$$constructor.apply($$this, args);
+		if (args !== undefined) ObjectEncoding.$$constructor.apply($$this, args);
 	});
 
 	//initializer
-	EventPhase.$$iinit = (function ($$this)
+	ObjectEncoding.$$iinit = (function ($$this)
 	{
 	});
 
 	//constructor
-	EventPhase.$$constructor = (function ()
+	ObjectEncoding.$$constructor = (function ()
 	{
 		var $$this = this;
+		throw $es4.$$primitive(new Error('ObjectEncoding: attempted call to an unimplemented constructor'));
 	});
 
-	return $es4.$$class(EventPhase, null, 'flash.events::EventPhase');
+	return $es4.$$class(ObjectEncoding, null, 'flash.net::ObjectEncoding');
 })();
-//flash.events.EventPhase
+//flash.net.ObjectEncoding
 
 
 //flash.utils.Dictionary
@@ -2818,303 +2520,93 @@ $es4.$$package('flash.utils').Dictionary = (function ()
 //flash.utils.Dictionary
 
 
-//flash.events.EventDispatcher
-$es4.$$package('flash.events').EventDispatcher = (function ()
+//flash.events.TextEvent
+$es4.$$package('flash.events').TextEvent = (function ()
 {
 	//imports
 	var Event;
-	var IEventDispatcher;
-	var EventPhase;
+	var TextEvent;
+
+	//properties
+	var $$j = {};
+	TextEvent.LINK = "link";
+	TextEvent.TEXT_INPUT = "textInput";
 
 	//class pre initializer
-	EventDispatcher.$$sinit = (function ()
+	TextEvent.$$sinit = (function ()
 	{
-		EventDispatcher.$$sinit = undefined;
+		TextEvent.$$sinit = undefined;
 
 		//initialize imports
 		Event = $es4.$$['flash.events'].Event;
-		IEventDispatcher = $es4.$$['flash.events'].IEventDispatcher;
-		EventPhase = $es4.$$['flash.events'].EventPhase;
+
+		//ensure $$sinit is called on super class
+		if (Event.$$sinit !== undefined) Event.$$sinit();
 
 		//set prototype and constructor
-		EventDispatcher.prototype = Object.create(Object.prototype);
-		Object.defineProperty(EventDispatcher.prototype, "constructor", { value: EventDispatcher, enumerable: false });
+		TextEvent.prototype = Object.create(Event.prototype);
+		Object.defineProperty(TextEvent.prototype, "constructor", { value: TextEvent, enumerable: false });
 
 		//hold private values
-		Object.defineProperty(EventDispatcher.prototype, '$$v', {value:{}});
+		Object.defineProperty(TextEvent.prototype, '$$v', {value:{}});
 
 		//public instance method
-		Object.defineProperty(EventDispatcher.prototype, '$__properties', {
+		Object.defineProperty(TextEvent.prototype, 'clone', {
 		get:function ()
 		{
 			var $$this = this;
 
-			function $__properties($$$$object)
+			function clone()
 			{
-				//set default parameter values
-				var object = (0 > arguments.length - 1) ? null : $$$$object;
-
-				if ($$this.$$EventDispatcher.$_properties === undefined)
-				{
-					object.EventDispatcherScope = {$_listeners:{}};
-					object.TLScope = $$this;
-					return $$this.$$EventDispatcher.$_properties = object;
-				}
-				return $$this.$$EventDispatcher.$_properties;
+				return $es4.$$coerce($es4.$$primitive(new TextEvent($$this.type, $$this.bubbles, $$this.cancelable, $$this.text)), Event);
 			}
 
-			return $$this.$$EventDispatcher.$$$__properties || ($$this.$$EventDispatcher.$$$__properties = $__properties);
+			return $$this.$$TextEvent.$$clone || ($$this.$$TextEvent.$$clone = clone);
 		}});
 
 
 		//public instance method
-		Object.defineProperty(EventDispatcher.prototype, 'addEventListener', {
+		Object.defineProperty(TextEvent.prototype, 'toString', {
 		get:function ()
 		{
 			var $$this = this;
 
-			function addEventListener($$$$type, $$$$listener, $$$$useCapture, $$$$priority, $$$$useWeakReference)
+			function toString()
 			{
-				//set default parameter values
-				var type = $es4.$$coerce($$$$type, String);
-				var listener = $es4.$$coerce($$$$listener, Function);
-				var useCapture = (2 > arguments.length - 1) ? false : $es4.$$coerce($$$$useCapture, Boolean);
-				var priority = (3 > arguments.length - 1) ? 0 : $es4.$$coerce($$$$priority, int);
-				var useWeakReference = (4 > arguments.length - 1) ? false : $es4.$$coerce($$$$useWeakReference, Boolean);
-
-				if (useWeakReference)
-				{
-					trace('Warning: useWeakReference not supported in EventDispatacher addEventListener');
-				}
-				if (useCapture)
-				{
-					trace('Warning: useCapture not supported in EventDispatacher addEventListener');
-				}
-				var listenersByType = $$this.$$EventDispatcher.$_properties.EventDispatcherScope.$_listeners;
-				var eventObj = {type:type, method:listener, useCapture:useCapture, priority:priority, useWeakReference:useWeakReference};
-				if (!(type in listenersByType))
-				{
-					listenersByType[type] = [eventObj];
-				}
-				else
-				{
-					var listeners = $es4.$$coerce(listenersByType[type], Array);
-					for (var i = $es4.$$coerce(listeners.length, int); i--;)
-					{
-						if (listener == listeners[i].method)
-						{
-							return;
-						}
-					}
-					listenersByType[type].push(eventObj);
-				}
-				listenersByType[type].sort(eventCompare);
-
-				function eventCompare($$$$item1, $$$$item2) 
-				{
-					//set default parameter values
-					var item1 = $es4.$$coerce($$$$item1, Object);
-					var item2 = $es4.$$coerce($$$$item2, Object);
-
-					if (item1.priority > item2.priority)
-					{
-						return -1;
-					}
-					else if (item1.priority < item2.priority)
-					{
-						return 1;
-					}
-					else
-					{
-						return 0;
-					}
-				}
-;
+				return $$this.formatToString('TextEvent', 'bubbles', 'cancelable', 'text');
 			}
 
-			return $$this.$$EventDispatcher.$$addEventListener || ($$this.$$EventDispatcher.$$addEventListener = addEventListener);
+			return $$this.$$TextEvent.$$toString || ($$this.$$TextEvent.$$toString = toString);
 		}});
 
-
-		//public instance method
-		Object.defineProperty(EventDispatcher.prototype, 'dispatchEvent', {
-		get:function ()
+		Object.defineProperty(TextEvent.prototype, 'text', {get:function ()
 		{
 			var $$this = this;
-
-			function dispatchEvent($$$$event)
-			{
-				//set default parameter values
-				var event = $es4.$$coerce($$$$event, Event);
-
-				var properties = event.$__properties().TLScope;
-				var listeners = $es4.$$coerce($$this.$$EventDispatcher.$_properties.EventDispatcherScope.$_listeners[event.type], Array);
-				var target = $$this.$$EventDispatcher.$_properties.EventDispatcherScope.$_target;
-				var bubble = false;
-				if (!bubble && !listeners)
-				{
-					return $es4.$$coerce(!properties.isDefaultPrevented(), Boolean);
-				}
-				var parents = null;
-				properties = event.$__properties().EventScope;
-				if (listeners && !properties.$_propagationStopped && !properties.$_immediatePropagationStopped)
-				{
-					event = $es4.$$coerce(properties.$_withTarget(event, target), Event);
-					properties = event.$__properties().EventScope;
-					properties.$_eventPhase = EventPhase.AT_TARGET;
-					properties.$_currentTarget = $$this.$$EventDispatcher.$_properties.EventDispatcherScope.$_target;
-					EventDispatcher.$_processListeners(event, listeners);
-				}
-				if (bubble && !properties.$_propagationStopped && !properties.$_immediatePropagationStopped)
-				{
-					var index = 0;
-					var parentsLength = parents.length;
-					while (parentsLength > index)
-					{
-						var currentTarget = parents[index];
-						var currentBubbleListeners = $es4.$$coerce(currentTarget.$__properties().EventDispatcherScope.$_listeners[event.type], Array);
-						if (currentBubbleListeners && currentBubbleListeners.length)
-						{
-							event = $es4.$$coerce(properties.$_withTarget(event, target), Event);
-							properties = event.$__properties().EventScope;
-							properties.$_eventPhase = EventPhase.BUBBLING_PHASE;
-							event.$__properties().EventScope.$_currentTarget = currentTarget;
-							EventDispatcher.$_processListeners(event, currentBubbleListeners);
-							if (properties.$_propagationStopped || properties.$_immediatePropagationStopped)
-							{
-								break;
-							}
-						}
-						index++;
-					}
-				}
-				properties = event.$__properties().TLScope;
-				return $es4.$$coerce(!properties.isDefaultPrevented(), Boolean);
-			}
-
-			return $$this.$$EventDispatcher.$$dispatchEvent || ($$this.$$EventDispatcher.$$dispatchEvent = dispatchEvent);
-		}});
-
-
-		//public instance method
-		Object.defineProperty(EventDispatcher.prototype, 'hasEventListener', {
-		get:function ()
+			return $$this.$$TextEvent._text;
+		}, set:function ($$$$value)
 		{
+			//set default parameter values
+			var value = $es4.$$coerce($$$$value, String);
+
 			var $$this = this;
-
-			function hasEventListener($$$$type)
-			{
-				//set default parameter values
-				var type = $es4.$$coerce($$$$type, String);
-
-				return $es4.$$coerce($$this.$$EventDispatcher.$_properties.EventDispatcherScope.$_listeners[type], Boolean);
-			}
-
-			return $$this.$$EventDispatcher.$$hasEventListener || ($$this.$$EventDispatcher.$$hasEventListener = hasEventListener);
-		}});
-
-
-		//public instance method
-		Object.defineProperty(EventDispatcher.prototype, 'removeEventListener', {
-		get:function ()
-		{
-			var $$this = this;
-
-			function removeEventListener($$$$type, $$$$listener, $$$$useCapture)
-			{
-				//set default parameter values
-				var type = $es4.$$coerce($$$$type, String);
-				var listener = $es4.$$coerce($$$$listener, Function);
-				var useCapture = (2 > arguments.length - 1) ? false : $es4.$$coerce($$$$useCapture, Boolean);
-
-				if (useCapture)
-				{
-					trace('Warning: useCapture not supported in EventDispatacher removeEventListener');
-				}
-				var listenersByType = $$this.$$EventDispatcher.$_properties.EventDispatcherScope.$_listeners;
-				var listeners = $es4.$$coerce(listenersByType[type], Array);
-				if (!listeners)
-				{
-					return;
-				}
-				for (var i = listeners.length; i--;)
-				{
-					if (listeners[i].method != listener)
-					{
-						continue;
-					}
-					if (listeners.length == 1)
-					{
-						delete listenersByType[type];
-					}
-					else
-					{
-						listeners.splice(i, 1);
-					}
-				}
-			}
-
-			return $$this.$$EventDispatcher.$$removeEventListener || ($$this.$$EventDispatcher.$$removeEventListener = removeEventListener);
-		}});
-
-
-		//public instance method
-		Object.defineProperty(EventDispatcher.prototype, 'willTrigger', {
-		get:function ()
-		{
-			var $$this = this;
-
-			function willTrigger($$$$type)
-			{
-				//set default parameter values
-				var type = $es4.$$coerce($$$$type, String);
-
-				return $es4.$$coerce($$this.$$EventDispatcher.$_properties.EventDispatcherScope.$_listeners[type], Boolean);
-			}
-
-			return $$this.$$EventDispatcher.$$willTrigger || ($$this.$$EventDispatcher.$$willTrigger = willTrigger);
+			$$this.$$TextEvent._text = value;
 		}});
 
 		//properties
-		EventDispatcher.prototype.$$v.$_properties = {
-		get:function () { var $$this = this.$$this; return $$this.$$EventDispatcher.$$p.$_properties; },
-		set:function (value) { var $$this = this.$$this; $$this.$$EventDispatcher.$$p.$_properties = value }
+		TextEvent.prototype.$$v._text = {
+		get:function () { var $$this = this.$$this; return $$this.$$TextEvent.$$p._text; },
+		set:function (value) { var $$this = this.$$this; $$this.$$TextEvent.$$p._text = $es4.$$coerce(value, String); }
 		};
 
 	});
 
 	//class initializer
-	EventDispatcher.$$cinit = (function ()
+	TextEvent.$$cinit = (function ()
 	{
-		EventDispatcher.$$cinit = undefined;
+		TextEvent.$$cinit = undefined;
 	});
 
-	//private static method
-	EventDispatcher.$_processListeners = (function ($$$$event, $$$$listeners)
-	{
-		if (EventDispatcher.$$cinit !== undefined) EventDispatcher.$$cinit();
-
-		//set default parameter values
-		var event = $es4.$$coerce($$$$event, Event);
-		var listeners = $es4.$$coerce($$$$listeners, Array);
-
-		listeners = listeners.slice();
-		var listenersLength = listeners.length;
-		var properties = event.$__properties();
-		for (var i = 0; i < listenersLength; i++)
-		{
-			if (listeners[i].method(event) === false)
-			{
-				properties.TLScope.stopPropagation();
-				properties.TLScope.preventDefault();
-			}
-			if (properties.EventScope.$_immediatePropagationStopped)
-			{
-				break;
-			}
-		}
-	});
-	function EventDispatcher()
+	function TextEvent()
 	{
 		var $$this;
 
@@ -3124,7 +2616,7 @@ $es4.$$package('flash.events').EventDispatcher = (function ()
 		{
 			var $$this = this;
 
-			if (!($$this instanceof EventDispatcher) || $$this.$$EventDispatcher !== undefined) return (arguments.length !== 0) ? $es4.$$as(arguments[0], EventDispatcher) : $es4.$$throwArgumentError();
+			if (!($$this instanceof TextEvent) || $$this.$$TextEvent !== undefined) return (arguments.length !== 0) ? $es4.$$as(arguments[0], TextEvent) : $es4.$$throwArgumentError();
 		}
 
 		//call construct if no arguments, or argument zero does not equal manual construct
@@ -3132,79 +2624,561 @@ $es4.$$package('flash.events').EventDispatcher = (function ()
 		{
 			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
 
-			EventDispatcher.$$construct($$this, $$args);
+			TextEvent.$$construct($$this, $$args);
 		}
 	}
 
 	//construct
-	EventDispatcher.$$construct = (function ($$this, args)
+	TextEvent.$$construct = (function ($$this, args)
 	{
 		//initialize function if not initialized
-		if (EventDispatcher.$$cinit !== undefined) EventDispatcher.$$cinit();
+		if (TextEvent.$$cinit !== undefined) TextEvent.$$cinit();
 
 		//hold property values, and methods
-		Object.defineProperty($$this, '$$EventDispatcher', {value:{$$this:$$this, $$p:{}, $$ns:{}}});
+		Object.defineProperty($$this, '$$TextEvent', {value:{$$this:$$this, $$p:{}, $$ns:{}}});
 
-		Object.defineProperty($$this.$$EventDispatcher, '$_properties', EventDispatcher.prototype.$$v.$_properties);
+		Object.defineProperty($$this.$$TextEvent, '_text', TextEvent.prototype.$$v._text);
+
+		//call construct on super
+		Event.$$construct($$this);
 
 		//initialize properties
-		EventDispatcher.$$iinit($$this);
+		TextEvent.$$iinit($$this);
 
 		//call constructor
-		if (args !== undefined) EventDispatcher.$$constructor.apply($$this, args);
+		if (args !== undefined) TextEvent.$$constructor.apply($$this, args);
 	});
 
 	//initializer
-	EventDispatcher.$$iinit = (function ($$this)
+	TextEvent.$$iinit = (function ($$this)
 	{
 		//initialize properties
-		$$this.$$EventDispatcher.$$p.$_properties = undefined;
+		$$this.$$TextEvent.$$p._text = $es4.$$coerce(undefined, String);
+	
+		//call iinit on super
+		Event.$$iinit($$this);
+	});
+
+	//constructor
+	TextEvent.$$constructor = (function ($$$$type, $$$$bubbles, $$$$cancelable, $$$$text)
+	{
+		var $$this = this;
+		//set default parameter values
+		var type = $es4.$$coerce($$$$type, String);
+		var bubbles = (1 > arguments.length - 1) ? false : $es4.$$coerce($$$$bubbles, Boolean);
+		var cancelable = (2 > arguments.length - 1) ? false : $es4.$$coerce($$$$cancelable, Boolean);
+		var text = (3 > arguments.length - 1) ? "" : $es4.$$coerce($$$$text, String);
+
+		Event.$$constructor.call($$this, type, bubbles, cancelable);
+		$$this.$$TextEvent._text = text;
+	});
+
+	return $es4.$$class(TextEvent, {EXTENDS:'flash.events.Event'}, 'flash.events::TextEvent');
+})();
+//flash.events.TextEvent
+
+
+//flash.utils.Proxy
+$es4.$$package('flash.utils').Proxy = (function ()
+{
+	//imports
+	var flash_proxy;
+
+	//class pre initializer
+	Proxy.$$sinit = (function ()
+	{
+		Proxy.$$sinit = undefined;
+
+		//initialize imports
+		flash_proxy = $es4.$$['flash.utils'].flash_proxy;
+
+		//set prototype and constructor
+		Proxy.prototype = Object.create(Object.prototype);
+		Object.defineProperty(Proxy.prototype, "constructor", { value: Proxy, enumerable: false });
+
+		//hold private values
+		Object.defineProperty(Proxy.prototype, '$$v', {value:{}});
+
+		//private instance method
+		Proxy.prototype.$$v.$$get = {
+		get:function ()
+		{
+			var $$this = this.$$this;
+
+			function $$get($$$$key)
+			{
+				//set default parameter values
+				var key = $$$$key;
+
+				return $$this.$$namespace($$this.flash_proxy).getProperty(key);
+			}
+
+			return $$this.$$Proxy.$$p.$$$$get || ($$this.$$Proxy.$$p.$$$$get = $$get);
+		}};
+
+
+		//private instance method
+		Proxy.prototype.$$v.$$set = {
+		get:function ()
+		{
+			var $$this = this.$$this;
+
+			function $$set($$$$key, $$$$value)
+			{
+				//set default parameter values
+				var key = $$$$key;
+				var value = $$$$value;
+
+				$$this.$$namespace($$this.flash_proxy).setProperty(key, value);
+				return value;
+			}
+
+			return $$this.$$Proxy.$$p.$$$$set || ($$this.$$Proxy.$$p.$$$$set = $$set);
+		}};
+
+
+		//private instance method
+		Proxy.prototype.$$v.$$call = {
+		get:function ()
+		{
+			var $$this = this.$$this;
+
+			function $$call($$$$name, $$$$args)
+			{
+				//set default parameter values
+				var name = $$$$name;
+				var args = $es4.$$coerce($$$$args, Array);
+
+				args.unshift(name);
+				return $$this.$$namespace($$this.flash_proxy).callProperty.apply($$this, args);
+			}
+
+			return $$this.$$Proxy.$$p.$$$$call || ($$this.$$Proxy.$$p.$$$$call = $$call);
+		}};
+
+
+		//private instance method
+		Proxy.prototype.$$v.$$delete = {
+		get:function ()
+		{
+			var $$this = this.$$this;
+
+			function $$delete($$$$key)
+			{
+				//set default parameter values
+				var key = $$$$key;
+
+				return $$this.$$namespace($$this.flash_proxy).deleteProperty(key);
+			}
+
+			return $$this.$$Proxy.$$p.$$$$delete || ($$this.$$Proxy.$$p.$$$$delete = $$delete);
+		}};
+
+
+		//private instance method
+		Proxy.prototype.$$v.$$nextName = {
+		get:function ()
+		{
+			var $$this = this.$$this;
+
+			function $$nextName($$$$index)
+			{
+				//set default parameter values
+				var index = $es4.$$coerce($$$$index, int);
+
+				return $$this.$$namespace($$this.flash_proxy).nextName(index);
+			}
+
+			return $$this.$$Proxy.$$p.$$$$nextName || ($$this.$$Proxy.$$p.$$$$nextName = $$nextName);
+		}};
+
+
+		//private instance method
+		Proxy.prototype.$$v.$$nextNameIndex = {
+		get:function ()
+		{
+			var $$this = this.$$this;
+
+			function $$nextNameIndex($$$$index)
+			{
+				//set default parameter values
+				var index = $es4.$$coerce($$$$index, int);
+
+				return $$this.$$namespace($$this.flash_proxy).nextNameIndex(index);
+			}
+
+			return $$this.$$Proxy.$$p.$$$$nextNameIndex || ($$this.$$Proxy.$$p.$$$$nextNameIndex = $$nextNameIndex);
+		}};
+
+
+		//private instance method
+		Proxy.prototype.$$v.$$nextValue = {
+		get:function ()
+		{
+			var $$this = this.$$this;
+
+			function $$nextValue($$$$index)
+			{
+				//set default parameter values
+				var index = $es4.$$coerce($$$$index, int);
+
+				return $$this.$$namespace($$this.flash_proxy).nextValue(index);
+			}
+
+			return $$this.$$Proxy.$$p.$$$$nextValue || ($$this.$$Proxy.$$p.$$$$nextValue = $$nextValue);
+		}};
+
+		//properties
+		Proxy.prototype.$$v.$$isProxy = {
+		get:function () { var $$this = this.$$this; return $$this.$$Proxy.$$p.$$isProxy; },
+		set:function (value) { var $$this = this.$$this; $$this.$$Proxy.$$p.$$isProxy = $es4.$$coerce(value, Boolean); }
+		};
+
+		Proxy.prototype.$$v.$keys = {
+		get:function () { var $$this = this.$$this; return $$this.$$Proxy.$$p.$keys; },
+		set:function (value) { var $$this = this.$$this; $$this.$$Proxy.$$p.$keys = $es4.$$coerce(value, Array); }
+		};
+
+		Proxy.prototype.$$v.$values = {
+		get:function () { var $$this = this.$$this; return $$this.$$Proxy.$$p.$values; },
+		set:function (value) { var $$this = this.$$this; $$this.$$Proxy.$$p.$values = $es4.$$coerce(value, Array); }
+		};
+
+	});
+
+	//class initializer
+	Proxy.$$cinit = (function ()
+	{
+		Proxy.$$cinit = undefined;
+	});
+
+	function Proxy()
+	{
+		var $$this;
+
+		//save scope
+		if (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) $$this = arguments[1];
+		else
+		{
+			var $$this = this;
+
+			if (!($$this instanceof Proxy) || $$this.$$Proxy !== undefined) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Proxy) : $es4.$$throwArgumentError();
+		}
+
+		//call construct if no arguments, or argument zero does not equal manual construct
+		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
+		{
+			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
+
+			Proxy.$$construct($$this, $$args);
+		}
+	}
+
+	//construct
+	Proxy.$$construct = (function ($$this, args)
+	{
+		//initialize function if not initialized
+		if (Proxy.$$cinit !== undefined) Proxy.$$cinit();
+
+		//hold property values, and methods
+		Object.defineProperty($$this, '$$Proxy', {value:{$$this:$$this, $$p:{}, $$ns:{}}});
+
+
+			//custom namespace method
+			$es4.$$cnamespace_function('deleteProperty', $$this, $$this.$$Proxy.$$ns, $['flash.utils'].flash_proxy, (function ($$$$name)
+			{
+				//set default parameter values
+				var name = $$$$name;
+
+				for (var i = 0; i < $$this.$$Proxy.$keys.length; i++)
+				{
+					if ($$this.$$Proxy.$keys[i] == name)
+					{
+						break;
+					}
+				}
+				if (i == $$this.$$Proxy.$keys.length)
+				{
+					return false;
+				}
+				$$this.$$Proxy.$keys.splice(i, 1);
+				$$this.$$Proxy.$values.splice(i, 1);
+				return true;
+			}));
+
+
+
+			//custom namespace method
+			$es4.$$cnamespace_function('getProperty', $$this, $$this.$$Proxy.$$ns, $['flash.utils'].flash_proxy, (function ($$$$name)
+			{
+				//set default parameter values
+				var name = $$$$name;
+
+				for (var i = 0; i < $$this.$$Proxy.$keys.length; i++)
+				{
+					if ($$this.$$Proxy.$keys[i] == name)
+					{
+						break;
+					}
+				}
+				if (i == $$this.$$Proxy.$keys.length)
+				{
+					return undefined;
+				}
+				return $$this.$$Proxy.$values[i];
+			}));
+
+
+
+			//custom namespace method
+			$es4.$$cnamespace_function('setProperty', $$this, $$this.$$Proxy.$$ns, $['flash.utils'].flash_proxy, (function ($$$$name, $$$$value)
+			{
+				//set default parameter values
+				var name = $$$$name;
+				var value = $$$$value;
+
+				for (var i = 0; i < $$this.$$Proxy.$keys.length; i++)
+				{
+					if ($$this.$$Proxy.$keys[i] == name)
+					{
+						break;
+					}
+				}
+				$$this.$$Proxy.$keys[i] = name;
+				$$this.$$Proxy.$values[i] = value;
+			}));
+
+
+
+			//custom namespace method
+			$es4.$$cnamespace_function('hasProperty', $$this, $$this.$$Proxy.$$ns, $['flash.utils'].flash_proxy, (function ($$$$name)
+			{
+				//set default parameter values
+				var name = $$$$name;
+
+				for (var i = 0; i < $$this.$$Proxy.$keys.length; i++)
+				{
+					if ($$this.$$Proxy.$keys[i] == name)
+					{
+						return true;
+					}
+				}
+				return false;
+			}));
+
+
+
+			//custom namespace method
+			$es4.$$cnamespace_function('nextName', $$this, $$this.$$Proxy.$$ns, $['flash.utils'].flash_proxy, (function ($$$$index)
+			{
+				//set default parameter values
+				var index = $es4.$$coerce($$$$index, int);
+
+				return $es4.$$coerce($$this.$$Proxy.$keys[index - 1], String);
+			}));
+
+
+
+			//custom namespace method
+			$es4.$$cnamespace_function('nextNameIndex', $$this, $$this.$$Proxy.$$ns, $['flash.utils'].flash_proxy, (function ($$$$index)
+			{
+				//set default parameter values
+				var index = $es4.$$coerce($$$$index, int);
+
+				return (index < $$this.$$Proxy.$keys.length) ? index + 1 : 0;
+			}));
+
+
+
+			//custom namespace method
+			$es4.$$cnamespace_function('nextValue', $$this, $$this.$$Proxy.$$ns, $['flash.utils'].flash_proxy, (function ($$$$index)
+			{
+				//set default parameter values
+				var index = $es4.$$coerce($$$$index, int);
+
+				return $$this.$$Proxy.$values[index - 1];
+			}));
+
+
+
+			//custom namespace method
+			$es4.$$cnamespace_function('callProperty', $$this, $$this.$$Proxy.$$ns, $['flash.utils'].flash_proxy, (function ($$$$name, $$$$rest)
+			{
+				//set default parameter values
+				var name = $$$$name;
+				for (var $$i = 1, $$length = arguments.length, rest = new Array($$length - 1); $$i < $$length; $$i += 1) rest[$$i - 1] = arguments[$$i];
+
+				for (var i = 0; i < $$this.$$Proxy.$keys.length; i++)
+				{
+					if ($$this.$$Proxy.$keys[i] == name)
+					{
+						break;
+					}
+				}
+				if (i == $$this.$$Proxy.$keys.length)
+				{
+					throw $es4.$$primitive(new Error('property not found'));
+				}
+				return $$this.$$Proxy.$values[i].apply($$this, rest);
+			}));
+
+
+
+			//custom namespace method
+			$es4.$$cnamespace_function('getDescendants', $$this, $$this.$$Proxy.$$ns, $['flash.utils'].flash_proxy, (function ($$$$name)
+			{
+				//set default parameter values
+				var name = $$$$name;
+
+				throw $es4.$$primitive(new Error('Proxy: not implemented'));
+			}));
+
+
+
+			//custom namespace method
+			$es4.$$cnamespace_function('isAttribute', $$this, $$this.$$Proxy.$$ns, $['flash.utils'].flash_proxy, (function ($$$$name)
+			{
+				//set default parameter values
+				var name = $$$$name;
+
+				throw $es4.$$primitive(new Error('Proxy: not implemented'));
+			}));
+
+
+		Object.defineProperty($$this.$$Proxy, '$$isProxy', Proxy.prototype.$$v.$$isProxy);
+		Object.defineProperty($$this.$$Proxy, '$keys', Proxy.prototype.$$v.$keys);
+		Object.defineProperty($$this.$$Proxy, '$values', Proxy.prototype.$$v.$values);
+
+		//private instance method
+		Object.defineProperty($$this.$$Proxy, '$$get', Proxy.prototype.$$v.$$get);
+
+		//private instance method
+		Object.defineProperty($$this.$$Proxy, '$$set', Proxy.prototype.$$v.$$set);
+
+		//private instance method
+		Object.defineProperty($$this.$$Proxy, '$$call', Proxy.prototype.$$v.$$call);
+
+		//private instance method
+		Object.defineProperty($$this.$$Proxy, '$$delete', Proxy.prototype.$$v.$$delete);
+
+		//private instance method
+		Object.defineProperty($$this.$$Proxy, '$$nextName', Proxy.prototype.$$v.$$nextName);
+
+		//private instance method
+		Object.defineProperty($$this.$$Proxy, '$$nextNameIndex', Proxy.prototype.$$v.$$nextNameIndex);
+
+		//private instance method
+		Object.defineProperty($$this.$$Proxy, '$$nextValue', Proxy.prototype.$$v.$$nextValue);
+
+		//initialize properties
+		Proxy.$$iinit($$this);
+
+		//call constructor
+		if (args !== undefined) Proxy.$$constructor.apply($$this, args);
+	});
+
+	//initializer
+	Proxy.$$iinit = (function ($$this)
+	{
+		//initialize properties
+		$$this.$$Proxy.$$p.$$isProxy = $es4.$$coerce(true, Boolean);
+		$$this.$$Proxy.$$p.$keys = $es4.$$coerce([], Array);
+		$$this.$$Proxy.$$p.$values = $es4.$$coerce([], Array);
 	
 	});
 
 	//constructor
-	EventDispatcher.$$constructor = (function ($$$$target)
+	Proxy.$$constructor = (function ()
 	{
 		var $$this = this;
-		//set default parameter values
-		var target = (0 > arguments.length - 1) ? null : $es4.$$coerce($$$$target, IEventDispatcher);
-
-		if ($$this.$$EventDispatcher.$_properties === undefined)
-		{
-			$$this.$__properties({});
-		}
-		$$this.$$EventDispatcher.$_properties.EventDispatcherScope.$_target = target || $$this;
 	});
 
-	return $es4.$$class(EventDispatcher, {IMPLEMENTS:['flash.events.IEventDispatcher']}, 'flash.events::EventDispatcher');
+	return $es4.$$class(Proxy, null, 'flash.utils::Proxy');
 })();
-//flash.events.EventDispatcher
+//flash.utils.Proxy
 
 
-//flash.utils.IDataOutput
-$es4.$$package('flash.utils').IDataOutput = (function ()
+//flash.events.EventPhase
+$es4.$$package('flash.events').EventPhase = (function ()
 {
-	function IDataOutput()
+	//properties
+	var $$j = {};
+	EventPhase.AT_TARGET = 2;
+	EventPhase.BUBBLING_PHASE = 3;
+	EventPhase.CAPTURING_PHASE = 1;
+
+	//class pre initializer
+	EventPhase.$$sinit = (function ()
 	{
-		//handle cast
-		return $es4.$$as(arguments[0], IDataOutput);
+		EventPhase.$$sinit = undefined;
+
+		//set prototype and constructor
+		EventPhase.prototype = Object.create(Object.prototype);
+		Object.defineProperty(EventPhase.prototype, "constructor", { value: EventPhase, enumerable: false });
+
+		//hold private values
+		Object.defineProperty(EventPhase.prototype, '$$v', {value:{}});
+	});
+
+	//class initializer
+	EventPhase.$$cinit = (function ()
+	{
+		EventPhase.$$cinit = undefined;
+	});
+
+	function EventPhase()
+	{
+		var $$this;
+
+		//save scope
+		if (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) $$this = arguments[1];
+		else
+		{
+			var $$this = this;
+
+			if (!($$this instanceof EventPhase) || $$this.$$EventPhase !== undefined) return (arguments.length !== 0) ? $es4.$$as(arguments[0], EventPhase) : $es4.$$throwArgumentError();
+		}
+
+		//call construct if no arguments, or argument zero does not equal manual construct
+		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
+		{
+			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
+
+			EventPhase.$$construct($$this, $$args);
+		}
 	}
-	return $es4.$$interface(IDataOutput, null, 'flash.utils::IDataOutput');
-})();
-//flash.utils.IDataOutput
+
+	//construct
+	EventPhase.$$construct = (function ($$this, args)
+	{
+		//initialize function if not initialized
+		if (EventPhase.$$cinit !== undefined) EventPhase.$$cinit();
+
+		//hold property values, and methods
+		Object.defineProperty($$this, '$$EventPhase', {value:{$$this:$$this, $$p:{}, $$ns:{}}});
 
 
-//flash.events.IEventDispatcher
-$es4.$$package('flash.events').IEventDispatcher = (function ()
-{
-	function IEventDispatcher()
+		//initialize properties
+		EventPhase.$$iinit($$this);
+
+		//call constructor
+		if (args !== undefined) EventPhase.$$constructor.apply($$this, args);
+	});
+
+	//initializer
+	EventPhase.$$iinit = (function ($$this)
 	{
-		//handle cast
-		return $es4.$$as(arguments[0], IEventDispatcher);
-	}
-	return $es4.$$interface(IEventDispatcher, null, 'flash.events::IEventDispatcher');
+	});
+
+	//constructor
+	EventPhase.$$constructor = (function ()
+	{
+		var $$this = this;
+	});
+
+	return $es4.$$class(EventPhase, null, 'flash.events::EventPhase');
 })();
-//flash.events.IEventDispatcher
+//flash.events.EventPhase
 
 
 //flash.net.IDynamicPropertyWriter
@@ -3233,79 +3207,30 @@ $es4.$$package('flash.utils').IDataInput = (function ()
 //flash.utils.IDataInput
 
 
-//flash.utils.getTimer
-$es4.$$package('flash.utils').getTimer = (function ()
+//flash.events.IEventDispatcher
+$es4.$$package('flash.events').IEventDispatcher = (function ()
 {
-	var $$this = getTimer, $$thisp = getTimer;
-	//function initializer
-	getTimer.$$cinit = (function ()
+	function IEventDispatcher()
 	{
-		getTimer.$$cinit = undefined;
-	});
-
-	function getTimer()
-	{
-		//initialize function if not initialized
-		if (getTimer.$$cinit !== undefined) getTimer.$$cinit();
-
-		return $es4.$$coerce($es4.$$primitive(new Date().getTime()) - global.$es4.$$startTime, int);
-}
-
-	return $es4.$$function (getTimer);
+		//handle cast
+		return $es4.$$as(arguments[0], IEventDispatcher);
+	}
+	return $es4.$$interface(IEventDispatcher, null, 'flash.events::IEventDispatcher');
 })();
-//flash.utils.getTimer
+//flash.events.IEventDispatcher
 
 
-//flash.utils.getQualifiedSuperclassName
-$es4.$$package('flash.utils').getQualifiedSuperclassName = (function ()
+//flash.utils.IDataOutput
+$es4.$$package('flash.utils').IDataOutput = (function ()
 {
-	var $$this = getQualifiedSuperclassName, $$thisp = getQualifiedSuperclassName;
-	//imports
-	var getQualifiedClassName;
-
-	//function initializer
-	getQualifiedSuperclassName.$$cinit = (function ()
+	function IDataOutput()
 	{
-		getQualifiedSuperclassName.$$cinit = undefined;
-
-		//initialize imports
-		getQualifiedClassName = $es4.$$['flash.utils'].getQualifiedClassName;
-	});
-
-	function getQualifiedSuperclassName($$$$object)
-	{
-		//initialize function if not initialized
-		if (getQualifiedSuperclassName.$$cinit !== undefined) getQualifiedSuperclassName.$$cinit();
-
-		//set default parameter values
-		var object = $$$$object;
-
-		if (object == Object)
-		{
-			return null;
-		}
-		if (object.$$isclass !== undefined)
-		{
-			if (object === Array)
-			{
-				return 'Object';
-			}
-			return getQualifiedClassName(object.__proto__);
-		}
-		else if (object.$$ismethod !== undefined)
-		{
-			return 'Function';
-		}
-		else if (object.constructor.$$isclass !== undefined)
-		{
-			return getQualifiedClassName(object.constructor.__proto__);
-		}
-		return $es4.$$coerce(object.constructor.__proto__.name, String);
-}
-
-	return $es4.$$function (getQualifiedSuperclassName);
+		//handle cast
+		return $es4.$$as(arguments[0], IDataOutput);
+	}
+	return $es4.$$interface(IDataOutput, null, 'flash.utils::IDataOutput');
 })();
-//flash.utils.getQualifiedSuperclassName
+//flash.utils.IDataOutput
 
 
 //flash.utils.setTimeout
@@ -3390,30 +3315,28 @@ $es4.$$package('flash.utils').getQualifiedClassName = (function ()
 //flash.utils.getQualifiedClassName
 
 
-//flash.utils.clearTimeout
-$es4.$$package('flash.utils').clearTimeout = (function ()
+//flash.debugger.enterDebugger
+$es4.$$package('flash.debugger').enterDebugger = (function ()
 {
-	var $$this = clearTimeout, $$thisp = clearTimeout;
+	var $$this = enterDebugger, $$thisp = enterDebugger;
 	//function initializer
-	clearTimeout.$$cinit = (function ()
+	enterDebugger.$$cinit = (function ()
 	{
-		clearTimeout.$$cinit = undefined;
+		enterDebugger.$$cinit = undefined;
 	});
 
-	function clearTimeout($$$$id)
+	function enterDebugger()
 	{
 		//initialize function if not initialized
-		if (clearTimeout.$$cinit !== undefined) clearTimeout.$$cinit();
+		if (enterDebugger.$$cinit !== undefined) enterDebugger.$$cinit();
 
-		//set default parameter values
-		var id = $es4.$$coerce($$$$id, uint);
 
-		global.clearTimeout(id);
-}
+		debugger;
+	}
 
-	return $es4.$$function (clearTimeout);
+	return $es4.$$function (enterDebugger);
 })();
-//flash.utils.clearTimeout
+//flash.debugger.enterDebugger
 
 
 //flash.utils.clearInterval
@@ -3440,6 +3363,88 @@ $es4.$$package('flash.utils').clearInterval = (function ()
 	return $es4.$$function (clearInterval);
 })();
 //flash.utils.clearInterval
+
+
+//flash.utils.getDefinitionByName
+$es4.$$package('flash.utils').getDefinitionByName = (function ()
+{
+	var $$this = getDefinitionByName, $$thisp = getDefinitionByName;
+	//function initializer
+	getDefinitionByName.$$cinit = (function ()
+	{
+		getDefinitionByName.$$cinit = undefined;
+	});
+
+	function getDefinitionByName($$$$name)
+	{
+		//initialize function if not initialized
+		if (getDefinitionByName.$$cinit !== undefined) getDefinitionByName.$$cinit();
+
+		//set default parameter values
+		var name = $es4.$$coerce($$$$name, String);
+
+
+		var parts = name.split('::').join('.').split('.');
+		var definitionName = parts.pop();
+		var packageName = parts.join('.');
+		
+		if ($es4.$$[packageName] === undefined || $es4.$$[packageName][definitionName] === undefined) throw new Error('Variable ' + name + ' is not defined.');
+		
+		return $es4.$$[packageName][definitionName];
+	}
+
+	return $es4.$$function (getDefinitionByName);
+})();
+//flash.utils.getDefinitionByName
+
+
+//flash.utils.getTimer
+$es4.$$package('flash.utils').getTimer = (function ()
+{
+	var $$this = getTimer, $$thisp = getTimer;
+	//function initializer
+	getTimer.$$cinit = (function ()
+	{
+		getTimer.$$cinit = undefined;
+	});
+
+	function getTimer()
+	{
+		//initialize function if not initialized
+		if (getTimer.$$cinit !== undefined) getTimer.$$cinit();
+
+		return $es4.$$coerce($es4.$$primitive(new Date().getTime()) - global.$es4.$$startTime, int);
+}
+
+	return $es4.$$function (getTimer);
+})();
+//flash.utils.getTimer
+
+
+//flash.utils.clearTimeout
+$es4.$$package('flash.utils').clearTimeout = (function ()
+{
+	var $$this = clearTimeout, $$thisp = clearTimeout;
+	//function initializer
+	clearTimeout.$$cinit = (function ()
+	{
+		clearTimeout.$$cinit = undefined;
+	});
+
+	function clearTimeout($$$$id)
+	{
+		//initialize function if not initialized
+		if (clearTimeout.$$cinit !== undefined) clearTimeout.$$cinit();
+
+		//set default parameter values
+		var id = $es4.$$coerce($$$$id, uint);
+
+		global.clearTimeout(id);
+}
+
+	return $es4.$$function (clearTimeout);
+})();
+//flash.utils.clearTimeout
 
 
 //flash.utils.setInterval
@@ -3474,119 +3479,114 @@ $es4.$$package('flash.utils').setInterval = (function ()
 //flash.utils.setInterval
 
 
-//flash.utils.getDefinitionByName
-$es4.$$package('flash.utils').getDefinitionByName = (function ()
+//flash.utils.getQualifiedSuperclassName
+$es4.$$package('flash.utils').getQualifiedSuperclassName = (function ()
 {
-	var $$this = getDefinitionByName, $$thisp = getDefinitionByName;
+	var $$this = getQualifiedSuperclassName, $$thisp = getQualifiedSuperclassName;
+	//imports
+	var getQualifiedClassName;
+
 	//function initializer
-	getDefinitionByName.$$cinit = (function ()
+	getQualifiedSuperclassName.$$cinit = (function ()
 	{
-		getDefinitionByName.$$cinit = undefined;
+		getQualifiedSuperclassName.$$cinit = undefined;
+
+		//initialize imports
+		getQualifiedClassName = $es4.$$['flash.utils'].getQualifiedClassName;
 	});
 
-	function getDefinitionByName($$$$name)
+	function getQualifiedSuperclassName($$$$object)
 	{
 		//initialize function if not initialized
-		if (getDefinitionByName.$$cinit !== undefined) getDefinitionByName.$$cinit();
+		if (getQualifiedSuperclassName.$$cinit !== undefined) getQualifiedSuperclassName.$$cinit();
 
 		//set default parameter values
-		var name = $es4.$$coerce($$$$name, String);
+		var object = $$$$object;
 
+		if (object == Object)
+		{
+			return null;
+		}
+		if (object.$$isclass !== undefined)
+		{
+			if (object === Array)
+			{
+				return 'Object';
+			}
+			return getQualifiedClassName(object.__proto__);
+		}
+		else if (object.$$ismethod !== undefined)
+		{
+			return 'Function';
+		}
+		else if (object.constructor.$$isclass !== undefined)
+		{
+			return getQualifiedClassName(object.constructor.__proto__);
+		}
+		return $es4.$$coerce(object.constructor.__proto__.name, String);
+}
 
-		var parts = name.split('::').join('.').split('.');
-		var definitionName = parts.pop();
-		var packageName = parts.join('.');
-		
-		if ($$[packageName] === undefined || $$[packageName][definitionName] === undefined) throw new Error('Variable ' + name + ' is not defined.');
-		
-		return $$[packageName][definitionName];
-	}
-
-	return $es4.$$function (getDefinitionByName);
+	return $es4.$$function (getQualifiedSuperclassName);
 })();
-//flash.utils.getDefinitionByName
+//flash.utils.getQualifiedSuperclassName
 
-
-//flash.debugger.enterDebugger
-$es4.$$package('flash.debugger').enterDebugger = (function ()
-{
-	var $$this = enterDebugger, $$thisp = enterDebugger;
-	//function initializer
-	enterDebugger.$$cinit = (function ()
-	{
-		enterDebugger.$$cinit = undefined;
-	});
-
-	function enterDebugger()
-	{
-		//initialize function if not initialized
-		if (enterDebugger.$$cinit !== undefined) enterDebugger.$$cinit();
-
-
-		debugger;
-	}
-
-	return $es4.$$function (enterDebugger);
-})();
-//flash.debugger.enterDebugger
-
-
-$es4.$$['flash.utils'].IDataOutput.$$pcinit();
-
-$es4.$$['flash.events'].IEventDispatcher.$$pcinit();
 
 $es4.$$['flash.net'].IDynamicPropertyWriter.$$pcinit();
 
 $es4.$$['flash.utils'].IDataInput.$$pcinit();
 
-$es4.$$['flash.display'].Sprite.$$pcinit();
+$es4.$$['flash.events'].IEventDispatcher.$$pcinit();
 
-$es4.$$['flash.events'].TextEvent.$$pcinit();
-
-$es4.$$['flash.net'].ObjectEncoding.$$pcinit();
-
-$es4.$$['flash.utils'].Proxy.$$pcinit();
-
-$es4.$$['flash.events'].ErrorEvent.$$pcinit();
-
-$es4.$$['flash.utils'].Endian.$$pcinit();
-
-$es4.$$['flash.utils'].ByteArray.$$pcinit();
+$es4.$$['flash.utils'].IDataOutput.$$pcinit();
 
 $es4.$$['flash.events'].Event.$$pcinit();
 
-$es4.$$['flash.events'].EventPhase.$$pcinit();
-
-$es4.$$['flash.utils'].Dictionary.$$pcinit();
+$es4.$$['flash.utils'].Endian.$$pcinit();
 
 $es4.$$['flash.events'].EventDispatcher.$$pcinit();
 
-if ($es4.$$['flash.utils'].IDataOutput.$$sinit !== undefined) $es4.$$['flash.utils'].IDataOutput.$$sinit();
+$es4.$$['flash.display'].Sprite.$$pcinit();
 
-if ($es4.$$['flash.events'].IEventDispatcher.$$sinit !== undefined) $es4.$$['flash.events'].IEventDispatcher.$$sinit();
+$es4.$$['flash.utils'].ByteArray.$$pcinit();
+
+$es4.$$['flash.events'].ErrorEvent.$$pcinit();
+
+$es4.$$['flash.net'].ObjectEncoding.$$pcinit();
+
+$es4.$$['flash.utils'].Dictionary.$$pcinit();
+
+$es4.$$['flash.events'].TextEvent.$$pcinit();
+
+$es4.$$['flash.utils'].Proxy.$$pcinit();
+
+$es4.$$['flash.events'].EventPhase.$$pcinit();
 
 if ($es4.$$['flash.net'].IDynamicPropertyWriter.$$sinit !== undefined) $es4.$$['flash.net'].IDynamicPropertyWriter.$$sinit();
 
 if ($es4.$$['flash.utils'].IDataInput.$$sinit !== undefined) $es4.$$['flash.utils'].IDataInput.$$sinit();
 
-if ($es4.$$['flash.display'].Sprite.$$sinit !== undefined) $es4.$$['flash.display'].Sprite.$$sinit();
+if ($es4.$$['flash.events'].IEventDispatcher.$$sinit !== undefined) $es4.$$['flash.events'].IEventDispatcher.$$sinit();
 
-if ($es4.$$['flash.events'].TextEvent.$$sinit !== undefined) $es4.$$['flash.events'].TextEvent.$$sinit();
-
-if ($es4.$$['flash.net'].ObjectEncoding.$$sinit !== undefined) $es4.$$['flash.net'].ObjectEncoding.$$sinit();
-
-if ($es4.$$['flash.utils'].Proxy.$$sinit !== undefined) $es4.$$['flash.utils'].Proxy.$$sinit();
-
-if ($es4.$$['flash.events'].ErrorEvent.$$sinit !== undefined) $es4.$$['flash.events'].ErrorEvent.$$sinit();
-
-if ($es4.$$['flash.utils'].Endian.$$sinit !== undefined) $es4.$$['flash.utils'].Endian.$$sinit();
-
-if ($es4.$$['flash.utils'].ByteArray.$$sinit !== undefined) $es4.$$['flash.utils'].ByteArray.$$sinit();
+if ($es4.$$['flash.utils'].IDataOutput.$$sinit !== undefined) $es4.$$['flash.utils'].IDataOutput.$$sinit();
 
 if ($es4.$$['flash.events'].Event.$$sinit !== undefined) $es4.$$['flash.events'].Event.$$sinit();
 
-if ($es4.$$['flash.events'].EventPhase.$$sinit !== undefined) $es4.$$['flash.events'].EventPhase.$$sinit();
+if ($es4.$$['flash.utils'].Endian.$$sinit !== undefined) $es4.$$['flash.utils'].Endian.$$sinit();
+
+if ($es4.$$['flash.events'].EventDispatcher.$$sinit !== undefined) $es4.$$['flash.events'].EventDispatcher.$$sinit();
+
+if ($es4.$$['flash.display'].Sprite.$$sinit !== undefined) $es4.$$['flash.display'].Sprite.$$sinit();
+
+if ($es4.$$['flash.utils'].ByteArray.$$sinit !== undefined) $es4.$$['flash.utils'].ByteArray.$$sinit();
+
+if ($es4.$$['flash.events'].ErrorEvent.$$sinit !== undefined) $es4.$$['flash.events'].ErrorEvent.$$sinit();
+
+if ($es4.$$['flash.net'].ObjectEncoding.$$sinit !== undefined) $es4.$$['flash.net'].ObjectEncoding.$$sinit();
 
 if ($es4.$$['flash.utils'].Dictionary.$$sinit !== undefined) $es4.$$['flash.utils'].Dictionary.$$sinit();
 
-if ($es4.$$['flash.events'].EventDispatcher.$$sinit !== undefined) $es4.$$['flash.events'].EventDispatcher.$$sinit();})();
+if ($es4.$$['flash.events'].TextEvent.$$sinit !== undefined) $es4.$$['flash.events'].TextEvent.$$sinit();
+
+if ($es4.$$['flash.utils'].Proxy.$$sinit !== undefined) $es4.$$['flash.utils'].Proxy.$$sinit();
+
+if ($es4.$$['flash.events'].EventPhase.$$sinit !== undefined) $es4.$$['flash.events'].EventPhase.$$sinit();})();

@@ -150,7 +150,7 @@ package browser
 			if (window.LWF) return window.LWF;
 			
 			var xmlHttpRequest:Object = getNewXMLHttpRequest();
-			xmlHttpRequest.open('GET', 'js/transcompiler/player/lwf/lwf.min.js', false);
+			xmlHttpRequest.open('GET', 'js/as3-js-player/lwf/lwf.min.js', false);
 			xmlHttpRequest.overrideMimeType('text/javascript');
 			xmlHttpRequest.send(null);
 			
@@ -165,7 +165,7 @@ package browser
 			if (window.flwebgl) return window.flwebgl;
 			
 			var xmlHttpRequest:Object = getNewXMLHttpRequest();
-			xmlHttpRequest.open('GET', 'js/transcompiler/player/flwebgl/flwebgl-0.2.min.js', false);
+			xmlHttpRequest.open('GET', 'js/as3-js-player/flwebgl/flwebgl-0.2.min.js', false);
 			xmlHttpRequest.overrideMimeType('text/javascript');
 			xmlHttpRequest.send(null);
 			

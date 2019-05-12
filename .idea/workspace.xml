@@ -2,15 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="342607d7-5e25-44ce-bad1-bffc82e2954e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.browser.1.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.browser.1.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.browser.3.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.browser.3.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.node.1.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.node.1.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.node.3.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.node.3.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.player.1.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.player.1.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.player.3.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.player.3.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.swf" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.swf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/playerglobal.browser.1.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/playerglobal.browser.1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/playerglobal.browser.3.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/playerglobal.browser.3.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/playerglobal.browser.swc" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/playerglobal.browser.swc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/playerglobal.node.1.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/playerglobal.node.1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/playerglobal.node.3.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/playerglobal.node.3.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/playerglobal.node.swc" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/playerglobal.node.swc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/playerglobal.player.1.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/playerglobal.player.1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/playerglobal.player.3.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/playerglobal.player.3.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/playerglobal.player.swc" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/playerglobal.player.swc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweetrush/Transcompiler.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/Transcompiler.as" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -225,7 +233,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557696735625" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557698517634" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../srf/helium/4/framework/tools/build" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Modules" />
@@ -363,12 +371,12 @@
       <workItem from="1556547950969" duration="23000" />
       <workItem from="1557415822350" duration="2489000" />
       <workItem from="1557520773838" duration="1877000" />
-      <workItem from="1557689990288" duration="4341000" />
+      <workItem from="1557689990288" duration="5539000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="274528000" />
+    <option name="totallyTimeSpent" value="275726000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
