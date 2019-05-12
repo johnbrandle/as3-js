@@ -94,7 +94,7 @@ package sweetrush
 			var excludeDirectories:Array = params.excludeDirectories || []; //directories to exclude
 			var includeBootstrap:Boolean = params.includeBootstrap !== undefined ? params.includeBootstrap : true; //should bootstrap js be included in js output?
 			var includePlayerGlobal:Boolean = params.includePlayerGlobal !== undefined ? params.includePlayerGlobal : includeBootstrap; //should playerglobal js be included in the js output?
-			var expose:String = params.expose; //what, if any, variable name we will set the created instance to
+			var expose:String = params.expose || ''; //what, if any, variable name we will set the created instance to
 			var platform:String = params.platform || 'node';
 			var special:Boolean = params.special; //we are compiling either playerglobal or builtin; either way, do not add builtin or playerglobal swcs automatically
 
@@ -249,9 +249,9 @@ package sweetrush
 				var name = parts.pop();
 				var packageName = (parts.length) ? parts.join('.') : '';
 
-				returnObject = "new $es4.$$['" + packageName + "']." + name + '($es4.$$MANUAL_CONSTRUCT)';
+				returnObject = "return new $es4.$$['" + packageName + "']." + name + '($es4.$$MANUAL_CONSTRUCT)';
 			}
-			else returnObject = "new $es4.$$['flash.display'].Sprite($es4.$$MANUAL_CONSTRUCT)";
+			else returnObject = "return new $es4.$$['flash.display'].Sprite($es4.$$MANUAL_CONSTRUCT)";
 
 			var lastLine = '';
 			if (expose)
@@ -262,7 +262,7 @@ package sweetrush
 				returnObject = (platform != 'node') ? ('window.' + expose) : '_object';
 			}
 
-			if (includeBootstrap && includePlayerGlobal && !mainFile) lastLine += "$es4.$$['player'].Player;";
+			if (includeBootstrap && includePlayerGlobal && !mainFile) lastLine += "return $es4.$$['player'].Player;";
 			else lastLine += returnObject + ';';
 
 			if (!special) js.push(lastLine);
@@ -296,7 +296,7 @@ package sweetrush
 				if (includePlayerGlobal) bootstrapJS.push(getPlayerGlobalJS(translationMode, platform));
 			}
 
-			var pre = (platform != 'node') ? '//__ES4__\n\n(function() { var $window = this; var window = $window.parent || $window; var global = window; var document = window.document; var $es4 = window.$es4 || (window.$es4 = {}); var _ = window._; var $ = window.$; var alert = window.alert; \n\n' : '';
+			var pre = (platform != 'node') ? '//__ES4__\n\n(function() { var $window = this; var window = $window.parent || $window; var global = window; var document = window.document; var $es4 = window.$es4 || (window.$es4 = {}); var _ = window._; var $ = window.$; \n\n' : '';
 			var post = (platform != 'node') ? '})();' : '';
 
 			return {js:pre + bootstrapJS.concat(js).join('\n\n') + post, rootConstructs:rootConstructsToTranslate, swc:jsSWC};

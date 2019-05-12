@@ -1815,258 +1815,6 @@ $es4.$$package('flash.utils').flash_proxy = $es4.$$namespace('http://www.sweetru
 //flash.utils.flash_proxy
 
 
-//flash.events.Event
-$es4.$$package('flash.events').Event = (function ()
-{
-	//imports
-	var Event;
-
-	//class initializer
-	Event.$$cinit = (function ()
-	{
-		Event.$$cinit = undefined;
-
-		//initialize imports
-	});
-
-	//method
-	$es4.$$private_function('$_withTarget', Event, (function ($$$$event, $$$$target)
-	{
-		if (Event.$$cinit !== undefined) Event.$$cinit();
-
-		//set default parameter values
-		var event = $es4.$$coerce($$$$event, $es4.$$['flash.events'].Event);
-		var target = $es4.$$coerce($$$$target, Object);
-
-		var properties = $es4.$$call(event, null, null, '$__properties', $es4.$$EMPTY_ARRAY);
-		event = $es4.$$get(properties, null, null, 'EventScope', '$_target') ? $es4.$$call(event, null, null, 'clone', $es4.$$EMPTY_ARRAY) : event;
-		$es4.$$set($es4.$$call(event, null, null, '$__properties', $es4.$$EMPTY_ARRAY), null, null, 'EventScope', '$_target', target, '=');
-		return event;
-	}));
-
-	function Event()
-	{
-		//initialize class if not initialized
-		if (Event.$$cinit !== undefined) Event.$$cinit();
-
-		//save scope
-		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
-		var $$thisp = this;
-
-		//handle possible cast
-		if ($$this === $$thisp && (!($$this instanceof Event) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Event) : $es4.$$throwArgumentError();
-		Object.defineProperty($$this, '$$t', {value:1});
-
-		//properties
-		$es4.$$private_property('$_properties', $$thisp);
-
-		//constructor
-		$es4.$$constructor($$thisp, (function ($$$$type, $$$$bubbles, $$$$cancelable)
-		{
-			//set default parameter values
-			var type = $es4.$$coerce($$$$type, String);
-			var bubbles = (1 > arguments.length - 1) ? false : $es4.$$coerce($$$$bubbles, Boolean);
-			var cancelable = (2 > arguments.length - 1) ? false : $es4.$$coerce($$$$cancelable, Boolean);
-
-			if ($es4.$$get($$thisp, $$this, $$thisp, '$_properties') === undefined)
-			{
-				$es4.$$call($$this, $$this, $$thisp, '$__properties', [{}]);
-			}
-			var properties = $es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventScope');
-			$es4.$$set(properties, $$this, $$thisp, '$_type', type, '=');
-			$es4.$$set(properties, $$this, $$thisp, '$_bubbles', bubbles, '=');
-			$es4.$$set(properties, $$this, $$thisp, '$_cancelable', cancelable, '=');
-		}));
-
-		//method
-		$es4.$$public_function('$__properties', $$thisp, (function ($$$$object)
-		{
-			//set default parameter values
-			var object = (0 > arguments.length - 1) ? null : $$$$object;
-
-			if ($es4.$$get($$thisp, $$this, $$thisp, '$_properties') === undefined)
-			{
-				$es4.$$set(object, $$this, $$thisp, 'EventScope', {$_target:null, $_currentTarget:null, $_eventPhase:null, $_withTarget:$es4.$$get(Event, $$this, $$thisp, '$_withTarget'), $_originalTarget:null}, '=');
-				$es4.$$set(object, $$this, $$thisp, 'TLScope', $$this, '=');
-				return $es4.$$set($$thisp, $$this, $$thisp, '$_properties', object, '=');
-			}
-			return $es4.$$get($$thisp, $$this, $$thisp, '$_properties');
-		}));
-
-		//method
-		$es4.$$public_function('clone', $$thisp, (function ()
-		{
-			return $es4.$$coerce($es4.$$primitive(new (Event)($es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_type'), $es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_bubbles'), $es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_cancelable'))), $es4.$$['flash.events'].Event);
-		}));
-
-		//method
-		$es4.$$public_function('formatToString', $$thisp, (function ($$$$className, $$$$args)
-		{
-			//set default parameter values
-			var className = $es4.$$coerce($$$$className, String);
-			for (var $$i = 1, $$length = arguments.length, args = new Array($$length - 1); $$i < $$length; $$i += 1) args[$$i - 1] = arguments[$$i];
-
-			var str = '[' + className;
-			for (var i = 0; i < $es4.$$get(args, $$this, $$thisp, 'length'); i++)
-			{
-				str += ' ' + $es4.$$get(args, $$this, $$thisp, i) + '="' + $es4.$$get($$this, $$this, $$thisp, $es4.$$get(args, $$this, $$thisp, i)) + '"';
-			}
-			str += ']';
-			return str;
-		}));
-
-		//method
-		$es4.$$public_function('isDefaultPrevented', $$thisp, (function ()
-		{
-			return $es4.$$coerce($es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_defaultPrevented'), Boolean);
-		}));
-
-		//method
-		$es4.$$public_function('preventDefault', $$thisp, (function ()
-		{
-			if ($es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_cancelable'))
-			{
-				$es4.$$set($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_defaultPrevented', true, '=');
-			}
-		}));
-
-		//method
-		$es4.$$public_function('stopImmediatePropagation', $$thisp, (function ()
-		{
-			$es4.$$set($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_immediatePropagationStopped', true, '=');
-		}));
-
-		//method
-		$es4.$$public_function('stopPropagation', $$thisp, (function ()
-		{
-			$es4.$$set($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_propagationStopped', true, '=');
-		}));
-
-		//method
-		$es4.$$public_function('toString', $$thisp, (function ()
-		{
-			return $es4.$$call($$this, $$this, $$thisp, 'formatToString', ['Event', 'type', 'bubbles', 'cancelable']);
-		}));
-
-		//accessor
-		$es4.$$public_accessor('bubbles', $$thisp, (function ()
-		{
-			return $es4.$$coerce($es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_bubbles'), Boolean);
-		}), null);
-
-		//accessor
-		$es4.$$public_accessor('cancelable', $$thisp, (function ()
-		{
-			return $es4.$$coerce($es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_cancelable'), Boolean);
-		}), null);
-
-		//accessor
-		$es4.$$public_accessor('currentTarget', $$thisp, (function ()
-		{
-			return $es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_currentTarget');
-		}), null);
-
-		//accessor
-		$es4.$$public_accessor('eventPhase', $$thisp, (function ()
-		{
-			return $es4.$$coerce($es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_eventPhase'), uint);
-		}), null);
-
-		//accessor
-		$es4.$$public_accessor('target', $$thisp, (function ()
-		{
-			return $es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_target');
-		}), null);
-
-		//accessor
-		$es4.$$public_accessor('type', $$thisp, (function ()
-		{
-			return $es4.$$coerce($es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_type'), String);
-		}), null);
-
-		//call construct if no arguments, or argument zero does not equal manual construct
-		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
-		{
-			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
-
-			$es4.$$construct($$this, $$args);
-		}
-	}
-
-	return $es4.$$class(Event, null, 'flash.events::Event');
-})();
-//flash.events.Event
-
-
-//flash.net.ObjectEncoding
-$es4.$$package('flash.net').ObjectEncoding = (function ()
-{
-	//imports
-	var IDynamicPropertyWriter;
-
-	//properties
-	ObjectEncoding.AMF0 = 0;
-	ObjectEncoding.AMF3 = 3;
-	ObjectEncoding.DEFAULT = 3;
-
-	//class initializer
-	ObjectEncoding.$$cinit = (function ()
-	{
-		ObjectEncoding.$$cinit = undefined;
-
-		//initialize imports
-		IDynamicPropertyWriter = $es4.$$['flash.net'].IDynamicPropertyWriter;
-	});
-
-	//accessor
-	$es4.$$public_accessor('dynamicPropertyWriter', ObjectEncoding, (function ()
-	{
-		if (ObjectEncoding.$$cinit !== undefined) ObjectEncoding.$$cinit();
-
-		throw $es4.$$primitive(new (Error)('ObjectEncoding: attempted call to an unimplemented function "dynamicPropertyWriter"'));
-	}), (function ($$$$object)
-	{
-		if (ObjectEncoding.$$cinit !== undefined) ObjectEncoding.$$cinit();
-
-		//set default parameter values
-		var object = $es4.$$coerce($$$$object, IDynamicPropertyWriter);
-
-		throw $es4.$$primitive(new (Error)('ObjectEncoding: attempted call to an unimplemented function "dynamicPropertyWriter"'));
-	}));
-
-	function ObjectEncoding()
-	{
-		//initialize class if not initialized
-		if (ObjectEncoding.$$cinit !== undefined) ObjectEncoding.$$cinit();
-
-		//save scope
-		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
-		var $$thisp = this;
-
-		//handle possible cast
-		if ($$this === $$thisp && (!($$this instanceof ObjectEncoding) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], ObjectEncoding) : $es4.$$throwArgumentError();
-		Object.defineProperty($$this, '$$t', {value:1});
-
-		//constructor
-		$es4.$$constructor($$thisp, (function ()
-		{
-			throw $es4.$$primitive(new (Error)('ObjectEncoding: attempted call to an unimplemented constructor'));
-		}));
-
-		//call construct if no arguments, or argument zero does not equal manual construct
-		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
-		{
-			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
-
-			$es4.$$construct($$this, $$args);
-		}
-	}
-
-	return $es4.$$class(ObjectEncoding, null, 'flash.net::ObjectEncoding');
-})();
-//flash.net.ObjectEncoding
-
-
 //flash.display.Sprite
 $es4.$$package('flash.display').Sprite = (function ()
 {
@@ -2109,279 +1857,12 @@ $es4.$$package('flash.display').Sprite = (function ()
 //flash.display.Sprite
 
 
-//flash.events.EventDispatcher
-$es4.$$package('flash.events').EventDispatcher = (function ()
-{
-	//imports
-	var Event;
-	var IEventDispatcher;
-	var EventPhase;
-
-	//class initializer
-	EventDispatcher.$$cinit = (function ()
-	{
-		EventDispatcher.$$cinit = undefined;
-
-		//initialize imports
-		Event = $es4.$$['flash.events'].Event;
-		IEventDispatcher = $es4.$$['flash.events'].IEventDispatcher;
-		EventPhase = $es4.$$['flash.events'].EventPhase;
-	});
-
-	//method
-	$es4.$$private_function('$_processListeners', EventDispatcher, (function ($$$$event, $$$$listeners)
-	{
-		if (EventDispatcher.$$cinit !== undefined) EventDispatcher.$$cinit();
-
-		//set default parameter values
-		var event = $es4.$$coerce($$$$event, Event);
-		var listeners = $es4.$$coerce($$$$listeners, Array);
-
-		listeners = $es4.$$call(listeners, null, null, 'slice', $es4.$$EMPTY_ARRAY);
-		var listenersLength = $es4.$$get(listeners, null, null, 'length');
-		var properties = $es4.$$call(event, null, null, '$__properties', $es4.$$EMPTY_ARRAY);
-		for (var i = 0; i < listenersLength; i++)
-		{
-			if ($es4.$$call(listeners, null, null, i, 'method', [event]) === false)
-			{
-				$es4.$$call(properties, null, null, 'TLScope', 'stopPropagation', $es4.$$EMPTY_ARRAY);
-				$es4.$$call(properties, null, null, 'TLScope', 'preventDefault', $es4.$$EMPTY_ARRAY);
-			}
-			if ($es4.$$get(properties, null, null, 'EventScope', '$_immediatePropagationStopped'))
-			{
-				break;
-			}
-		}
-	}));
-
-	function EventDispatcher()
-	{
-		//initialize class if not initialized
-		if (EventDispatcher.$$cinit !== undefined) EventDispatcher.$$cinit();
-
-		//save scope
-		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
-		var $$thisp = this;
-
-		//handle possible cast
-		if ($$this === $$thisp && (!($$this instanceof EventDispatcher) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], EventDispatcher) : $es4.$$throwArgumentError();
-		Object.defineProperty($$this, '$$t', {value:1});
-
-		//properties
-		$es4.$$private_property('$_properties', $$thisp);
-
-		//constructor
-		$es4.$$constructor($$thisp, (function ($$$$target)
-		{
-			//set default parameter values
-			var target = (0 > arguments.length - 1) ? null : $es4.$$coerce($$$$target, IEventDispatcher);
-
-			if ($es4.$$get($$thisp, $$this, $$thisp, '$_properties') === undefined)
-			{
-				$es4.$$call($$this, $$this, $$thisp, '$__properties', [{}]);
-			}
-			$es4.$$set($$thisp, $$this, $$thisp, '$_properties', 'EventDispatcherScope', '$_target', target || $$this, '=');
-		}));
-
-		//method
-		$es4.$$public_function('$__properties', $$thisp, (function ($$$$object)
-		{
-			//set default parameter values
-			var object = (0 > arguments.length - 1) ? null : $$$$object;
-
-			if ($es4.$$get($$thisp, $$this, $$thisp, '$_properties') === undefined)
-			{
-				$es4.$$set(object, $$this, $$thisp, 'EventDispatcherScope', {$_listeners:{}}, '=');
-				$es4.$$set(object, $$this, $$thisp, 'TLScope', $$this, '=');
-				return $es4.$$set($$thisp, $$this, $$thisp, '$_properties', object, '=');
-			}
-			return $es4.$$get($$thisp, $$this, $$thisp, '$_properties');
-		}));
-
-		//method
-		$es4.$$public_function('addEventListener', $$thisp, (function ($$$$type, $$$$listener, $$$$useCapture, $$$$priority, $$$$useWeakReference)
-		{
-			//set default parameter values
-			var type = $es4.$$coerce($$$$type, String);
-			var listener = $es4.$$coerce($$$$listener, Function);
-			var useCapture = (2 > arguments.length - 1) ? false : $es4.$$coerce($$$$useCapture, Boolean);
-			var priority = (3 > arguments.length - 1) ? 0 : $es4.$$coerce($$$$priority, int);
-			var useWeakReference = (4 > arguments.length - 1) ? false : $es4.$$coerce($$$$useWeakReference, Boolean);
-
-			if (useWeakReference)
-			{
-				trace('Warning: useWeakReference not supported in EventDispatacher addEventListener');
-			}
-			if (useCapture)
-			{
-				trace('Warning: useCapture not supported in EventDispatacher addEventListener');
-			}
-			var listenersByType = $es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventDispatcherScope', '$_listeners');
-			var eventObj = {type:type, method:listener, useCapture:useCapture, priority:priority, useWeakReference:useWeakReference};
-			if (!(type in listenersByType))
-			{
-				$es4.$$set(listenersByType, $$this, $$thisp, type, [eventObj], '=');
-			}
-			else
-			{
-				var listeners = $es4.$$coerce($es4.$$get(listenersByType, $$this, $$thisp, type), Array);
-				for (var i = $es4.$$coerce($es4.$$get(listeners, $$this, $$thisp, 'length'), int); i--;)
-				{
-					if (listener == $es4.$$get(listeners, $$this, $$thisp, i, 'method'))
-					{
-						return;
-					}
-				}
-				$es4.$$call(listenersByType, $$this, $$thisp, type, 'push', [eventObj]);
-			}
-			$es4.$$call(listenersByType, $$this, $$thisp, type, 'sort', [eventCompare]);
-
-			function eventCompare($$$$item1, $$$$item2) 
-			{
-				//set default parameter values
-				var item1 = $es4.$$coerce($$$$item1, Object);
-				var item2 = $es4.$$coerce($$$$item2, Object);
-
-				if ($es4.$$get(item1, $$this, $$thisp, 'priority') > $es4.$$get(item2, $$this, $$thisp, 'priority'))
-				{
-					return -1;
-				}
-				else if ($es4.$$get(item1, $$this, $$thisp, 'priority') < $es4.$$get(item2, $$this, $$thisp, 'priority'))
-				{
-					return 1;
-				}
-				else
-				{
-					return 0;
-				}
-			}
-;
-		}));
-
-		//method
-		$es4.$$public_function('dispatchEvent', $$thisp, (function ($$$$event)
-		{
-			//set default parameter values
-			var event = $es4.$$coerce($$$$event, Event);
-
-			var properties = $es4.$$get($es4.$$call(event, $$this, $$thisp, '$__properties', $es4.$$EMPTY_ARRAY), $$this, $$thisp, 'TLScope');
-			var listeners = $es4.$$coerce($es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventDispatcherScope', '$_listeners', $es4.$$get(event, $$this, $$thisp, 'type')), Array);
-			var target = $es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventDispatcherScope', '$_target');
-			var bubble = false;
-			if (!bubble && !listeners)
-			{
-				return $es4.$$coerce(!$es4.$$call(properties, $$this, $$thisp, 'isDefaultPrevented', $es4.$$EMPTY_ARRAY), Boolean);
-			}
-			var parents = null;
-			properties = $es4.$$get($es4.$$call(event, $$this, $$thisp, '$__properties', $es4.$$EMPTY_ARRAY), $$this, $$thisp, 'EventScope');
-			if (listeners && !$es4.$$get(properties, $$this, $$thisp, '$_propagationStopped') && !$es4.$$get(properties, $$this, $$thisp, '$_immediatePropagationStopped'))
-			{
-				event = $es4.$$coerce($es4.$$call(properties, $$this, $$thisp, '$_withTarget', [event, target]), Event);
-				properties = $es4.$$get($es4.$$call(event, $$this, $$thisp, '$__properties', $es4.$$EMPTY_ARRAY), $$this, $$thisp, 'EventScope');
-				$es4.$$set(properties, $$this, $$thisp, '$_eventPhase', $es4.$$get(EventPhase, $$this, $$thisp, 'AT_TARGET'), '=');
-				$es4.$$set(properties, $$this, $$thisp, '$_currentTarget', $es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventDispatcherScope', '$_target'), '=');
-				$es4.$$call(EventDispatcher, $$this, $$thisp, '$_processListeners', [event, listeners]);
-			}
-			if (bubble && !$es4.$$get(properties, $$this, $$thisp, '$_propagationStopped') && !$es4.$$get(properties, $$this, $$thisp, '$_immediatePropagationStopped'))
-			{
-				var index = 0;
-				var parentsLength = $es4.$$get(parents, $$this, $$thisp, 'length');
-				while (parentsLength > index)
-				{
-					var currentTarget = $es4.$$get(parents, $$this, $$thisp, index);
-					var currentBubbleListeners = $es4.$$coerce($es4.$$get($es4.$$call(currentTarget, $$this, $$thisp, '$__properties', $es4.$$EMPTY_ARRAY), $$this, $$thisp, 'EventDispatcherScope', '$_listeners', $es4.$$get(event, $$this, $$thisp, 'type')), Array);
-					if (currentBubbleListeners && $es4.$$get(currentBubbleListeners, $$this, $$thisp, 'length'))
-					{
-						event = $es4.$$coerce($es4.$$call(properties, $$this, $$thisp, '$_withTarget', [event, target]), Event);
-						properties = $es4.$$get($es4.$$call(event, $$this, $$thisp, '$__properties', $es4.$$EMPTY_ARRAY), $$this, $$thisp, 'EventScope');
-						$es4.$$set(properties, $$this, $$thisp, '$_eventPhase', $es4.$$get(EventPhase, $$this, $$thisp, 'BUBBLING_PHASE'), '=');
-						$es4.$$set($es4.$$call(event, $$this, $$thisp, '$__properties', $es4.$$EMPTY_ARRAY), $$this, $$thisp, 'EventScope', '$_currentTarget', currentTarget, '=');
-						$es4.$$call(EventDispatcher, $$this, $$thisp, '$_processListeners', [event, currentBubbleListeners]);
-						if ($es4.$$get(properties, $$this, $$thisp, '$_propagationStopped') || $es4.$$get(properties, $$this, $$thisp, '$_immediatePropagationStopped'))
-						{
-							break;
-						}
-					}
-					index++;
-				}
-			}
-			properties = $es4.$$get($es4.$$call(event, $$this, $$thisp, '$__properties', $es4.$$EMPTY_ARRAY), $$this, $$thisp, 'TLScope');
-			return $es4.$$coerce(!$es4.$$call(properties, $$this, $$thisp, 'isDefaultPrevented', $es4.$$EMPTY_ARRAY), Boolean);
-		}));
-
-		//method
-		$es4.$$public_function('hasEventListener', $$thisp, (function ($$$$type)
-		{
-			//set default parameter values
-			var type = $es4.$$coerce($$$$type, String);
-
-			return $es4.$$coerce($es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventDispatcherScope', '$_listeners', type), Boolean);
-		}));
-
-		//method
-		$es4.$$public_function('removeEventListener', $$thisp, (function ($$$$type, $$$$listener, $$$$useCapture)
-		{
-			//set default parameter values
-			var type = $es4.$$coerce($$$$type, String);
-			var listener = $es4.$$coerce($$$$listener, Function);
-			var useCapture = (2 > arguments.length - 1) ? false : $es4.$$coerce($$$$useCapture, Boolean);
-
-			if (useCapture)
-			{
-				trace('Warning: useCapture not supported in EventDispatacher removeEventListener');
-			}
-			var listenersByType = $es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventDispatcherScope', '$_listeners');
-			var listeners = $es4.$$coerce($es4.$$get(listenersByType, $$this, $$thisp, type), Array);
-			if (!listeners)
-			{
-				return;
-			}
-			for (var i = $es4.$$get(listeners, $$this, $$thisp, 'length'); i--;)
-			{
-				if ($es4.$$get(listeners, $$this, $$thisp, i, 'method') != listener)
-				{
-					continue;
-				}
-				if ($es4.$$get(listeners, $$this, $$thisp, 'length') == 1)
-				{
-					$es4.$$delete(listenersByType, $$this, $$thisp, type);
-				}
-				else
-				{
-					$es4.$$call(listeners, $$this, $$thisp, 'splice', [i, 1]);
-				}
-			}
-		}));
-
-		//method
-		$es4.$$public_function('willTrigger', $$thisp, (function ($$$$type)
-		{
-			//set default parameter values
-			var type = $es4.$$coerce($$$$type, String);
-
-			return $es4.$$coerce($es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventDispatcherScope', '$_listeners', type), Boolean);
-		}));
-
-		//call construct if no arguments, or argument zero does not equal manual construct
-		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
-		{
-			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
-
-			$es4.$$construct($$this, $$args);
-		}
-	}
-
-	return $es4.$$class(EventDispatcher, {IMPLEMENTS:['flash.events.IEventDispatcher']}, 'flash.events::EventDispatcher');
-})();
-//flash.events.EventDispatcher
-
-
 //flash.events.TextEvent
 $es4.$$package('flash.events').TextEvent = (function ()
 {
 	//imports
-	var TextEvent;
 	var Event;
+	var TextEvent;
 
 	//properties
 	TextEvent.LINK = "link";
@@ -2461,6 +1942,75 @@ $es4.$$package('flash.events').TextEvent = (function ()
 	return $es4.$$class(TextEvent, {EXTENDS:'flash.events.Event'}, 'flash.events::TextEvent');
 })();
 //flash.events.TextEvent
+
+
+//flash.net.ObjectEncoding
+$es4.$$package('flash.net').ObjectEncoding = (function ()
+{
+	//imports
+	var IDynamicPropertyWriter;
+
+	//properties
+	ObjectEncoding.AMF0 = 0;
+	ObjectEncoding.AMF3 = 3;
+	ObjectEncoding.DEFAULT = 3;
+
+	//class initializer
+	ObjectEncoding.$$cinit = (function ()
+	{
+		ObjectEncoding.$$cinit = undefined;
+
+		//initialize imports
+		IDynamicPropertyWriter = $es4.$$['flash.net'].IDynamicPropertyWriter;
+	});
+
+	//accessor
+	$es4.$$public_accessor('dynamicPropertyWriter', ObjectEncoding, (function ()
+	{
+		if (ObjectEncoding.$$cinit !== undefined) ObjectEncoding.$$cinit();
+
+		throw $es4.$$primitive(new (Error)('ObjectEncoding: attempted call to an unimplemented function "dynamicPropertyWriter"'));
+	}), (function ($$$$object)
+	{
+		if (ObjectEncoding.$$cinit !== undefined) ObjectEncoding.$$cinit();
+
+		//set default parameter values
+		var object = $es4.$$coerce($$$$object, IDynamicPropertyWriter);
+
+		throw $es4.$$primitive(new (Error)('ObjectEncoding: attempted call to an unimplemented function "dynamicPropertyWriter"'));
+	}));
+
+	function ObjectEncoding()
+	{
+		//initialize class if not initialized
+		if (ObjectEncoding.$$cinit !== undefined) ObjectEncoding.$$cinit();
+
+		//save scope
+		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
+		var $$thisp = this;
+
+		//handle possible cast
+		if ($$this === $$thisp && (!($$this instanceof ObjectEncoding) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], ObjectEncoding) : $es4.$$throwArgumentError();
+		Object.defineProperty($$this, '$$t', {value:1});
+
+		//constructor
+		$es4.$$constructor($$thisp, (function ()
+		{
+			throw $es4.$$primitive(new (Error)('ObjectEncoding: attempted call to an unimplemented constructor'));
+		}));
+
+		//call construct if no arguments, or argument zero does not equal manual construct
+		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
+		{
+			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
+
+			$es4.$$construct($$this, $$args);
+		}
+	}
+
+	return $es4.$$class(ObjectEncoding, null, 'flash.net::ObjectEncoding');
+})();
+//flash.net.ObjectEncoding
 
 
 //flash.utils.Proxy
@@ -2737,8 +2287,8 @@ $es4.$$package('flash.utils').Proxy = (function ()
 $es4.$$package('flash.events').ErrorEvent = (function ()
 {
 	//imports
-	var TextEvent;
 	var Event;
+	var TextEvent;
 	var ErrorEvent;
 
 	//properties
@@ -2750,8 +2300,8 @@ $es4.$$package('flash.events').ErrorEvent = (function ()
 		ErrorEvent.$$cinit = undefined;
 
 		//initialize imports
-		TextEvent = $es4.$$['flash.events'].TextEvent;
 		Event = $es4.$$['flash.events'].Event;
+		TextEvent = $es4.$$['flash.events'].TextEvent;
 	});
 
 	function ErrorEvent()
@@ -2869,213 +2419,15 @@ $es4.$$package('flash.utils').Endian = (function ()
 //flash.utils.Endian
 
 
-//flash.utils.Dictionary
-$es4.$$package('flash.utils').Dictionary = (function ()
-{
-	//class initializer
-	Dictionary.$$cinit = (function ()
-	{
-		Dictionary.$$cinit = undefined;
-
-	});
-
-	function Dictionary()
-	{
-		//initialize class if not initialized
-		if (Dictionary.$$cinit !== undefined) Dictionary.$$cinit();
-
-		//save scope
-		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
-		var $$thisp = this;
-
-		//handle possible cast
-		if ($$this === $$thisp && (!($$this instanceof Dictionary) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Dictionary) : $es4.$$throwArgumentError();
-		Object.defineProperty($$this, '$$t', {value:1});
-
-		//properties
-		$es4.$$private_property('$$isProxy', $$thisp, Boolean);
-		$es4.$$private_property('$map', $$thisp);
-		$es4.$$private_property('$keys', $$thisp, Array);
-		$es4.$$private_property('$values', $$thisp, Array);
-
-		//initializer
-		$es4.$$iinit($$thisp, (function ()
-		{
-			//initialize properties
-			$es4.$$set($$this, $$this, $$thisp, '$$isProxy', true, '=');
-			$es4.$$set($$this, $$this, $$thisp, '$map', $es4.$$primitive(new ($es4.$$get(global, $$this, $$thisp, 'Map'))()), '=');
-			$es4.$$set($$this, $$this, $$thisp, '$keys', [], '=');
-			$es4.$$set($$this, $$this, $$thisp, '$values', [], '=');
-		}));
-
-		//constructor
-		$es4.$$constructor($$thisp, (function ($$$$weakKeys)
-		{
-			//set default parameter values
-			var weakKeys = (0 > arguments.length - 1) ? false : $es4.$$coerce($$$$weakKeys, Boolean);
-
-			if (weakKeys)
-			{
-				trace('Warning: Dictionary: does not support weakKeys at this time');
-			}
-		}));
-
-		//method
-		$es4.$$public_function('toJSON', $$thisp, (function ($$$$k)
-		{
-			//set default parameter values
-			var k = $es4.$$coerce($$$$k, String);
-
-			throw $es4.$$primitive(new (Error)('Dictionary: does not support toJSON at this time'));
-		}));
-
-		//method
-		$es4.$$private_function('$$get', $$thisp, (function ($$$$key)
-		{
-			//set default parameter values
-			var key = $$$$key;
-
-			if (!$es4.$$call($$thisp, $$this, $$thisp, '$map', 'has', [key]))
-			{
-				return undefined;
-			}
-			return $es4.$$get($es4.$$call($$thisp, $$this, $$thisp, '$map', 'get', [key]), $$this, $$thisp, 'value');
-		}));
-
-		//method
-		$es4.$$private_function('$$set', $$thisp, (function ($$$$key, $$$$value)
-		{
-			//set default parameter values
-			var key = $$$$key;
-			var value = $$$$value;
-
-			$es4.$$call($$thisp, $$this, $$thisp, '$map', 'set', [key, {index:$es4.$$get($$thisp, $$this, $$thisp, '$values', 'length'), value:value}]);
-			$es4.$$call($$thisp, $$this, $$thisp, '$keys', 'push', [key]);
-			$es4.$$call($$thisp, $$this, $$thisp, '$values', 'push', [value]);
-		}));
-
-		//method
-		$es4.$$private_function('$$call', $$thisp, (function ($$$$name, $$$$args)
-		{
-			//set default parameter values
-			var name = $$$$name;
-			var args = $es4.$$coerce($$$$args, Array);
-
-			return $es4.$$call($es4.$$call($$thisp, $$this, $$thisp, '$map', 'get', [name]), $$this, $$thisp, 'value', 'apply', [$$this, args]);
-		}));
-
-		//method
-		$es4.$$private_function('$$delete', $$thisp, (function ($$$$key)
-		{
-			//set default parameter values
-			var key = $$$$key;
-
-			if ($es4.$$call($$thisp, $$this, $$thisp, '$map', 'has', [key]))
-			{
-				var value = $es4.$$call($$thisp, $$this, $$thisp, '$map', 'get', [key]);
-				$es4.$$call($$thisp, $$this, $$thisp, '$values', 'splice', [$es4.$$get(value, $$this, $$thisp, 'index'), 1]);
-				$es4.$$call($$thisp, $$this, $$thisp, '$keys', 'splice', [$es4.$$get(value, $$this, $$thisp, 'index'), 1]);
-			}
-			return $es4.$$coerce($es4.$$call($$thisp, $$this, $$thisp, '$map', 'delete', [key]), Boolean);
-		}));
-
-		//method
-		$es4.$$private_function('$$nextName', $$thisp, (function ($$$$index)
-		{
-			//set default parameter values
-			var index = $es4.$$coerce($$$$index, int);
-
-			return $es4.$$get($$thisp, $$this, $$thisp, '$keys', index - 1);
-		}));
-
-		//method
-		$es4.$$private_function('$$nextNameIndex', $$thisp, (function ($$$$index)
-		{
-			//set default parameter values
-			var index = $es4.$$coerce($$$$index, int);
-
-			return (index < $es4.$$get($$thisp, $$this, $$thisp, '$values', 'length')) ? index + 1 : 0;
-		}));
-
-		//method
-		$es4.$$private_function('$$nextValue', $$thisp, (function ($$$$index)
-		{
-			//set default parameter values
-			var index = $es4.$$coerce($$$$index, int);
-
-			return $es4.$$get($$thisp, $$this, $$thisp, '$values', index - 1);
-		}));
-
-		//call construct if no arguments, or argument zero does not equal manual construct
-		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
-		{
-			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
-
-			$es4.$$construct($$this, $$args);
-		}
-	}
-
-	return $es4.$$class(Dictionary, null, 'flash.utils::Dictionary');
-})();
-//flash.utils.Dictionary
-
-
-//flash.events.EventPhase
-$es4.$$package('flash.events').EventPhase = (function ()
-{
-	//properties
-	EventPhase.AT_TARGET = 2;
-	EventPhase.BUBBLING_PHASE = 3;
-	EventPhase.CAPTURING_PHASE = 1;
-
-	//class initializer
-	EventPhase.$$cinit = (function ()
-	{
-		EventPhase.$$cinit = undefined;
-
-	});
-
-	function EventPhase()
-	{
-		//initialize class if not initialized
-		if (EventPhase.$$cinit !== undefined) EventPhase.$$cinit();
-
-		//save scope
-		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
-		var $$thisp = this;
-
-		//handle possible cast
-		if ($$this === $$thisp && (!($$this instanceof EventPhase) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], EventPhase) : $es4.$$throwArgumentError();
-		Object.defineProperty($$this, '$$t', {value:1});
-
-		//constructor
-		$es4.$$constructor($$thisp, (function ()
-		{
-		}));
-
-		//call construct if no arguments, or argument zero does not equal manual construct
-		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
-		{
-			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
-
-			$es4.$$construct($$this, $$args);
-		}
-	}
-
-	return $es4.$$class(EventPhase, null, 'flash.events::EventPhase');
-})();
-//flash.events.EventPhase
-
-
 //flash.utils.ByteArray
 $es4.$$package('flash.utils').ByteArray = (function ()
 {
 	//imports
 	var ObjectEncoding;
-	var IDataInput;
+	var IDataOutput;
 	var Endian;
 	var ByteArray;
-	var IDataOutput;
+	var IDataInput;
 
 	//properties
 	ByteArray.BYTES_GROW_SIZE = 1024;
@@ -3087,9 +2439,9 @@ $es4.$$package('flash.utils').ByteArray = (function ()
 
 		//initialize imports
 		ObjectEncoding = $es4.$$['flash.net'].ObjectEncoding;
-		IDataInput = $es4.$$['flash.utils'].IDataInput;
-		Endian = $es4.$$['flash.utils'].Endian;
 		IDataOutput = $es4.$$['flash.utils'].IDataOutput;
+		Endian = $es4.$$['flash.utils'].Endian;
+		IDataInput = $es4.$$['flash.utils'].IDataInput;
 	});
 
 	//accessor
@@ -3794,43 +3146,652 @@ $es4.$$package('flash.utils').ByteArray = (function ()
 //flash.utils.ByteArray
 
 
-//flash.utils.IDataInput
-$es4.$$package('flash.utils').IDataInput = (function ()
+//flash.events.Event
+$es4.$$package('flash.events').Event = (function ()
 {
-	function IDataInput()
+	//imports
+	var Event;
+
+	//class initializer
+	Event.$$cinit = (function ()
 	{
-		//handle cast
-		return $es4.$$as(arguments[0], IDataInput);
+		Event.$$cinit = undefined;
+
+		//initialize imports
+	});
+
+	//method
+	$es4.$$private_function('$_withTarget', Event, (function ($$$$event, $$$$target)
+	{
+		if (Event.$$cinit !== undefined) Event.$$cinit();
+
+		//set default parameter values
+		var event = $es4.$$coerce($$$$event, $es4.$$['flash.events'].Event);
+		var target = $es4.$$coerce($$$$target, Object);
+
+		var properties = $es4.$$call(event, null, null, '$__properties', $es4.$$EMPTY_ARRAY);
+		event = $es4.$$get(properties, null, null, 'EventScope', '$_target') ? $es4.$$call(event, null, null, 'clone', $es4.$$EMPTY_ARRAY) : event;
+		$es4.$$set($es4.$$call(event, null, null, '$__properties', $es4.$$EMPTY_ARRAY), null, null, 'EventScope', '$_target', target, '=');
+		return event;
+	}));
+
+	function Event()
+	{
+		//initialize class if not initialized
+		if (Event.$$cinit !== undefined) Event.$$cinit();
+
+		//save scope
+		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
+		var $$thisp = this;
+
+		//handle possible cast
+		if ($$this === $$thisp && (!($$this instanceof Event) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Event) : $es4.$$throwArgumentError();
+		Object.defineProperty($$this, '$$t', {value:1});
+
+		//properties
+		$es4.$$private_property('$_properties', $$thisp);
+
+		//constructor
+		$es4.$$constructor($$thisp, (function ($$$$type, $$$$bubbles, $$$$cancelable)
+		{
+			//set default parameter values
+			var type = $es4.$$coerce($$$$type, String);
+			var bubbles = (1 > arguments.length - 1) ? false : $es4.$$coerce($$$$bubbles, Boolean);
+			var cancelable = (2 > arguments.length - 1) ? false : $es4.$$coerce($$$$cancelable, Boolean);
+
+			if ($es4.$$get($$thisp, $$this, $$thisp, '$_properties') === undefined)
+			{
+				$es4.$$call($$this, $$this, $$thisp, '$__properties', [{}]);
+			}
+			var properties = $es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventScope');
+			$es4.$$set(properties, $$this, $$thisp, '$_type', type, '=');
+			$es4.$$set(properties, $$this, $$thisp, '$_bubbles', bubbles, '=');
+			$es4.$$set(properties, $$this, $$thisp, '$_cancelable', cancelable, '=');
+		}));
+
+		//method
+		$es4.$$public_function('$__properties', $$thisp, (function ($$$$object)
+		{
+			//set default parameter values
+			var object = (0 > arguments.length - 1) ? null : $$$$object;
+
+			if ($es4.$$get($$thisp, $$this, $$thisp, '$_properties') === undefined)
+			{
+				$es4.$$set(object, $$this, $$thisp, 'EventScope', {$_target:null, $_currentTarget:null, $_eventPhase:null, $_withTarget:$es4.$$get(Event, $$this, $$thisp, '$_withTarget'), $_originalTarget:null}, '=');
+				$es4.$$set(object, $$this, $$thisp, 'TLScope', $$this, '=');
+				return $es4.$$set($$thisp, $$this, $$thisp, '$_properties', object, '=');
+			}
+			return $es4.$$get($$thisp, $$this, $$thisp, '$_properties');
+		}));
+
+		//method
+		$es4.$$public_function('clone', $$thisp, (function ()
+		{
+			return $es4.$$coerce($es4.$$primitive(new (Event)($es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_type'), $es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_bubbles'), $es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_cancelable'))), $es4.$$['flash.events'].Event);
+		}));
+
+		//method
+		$es4.$$public_function('formatToString', $$thisp, (function ($$$$className, $$$$args)
+		{
+			//set default parameter values
+			var className = $es4.$$coerce($$$$className, String);
+			for (var $$i = 1, $$length = arguments.length, args = new Array($$length - 1); $$i < $$length; $$i += 1) args[$$i - 1] = arguments[$$i];
+
+			var str = '[' + className;
+			for (var i = 0; i < $es4.$$get(args, $$this, $$thisp, 'length'); i++)
+			{
+				str += ' ' + $es4.$$get(args, $$this, $$thisp, i) + '="' + $es4.$$get($$this, $$this, $$thisp, $es4.$$get(args, $$this, $$thisp, i)) + '"';
+			}
+			str += ']';
+			return str;
+		}));
+
+		//method
+		$es4.$$public_function('isDefaultPrevented', $$thisp, (function ()
+		{
+			return $es4.$$coerce($es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_defaultPrevented'), Boolean);
+		}));
+
+		//method
+		$es4.$$public_function('preventDefault', $$thisp, (function ()
+		{
+			if ($es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_cancelable'))
+			{
+				$es4.$$set($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_defaultPrevented', true, '=');
+			}
+		}));
+
+		//method
+		$es4.$$public_function('stopImmediatePropagation', $$thisp, (function ()
+		{
+			$es4.$$set($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_immediatePropagationStopped', true, '=');
+		}));
+
+		//method
+		$es4.$$public_function('stopPropagation', $$thisp, (function ()
+		{
+			$es4.$$set($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_propagationStopped', true, '=');
+		}));
+
+		//method
+		$es4.$$public_function('toString', $$thisp, (function ()
+		{
+			return $es4.$$call($$this, $$this, $$thisp, 'formatToString', ['Event', 'type', 'bubbles', 'cancelable']);
+		}));
+
+		//accessor
+		$es4.$$public_accessor('bubbles', $$thisp, (function ()
+		{
+			return $es4.$$coerce($es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_bubbles'), Boolean);
+		}), null);
+
+		//accessor
+		$es4.$$public_accessor('cancelable', $$thisp, (function ()
+		{
+			return $es4.$$coerce($es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_cancelable'), Boolean);
+		}), null);
+
+		//accessor
+		$es4.$$public_accessor('currentTarget', $$thisp, (function ()
+		{
+			return $es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_currentTarget');
+		}), null);
+
+		//accessor
+		$es4.$$public_accessor('eventPhase', $$thisp, (function ()
+		{
+			return $es4.$$coerce($es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_eventPhase'), uint);
+		}), null);
+
+		//accessor
+		$es4.$$public_accessor('target', $$thisp, (function ()
+		{
+			return $es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_target');
+		}), null);
+
+		//accessor
+		$es4.$$public_accessor('type', $$thisp, (function ()
+		{
+			return $es4.$$coerce($es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventScope', '$_type'), String);
+		}), null);
+
+		//call construct if no arguments, or argument zero does not equal manual construct
+		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
+		{
+			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
+
+			$es4.$$construct($$this, $$args);
+		}
 	}
-	return $es4.$$interface(IDataInput, null, 'flash.utils::IDataInput');
+
+	return $es4.$$class(Event, null, 'flash.events::Event');
 })();
-//flash.utils.IDataInput
+//flash.events.Event
 
 
-//flash.net.IDynamicPropertyWriter
-$es4.$$package('flash.net').IDynamicPropertyWriter = (function ()
+//flash.events.EventPhase
+$es4.$$package('flash.events').EventPhase = (function ()
 {
-	function IDynamicPropertyWriter()
+	//properties
+	EventPhase.AT_TARGET = 2;
+	EventPhase.BUBBLING_PHASE = 3;
+	EventPhase.CAPTURING_PHASE = 1;
+
+	//class initializer
+	EventPhase.$$cinit = (function ()
 	{
-		//handle cast
-		return $es4.$$as(arguments[0], IDynamicPropertyWriter);
+		EventPhase.$$cinit = undefined;
+
+	});
+
+	function EventPhase()
+	{
+		//initialize class if not initialized
+		if (EventPhase.$$cinit !== undefined) EventPhase.$$cinit();
+
+		//save scope
+		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
+		var $$thisp = this;
+
+		//handle possible cast
+		if ($$this === $$thisp && (!($$this instanceof EventPhase) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], EventPhase) : $es4.$$throwArgumentError();
+		Object.defineProperty($$this, '$$t', {value:1});
+
+		//constructor
+		$es4.$$constructor($$thisp, (function ()
+		{
+		}));
+
+		//call construct if no arguments, or argument zero does not equal manual construct
+		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
+		{
+			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
+
+			$es4.$$construct($$this, $$args);
+		}
 	}
-	return $es4.$$interface(IDynamicPropertyWriter, null, 'flash.net::IDynamicPropertyWriter');
+
+	return $es4.$$class(EventPhase, null, 'flash.events::EventPhase');
 })();
-//flash.net.IDynamicPropertyWriter
+//flash.events.EventPhase
 
 
-//flash.events.IEventDispatcher
-$es4.$$package('flash.events').IEventDispatcher = (function ()
+//flash.utils.Dictionary
+$es4.$$package('flash.utils').Dictionary = (function ()
 {
-	function IEventDispatcher()
+	//class initializer
+	Dictionary.$$cinit = (function ()
 	{
-		//handle cast
-		return $es4.$$as(arguments[0], IEventDispatcher);
+		Dictionary.$$cinit = undefined;
+
+	});
+
+	function Dictionary()
+	{
+		//initialize class if not initialized
+		if (Dictionary.$$cinit !== undefined) Dictionary.$$cinit();
+
+		//save scope
+		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
+		var $$thisp = this;
+
+		//handle possible cast
+		if ($$this === $$thisp && (!($$this instanceof Dictionary) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Dictionary) : $es4.$$throwArgumentError();
+		Object.defineProperty($$this, '$$t', {value:1});
+
+		//properties
+		$es4.$$private_property('$$isProxy', $$thisp, Boolean);
+		$es4.$$private_property('$map', $$thisp);
+		$es4.$$private_property('$keys', $$thisp, Array);
+		$es4.$$private_property('$values', $$thisp, Array);
+
+		//initializer
+		$es4.$$iinit($$thisp, (function ()
+		{
+			//initialize properties
+			$es4.$$set($$this, $$this, $$thisp, '$$isProxy', true, '=');
+			$es4.$$set($$this, $$this, $$thisp, '$map', $es4.$$primitive(new ($es4.$$get(global, $$this, $$thisp, 'Map'))()), '=');
+			$es4.$$set($$this, $$this, $$thisp, '$keys', [], '=');
+			$es4.$$set($$this, $$this, $$thisp, '$values', [], '=');
+		}));
+
+		//constructor
+		$es4.$$constructor($$thisp, (function ($$$$weakKeys)
+		{
+			//set default parameter values
+			var weakKeys = (0 > arguments.length - 1) ? false : $es4.$$coerce($$$$weakKeys, Boolean);
+
+			if (weakKeys)
+			{
+				trace('Warning: Dictionary: does not support weakKeys at this time');
+			}
+		}));
+
+		//method
+		$es4.$$public_function('toJSON', $$thisp, (function ($$$$k)
+		{
+			//set default parameter values
+			var k = $es4.$$coerce($$$$k, String);
+
+			throw $es4.$$primitive(new (Error)('Dictionary: does not support toJSON at this time'));
+		}));
+
+		//method
+		$es4.$$private_function('$$get', $$thisp, (function ($$$$key)
+		{
+			//set default parameter values
+			var key = $$$$key;
+
+			if (!$es4.$$call($$thisp, $$this, $$thisp, '$map', 'has', [key]))
+			{
+				return undefined;
+			}
+			return $es4.$$get($es4.$$call($$thisp, $$this, $$thisp, '$map', 'get', [key]), $$this, $$thisp, 'value');
+		}));
+
+		//method
+		$es4.$$private_function('$$set', $$thisp, (function ($$$$key, $$$$value)
+		{
+			//set default parameter values
+			var key = $$$$key;
+			var value = $$$$value;
+
+			$es4.$$call($$thisp, $$this, $$thisp, '$map', 'set', [key, {index:$es4.$$get($$thisp, $$this, $$thisp, '$values', 'length'), value:value}]);
+			$es4.$$call($$thisp, $$this, $$thisp, '$keys', 'push', [key]);
+			$es4.$$call($$thisp, $$this, $$thisp, '$values', 'push', [value]);
+		}));
+
+		//method
+		$es4.$$private_function('$$call', $$thisp, (function ($$$$name, $$$$args)
+		{
+			//set default parameter values
+			var name = $$$$name;
+			var args = $es4.$$coerce($$$$args, Array);
+
+			return $es4.$$call($es4.$$call($$thisp, $$this, $$thisp, '$map', 'get', [name]), $$this, $$thisp, 'value', 'apply', [$$this, args]);
+		}));
+
+		//method
+		$es4.$$private_function('$$delete', $$thisp, (function ($$$$key)
+		{
+			//set default parameter values
+			var key = $$$$key;
+
+			if ($es4.$$call($$thisp, $$this, $$thisp, '$map', 'has', [key]))
+			{
+				var value = $es4.$$call($$thisp, $$this, $$thisp, '$map', 'get', [key]);
+				$es4.$$call($$thisp, $$this, $$thisp, '$values', 'splice', [$es4.$$get(value, $$this, $$thisp, 'index'), 1]);
+				$es4.$$call($$thisp, $$this, $$thisp, '$keys', 'splice', [$es4.$$get(value, $$this, $$thisp, 'index'), 1]);
+			}
+			return $es4.$$coerce($es4.$$call($$thisp, $$this, $$thisp, '$map', 'delete', [key]), Boolean);
+		}));
+
+		//method
+		$es4.$$private_function('$$nextName', $$thisp, (function ($$$$index)
+		{
+			//set default parameter values
+			var index = $es4.$$coerce($$$$index, int);
+
+			return $es4.$$get($$thisp, $$this, $$thisp, '$keys', index - 1);
+		}));
+
+		//method
+		$es4.$$private_function('$$nextNameIndex', $$thisp, (function ($$$$index)
+		{
+			//set default parameter values
+			var index = $es4.$$coerce($$$$index, int);
+
+			return (index < $es4.$$get($$thisp, $$this, $$thisp, '$values', 'length')) ? index + 1 : 0;
+		}));
+
+		//method
+		$es4.$$private_function('$$nextValue', $$thisp, (function ($$$$index)
+		{
+			//set default parameter values
+			var index = $es4.$$coerce($$$$index, int);
+
+			return $es4.$$get($$thisp, $$this, $$thisp, '$values', index - 1);
+		}));
+
+		//call construct if no arguments, or argument zero does not equal manual construct
+		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
+		{
+			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
+
+			$es4.$$construct($$this, $$args);
+		}
 	}
-	return $es4.$$interface(IEventDispatcher, null, 'flash.events::IEventDispatcher');
+
+	return $es4.$$class(Dictionary, null, 'flash.utils::Dictionary');
 })();
-//flash.events.IEventDispatcher
+//flash.utils.Dictionary
+
+
+//flash.events.EventDispatcher
+$es4.$$package('flash.events').EventDispatcher = (function ()
+{
+	//imports
+	var Event;
+	var IEventDispatcher;
+	var EventPhase;
+
+	//class initializer
+	EventDispatcher.$$cinit = (function ()
+	{
+		EventDispatcher.$$cinit = undefined;
+
+		//initialize imports
+		Event = $es4.$$['flash.events'].Event;
+		IEventDispatcher = $es4.$$['flash.events'].IEventDispatcher;
+		EventPhase = $es4.$$['flash.events'].EventPhase;
+	});
+
+	//method
+	$es4.$$private_function('$_processListeners', EventDispatcher, (function ($$$$event, $$$$listeners)
+	{
+		if (EventDispatcher.$$cinit !== undefined) EventDispatcher.$$cinit();
+
+		//set default parameter values
+		var event = $es4.$$coerce($$$$event, Event);
+		var listeners = $es4.$$coerce($$$$listeners, Array);
+
+		listeners = $es4.$$call(listeners, null, null, 'slice', $es4.$$EMPTY_ARRAY);
+		var listenersLength = $es4.$$get(listeners, null, null, 'length');
+		var properties = $es4.$$call(event, null, null, '$__properties', $es4.$$EMPTY_ARRAY);
+		for (var i = 0; i < listenersLength; i++)
+		{
+			if ($es4.$$call(listeners, null, null, i, 'method', [event]) === false)
+			{
+				$es4.$$call(properties, null, null, 'TLScope', 'stopPropagation', $es4.$$EMPTY_ARRAY);
+				$es4.$$call(properties, null, null, 'TLScope', 'preventDefault', $es4.$$EMPTY_ARRAY);
+			}
+			if ($es4.$$get(properties, null, null, 'EventScope', '$_immediatePropagationStopped'))
+			{
+				break;
+			}
+		}
+	}));
+
+	function EventDispatcher()
+	{
+		//initialize class if not initialized
+		if (EventDispatcher.$$cinit !== undefined) EventDispatcher.$$cinit();
+
+		//save scope
+		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
+		var $$thisp = this;
+
+		//handle possible cast
+		if ($$this === $$thisp && (!($$this instanceof EventDispatcher) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], EventDispatcher) : $es4.$$throwArgumentError();
+		Object.defineProperty($$this, '$$t', {value:1});
+
+		//properties
+		$es4.$$private_property('$_properties', $$thisp);
+
+		//constructor
+		$es4.$$constructor($$thisp, (function ($$$$target)
+		{
+			//set default parameter values
+			var target = (0 > arguments.length - 1) ? null : $es4.$$coerce($$$$target, IEventDispatcher);
+
+			if ($es4.$$get($$thisp, $$this, $$thisp, '$_properties') === undefined)
+			{
+				$es4.$$call($$this, $$this, $$thisp, '$__properties', [{}]);
+			}
+			$es4.$$set($$thisp, $$this, $$thisp, '$_properties', 'EventDispatcherScope', '$_target', target || $$this, '=');
+		}));
+
+		//method
+		$es4.$$public_function('$__properties', $$thisp, (function ($$$$object)
+		{
+			//set default parameter values
+			var object = (0 > arguments.length - 1) ? null : $$$$object;
+
+			if ($es4.$$get($$thisp, $$this, $$thisp, '$_properties') === undefined)
+			{
+				$es4.$$set(object, $$this, $$thisp, 'EventDispatcherScope', {$_listeners:{}}, '=');
+				$es4.$$set(object, $$this, $$thisp, 'TLScope', $$this, '=');
+				return $es4.$$set($$thisp, $$this, $$thisp, '$_properties', object, '=');
+			}
+			return $es4.$$get($$thisp, $$this, $$thisp, '$_properties');
+		}));
+
+		//method
+		$es4.$$public_function('addEventListener', $$thisp, (function ($$$$type, $$$$listener, $$$$useCapture, $$$$priority, $$$$useWeakReference)
+		{
+			//set default parameter values
+			var type = $es4.$$coerce($$$$type, String);
+			var listener = $es4.$$coerce($$$$listener, Function);
+			var useCapture = (2 > arguments.length - 1) ? false : $es4.$$coerce($$$$useCapture, Boolean);
+			var priority = (3 > arguments.length - 1) ? 0 : $es4.$$coerce($$$$priority, int);
+			var useWeakReference = (4 > arguments.length - 1) ? false : $es4.$$coerce($$$$useWeakReference, Boolean);
+
+			if (useWeakReference)
+			{
+				trace('Warning: useWeakReference not supported in EventDispatacher addEventListener');
+			}
+			if (useCapture)
+			{
+				trace('Warning: useCapture not supported in EventDispatacher addEventListener');
+			}
+			var listenersByType = $es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventDispatcherScope', '$_listeners');
+			var eventObj = {type:type, method:listener, useCapture:useCapture, priority:priority, useWeakReference:useWeakReference};
+			if (!(type in listenersByType))
+			{
+				$es4.$$set(listenersByType, $$this, $$thisp, type, [eventObj], '=');
+			}
+			else
+			{
+				var listeners = $es4.$$coerce($es4.$$get(listenersByType, $$this, $$thisp, type), Array);
+				for (var i = $es4.$$coerce($es4.$$get(listeners, $$this, $$thisp, 'length'), int); i--;)
+				{
+					if (listener == $es4.$$get(listeners, $$this, $$thisp, i, 'method'))
+					{
+						return;
+					}
+				}
+				$es4.$$call(listenersByType, $$this, $$thisp, type, 'push', [eventObj]);
+			}
+			$es4.$$call(listenersByType, $$this, $$thisp, type, 'sort', [eventCompare]);
+
+			function eventCompare($$$$item1, $$$$item2) 
+			{
+				//set default parameter values
+				var item1 = $es4.$$coerce($$$$item1, Object);
+				var item2 = $es4.$$coerce($$$$item2, Object);
+
+				if ($es4.$$get(item1, $$this, $$thisp, 'priority') > $es4.$$get(item2, $$this, $$thisp, 'priority'))
+				{
+					return -1;
+				}
+				else if ($es4.$$get(item1, $$this, $$thisp, 'priority') < $es4.$$get(item2, $$this, $$thisp, 'priority'))
+				{
+					return 1;
+				}
+				else
+				{
+					return 0;
+				}
+			}
+;
+		}));
+
+		//method
+		$es4.$$public_function('dispatchEvent', $$thisp, (function ($$$$event)
+		{
+			//set default parameter values
+			var event = $es4.$$coerce($$$$event, Event);
+
+			var properties = $es4.$$get($es4.$$call(event, $$this, $$thisp, '$__properties', $es4.$$EMPTY_ARRAY), $$this, $$thisp, 'TLScope');
+			var listeners = $es4.$$coerce($es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventDispatcherScope', '$_listeners', $es4.$$get(event, $$this, $$thisp, 'type')), Array);
+			var target = $es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventDispatcherScope', '$_target');
+			var bubble = false;
+			if (!bubble && !listeners)
+			{
+				return $es4.$$coerce(!$es4.$$call(properties, $$this, $$thisp, 'isDefaultPrevented', $es4.$$EMPTY_ARRAY), Boolean);
+			}
+			var parents = null;
+			properties = $es4.$$get($es4.$$call(event, $$this, $$thisp, '$__properties', $es4.$$EMPTY_ARRAY), $$this, $$thisp, 'EventScope');
+			if (listeners && !$es4.$$get(properties, $$this, $$thisp, '$_propagationStopped') && !$es4.$$get(properties, $$this, $$thisp, '$_immediatePropagationStopped'))
+			{
+				event = $es4.$$coerce($es4.$$call(properties, $$this, $$thisp, '$_withTarget', [event, target]), Event);
+				properties = $es4.$$get($es4.$$call(event, $$this, $$thisp, '$__properties', $es4.$$EMPTY_ARRAY), $$this, $$thisp, 'EventScope');
+				$es4.$$set(properties, $$this, $$thisp, '$_eventPhase', $es4.$$get(EventPhase, $$this, $$thisp, 'AT_TARGET'), '=');
+				$es4.$$set(properties, $$this, $$thisp, '$_currentTarget', $es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventDispatcherScope', '$_target'), '=');
+				$es4.$$call(EventDispatcher, $$this, $$thisp, '$_processListeners', [event, listeners]);
+			}
+			if (bubble && !$es4.$$get(properties, $$this, $$thisp, '$_propagationStopped') && !$es4.$$get(properties, $$this, $$thisp, '$_immediatePropagationStopped'))
+			{
+				var index = 0;
+				var parentsLength = $es4.$$get(parents, $$this, $$thisp, 'length');
+				while (parentsLength > index)
+				{
+					var currentTarget = $es4.$$get(parents, $$this, $$thisp, index);
+					var currentBubbleListeners = $es4.$$coerce($es4.$$get($es4.$$call(currentTarget, $$this, $$thisp, '$__properties', $es4.$$EMPTY_ARRAY), $$this, $$thisp, 'EventDispatcherScope', '$_listeners', $es4.$$get(event, $$this, $$thisp, 'type')), Array);
+					if (currentBubbleListeners && $es4.$$get(currentBubbleListeners, $$this, $$thisp, 'length'))
+					{
+						event = $es4.$$coerce($es4.$$call(properties, $$this, $$thisp, '$_withTarget', [event, target]), Event);
+						properties = $es4.$$get($es4.$$call(event, $$this, $$thisp, '$__properties', $es4.$$EMPTY_ARRAY), $$this, $$thisp, 'EventScope');
+						$es4.$$set(properties, $$this, $$thisp, '$_eventPhase', $es4.$$get(EventPhase, $$this, $$thisp, 'BUBBLING_PHASE'), '=');
+						$es4.$$set($es4.$$call(event, $$this, $$thisp, '$__properties', $es4.$$EMPTY_ARRAY), $$this, $$thisp, 'EventScope', '$_currentTarget', currentTarget, '=');
+						$es4.$$call(EventDispatcher, $$this, $$thisp, '$_processListeners', [event, currentBubbleListeners]);
+						if ($es4.$$get(properties, $$this, $$thisp, '$_propagationStopped') || $es4.$$get(properties, $$this, $$thisp, '$_immediatePropagationStopped'))
+						{
+							break;
+						}
+					}
+					index++;
+				}
+			}
+			properties = $es4.$$get($es4.$$call(event, $$this, $$thisp, '$__properties', $es4.$$EMPTY_ARRAY), $$this, $$thisp, 'TLScope');
+			return $es4.$$coerce(!$es4.$$call(properties, $$this, $$thisp, 'isDefaultPrevented', $es4.$$EMPTY_ARRAY), Boolean);
+		}));
+
+		//method
+		$es4.$$public_function('hasEventListener', $$thisp, (function ($$$$type)
+		{
+			//set default parameter values
+			var type = $es4.$$coerce($$$$type, String);
+
+			return $es4.$$coerce($es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventDispatcherScope', '$_listeners', type), Boolean);
+		}));
+
+		//method
+		$es4.$$public_function('removeEventListener', $$thisp, (function ($$$$type, $$$$listener, $$$$useCapture)
+		{
+			//set default parameter values
+			var type = $es4.$$coerce($$$$type, String);
+			var listener = $es4.$$coerce($$$$listener, Function);
+			var useCapture = (2 > arguments.length - 1) ? false : $es4.$$coerce($$$$useCapture, Boolean);
+
+			if (useCapture)
+			{
+				trace('Warning: useCapture not supported in EventDispatacher removeEventListener');
+			}
+			var listenersByType = $es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventDispatcherScope', '$_listeners');
+			var listeners = $es4.$$coerce($es4.$$get(listenersByType, $$this, $$thisp, type), Array);
+			if (!listeners)
+			{
+				return;
+			}
+			for (var i = $es4.$$get(listeners, $$this, $$thisp, 'length'); i--;)
+			{
+				if ($es4.$$get(listeners, $$this, $$thisp, i, 'method') != listener)
+				{
+					continue;
+				}
+				if ($es4.$$get(listeners, $$this, $$thisp, 'length') == 1)
+				{
+					$es4.$$delete(listenersByType, $$this, $$thisp, type);
+				}
+				else
+				{
+					$es4.$$call(listeners, $$this, $$thisp, 'splice', [i, 1]);
+				}
+			}
+		}));
+
+		//method
+		$es4.$$public_function('willTrigger', $$thisp, (function ($$$$type)
+		{
+			//set default parameter values
+			var type = $es4.$$coerce($$$$type, String);
+
+			return $es4.$$coerce($es4.$$get($$thisp, $$this, $$thisp, '$_properties', 'EventDispatcherScope', '$_listeners', type), Boolean);
+		}));
+
+		//call construct if no arguments, or argument zero does not equal manual construct
+		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
+		{
+			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
+
+			$es4.$$construct($$this, $$args);
+		}
+	}
+
+	return $es4.$$class(EventDispatcher, {IMPLEMENTS:['flash.events.IEventDispatcher']}, 'flash.events::EventDispatcher');
+})();
+//flash.events.EventDispatcher
 
 
 //flash.utils.IDataOutput
@@ -3846,109 +3807,76 @@ $es4.$$package('flash.utils').IDataOutput = (function ()
 //flash.utils.IDataOutput
 
 
-//flash.utils.getTimer
-$es4.$$package('flash.utils').getTimer = (function ()
+//flash.events.IEventDispatcher
+$es4.$$package('flash.events').IEventDispatcher = (function ()
 {
-	var $$this = getTimer, $$thisp = getTimer;
-	//function initializer
-	getTimer.$$cinit = (function ()
+	function IEventDispatcher()
 	{
-		getTimer.$$cinit = undefined;
-	});
-
-	function getTimer()
-	{
-		//initialize function if not initialized
-		if (getTimer.$$cinit !== undefined) getTimer.$$cinit();
-
-		return $es4.$$coerce($es4.$$call($es4.$$primitive(new (Date)()), $$this, $$thisp, 'getTime', $es4.$$EMPTY_ARRAY) - $es4.$$get(global, $$this, $$thisp, '$es4', '$$startTime'), int);
-}
-
-	return $es4.$$function (getTimer);
+		//handle cast
+		return $es4.$$as(arguments[0], IEventDispatcher);
+	}
+	return $es4.$$interface(IEventDispatcher, null, 'flash.events::IEventDispatcher');
 })();
-//flash.utils.getTimer
+//flash.events.IEventDispatcher
 
 
-//flash.utils.getQualifiedClassName
-$es4.$$package('flash.utils').getQualifiedClassName = (function ()
+//flash.net.IDynamicPropertyWriter
+$es4.$$package('flash.net').IDynamicPropertyWriter = (function ()
 {
-	var $$this = getQualifiedClassName, $$thisp = getQualifiedClassName;
-	//function initializer
-	getQualifiedClassName.$$cinit = (function ()
+	function IDynamicPropertyWriter()
 	{
-		getQualifiedClassName.$$cinit = undefined;
+		//handle cast
+		return $es4.$$as(arguments[0], IDynamicPropertyWriter);
+	}
+	return $es4.$$interface(IDynamicPropertyWriter, null, 'flash.net::IDynamicPropertyWriter');
+})();
+//flash.net.IDynamicPropertyWriter
+
+
+//flash.utils.IDataInput
+$es4.$$package('flash.utils').IDataInput = (function ()
+{
+	function IDataInput()
+	{
+		//handle cast
+		return $es4.$$as(arguments[0], IDataInput);
+	}
+	return $es4.$$interface(IDataInput, null, 'flash.utils::IDataInput');
+})();
+//flash.utils.IDataInput
+
+
+//flash.utils.getDefinitionByName
+$es4.$$package('flash.utils').getDefinitionByName = (function ()
+{
+	var $$this = getDefinitionByName, $$thisp = getDefinitionByName;
+	//function initializer
+	getDefinitionByName.$$cinit = (function ()
+	{
+		getDefinitionByName.$$cinit = undefined;
 	});
 
-	function getQualifiedClassName($$$$object)
+	function getDefinitionByName($$$$name)
 	{
 		//initialize function if not initialized
-		if (getQualifiedClassName.$$cinit !== undefined) getQualifiedClassName.$$cinit();
+		if (getDefinitionByName.$$cinit !== undefined) getDefinitionByName.$$cinit();
 
 		//set default parameter values
-		var object = $$$$object;
+		var name = $es4.$$coerce($$$$name, String);
 
-		if ($es4.$$get(object, $$this, $$thisp, '$$isclass') !== undefined)
-		{
-			return $es4.$$coerce($es4.$$get(object, $$this, $$thisp, '$$fullyQualifiedName'), String);
-		}
-		else if ($es4.$$get(object, $$this, $$thisp, '$$ismethod') !== undefined)
-		{
-			return 'builtin.as$0::MethodClosure';
-		}
-		else if ($es4.$$get(object, $$this, $$thisp, 'constructor', 'name') === 'Number')
-		{
-			if (object = int(object))
-			{
-				return 'int';
-			}
-			else if (object = uint(object))
-			{
-				return 'uint';
-			}
-			return 'Number';
-		}
-		else if ($es4.$$get(object, $$this, $$thisp, 'constructor', '$$isclass') !== undefined)
-		{
-			return $es4.$$coerce($es4.$$get(object, $$this, $$thisp, 'constructor', '$$fullyQualifiedName'), String);
-		}
-		return $es4.$$coerce($es4.$$get(object, $$this, $$thisp, 'constructor', 'name'), String);
-}
 
-	return $es4.$$function (getQualifiedClassName);
+		var parts = name.split('::').join('.').split('.');
+		var definitionName = parts.pop();
+		var packageName = parts.join('.');
+		
+		if ($$[packageName] === undefined || $$[packageName][definitionName] === undefined) throw new Error('Variable ' + name + ' is not defined.');
+		
+		return $$[packageName][definitionName];
+	}
+
+	return $es4.$$function (getDefinitionByName);
 })();
-//flash.utils.getQualifiedClassName
-
-
-//flash.utils.setInterval
-$es4.$$package('flash.utils').setInterval = (function ()
-{
-	var $$this = setInterval, $$thisp = setInterval;
-	//function initializer
-	setInterval.$$cinit = (function ()
-	{
-		setInterval.$$cinit = undefined;
-	});
-
-	function setInterval($$$$closure, $$$$delay, $$$$rest)
-	{
-		//initialize function if not initialized
-		if (setInterval.$$cinit !== undefined) setInterval.$$cinit();
-
-		//set default parameter values
-		var closure = $es4.$$coerce($$$$closure, Function);
-		var delay = $es4.$$coerce($$$$delay, Number);
-		for (var $$i = 2, $$length = arguments.length, rest = new Array($$length - 2); $$i < $$length; $$i += 1) rest[$$i - 2] = arguments[$$i];
-
-		return $es4.$$coerce($es4.$$call(global, $$this, $$thisp, 'setInterval', [function () 
-{
-	$es4.$$call(closure, $$this, $$thisp, 'apply', [this, rest]);
-}
-, delay]), uint);
-}
-
-	return $es4.$$function (setInterval);
-})();
-//flash.utils.setInterval
+//flash.utils.getDefinitionByName
 
 
 //flash.utils.getQualifiedSuperclassName
@@ -4003,6 +3931,88 @@ $es4.$$package('flash.utils').getQualifiedSuperclassName = (function ()
 //flash.utils.getQualifiedSuperclassName
 
 
+//flash.utils.setTimeout
+$es4.$$package('flash.utils').setTimeout = (function ()
+{
+	var $$this = setTimeout, $$thisp = setTimeout;
+	//function initializer
+	setTimeout.$$cinit = (function ()
+	{
+		setTimeout.$$cinit = undefined;
+	});
+
+	function setTimeout($$$$closure, $$$$delay, $$$$rest)
+	{
+		//initialize function if not initialized
+		if (setTimeout.$$cinit !== undefined) setTimeout.$$cinit();
+
+		//set default parameter values
+		var closure = $es4.$$coerce($$$$closure, Function);
+		var delay = $es4.$$coerce($$$$delay, Number);
+		for (var $$i = 2, $$length = arguments.length, rest = new Array($$length - 2); $$i < $$length; $$i += 1) rest[$$i - 2] = arguments[$$i];
+
+		return $es4.$$coerce($es4.$$call(global, $$this, $$thisp, 'setTimeout', [function () 
+{
+	$es4.$$call(closure, $$this, $$thisp, 'apply', [this, rest]);
+}
+, delay]), uint);
+}
+
+	return $es4.$$function (setTimeout);
+})();
+//flash.utils.setTimeout
+
+
+//flash.utils.getQualifiedClassName
+$es4.$$package('flash.utils').getQualifiedClassName = (function ()
+{
+	var $$this = getQualifiedClassName, $$thisp = getQualifiedClassName;
+	//function initializer
+	getQualifiedClassName.$$cinit = (function ()
+	{
+		getQualifiedClassName.$$cinit = undefined;
+	});
+
+	function getQualifiedClassName($$$$object)
+	{
+		//initialize function if not initialized
+		if (getQualifiedClassName.$$cinit !== undefined) getQualifiedClassName.$$cinit();
+
+		//set default parameter values
+		var object = $$$$object;
+
+		if ($es4.$$get(object, $$this, $$thisp, '$$isclass') !== undefined)
+		{
+			return $es4.$$coerce($es4.$$get(object, $$this, $$thisp, '$$fullyQualifiedName'), String);
+		}
+		else if ($es4.$$get(object, $$this, $$thisp, '$$ismethod') !== undefined)
+		{
+			return 'builtin.as$0::MethodClosure';
+		}
+		else if ($es4.$$get(object, $$this, $$thisp, 'constructor', 'name') === 'Number')
+		{
+			if (object = int(object))
+			{
+				return 'int';
+			}
+			else if (object = uint(object))
+			{
+				return 'uint';
+			}
+			return 'Number';
+		}
+		else if ($es4.$$get(object, $$this, $$thisp, 'constructor', '$$isclass') !== undefined)
+		{
+			return $es4.$$coerce($es4.$$get(object, $$this, $$thisp, 'constructor', '$$fullyQualifiedName'), String);
+		}
+		return $es4.$$coerce($es4.$$get(object, $$this, $$thisp, 'constructor', 'name'), String);
+}
+
+	return $es4.$$function (getQualifiedClassName);
+})();
+//flash.utils.getQualifiedClassName
+
+
 //flash.utils.clearTimeout
 $es4.$$package('flash.utils').clearTimeout = (function ()
 {
@@ -4055,37 +4065,59 @@ $es4.$$package('flash.utils').clearInterval = (function ()
 //flash.utils.clearInterval
 
 
-//flash.utils.getDefinitionByName
-$es4.$$package('flash.utils').getDefinitionByName = (function ()
+//flash.utils.setInterval
+$es4.$$package('flash.utils').setInterval = (function ()
 {
-	var $$this = getDefinitionByName, $$thisp = getDefinitionByName;
+	var $$this = setInterval, $$thisp = setInterval;
 	//function initializer
-	getDefinitionByName.$$cinit = (function ()
+	setInterval.$$cinit = (function ()
 	{
-		getDefinitionByName.$$cinit = undefined;
+		setInterval.$$cinit = undefined;
 	});
 
-	function getDefinitionByName($$$$name)
+	function setInterval($$$$closure, $$$$delay, $$$$rest)
 	{
 		//initialize function if not initialized
-		if (getDefinitionByName.$$cinit !== undefined) getDefinitionByName.$$cinit();
+		if (setInterval.$$cinit !== undefined) setInterval.$$cinit();
 
 		//set default parameter values
-		var name = $es4.$$coerce($$$$name, String);
+		var closure = $es4.$$coerce($$$$closure, Function);
+		var delay = $es4.$$coerce($$$$delay, Number);
+		for (var $$i = 2, $$length = arguments.length, rest = new Array($$length - 2); $$i < $$length; $$i += 1) rest[$$i - 2] = arguments[$$i];
 
+		return $es4.$$coerce($es4.$$call(global, $$this, $$thisp, 'setInterval', [function () 
+{
+	$es4.$$call(closure, $$this, $$thisp, 'apply', [this, rest]);
+}
+, delay]), uint);
+}
 
-		var parts = name.split('::').join('.').split('.');
-		var definitionName = parts.pop();
-		var packageName = parts.join('.');
-		
-		if ($$[packageName] === undefined || $$[packageName][definitionName] === undefined) throw new Error('Variable ' + name + ' is not defined.');
-		
-		return $$[packageName][definitionName];
-	}
-
-	return $es4.$$function (getDefinitionByName);
+	return $es4.$$function (setInterval);
 })();
-//flash.utils.getDefinitionByName
+//flash.utils.setInterval
+
+
+//flash.utils.getTimer
+$es4.$$package('flash.utils').getTimer = (function ()
+{
+	var $$this = getTimer, $$thisp = getTimer;
+	//function initializer
+	getTimer.$$cinit = (function ()
+	{
+		getTimer.$$cinit = undefined;
+	});
+
+	function getTimer()
+	{
+		//initialize function if not initialized
+		if (getTimer.$$cinit !== undefined) getTimer.$$cinit();
+
+		return $es4.$$coerce($es4.$$call($es4.$$primitive(new (Date)()), $$this, $$thisp, 'getTime', $es4.$$EMPTY_ARRAY) - $es4.$$get(global, $$this, $$thisp, '$es4', '$$startTime'), int);
+}
+
+	return $es4.$$function (getTimer);
+})();
+//flash.utils.getTimer
 
 
 //flash.debugger.enterDebugger
@@ -4112,55 +4144,19 @@ $es4.$$package('flash.debugger').enterDebugger = (function ()
 //flash.debugger.enterDebugger
 
 
-//flash.utils.setTimeout
-$es4.$$package('flash.utils').setTimeout = (function ()
-{
-	var $$this = setTimeout, $$thisp = setTimeout;
-	//function initializer
-	setTimeout.$$cinit = (function ()
-	{
-		setTimeout.$$cinit = undefined;
-	});
-
-	function setTimeout($$$$closure, $$$$delay, $$$$rest)
-	{
-		//initialize function if not initialized
-		if (setTimeout.$$cinit !== undefined) setTimeout.$$cinit();
-
-		//set default parameter values
-		var closure = $es4.$$coerce($$$$closure, Function);
-		var delay = $es4.$$coerce($$$$delay, Number);
-		for (var $$i = 2, $$length = arguments.length, rest = new Array($$length - 2); $$i < $$length; $$i += 1) rest[$$i - 2] = arguments[$$i];
-
-		return $es4.$$coerce($es4.$$call(global, $$this, $$thisp, 'setTimeout', [function () 
-{
-	$es4.$$call(closure, $$this, $$thisp, 'apply', [this, rest]);
-}
-, delay]), uint);
-}
-
-	return $es4.$$function (setTimeout);
-})();
-//flash.utils.setTimeout
-
-
-$es4.$$['flash.utils'].IDataInput.$$pcinit();
-
-$es4.$$['flash.net'].IDynamicPropertyWriter.$$pcinit();
+$es4.$$['flash.utils'].IDataOutput.$$pcinit();
 
 $es4.$$['flash.events'].IEventDispatcher.$$pcinit();
 
-$es4.$$['flash.utils'].IDataOutput.$$pcinit();
+$es4.$$['flash.net'].IDynamicPropertyWriter.$$pcinit();
 
-$es4.$$['flash.events'].Event.$$pcinit();
-
-$es4.$$['flash.net'].ObjectEncoding.$$pcinit();
+$es4.$$['flash.utils'].IDataInput.$$pcinit();
 
 $es4.$$['flash.display'].Sprite.$$pcinit();
 
-$es4.$$['flash.events'].EventDispatcher.$$pcinit();
-
 $es4.$$['flash.events'].TextEvent.$$pcinit();
+
+$es4.$$['flash.net'].ObjectEncoding.$$pcinit();
 
 $es4.$$['flash.utils'].Proxy.$$pcinit();
 
@@ -4168,11 +4164,15 @@ $es4.$$['flash.events'].ErrorEvent.$$pcinit();
 
 $es4.$$['flash.utils'].Endian.$$pcinit();
 
-$es4.$$['flash.utils'].Dictionary.$$pcinit();
+$es4.$$['flash.utils'].ByteArray.$$pcinit();
+
+$es4.$$['flash.events'].Event.$$pcinit();
 
 $es4.$$['flash.events'].EventPhase.$$pcinit();
 
-$es4.$$['flash.utils'].ByteArray.$$pcinit();
+$es4.$$['flash.utils'].Dictionary.$$pcinit();
+
+$es4.$$['flash.events'].EventDispatcher.$$pcinit();
 
 //sweetrush.Transcompiler
 $es4.$$package('sweetrush').Transcompiler = (function ()
@@ -4263,7 +4263,7 @@ $es4.$$package('sweetrush').Transcompiler = (function ()
 			var excludeDirectories = $es4.$$coerce($es4.$$get(params, $$this, $$thisp, 'excludeDirectories') || [], Array);
 			var includeBootstrap = $es4.$$coerce($es4.$$get(params, $$this, $$thisp, 'includeBootstrap') !== undefined ? $es4.$$get(params, $$this, $$thisp, 'includeBootstrap') : true, Boolean);
 			var includePlayerGlobal = $es4.$$coerce($es4.$$get(params, $$this, $$thisp, 'includePlayerGlobal') !== undefined ? $es4.$$get(params, $$this, $$thisp, 'includePlayerGlobal') : includeBootstrap, Boolean);
-			var expose = $es4.$$coerce($es4.$$get(params, $$this, $$thisp, 'expose'), String);
+			var expose = $es4.$$coerce($es4.$$get(params, $$this, $$thisp, 'expose') || '', String);
 			var platform = $es4.$$coerce($es4.$$get(params, $$this, $$thisp, 'platform') || 'node', String);
 			var special = $es4.$$coerce($es4.$$get(params, $$this, $$thisp, 'special'), Boolean);
 			srcDir = $es4.$$coerce($es4.$$call(FileUtil, $$this, $$thisp, 'fixPath', [srcDir]), String);
@@ -4491,11 +4491,11 @@ $es4.$$package('sweetrush').Transcompiler = (function ()
 				var parts = $es4.$$call(mainID, $$this, $$thisp, 'split', ['.']);
 				var name = $es4.$$call(parts, $$this, $$thisp, 'pop', $es4.$$EMPTY_ARRAY);
 				var packageName = ($es4.$$get(parts, $$this, $$thisp, 'length')) ? $es4.$$call(parts, $$this, $$thisp, 'join', ['.']) : '';
-				returnObject = "new $es4.$$['" + packageName + "']." + name + '($es4.$$MANUAL_CONSTRUCT)';
+				returnObject = "return new $es4.$$['" + packageName + "']." + name + '($es4.$$MANUAL_CONSTRUCT)';
 			}
 			else
 			{
-				returnObject = "new $es4.$$['flash.display'].Sprite($es4.$$MANUAL_CONSTRUCT)";
+				returnObject = "return new $es4.$$['flash.display'].Sprite($es4.$$MANUAL_CONSTRUCT)";
 			}
 			var lastLine = '';
 			if (expose)
@@ -4507,7 +4507,7 @@ $es4.$$package('sweetrush').Transcompiler = (function ()
 			}
 			if (includeBootstrap && includePlayerGlobal && !mainFile)
 			{
-				lastLine += "$es4.$$['player'].Player;";
+				lastLine += "return $es4.$$['player'].Player;";
 			}
 			else
 			{
@@ -4550,7 +4550,7 @@ $es4.$$package('sweetrush').Transcompiler = (function ()
 					$es4.$$call(bootstrapJS, $$this, $$thisp, 'push', [$es4.$$call($$thisp, $$this, $$thisp, 'getPlayerGlobalJS', [translationMode, platform])]);
 				}
 			}
-			var pre = (platform != 'node') ? '//__ES4__\n\n(function() { var $window = this; var window = $window.parent || $window; var global = window; var document = window.document; var $es4 = window.$es4 || (window.$es4 = {}); var _ = window._; var $ = window.$; var alert = window.alert; \n\n' : '';
+			var pre = (platform != 'node') ? '//__ES4__\n\n(function() { var $window = this; var window = $window.parent || $window; var global = window; var document = window.document; var $es4 = window.$es4 || (window.$es4 = {}); var _ = window._; var $ = window.$; \n\n' : '';
 			var post = (platform != 'node') ? '})();' : '';
 			return {js:pre + $es4.$$call($es4.$$call(bootstrapJS, $$this, $$thisp, 'concat', [js]), $$this, $$thisp, 'join', ['\n\n']) + post, rootConstructs:rootConstructsToTranslate, swc:jsSWC};
 		}));
@@ -4829,1899 +4829,6 @@ $es4.$$package('sweetrush').Transcompiler = (function ()
 //sweetrush.Transcompiler
 
 
-//sweetrush.obj.Token
-$es4.$$package('sweetrush.obj').Token = (function ()
-{
-	//imports
-	var Lexer;
-
-	//properties
-	$es4.$$private_property('whitespaceCharacters', Token, Object);
-	$es4.$$private_property('identifierStartCharacters', Token, Object);
-	Token.OpenParenTokenType = 'OpenParenTokenType';
-	Token.ClosedParenTokenType = 'ClosedParenTokenType';
-	Token.OpenBraceTokenType = 'OpenBraceTokenType';
-	Token.ClosedBraceTokenType = 'ClosedBraceTokenType';
-	Token.OpenBracketTokenType = 'OpenBracketTokenType';
-	Token.ClosedBracketTokenType = 'ClosedBracketTokenType';
-	Token.EOSTokenType = 'EOSTokenType';
-	Token.PackageTokenType = 'PackageTokenType';
-	Token.ImportTokenType = 'ImportTokenType';
-	Token.ClassTokenType = 'ClassTokenType';
-	Token.InterfaceTokenType = 'InterfaceTokenType';
-	Token.NewTokenType = 'NewTokenType';
-	Token.UseTokenType = 'UseTokenType';
-	Token.CaseTokenType = 'CaseTokenType';
-	Token.FunctionTokenType = 'FunctionTokenType';
-	Token.GetTokenType = 'GetTokenType';
-	Token.SetTokenType = 'SetTokenType';
-	Token.RestTokenType = 'RestTokenType';
-	Token.ExtendsTokenType = 'ExtendsTokenType';
-	Token.ImplementsTokenType = 'ImplementsTokenType';
-	Token.CommentTokenType = 'CommentTokenType';
-	Token.CommentChunkTokenType = 'CommentChunkTokenType';
-	Token.MultiLineCommentTokenType = 'MultiLineCommentTokenType';
-	Token.MultiLineCommentChunkTokenType = 'MultiLineCommentChunkTokenType';
-	Token.MultiLineCommentEndTokenType = 'MultiLineCommentEndTokenType';
-	Token.OverrideTokenType = 'OverrideTokenType';
-	Token.StaticTokenType = 'StaticTokenType';
-	Token.DynamicTokenType = 'DynamicTokenType';
-	Token.FinalTokenType = 'FinalTokenType';
-	Token.VarTokenType = 'VarTokenType';
-	Token.ConstTokenType = 'ConstTokenType';
-	Token.IdentifierTokenType = 'IdentifierTokenType';
-	Token.BooleanTokenType = 'BooleanTokenType';
-	Token.ThisTokenType = 'ThisTokenType';
-	Token.TypeofTokenType = 'TypeofTokenType';
-	Token.NullTokenType = 'NullTokenType';
-	Token.VoidTokenType = 'VoidTokenType';
-	Token.UndefinedTokenType = 'UndefinedTokenType';
-	Token.IsTokenType = 'IsTokenType';
-	Token.NaNTokenType = 'NaNTokenType';
-	Token.InstanceofTokenType = 'InstanceofTokenType';
-	Token.ReturnTokenType = 'ReturnTokenType';
-	Token.SwitchTokenType = 'SwitchTokenType';
-	Token.SuperTokenType = 'SuperTokenType';
-	Token.ThrowTokenType = 'ThrowTokenType';
-	Token.DotDotTokenType = 'DotDotTokenType';
-	Token.DotTokenType = 'DotTokenType';
-	Token.NotTokenType = 'NotTokenType';
-	Token.BitwiseNotTokenType = 'BitwiseNotTokenType';
-	Token.ColonTokenType = 'ColonTokenType';
-	Token.CommaTokenType = 'CommaTokenType';
-	Token.TernaryTokenType = 'TernaryTokenType';
-	Token.IncrementTokenType = 'IncrementTokenType';
-	Token.DecrementTokenType = 'DecrementTokenType';
-	Token.BreakTokenType = 'BreakTokenType';
-	Token.ContinueTokenType = 'ContinueTokenType';
-	Token.DefaultTokenType = 'DefaultTokenType';
-	Token.InTokenType = 'InTokenType';
-	Token.AsTokenType = 'AsTokenType';
-	Token.DeleteTokenType = 'DeleteTokenType';
-	Token.IfTokenType = 'IfTokenType';
-	Token.ElseTokenType = 'ElseTokenType';
-	Token.EachTokenType = 'EachTokenType';
-	Token.ForTokenType = 'ForTokenType';
-	Token.WhileTokenType = 'WhileTokenType';
-	Token.DoTokenType = 'DoTokenType';
-	Token.WithTokenType = 'WithTokenType';
-	Token.TryTokenType = 'TryTokenType';
-	Token.CatchTokenType = 'CatchTokenType';
-	Token.RegExpTokenType = 'RegExpTokenType';
-	Token.SpecialUFOTokenType = 'SpecialUFOTokenType';
-	Token.FinallyTokenType = 'FinallyTokenType';
-	Token.AtTokenType = 'AtTokenType';
-	Token.BitwiseLeftShiftAssignmentTokenType = 'BitwiseLeftShiftAssignmentTokenType';
-	Token.BitwiseRightShiftAssignmentTokenType = 'BitwiseRightShiftAssignmentTokenType';
-	Token.BitwiseUnsignedRightShiftAssignmentTokenType = 'BitwiseUnsignedRightShiftAssignmentTokenType';
-	Token.BitwiseAndAssignmentTokenType = 'BitwiseAndAssignmentTokenType';
-	Token.BitwiseOrAssignmentTokenType = 'BitwiseOrAssignmentTokenType';
-	Token.BitwiseXorAssignmentTokenType = 'BitwiseXorAssignmentTokenType';
-	Token.AddWithAssignmentTokenType = 'AddWithAssignmentTokenType';
-	Token.DivWithAssignmentTokenType = 'DivWithAssignmentTokenType';
-	Token.ModWithAssignmentTokenType = 'ModWithAssignmentTokenType';
-	Token.MulWithAssignmentTokenType = 'MulWithAssignmentTokenType';
-	Token.SubWithAssignmentTokenType = 'SubWithAssignmentTokenType';
-	Token.EqualityTokenType = 'EqualityTokenType';
-	Token.RelationalTokenType = 'RelationalTokenType';
-	Token.BitwiseAndTokenType = 'BitwiseAndTokenType';
-	Token.BitwiseXorTokenType = 'BitwiseXorTokenType';
-	Token.BitwiseOrTokenType = 'BitwiseOrTokenType';
-	Token.AndTokenType = 'AndTokenType';
-	Token.AndWithAssignmentTokenType = 'AndWithAssignmentTokenType';
-	Token.OrTokenType = 'OrTokenType';
-	Token.OrWithAssignmentTokenType = 'OrWithAssignmentTokenType';
-	Token.BitwiseLeftShiftTokenType = 'BitwiseLeftShiftTokenType';
-	Token.BitwiseRightShiftTokenType = 'BitwiseRightShiftTokenType';
-	Token.BitwiseUnsignedRightShiftTokenType = 'BitwiseUnsignedRightShiftTokenType';
-	Token.SubTokenType = 'SubTokenType';
-	Token.AddTokenType = 'AddTokenType';
-	Token.DivTokenType = 'DivTokenType';
-	Token.MulTokenType = 'MulTokenType';
-	Token.ModTokenType = 'ModTokenType';
-	Token.AssignmentTokenType = 'AssignmentTokenType';
-	Token.NamespaceKeywordTokenType = 'NamespaceKeywordTokenType';
-	Token.XMLTokenType = 'XMLTokenType';
-	Token.XMLIdentifierTokenType = 'XMLIdentifierTokenType';
-	Token.XMLTextTokenType = 'XMLTextTokenType';
-	Token.XMLCDATATokenType = 'XMLCDATATokenType';
-	Token.XMLCDATAChunkTokenType = 'XMLCDATAChunkTokenType';
-	Token.XMLCDATAEndTokenType = 'XMLCDATAEndTokenType';
-	Token.XMLOpenArrowTokenType = 'XMLOpenArrowTokenType';
-	Token.XMLClosedArrowTokenType = 'XMLClosedArrowTokenType';
-	Token.XMLForwardSlashTokenType = 'XMLForwardSlashTokenType';
-	Token.NamespaceQualifierTokenType = 'NamespaceQualifierTokenType';
-	Token.VectorDotOpenArrowTokenType = 'VectorDotOpenArrowTokenType';
-	Token.VectorClosedArrowTokenType = 'VectorClosedArrowTokenType';
-	Token.StringTokenType = 'StringTokenType';
-	Token.StringChunkTokenType = 'StringChunkTokenType';
-	Token.StringMultiLineDelimiterTokenType = 'StringMultiLineDelimiterTokenType';
-	Token.StringEndTokenType = 'StringEndTokenType';
-	Token.NumberTokenType = 'NumberTokenType';
-	Token.SpaceTokenType = 'SpaceTokenType';
-	Token.TabTokenType = 'TabTokenType';
-	Token.NewLineTokenType = 'NewLineTokenType';
-	Token.UFOTokenType = 'UFOTokenType';
-	$es4.$$public_property('tokenFunctions', Token, Object);
-
-	//class initializer
-	Token.$$cinit = (function ()
-	{
-		Token.$$cinit = undefined;
-
-		//initialize imports
-		Lexer = $es4.$$['sweetrush.core'].Lexer;
-
-		//initialize properties
-		Token.whitespaceCharacters = {'\u0020':true, '\u0009':true, '\u000A':true, '\u000C':true, '\u000D':true};
-		Token.identifierStartCharacters = {'_':true, '$':true, 'a':true, 'b':true, 'c':true, 'd':true, 'e':true, 'f':true, 'g':true, 'h':true, 'i':true, 'j':true, 'k':true, 'l':true, 'm':true, 'n':true, 'o':true, 'p':true, 'q':true, 'r':true, 's':true, 't':true, 'u':true, 'v':true, 'w':true, 'x':true, 'y':true, 'z':true, 'A':true, 'B':true, 'C':true, 'D':true, 'E':true, 'F':true, 'G':true, 'H':true, 'I':true, 'J':true, 'K':true, 'L':true, 'M':true, 'N':true, 'O':true, 'P':true, 'Q':true, 'R':true, 'S':true, 'T':true, 'U':true, 'V':true, 'W':true, 'X':true, 'Y':true, 'Z':true};
-		Token.tokenFunctions = {};
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OpenParenTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClosedParenTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OpenBraceTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClosedBraceTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OpenBracketTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClosedBracketTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EOSTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'PackageTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ImportTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClassTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InterfaceTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UseTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CaseTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FunctionTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'GetTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SetTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RestTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ExtendsTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ImplementsTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CommentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CommentChunkTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MultiLineCommentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MultiLineCommentChunkTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MultiLineCommentEndTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OverrideTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StaticTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DynamicTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinalTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VarTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ConstTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IdentifierTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BooleanTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ThisTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TypeofTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NullTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VoidTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UndefinedTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IsTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NaNTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InstanceofTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ReturnTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SwitchTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SuperTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ThrowTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DotDotTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DotTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NotTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseNotTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ColonTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CommaTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TernaryTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IncrementTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DecrementTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BreakTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ContinueTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DefaultTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AsTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DeleteTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IfTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ElseTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EachTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ForTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WhileTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DoTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WithTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TryTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CatchTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RegExpTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SpecialUFOTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinallyTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AtTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AddWithAssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DivWithAssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ModWithAssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MulWithAssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SubWithAssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EqualityTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RelationalTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseAndTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseXorTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseOrTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AndTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AndWithAssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OrTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OrWithAssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseLeftShiftTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseRightShiftTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SubTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AddTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DivTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MulTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ModTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AssignmentTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NamespaceKeywordTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLIdentifierTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLTextTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLCDATATokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLCDATAChunkTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLCDATAEndTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLOpenArrowTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLClosedArrowTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VectorClosedArrowTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StringTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StringChunkTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StringMultiLineDelimiterTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StringEndTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NumberTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SpaceTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TabTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewLineTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UFOTokenType'), {}, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OpenParenTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '(') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'OpenParenTokenType'), '(']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClosedParenTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == ')') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'ClosedParenTokenType'), ')']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OpenBraceTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '{') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'OpenBraceTokenType'), '{']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClosedBraceTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '}') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'ClosedBraceTokenType'), '}']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OpenBracketTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '[') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'OpenBracketTokenType'), '[']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClosedBracketTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == ']') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'ClosedBracketTokenType'), ']']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EOSTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == ';') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'EOSTokenType'), ';']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'PackageTokenType'), 'keyword', 'package', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'PackageTokenType'), 'terminator', /^([\s]|\{)/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'PackageTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'p' || $es4.$$call(input, null, null, 'charAt', [1]) != 'a') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'PackageTokenType'), [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType'), $es4.$$get(Token, null, null, 'IdentifierTokenType'), $es4.$$get(Token, null, null, 'DotTokenType')]]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ImportTokenType'), 'keyword', 'import', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ImportTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 'm') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'import', $es4.$$get(Token, null, null, 'ImportTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClassTokenType'), 'keyword', 'class', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClassTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'c' || $es4.$$call(input, null, null, 'charAt', [1]) != 'l') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'class', $es4.$$get(Token, null, null, 'ClassTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InterfaceTokenType'), 'keyword', 'interface', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InterfaceTokenType'), 'terminator', /^[\s]/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InterfaceTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 'n') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'interface', $es4.$$get(Token, null, null, 'InterfaceTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewTokenType'), 'keyword', 'new', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewTokenType'), 'terminator', /^[\s]/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'n' || $es4.$$call(input, null, null, 'charAt', [1]) != 'e') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'NewTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UseTokenType'), 'keyword', 'use', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UseTokenType'), 'terminator', /^[\s]/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UseTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'u' || $es4.$$call(input, null, null, 'charAt', [1]) != 's') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'UseTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CaseTokenType'), 'keyword', 'case', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CaseTokenType'), 'terminator', /^[\s]/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CaseTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'c' || $es4.$$call(input, null, null, 'charAt', [1]) != 'a') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'CaseTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FunctionTokenType'), 'keyword', 'function', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FunctionTokenType'), 'terminator', /^[\s]|\(/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FunctionTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	if ($es4.$$call(input, null, null, 'charAt', [0]) != 'f')
-	{
-		return null;
-	}
-	var result = $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'FunctionTokenType'), [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType'), $es4.$$get(Token, null, null, 'GetTokenType'), $es4.$$get(Token, null, null, 'SetTokenType'), $es4.$$get(Token, null, null, 'IdentifierTokenType')]]);
-	if (!result)
-	{
-		return null;
-	}
-	var tokens = $es4.$$get(result, null, null, 'tokens');
-	var index = $es4.$$get(result, null, null, 'index');
-	result = $es4.$$call(Lexer, null, null, 'lex', [$es4.$$call(input, null, null, 'slice', [index + 1]), [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType'), $es4.$$get(Token, null, null, 'OpenParenTokenType'), $es4.$$get(Token, null, null, 'ClosedParenTokenType'), $es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType'), $es4.$$get(Token, null, null, 'VectorClosedArrowTokenType'), $es4.$$get(Token, null, null, 'VoidTokenType'), $es4.$$get(Token, null, null, 'StringTokenType'), $es4.$$get(Token, null, null, 'BooleanTokenType'), $es4.$$get(Token, null, null, 'SubTokenType'), $es4.$$get(Token, null, null, 'AddTokenType'), $es4.$$get(Token, null, null, 'RestTokenType'), $es4.$$get(Token, null, null, 'NumberTokenType'), $es4.$$get(Token, null, null, 'NullTokenType'), $es4.$$get(Token, null, null, 'UndefinedTokenType'), $es4.$$get(Token, null, null, 'NaNTokenType'), $es4.$$get(Token, null, null, 'ColonTokenType'), $es4.$$get(Token, null, null, 'MulTokenType'), $es4.$$get(Token, null, null, 'CommaTokenType'), $es4.$$get(Token, null, null, 'AssignmentTokenType'), $es4.$$get(Token, null, null, 'IdentifierTokenType'), $es4.$$get(Token, null, null, 'DotTokenType')], true]);
-	tokens = $es4.$$call(tokens, null, null, 'concat', [$es4.$$get(result, null, null, 'tokens')]);
-	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, $es4.$$get(result, null, null, 'index') + index]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'GetTokenType'), 'keyword', 'get', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'GetTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'g' || $es4.$$call(input, null, null, 'charAt', [1]) != 'e') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'get', $es4.$$get(Token, null, null, 'GetTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SetTokenType'), 'keyword', 'set', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SetTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 's' || $es4.$$call(input, null, null, 'charAt', [1]) != 'e') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'set', $es4.$$get(Token, null, null, 'SetTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RestTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '.' || $es4.$$call(input, null, null, 'charAt', [1]) != '.') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, '...', $es4.$$get(Token, null, null, 'RestTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), false]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ExtendsTokenType'), 'keyword', 'extends', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ExtendsTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'e' || $es4.$$call(input, null, null, 'charAt', [1]) != 'x') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'extends', $es4.$$get(Token, null, null, 'ExtendsTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ImplementsTokenType'), 'keyword', 'implements', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ImplementsTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 'm') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'implements', $es4.$$get(Token, null, null, 'ImplementsTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CommentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	if ($es4.$$call(input, null, null, 'charAt', [0]) != '/' || $es4.$$call(input, null, null, 'charAt', [1]) != '/')
-	{
-		return null;
-	}
-	var tokens = [];
-	var i = 2;
-	var commentChunk = '';
-	var token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'CommentTokenType'), $es4.$$call(input, null, null, 'charAt', [0]) + $es4.$$call(input, null, null, 'charAt', [1])]);
-	$es4.$$call(tokens, null, null, 'push', [token]);
-	while (i < $es4.$$get(input, null, null, 'length'))
-	{
-		if ($es4.$$call($es4.$$call(input, null, null, 'charAt', [i]), null, null, 'match', [/[\r\n]/]))
-		{
-			break;
-		}
-		commentChunk += $es4.$$call(input, null, null, 'charAt', [i]);
-		i++;
-	}
-	if (i > 2)
-	{
-		token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'CommentChunkTokenType'), commentChunk]);
-		$es4.$$call(tokens, null, null, 'push', [token]);
-	}
-	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, i - 1]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MultiLineCommentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	if ($es4.$$call(input, null, null, 'charAt', [0]) != '/' || $es4.$$call(input, null, null, 'charAt', [1]) != '*')
-	{
-		return null;
-	}
-	var tokens = [];
-	var token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MultiLineCommentTokenType'), $es4.$$call(input, null, null, 'charAt', [0]) + $es4.$$call(input, null, null, 'charAt', [1])]);
-	$es4.$$call(tokens, null, null, 'push', [token]);
-	var i = 2;
-	var lastChar;
-	var commentChunk = '';
-	while (i < $es4.$$get(input, null, null, 'length'))
-	{
-		if ($es4.$$call($es4.$$call(input, null, null, 'charAt', [i]), null, null, 'match', [/[\r\n]/]))
-		{
-			if ($es4.$$get(commentChunk, null, null, 'length') > 0)
-			{
-				token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MultiLineCommentChunkTokenType'), commentChunk]);
-				$es4.$$call(tokens, null, null, 'push', [token]);
-			}
-			token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$call(input, null, null, 'charAt', [i])]);
-			$es4.$$call(tokens, null, null, 'push', [token]);
-			commentChunk = '';
-		}
-		else if (lastChar == '*' && $es4.$$call(input, null, null, 'charAt', [i]) == '/')
-		{
-			commentChunk = $es4.$$call(commentChunk, null, null, 'slice', [0, $es4.$$get(commentChunk, null, null, 'length') - 1]);
-			i--;
-			break;
-		}
-		else
-		{
-			commentChunk += $es4.$$call(input, null, null, 'charAt', [i]);
-		}
-		lastChar = $es4.$$call(input, null, null, 'charAt', [i]);
-		i++;
-	}
-	if ($es4.$$get(commentChunk, null, null, 'length') > 0)
-	{
-		token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MultiLineCommentChunkTokenType'), commentChunk]);
-		$es4.$$call(tokens, null, null, 'push', [token]);
-	}
-	token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MultiLineCommentEndTokenType'), $es4.$$call(input, null, null, 'charAt', [i]) + $es4.$$call(input, null, null, 'charAt', [i + 1])]);
-	$es4.$$call(tokens, null, null, 'push', [token]);
-	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, i + 1]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OverrideTokenType'), 'keyword', 'override', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OverrideTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'o' || $es4.$$call(input, null, null, 'charAt', [1]) != 'v') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'override', $es4.$$get(Token, null, null, 'OverrideTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StaticTokenType'), 'keyword', 'static', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StaticTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 's' || $es4.$$call(input, null, null, 'charAt', [1]) != 't') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'static', $es4.$$get(Token, null, null, 'StaticTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DynamicTokenType'), 'keyword', 'dynamic', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DynamicTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'd' || $es4.$$call(input, null, null, 'charAt', [1]) != 'y') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'dynamic', $es4.$$get(Token, null, null, 'DynamicTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinalTokenType'), 'keyword', 'final', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinalTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'f' || $es4.$$call(input, null, null, 'charAt', [1]) != 'i') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'final', $es4.$$get(Token, null, null, 'FinalTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VarTokenType'), 'keyword', 'var', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VarTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'v' || $es4.$$call(input, null, null, 'charAt', [1]) != 'a') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'var', $es4.$$get(Token, null, null, 'VarTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ConstTokenType'), 'keyword', 'const', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ConstTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'c' || $es4.$$call(input, null, null, 'charAt', [1]) != 'o') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'const', $es4.$$get(Token, null, null, 'ConstTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IdentifierTokenType'), 'regex', /^[a-zA-Z_$][a-zA-Z_0-9$]*/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IdentifierTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'IdentifierTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BooleanTokenType'), 'regex', /^(true|false)(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BooleanTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 't' && $es4.$$call(input, null, null, 'charAt', [0]) != 'f') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BooleanTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ThisTokenType'), 'regex', /^this(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ThisTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 't' || $es4.$$call(input, null, null, 'charAt', [1]) != 'h') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'ThisTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TypeofTokenType'), 'regex', /^typeof(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TypeofTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 't' || $es4.$$call(input, null, null, 'charAt', [1]) != 'y') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'TypeofTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NullTokenType'), 'regex', /^null(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NullTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'n' || $es4.$$call(input, null, null, 'charAt', [1]) != 'u') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'NullTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VoidTokenType'), 'regex', /^void(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VoidTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'v' || $es4.$$call(input, null, null, 'charAt', [1]) != 'o') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'VoidTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UndefinedTokenType'), 'regex', /^undefined(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UndefinedTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'u' || $es4.$$call(input, null, null, 'charAt', [1]) != 'n') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'UndefinedTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IsTokenType'), 'regex', /^is(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IsTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 's') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'IsTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NaNTokenType'), 'regex', /^NaN(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NaNTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'N' || $es4.$$call(input, null, null, 'charAt', [1]) != 'a') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'NaNTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InstanceofTokenType'), 'regex', /^instanceof(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InstanceofTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 'n') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'InstanceofTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ReturnTokenType'), 'regex', /^return(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ReturnTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'r' || $es4.$$call(input, null, null, 'charAt', [1]) != 'e') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'ReturnTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SwitchTokenType'), 'regex', /^switch(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SwitchTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 's' || $es4.$$call(input, null, null, 'charAt', [1]) != 'w') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'SwitchTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SuperTokenType'), 'regex', /^super(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SuperTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 's' || $es4.$$call(input, null, null, 'charAt', [1]) != 'u') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'SuperTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ThrowTokenType'), 'regex', /^throw(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ThrowTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 't' || $es4.$$call(input, null, null, 'charAt', [1]) != 'h') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'ThrowTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DotDotTokenType'), 'regex', /^\.\./, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DotDotTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '.' || $es4.$$call(input, null, null, 'charAt', [1]) != '.') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'DotDotTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DotTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '.') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'DotTokenType'), '.']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NotTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '!') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'NotTokenType'), '!']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseNotTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '~') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseNotTokenType'), '~']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ColonTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == ':') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'ColonTokenType'), ':']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CommaTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == ',') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'CommaTokenType'), ',']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TernaryTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '?') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'TernaryTokenType'), '?']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IncrementTokenType'), 'regex', /^\+\+/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IncrementTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '+' || $es4.$$call(input, null, null, 'charAt', [1]) != '+') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'IncrementTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DecrementTokenType'), 'regex', /^\-\-/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DecrementTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '-' || $es4.$$call(input, null, null, 'charAt', [1]) != '-') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'DecrementTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BreakTokenType'), 'regex', /^break(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BreakTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'b' || $es4.$$call(input, null, null, 'charAt', [1]) != 'r') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BreakTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ContinueTokenType'), 'regex', /^continue(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ContinueTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'c' || $es4.$$call(input, null, null, 'charAt', [1]) != 'o') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'ContinueTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DefaultTokenType'), 'regex', /^default(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DefaultTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'd' || $es4.$$call(input, null, null, 'charAt', [1]) != 'e') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'DefaultTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InTokenType'), 'regex', /^in(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 'n') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'InTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AsTokenType'), 'regex', /^as(?![a-zA-Z0-9_])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AsTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'a' || $es4.$$call(input, null, null, 'charAt', [1]) != 's') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'AsTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DeleteTokenType'), 'regex', /^delete(?![a-zA-Z0-9_.(])/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DeleteTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'd' || $es4.$$call(input, null, null, 'charAt', [1]) != 'e') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'DeleteTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IfTokenType'), 'keyword', 'if', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IfTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 'f') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'if', $es4.$$get(Token, null, null, 'IfTokenType'), '(', false]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ElseTokenType'), 'keyword', 'else', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ElseTokenType'), 'terminator', /^([\s]|\{)/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ElseTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'e' || $es4.$$call(input, null, null, 'charAt', [1]) != 'l') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'ElseTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EachTokenType'), 'keyword', 'each', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EachTokenType'), 'terminator', /^([\s]|\()/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EachTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'e' || $es4.$$call(input, null, null, 'charAt', [1]) != 'a') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'EachTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ForTokenType'), 'keyword', 'for', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ForTokenType'), 'terminator', /^([\s]|\()/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ForTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'f' || $es4.$$call(input, null, null, 'charAt', [1]) != 'o') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'ForTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WhileTokenType'), 'keyword', 'while', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WhileTokenType'), 'terminator', /^([\s]|\()/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WhileTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'w' || $es4.$$call(input, null, null, 'charAt', [1]) != 'h') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'WhileTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DoTokenType'), 'keyword', 'do', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DoTokenType'), 'terminator', /^([\s]|\{)/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DoTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'd' || $es4.$$call(input, null, null, 'charAt', [1]) != 'o') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'DoTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WithTokenType'), 'keyword', 'with', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WithTokenType'), 'terminator', /^([\s]|\{)/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WithTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'w' || $es4.$$call(input, null, null, 'charAt', [1]) != 'i') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'WithTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TryTokenType'), 'keyword', 'try', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TryTokenType'), 'terminator', /^([\s]|\{)/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TryTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 't' || $es4.$$call(input, null, null, 'charAt', [1]) != 'r') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'TryTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CatchTokenType'), 'keyword', 'catch', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CatchTokenType'), 'terminator', /^([\s]|\()/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CatchTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	if ($es4.$$call(input, null, null, 'charAt', [0]) != 'c' || $es4.$$call(input, null, null, 'charAt', [1]) != 'a')
-	{
-		return null;
-	}
-	var result = $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'CatchTokenType'), [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType')]]);
-	if (!result)
-	{
-		return null;
-	}
-	var tokens = $es4.$$get(result, null, null, 'tokens');
-	var index = $es4.$$get(result, null, null, 'index');
-	result = $es4.$$call(Lexer, null, null, 'lex', [$es4.$$call(input, null, null, 'slice', [index + 1]), [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType'), $es4.$$get(Token, null, null, 'OpenParenTokenType'), $es4.$$get(Token, null, null, 'ClosedParenTokenType'), $es4.$$get(Token, null, null, 'IdentifierTokenType'), $es4.$$get(Token, null, null, 'DotTokenType'), $es4.$$get(Token, null, null, 'ColonTokenType')], true]);
-	tokens = $es4.$$call(tokens, null, null, 'concat', [$es4.$$get(result, null, null, 'tokens')]);
-	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, $es4.$$get(result, null, null, 'index') + index]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RegExpTokenType'), 'find', function ($$$$input, $$$$foundTokens) 
-{
-		//set default parameter values
-		var input = $$$$input;
-		var foundTokens = $$$$foundTokens;
-
-	if ($es4.$$call(input, null, null, 'charAt', [0]) != '/')
-	{
-		return null;
-	}
-	outer:	for (var j = $es4.$$get(foundTokens, null, null, 'length') - 1; j >= 0; j--)
-	{
-		var tokens = $es4.$$get(foundTokens, null, null, j);
-		var token;
-		var i;
-		for (i = $es4.$$get(tokens, null, null, 'length') - 1; i >= 0; i--)
-		{
-			token = $es4.$$get(tokens, null, null, i);
-			switch ($es4.$$get(token, null, null, 'type'))
-			{
-				case $es4.$$get(Token, null, null, 'SpaceTokenType'):
-				case $es4.$$get(Token, null, null, 'TabTokenType'):
-				case $es4.$$get(Token, null, null, 'NewLineTokenType'):
-					break;
-				case $es4.$$get(Token, null, null, 'EOSTokenType'):
-				case $es4.$$get(Token, null, null, 'OpenBracketTokenType'):
-				case $es4.$$get(Token, null, null, 'OpenParenTokenType'):
-				case $es4.$$get(Token, null, null, 'EqualityTokenType'):
-				case $es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'BitwiseLeftShiftTokenType'):
-				case $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftTokenType'):
-				case $es4.$$get(Token, null, null, 'BitwiseRightShiftTokenType'):
-				case $es4.$$get(Token, null, null, 'RelationalTokenType'):
-				case $es4.$$get(Token, null, null, 'AddWithAssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'DivWithAssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'ModWithAssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'MulWithAssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'SubWithAssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'AssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'CommaTokenType'):
-				case $es4.$$get(Token, null, null, 'DeleteTokenType'):
-				case $es4.$$get(Token, null, null, 'InTokenType'):
-				case $es4.$$get(Token, null, null, 'WithTokenType'):
-				case $es4.$$get(Token, null, null, 'TypeofTokenType'):
-				case $es4.$$get(Token, null, null, 'VoidTokenType'):
-				case $es4.$$get(Token, null, null, 'ReturnTokenType'):
-				case $es4.$$get(Token, null, null, 'ThrowTokenType'):
-				case $es4.$$get(Token, null, null, 'NewTokenType'):
-				case $es4.$$get(Token, null, null, 'CaseTokenType'):
-				case $es4.$$get(Token, null, null, 'AndWithAssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'OrWithAssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'AndTokenType'):
-				case $es4.$$get(Token, null, null, 'OrTokenType'):
-				case $es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType'):
-				case $es4.$$get(Token, null, null, 'BitwiseAndTokenType'):
-				case $es4.$$get(Token, null, null, 'BitwiseNotTokenType'):
-				case $es4.$$get(Token, null, null, 'BitwiseOrTokenType'):
-				case $es4.$$get(Token, null, null, 'BitwiseXorTokenType'):
-				case $es4.$$get(Token, null, null, 'NotTokenType'):
-				case $es4.$$get(Token, null, null, 'IncrementTokenType'):
-				case $es4.$$get(Token, null, null, 'DecrementTokenType'):
-				case $es4.$$get(Token, null, null, 'OpenBraceTokenType'):
-				case $es4.$$get(Token, null, null, 'IsTokenType'):
-				case $es4.$$get(Token, null, null, 'InstanceofTokenType'):
-				case $es4.$$get(Token, null, null, 'AddTokenType'):
-				case $es4.$$get(Token, null, null, 'RegExpTokenType'):
-				case $es4.$$get(Token, null, null, 'SubTokenType'):
-				case $es4.$$get(Token, null, null, 'DivTokenType'):
-				case $es4.$$get(Token, null, null, 'MulTokenType'):
-				case $es4.$$get(Token, null, null, 'ModTokenType'):
-					break outer;
-				default:
-					return null;
-			}
-		}
-	}
-	var result = $es4.$$call(Lexer, null, null, 'lex', [$es4.$$call(input, null, null, 'slice', [1]), [$es4.$$get(Token, null, null, 'SpecialUFOTokenType')], true]);
-	var previousToken;
-	var tokens = $es4.$$get(result, null, null, 'tokens');
-	var foundEnd = false;
-	for (i = 0; i < $es4.$$get(tokens, null, null, 'length'); i++)
-	{
-		token = $es4.$$get(tokens, null, null, i);
-		if (foundEnd)
-		{
-			if ($es4.$$get(token, null, null, 'data') == ',' || $es4.$$get(token, null, null, 'data') == ';' || $es4.$$get(token, null, null, 'data') == ']' || $es4.$$get(token, null, null, 'data') == ')' || $es4.$$get(token, null, null, 'data') == ']' || $es4.$$get(token, null, null, 'data') == '.' || $es4.$$get(token, null, null, 'data') == ' ' || $es4.$$get(token, null, null, 'data') == '	' || $es4.$$call(token, null, null, 'data', 'match', [/[\r\n]/]))
-			{
-				i++;
-				break;
-			}
-		}
-		else if ($es4.$$get(token, null, null, 'data') == '/' && previousToken && $es4.$$get(previousToken, null, null, 'data') != '\\')
-		{
-			foundEnd = true;
-		}
-		previousToken = token;
-	}
-	if (!foundEnd)
-	{
-		return null;
-	}
-	tokens = $es4.$$call(tokens, null, null, 'splice', [0, i - 1]);
-	$es4.$$call(tokens, null, null, 'unshift', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'RegExpTokenType'), '/'])]);
-	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, i - 1]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SpecialUFOTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	if ($es4.$$call(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewLineTokenType'), 'find', [input]) != null)
-	{
-		return null;
-	}
-	return $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'SpecialUFOTokenType'), $es4.$$call(input, null, null, 'charAt', [0])]), 0]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinallyTokenType'), 'keyword', 'finally', '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinallyTokenType'), 'terminator', /^([\s]|\{)/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinallyTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'f' || $es4.$$call(input, null, null, 'charAt', [1]) != 'i') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'FinallyTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AtTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '@') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'AtTokenType'), '@']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType'), 'regex', /^<<=/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '<' || $es4.$$call(input, null, null, 'charAt', [1]) != '<') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType'), 'regex', /^>>=/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '>' || $es4.$$call(input, null, null, 'charAt', [1]) != '>') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType'), 'regex', /^>>>=/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '>' || $es4.$$call(input, null, null, 'charAt', [1]) != '>') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType'), 'regex', /^&=/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '&' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType'), 'regex', /^\|=/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '|' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType'), 'regex', /^\^=/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '^' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AddWithAssignmentTokenType'), 'regex', /^\+\=/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AddWithAssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '+' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'AddWithAssignmentTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DivWithAssignmentTokenType'), 'regex', /^\/\=/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DivWithAssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '/' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'DivWithAssignmentTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ModWithAssignmentTokenType'), 'regex', /^\%\=/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ModWithAssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '%' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'ModWithAssignmentTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MulWithAssignmentTokenType'), 'regex', /^\*\=/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MulWithAssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '*' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'MulWithAssignmentTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SubWithAssignmentTokenType'), 'regex', /^\-\=/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SubWithAssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '-' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'SubWithAssignmentTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EqualityTokenType'), 'operators', ['===', '!==', '==', '!='], '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EqualityTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	if ($es4.$$call(input, null, null, 'charAt', [0]) != '=' && $es4.$$call(input, null, null, 'charAt', [0]) != '!')
-	{
-		return null;
-	}
-	for (var i = 0; i < $es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EqualityTokenType'), 'operators', 'length'); i++)
-	{
-		var operator = $es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EqualityTokenType'), 'operators', i);
-		var match = $es4.$$call(input, null, null, 'match', [$es4.$$primitive(new (RegExp)("^" + operator))]);
-		if (!match)
-		{
-			continue;
-		}
-		var token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'EqualityTokenType'), operator]);
-		return $es4.$$call(Token, null, null, 'getNewResult', [token, $es4.$$get(operator, null, null, 'length') - 1]);
-	}
-	return null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RelationalTokenType'), 'operators', ['>=', '>', '<=', '<'], '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RelationalTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	if ($es4.$$call(input, null, null, 'charAt', [0]) != '>' && $es4.$$call(input, null, null, 'charAt', [0]) != '<')
-	{
-		return null;
-	}
-	for (var i = 0; i < $es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RelationalTokenType'), 'operators', 'length'); i++)
-	{
-		var operator = $es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RelationalTokenType'), 'operators', i);
-		var match = $es4.$$call(input, null, null, 'match', [$es4.$$primitive(new (RegExp)("^" + operator))]);
-		if (!match)
-		{
-			continue;
-		}
-		var token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'RelationalTokenType'), operator]);
-		return $es4.$$call(Token, null, null, 'getNewResult', [token, $es4.$$get(operator, null, null, 'length') - 1]);
-	}
-	return null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseAndTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '&') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseAndTokenType'), '&']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseXorTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '^') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseXorTokenType'), '^']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseOrTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '|') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseOrTokenType'), '|']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AndTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '&' && $es4.$$call(input, null, null, 'charAt', [1]) == '&') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'AndTokenType'), '&&']), 1]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AndWithAssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '&' && $es4.$$call(input, null, null, 'charAt', [1]) == '&' && $es4.$$call(input, null, null, 'charAt', [2]) == '=') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'AndWithAssignmentTokenType'), '&&=']), 2]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OrTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '|' && $es4.$$call(input, null, null, 'charAt', [1]) == '|') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'OrTokenType'), '||']), 1]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OrWithAssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '|' && $es4.$$call(input, null, null, 'charAt', [1]) == '|' && $es4.$$call(input, null, null, 'charAt', [2]) == '=') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'OrWithAssignmentTokenType'), '||=']), 2]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseLeftShiftTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '<' && $es4.$$call(input, null, null, 'charAt', [1]) == '<') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseLeftShiftTokenType'), '<<']), 1]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseRightShiftTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '>' && $es4.$$call(input, null, null, 'charAt', [1]) == '>') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseRightShiftTokenType'), '>>']), 1]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '>' && $es4.$$call(input, null, null, 'charAt', [1]) == '>' && $es4.$$call(input, null, null, 'charAt', [2]) == '>') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftTokenType'), '>>>']), 2]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SubTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '-') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'SubTokenType'), '-']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AddTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '+') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'AddTokenType'), '+']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DivTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '/') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'DivTokenType'), '/']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MulTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '*') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MulTokenType'), '*']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ModTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '%') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'ModTokenType'), '%']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AssignmentTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '=') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'AssignmentTokenType'), '=']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NamespaceKeywordTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == 'n') ? $es4.$$call(Token, null, null, 'keywordFind2', [input, 'namespace', $es4.$$get(Token, null, null, 'NamespaceKeywordTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	if ($es4.$$call(input, null, null, 'charAt', [0]) != '<')
-	{
-		return null;
-	}
-	var isXMLList = $es4.$$call(input, null, null, 'charAt', [1]) == '>';
-	var resultTokens = [];
-	var index = -1;
-	var openNodes = 0;
-	while (true)
-	{
-		var result = $es4.$$call(Lexer, null, null, 'lex', [input, [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType'), $es4.$$get(Token, null, null, 'StringTokenType'), $es4.$$get(Token, null, null, 'AssignmentTokenType'), $es4.$$get(Token, null, null, 'ColonTokenType'), $es4.$$get(Token, null, null, 'XMLOpenArrowTokenType'), $es4.$$get(Token, null, null, 'XMLIdentifierTokenType'), $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType')], true]);
-		if (!$es4.$$get(result, null, null, 'tokens', 'length'))
-		{
-			break;
-		}
-		if ($es4.$$call(input, null, null, 'charAt', [$es4.$$get(result, null, null, 'index')]) != '>')
-		{
-			break;
-		}
-		var tokens = $es4.$$call(result, null, null, 'tokens', 'concat', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLClosedArrowTokenType'), '>'])]);
-		input = $es4.$$call(input, null, null, 'slice', [$es4.$$get(result, null, null, 'index') + 1]);
-		index += $es4.$$get(result, null, null, 'index') + 1;
-		resultTokens = $es4.$$call(resultTokens, null, null, 'concat', [tokens]);
-		if ($es4.$$get(tokens, null, null, 1, 'type') != $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'))
-		{
-			openNodes++;
-		}
-		if ($es4.$$get(tokens, null, null, 1, 'type') == $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'))
-		{
-			openNodes--;
-		}
-		else if ($es4.$$get(tokens, null, null, $es4.$$get(tokens, null, null, 'length') - 2, 'type') == $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'))
-		{
-			openNodes--;
-		}
-		if (!openNodes)
-		{
-			break;
-		}
-		if (isXMLList && openNodes == 1)
-		{
-			result = $es4.$$call(Lexer, null, null, 'lex', [input, [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType')], true]);
-			if (!$es4.$$get(result, null, null, 'tokens', 'length'))
-			{
-				continue;
-			}
-			input = $es4.$$call(input, null, null, 'slice', [$es4.$$get(result, null, null, 'index')]);
-			index += $es4.$$get(result, null, null, 'index');
-			resultTokens = $es4.$$call(resultTokens, null, null, 'concat', [$es4.$$get(result, null, null, 'tokens')]);
-		}
-		else
-		{
-			result = $es4.$$call(Lexer, null, null, 'lex', [input, [$es4.$$get(Token, null, null, 'XMLTextTokenType'), $es4.$$get(Token, null, null, 'XMLCDATATokenType')], true]);
-			if (!$es4.$$get(result, null, null, 'tokens', 'length'))
-			{
-				continue;
-			}
-			input = $es4.$$call(input, null, null, 'slice', [$es4.$$get(result, null, null, 'index')]);
-			index += $es4.$$get(result, null, null, 'index');
-			resultTokens = $es4.$$call(resultTokens, null, null, 'concat', [$es4.$$get(result, null, null, 'tokens')]);
-		}
-	}
-	if (openNodes || !$es4.$$get(resultTokens, null, null, 'length'))
-	{
-		return null;
-	}
-	return $es4.$$call(Token, null, null, 'getNewResult', [resultTokens, index]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLIdentifierTokenType'), 'regex', /^[a-zA-Z_][a-zA-Z_0-9]*/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLIdentifierTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'XMLIdentifierTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLTextTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	if ($es4.$$call(input, null, null, 'charAt', [0]) == '<')
-	{
-		return null;
-	}
-	var token;
-	var tokens = [];
-	var i = 0;
-	var chunk = '';
-	while (i < $es4.$$get(input, null, null, 'length'))
-	{
-		if ($es4.$$call($es4.$$call(input, null, null, 'charAt', [i]), null, null, 'match', [/[\r\n]/]))
-		{
-			if ($es4.$$get(chunk, null, null, 'length') > 0)
-			{
-				token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLTextTokenType'), chunk]);
-				$es4.$$call(tokens, null, null, 'push', [token]);
-			}
-			token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$call(input, null, null, 'charAt', [i])]);
-			$es4.$$call(tokens, null, null, 'push', [token]);
-			chunk = '';
-		}
-		else if ($es4.$$call(input, null, null, 'charAt', [i]) == '<')
-		{
-			i--;
-			break;
-		}
-		else
-		{
-			chunk += $es4.$$call(input, null, null, 'charAt', [i]);
-		}
-		i++;
-	}
-	if ($es4.$$get(chunk, null, null, 'length') > 0)
-	{
-		token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLTextTokenType'), chunk]);
-		$es4.$$call(tokens, null, null, 'push', [token]);
-	}
-	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, i]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLCDATATokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	if ($es4.$$call(input, null, null, 'charAt', [0]) != '<' || $es4.$$call(input, null, null, 'charAt', [1]) != '!' || $es4.$$call(input, null, null, 'charAt', [2]) != '[' || $es4.$$call(input, null, null, 'indexOf', ['<![CDATA[']) != 0)
-	{
-		return null;
-	}
-	var tokens = [];
-	var token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLCDATATokenType'), '<![CDATA[']);
-	$es4.$$call(tokens, null, null, 'push', [token]);
-	var i = 9;
-	var chunk = '';
-	while (i < $es4.$$get(input, null, null, 'length'))
-	{
-		if ($es4.$$call($es4.$$call(input, null, null, 'charAt', [i]), null, null, 'match', [/[\r\n]/]))
-		{
-			if ($es4.$$get(chunk, null, null, 'length') > 0)
-			{
-				token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLCDATAChunkTokenType'), chunk]);
-				$es4.$$call(tokens, null, null, 'push', [token]);
-			}
-			token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$call(input, null, null, 'charAt', [i])]);
-			$es4.$$call(tokens, null, null, 'push', [token]);
-			chunk = '';
-		}
-		else if ($es4.$$call(input, null, null, 'charAt', [i - 2]) == ']' && $es4.$$call(input, null, null, 'charAt', [i - 1]) == ']' && $es4.$$call(input, null, null, 'charAt', [i]) == '>')
-		{
-			chunk = $es4.$$call(chunk, null, null, 'slice', [0, $es4.$$get(chunk, null, null, 'length') - 2]);
-			break;
-		}
-		else
-		{
-			chunk += $es4.$$call(input, null, null, 'charAt', [i]);
-		}
-		i++;
-	}
-	if ($es4.$$get(chunk, null, null, 'length') > 0)
-	{
-		token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLCDATAChunkTokenType'), chunk]);
-		$es4.$$call(tokens, null, null, 'push', [token]);
-	}
-	token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLCDATAEndTokenType'), ']]>']);
-	$es4.$$call(tokens, null, null, 'push', [token]);
-	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, i]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLOpenArrowTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '<') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLOpenArrowTokenType'), '<']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLClosedArrowTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '>') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLClosedArrowTokenType'), '>']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'), 'regex', /^\//, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != '/') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType'), 'regex', /^::/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) != ':' || $es4.$$call(input, null, null, 'charAt', [1]) != ':') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType'), 'regex', /^\.\</, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	if ($es4.$$call(input, null, null, 'charAt', [0]) != '.')
-	{
-		return null;
-	}
-	var result = $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType')]);
-	if (!result)
-	{
-		return null;
-	}
-	var tokens = $es4.$$get(result, null, null, 'tokens');
-	var index = $es4.$$get(result, null, null, 'index');
-	result = $es4.$$call(Lexer, null, null, 'lex', [$es4.$$call(input, null, null, 'slice', [index + 1]), [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType'), $es4.$$get(Token, null, null, 'IdentifierTokenType'), $es4.$$get(Token, null, null, 'DotTokenType'), $es4.$$get(Token, null, null, 'VectorClosedArrowTokenType')], true]);
-	tokens = $es4.$$call(tokens, null, null, 'concat', [$es4.$$get(result, null, null, 'tokens')]);
-	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, $es4.$$get(result, null, null, 'index') + index]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VectorClosedArrowTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '>') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'VectorClosedArrowTokenType'), '>']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StringTokenType'), 'prefixAllowed', ["'", '"'], '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StringTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	if ($es4.$$call(input, null, null, 'charAt', [0]) != "'" && $es4.$$call(input, null, null, 'charAt', [0]) != '"')
-	{
-		return null;
-	}
-	var tokens = [];
-	var token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'StringTokenType'), $es4.$$call(input, null, null, 'charAt', [0])]);
-	$es4.$$call(tokens, null, null, 'push', [token]);
-	var i = 1;
-	var ignore = false;
-	var lastChar;
-	var stringChunk = '';
-	while (i < $es4.$$get(input, null, null, 'length') && ($es4.$$call(input, null, null, 'charAt', [0]) != $es4.$$call(input, null, null, 'charAt', [i]) || ignore))
-	{
-		if (lastChar == '\\' && $es4.$$call($es4.$$call(input, null, null, 'charAt', [i]), null, null, 'match', [/[\r\n]/]) && !ignore)
-		{
-			if ($es4.$$get(stringChunk, null, null, 'length') - 1 > 0)
-			{
-				token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'StringChunkTokenType'), $es4.$$call(stringChunk, null, null, 'slice', [0, $es4.$$get(stringChunk, null, null, 'length') - 1])]);
-				$es4.$$call(tokens, null, null, 'push', [token]);
-			}
-			token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'StringMultiLineDelimiterTokenType'), lastChar]);
-			$es4.$$call(tokens, null, null, 'push', [token]);
-			token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$call(input, null, null, 'charAt', [i])]);
-			$es4.$$call(tokens, null, null, 'push', [token]);
-			stringChunk = '';
-		}
-		else
-		{
-			stringChunk += $es4.$$call(input, null, null, 'charAt', [i]);
-		}
-		lastChar = $es4.$$call(input, null, null, 'charAt', [i]);
-		ignore = lastChar == '\\' && !ignore;
-		i++;
-	}
-	if ($es4.$$get(stringChunk, null, null, 'length') > 0)
-	{
-		token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'StringChunkTokenType'), stringChunk]);
-		$es4.$$call(tokens, null, null, 'push', [token]);
-	}
-	token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'StringEndTokenType'), $es4.$$call(input, null, null, 'charAt', [i])]);
-	$es4.$$call(tokens, null, null, 'push', [token]);
-	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, i]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NumberTokenType'), 'regex1', /^([0-9]|[\.][0-9\.]+)[0-9\.]*(e[+-][0-9]+)*/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NumberTokenType'), 'regex2', /^0x[a-fA-F0-9]+/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NumberTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	if ($es4.$$call(input, null, null, 'charAt', [0]) == '0' && $es4.$$call(input, null, null, 'charAt', [1]) == 'x')
-	{
-		return $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'NumberTokenType'), $es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NumberTokenType'), 'regex2')]);
-	}
-	if ($es4.$$call(input, null, null, 'charAt', [0]) != '0' && $es4.$$call(input, null, null, 'charAt', [0]) != '1' && $es4.$$call(input, null, null, 'charAt', [0]) != '2' && $es4.$$call(input, null, null, 'charAt', [0]) != '3' && $es4.$$call(input, null, null, 'charAt', [0]) != '4' && $es4.$$call(input, null, null, 'charAt', [0]) != '5' && $es4.$$call(input, null, null, 'charAt', [0]) != '6' && $es4.$$call(input, null, null, 'charAt', [0]) != '7' && $es4.$$call(input, null, null, 'charAt', [0]) != '8' && $es4.$$call(input, null, null, 'charAt', [0]) != '9' && $es4.$$call(input, null, null, 'charAt', [0]) != '.')
-	{
-		return;
-	}
-	return $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'NumberTokenType'), $es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NumberTokenType'), 'regex1')]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SpaceTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == ' ') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'SpaceTokenType'), ' ']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TabTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return ($es4.$$call(input, null, null, 'charAt', [0]) == '	') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'TabTokenType'), '	']), 0]) : null;
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewLineTokenType'), 'regex', /[\r\n]/, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewLineTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	var tokens;
-	var index = -1;
-	while ($es4.$$call($es4.$$call(input, null, null, 'charAt', [index + 1]), null, null, 'match', [$es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewLineTokenType'), 'regex')]))
-	{
-		if (!tokens)
-		{
-			tokens = [];
-		}
-		$es4.$$call(tokens, null, null, 'push', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$call(input, null, null, 'charAt', [index + 1])])]);
-		index++;
-	}
-	return (index == -1) ? null : $es4.$$call(Token, null, null, 'getNewResult', [tokens, index]);
-}
-, '=');
-		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UFOTokenType'), 'find', function ($$$$input) 
-{
-		//set default parameter values
-		var input = $$$$input;
-
-	return $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'UFOTokenType'), $es4.$$call(input, null, null, 'charAt', [0])]), 0]);
-}
-, '=');
-	});
-
-	//method
-	$es4.$$public_function('getNewToken', Token, (function ($$$$type, $$$$data)
-	{
-		if (Token.$$cinit !== undefined) Token.$$cinit();
-
-		//set default parameter values
-		var type = $es4.$$coerce($$$$type, String);
-		var data = $$$$data;
-
-		return {constructor:"token", type:type, data:data, line:NaN, position:NaN};
-	}));
-
-	//method
-	$es4.$$public_function('getNewResult', Token, (function ($$$$tokens, $$$$index)
-	{
-		if (Token.$$cinit !== undefined) Token.$$cinit();
-
-		//set default parameter values
-		var tokens = $$$$tokens;
-		var index = $es4.$$coerce($$$$index, Number);
-
-		if (!($es4.$$is(tokens, Array)))
-		{
-			tokens = [tokens];
-		}
-		return {tokens:tokens, index:index};
-	}));
-
-	//method
-	$es4.$$public_function('keywordFind2', Token, (function ($$$$input, $$$$keyword, $$$$TokenType, $$$$matchNext, $$$$requireWhitespace)
-	{
-		if (Token.$$cinit !== undefined) Token.$$cinit();
-
-		//set default parameter values
-		var input = $$$$input;
-		var keyword = $$$$keyword;
-		var TokenType = $$$$TokenType;
-		var matchNext = $$$$matchNext;
-		var requireWhitespace = $es4.$$coerce($$$$requireWhitespace, Boolean);
-
-		if ($es4.$$call(input, null, null, 'substring', [0, $es4.$$get(keyword, null, null, 'length')]) != keyword)
-		{
-			return null;
-		}
-		var cur = null;
-		var whitespace = 0;
-		var inputLength = $es4.$$get(input, null, null, 'length');
-		for (var i = $es4.$$get(keyword, null, null, 'length'); i < inputLength; i++)
-		{
-			cur = $es4.$$call(input, null, null, 'charAt', [i]);
-			if ($es4.$$get(Token, null, null, 'whitespaceCharacters', cur) === undefined)
-			{
-				break;
-			}
-			whitespace++;
-		}
-		if (requireWhitespace && whitespace === 0)
-		{
-			return null;
-		}
-		if ($es4.$$is(matchNext, String))
-		{
-			if (cur != matchNext)
-			{
-				return null;
-			}
-		}
-		else
-		{
-			if ($es4.$$get(matchNext, null, null, cur) === undefined)
-			{
-				return null;
-			}
-		}
-		return $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [TokenType, keyword]), $es4.$$get(keyword, null, null, 'length') - 1]);
-	}));
-
-	//method
-	$es4.$$public_function('keywordFind', Token, (function ($$$$input, $$$$TokenType, $$$$grammer)
-	{
-		if (Token.$$cinit !== undefined) Token.$$cinit();
-
-		//set default parameter values
-		var input = $$$$input;
-		var TokenType = $$$$TokenType;
-		var grammer = (2 > arguments.length - 1) ? null : $$$$grammer;
-
-		for (var i = 0; i < $es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'keyword', 'length'); i++)
-		{
-			if ($es4.$$call(Token, null, null, 'tokenFunctions', TokenType, 'keyword', 'charAt', [i]) !== $es4.$$call(input, null, null, 'charAt', [i]))
-			{
-				return null;
-			}
-		}
-		if (!$es4.$$call($es4.$$call(input, null, null, 'charAt', [i]), null, null, 'match', [$es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'terminator')]))
-		{
-			return null;
-		}
-		if (!grammer)
-		{
-			return $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [TokenType, $es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'keyword')]), $es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'keyword', 'length') - 1]);
-		}
-		var result = $es4.$$call(Lexer, null, null, 'lex', [$es4.$$call(input, null, null, 'slice', [$es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'keyword', 'length')]), grammer, true]);
-		$es4.$$call(result, null, null, 'tokens', 'unshift', [$es4.$$call(Token, null, null, 'getNewToken', [TokenType, $es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'keyword')])]);
-		return $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$get(result, null, null, 'tokens'), $es4.$$get(result, null, null, 'index') + $es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'keyword', 'length') - 1]);
-	}));
-
-	//method
-	$es4.$$public_function('regexFind', Token, (function ($$$$input, $$$$TokenType, $$$$regex)
-	{
-		if (Token.$$cinit !== undefined) Token.$$cinit();
-
-		//set default parameter values
-		var input = $$$$input;
-		var TokenType = $$$$TokenType;
-		var regex = (2 > arguments.length - 1) ? null : $$$$regex;
-
-		if (!regex)
-		{
-			regex = $es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'regex');
-		}
-		var match = $es4.$$call(input, null, null, 'match', [regex]);
-		if (!match)
-		{
-			return null;
-		}
-		return $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [TokenType, $es4.$$get(match, null, null, 0)]), $es4.$$get(match, null, null, 0, 'length') - 1]);
-	}));
-
-	function Token()
-	{
-		//initialize class if not initialized
-		if (Token.$$cinit !== undefined) Token.$$cinit();
-
-		//save scope
-		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
-		var $$thisp = this;
-
-		//handle possible cast
-		if ($$this === $$thisp && (!($$this instanceof Token) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Token) : $es4.$$throwArgumentError();
-		Object.defineProperty($$this, '$$t', {value:1});
-
-		//constructor
-		$es4.$$constructor($$thisp, (function ()
-		{
-		}));
-
-		//call construct if no arguments, or argument zero does not equal manual construct
-		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
-		{
-			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
-
-			$es4.$$construct($$this, $$args);
-		}
-	}
-
-	return $es4.$$class(Token, null, 'sweetrush.obj::Token');
-})();
-//sweetrush.obj.Token
-
-
 //sweetrush.utils.SwcUtil
 $es4.$$package('sweetrush.utils').SwcUtil = (function ()
 {
@@ -6802,24 +4909,2229 @@ $es4.$$package('sweetrush.utils').SwcUtil = (function ()
 //sweetrush.utils.SwcUtil
 
 
+//sweetrush.core.Parser
+$es4.$$package('sweetrush.core').Parser = (function ()
+{
+	//imports
+	var Construct;
+	var Token;
+	var SwcUtil;
+	var Transcompiler;
+	var TranslatorPrototype;
+	var Parser;
+	var Lexer;
+	var Base64Util;
+	var Construct;
+	var JsonUtil;
+	var FileUtil;
+	var TranslatorProto;
+	var Token;
+	var Analyzer;
+
+	//class initializer
+	Parser.$$cinit = (function ()
+	{
+		Parser.$$cinit = undefined;
+
+		//initialize imports
+		Construct = $es4.$$['sweetrush.obj'].Construct;
+		Token = $es4.$$['sweetrush.obj'].Token;
+		SwcUtil = $es4.$$['sweetrush.utils'].SwcUtil;
+		Transcompiler = $es4.$$['sweetrush'].Transcompiler;
+		TranslatorPrototype = $es4.$$['sweetrush.core'].TranslatorPrototype;
+		Lexer = $es4.$$['sweetrush.core'].Lexer;
+		Base64Util = $es4.$$['sweetrush.utils'].Base64Util;
+		JsonUtil = $es4.$$['sweetrush.utils'].JsonUtil;
+		FileUtil = $es4.$$['sweetrush.utils'].FileUtil;
+		TranslatorProto = $es4.$$['sweetrush.core'].TranslatorProto;
+		Analyzer = $es4.$$['sweetrush.core'].Analyzer;
+	});
+
+	//method
+	$es4.$$public_function('parse', Parser, (function ($$$$tokens, $$$$compileConstants, $$$$release)
+	{
+		if (Parser.$$cinit !== undefined) Parser.$$cinit();
+
+		//set default parameter values
+		var tokens = $es4.$$coerce($$$$tokens, Array);
+		var compileConstants = $es4.$$coerce($$$$compileConstants, Object);
+		var release = (2 > arguments.length - 1) ? false : $es4.$$coerce($$$$release, Boolean);
+
+		if (!$es4.$$get(tokens, null, null, 'length'))
+		{
+			return null;
+		}
+		if (!compileConstants)
+		{
+			compileConstants = {};
+		}
+		var index = -1;
+		var ahead = 1;
+		var rootConstruct = $es4.$$call(Construct, null, null, 'getNewRootConstruct', $es4.$$EMPTY_ARRAY);
+		var callsSuper = false;
+		var inCompileConstant = false;
+		var add = true;
+		var previousAddValue = add;
+		var token;
+		var statementImportConstructs = [];
+		loopa:		while (token = peek(ahead))
+		{
+			ahead++;
+			switch ($es4.$$get(token, null, null, 'type'))
+			{
+				case $es4.$$get(Token, null, null, 'PackageTokenType'):
+					var p = matchPackageConstruct(rootConstruct);
+					if (add)
+					{
+						$es4.$$set(rootConstruct, null, null, 'packageConstruct', p, '=');
+						$es4.$$set(rootConstruct, null, null, 'packageConstruct', 'rootConstruct', rootConstruct, '=');
+					}
+					break;
+				case $es4.$$get(Token, null, null, 'ImportTokenType'):
+					var p = matchImportConstruct();
+					if (add)
+					{
+						$es4.$$call(rootConstruct, null, null, 'importConstructs', 'push', [p]);
+					}
+					break;
+				case $es4.$$get(Token, null, null, 'ElseTokenType'):
+					match($es4.$$get(Token, null, null, 'ElseTokenType'));
+					if (inCompileConstant)
+					{
+						throw $es4.$$primitive(new (Error)('nested compile constants are not supported'));
+					}
+					inCompileConstant = true;
+					add = !previousAddValue;
+					match($es4.$$get(Token, null, null, 'OpenBraceTokenType'));
+					break;
+				case $es4.$$get(Token, null, null, 'IfTokenType'):
+					match($es4.$$get(Token, null, null, 'IfTokenType'));
+					match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
+					if (inCompileConstant)
+					{
+						throw $es4.$$primitive(new (Error)('nested compile constants are not supported'));
+					}
+				case $es4.$$get(Token, null, null, 'IdentifierTokenType'):
+					if ($es4.$$get(peek(ahead, 0, true), null, null, 'type') == $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType') && $es4.$$get(peek(ahead + 1, 0, true), null, null, 'type') == $es4.$$get(Token, null, null, 'IdentifierTokenType'))
+					{
+						if (inCompileConstant)
+						{
+							throw $es4.$$primitive(new (Error)('nested compile constants are not supported'));
+						}
+						var compileConstantIdentifier = '';
+						compileConstantIdentifier += $es4.$$get(match($es4.$$get(Token, null, null, 'IdentifierTokenType')), null, null, 'data');
+						compileConstantIdentifier += $es4.$$get(match($es4.$$get(Token, null, null, 'NamespaceQualifierTokenType')), null, null, 'data');
+						compileConstantIdentifier += $es4.$$get(match($es4.$$get(Token, null, null, 'IdentifierTokenType')), null, null, 'data');
+						match($es4.$$get(Token, null, null, 'ClosedParenTokenType'), true);
+						inCompileConstant = true;
+						add = $es4.$$get(compileConstants, null, null, compileConstantIdentifier) == 'true';
+						match($es4.$$get(Token, null, null, 'OpenBraceTokenType'));
+						break;
+					}
+					continue loopa;
+				case $es4.$$get(Token, null, null, 'ClosedBraceTokenType'):
+					if (inCompileConstant)
+					{
+						match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
+						inCompileConstant = false;
+						previousAddValue = add;
+						add = true;
+						break;
+					}
+				case $es4.$$get(Token, null, null, 'FinalTokenType'):
+				case $es4.$$get(Token, null, null, 'DynamicTokenType'):
+					continue loopa;
+				case $es4.$$get(Token, null, null, 'ClassTokenType'):
+					var classConstruct = matchClassConstruct();
+					if (add)
+					{
+						$es4.$$set(classConstruct, null, null, 'isInternal', true, '=');
+						$es4.$$set(classConstruct, null, null, 'rootConstruct', rootConstruct, '=');
+						$es4.$$set(rootConstruct, null, null, 'importConstructs', $es4.$$call(classConstruct, null, null, 'importConstructs', 'concat', [$es4.$$get(rootConstruct, null, null, 'importConstructs')]), '=');
+						$es4.$$call(rootConstruct, null, null, 'classConstructs', 'push', [classConstruct]);
+					}
+					break;
+				case $es4.$$get(Token, null, null, 'InterfaceTokenType'):
+					var interfaceConstruct = matchInterfaceConstruct();
+					if (add)
+					{
+						$es4.$$set(interfaceConstruct, null, null, 'isInternal', true, '=');
+						$es4.$$set(interfaceConstruct, null, null, 'rootConstruct', rootConstruct, '=');
+						$es4.$$call(rootConstruct, null, null, 'interfaceConstructs', 'push', [interfaceConstruct]);
+					}
+					break;
+				case $es4.$$get(Token, null, null, 'FunctionTokenType'):
+					var methodConstruct = matchMethodConstruct();
+					if (add)
+					{
+						$es4.$$set(methodConstruct, null, null, 'isInternal', true, '=');
+						$es4.$$set(methodConstruct, null, null, 'rootConstruct', rootConstruct, '=');
+						if (!($es4.$$get(methodConstruct, null, null, 'UNIMPLEMENTEDToken') && release))
+						{
+							$es4.$$call(rootConstruct, null, null, 'methodConstructs', 'push', [methodConstruct]);
+						}
+					}
+					break;
+				case $es4.$$get(Token, null, null, 'NamespaceKeywordTokenType'):
+				case $es4.$$get(Token, null, null, 'VarTokenType'):
+					var propertyConstruct = matchPropertyConstruct();
+					if (add)
+					{
+						$es4.$$set(propertyConstruct, null, null, 'isInternal', true, '=');
+						$es4.$$set(propertyConstruct, null, null, 'rootConstruct', rootConstruct, '=');
+						$es4.$$call(rootConstruct, null, null, 'propertyConstructs', 'push', [propertyConstruct]);
+					}
+					break;
+				default:
+					throw error('Unexpected token found11.', token);
+			}
+			ahead = 1;
+		}
+
+		function matchTypeConstruct() 
+		{
+			var typeConstruct = $es4.$$call(Construct, null, null, 'getNewTypeConstruct', $es4.$$EMPTY_ARRAY);
+			var token = peek(1);
+			if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'MulTokenType'))
+			{
+				$es4.$$set(typeConstruct, null, null, 'mulToken', match($es4.$$get(Token, null, null, 'MulTokenType')), '=');
+			}
+			else if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'VoidTokenType'))
+			{
+				$es4.$$set(typeConstruct, null, null, 'voidToken', match($es4.$$get(Token, null, null, 'VoidTokenType')), '=');
+			}
+			else
+			{
+				$es4.$$set(typeConstruct, null, null, 'nameConstruct', matchNameConstruct(), '=');
+				if (match($es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType'), true))
+				{
+					$es4.$$set(typeConstruct, null, null, 'vectorNameConstruct', matchNameConstruct(), '=');
+					match($es4.$$get(Token, null, null, 'VectorClosedArrowTokenType'));
+				}
+			}
+			return typeConstruct;
+		}
+;
+
+		function matchPackageConstruct($$$$rootConstruct) 
+		{
+			//set default parameter values
+			var rootConstruct = $$$$rootConstruct;
+
+			var packageConstruct = $es4.$$call(Construct, null, null, 'getNewPackageConstruct', $es4.$$EMPTY_ARRAY);
+			match($es4.$$get(Token, null, null, 'PackageTokenType'));
+			if ($es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'IdentifierTokenType'))
+			{
+				$es4.$$set(packageConstruct, null, null, 'nameConstruct', matchNameConstruct(), '=');
+			}
+			else
+			{
+				$es4.$$set(packageConstruct, null, null, 'nameConstruct', $es4.$$call(Construct, null, null, 'getNewNameConstruct', $es4.$$EMPTY_ARRAY), '=');
+			}
+			match($es4.$$get(Token, null, null, 'OpenBraceTokenType'));
+			var ahead = 1;
+			var metaDataConstructs = [];
+			var token;
+			var inCompileConstant = false;
+			var add = true;
+			var previousAddValue = add;
+			loopb:			while (token = peek(ahead, 0, true))
+			{
+				ahead++;
+				switch ($es4.$$get(token, null, null, 'type'))
+				{
+					case $es4.$$get(Token, null, null, 'ImportTokenType'):
+						var c = matchImportConstruct();
+						if (add)
+						{
+							$es4.$$call(packageConstruct, null, null, 'importConstructs', 'push', [c]);
+						}
+						break;
+					case $es4.$$get(Token, null, null, 'OpenBracketTokenType'):
+						var c = matchMetaDataConstruct();
+						if (add)
+						{
+							$es4.$$call(metaDataConstructs, null, null, 'push', [c]);
+						}
+						ahead = 1;
+						continue loopb;
+					case $es4.$$get(Token, null, null, 'StaticTokenType'):
+					case $es4.$$get(Token, null, null, 'FinalTokenType'):
+					case $es4.$$get(Token, null, null, 'OverrideTokenType'):
+					case $es4.$$get(Token, null, null, 'DynamicTokenType'):
+						continue loopb;
+					case $es4.$$get(Token, null, null, 'UseTokenType'):
+						var useConstruct = matchUseConstruct();
+						if (add)
+						{
+							$es4.$$call(packageConstruct, null, null, 'useConstructs', 'push', [useConstruct]);
+						}
+						break;
+					case $es4.$$get(Token, null, null, 'NamespaceKeywordTokenType'):
+						var p = matchPropertyConstruct(metaDataConstructs);
+						if (add)
+						{
+							$es4.$$set(packageConstruct, null, null, 'propertyConstruct', p, '=');
+							$es4.$$set(packageConstruct, null, null, 'propertyConstruct', 'packageConstruct', packageConstruct, '=');
+							$es4.$$set(packageConstruct, null, null, 'propertyConstruct', 'rootConstruct', rootConstruct, '=');
+						}
+						break;
+					case $es4.$$get(Token, null, null, 'FunctionTokenType'):
+						var m = matchMethodConstruct(metaDataConstructs);
+						if (add)
+						{
+							$es4.$$set(packageConstruct, null, null, 'methodConstruct', m, '=');
+							$es4.$$set(packageConstruct, null, null, 'methodConstruct', 'packageConstruct', packageConstruct, '=');
+							$es4.$$set(packageConstruct, null, null, 'methodConstruct', 'rootConstruct', rootConstruct, '=');
+						}
+						break;
+					case $es4.$$get(Token, null, null, 'ClassTokenType'):
+						if (add && $es4.$$get(packageConstruct, null, null, 'classConstruct'))
+						{
+							throw error('Multiple definitions found in package.', token);
+						}
+						var c = matchClassConstruct();
+						if (add)
+						{
+							$es4.$$set(packageConstruct, null, null, 'classConstruct', c, '=');
+							$es4.$$set(packageConstruct, null, null, 'classConstruct', 'packageConstruct', packageConstruct, '=');
+							$es4.$$set(packageConstruct, null, null, 'importConstructs', $es4.$$call(packageConstruct, null, null, 'classConstruct', 'importConstructs', 'concat', [$es4.$$get(packageConstruct, null, null, 'importConstructs')]), '=');
+							$es4.$$set(packageConstruct, null, null, 'classConstruct', 'rootConstruct', rootConstruct, '=');
+						}
+						break;
+					case $es4.$$get(Token, null, null, 'InterfaceTokenType'):
+						if (add && $es4.$$get(packageConstruct, null, null, 'interfaceConstruct'))
+						{
+							throw error('Multiple definitions found in package.', token);
+						}
+						var c = matchInterfaceConstruct();
+						if (add)
+						{
+							$es4.$$set(packageConstruct, null, null, 'interfaceConstruct', c, '=');
+							$es4.$$set(packageConstruct, null, null, 'interfaceConstruct', 'packageConstruct', packageConstruct, '=');
+							$es4.$$set(packageConstruct, null, null, 'interfaceConstruct', 'rootConstruct', rootConstruct, '=');
+						}
+						break;
+					case $es4.$$get(Token, null, null, 'ElseTokenType'):
+						match($es4.$$get(Token, null, null, 'ElseTokenType'));
+						if (inCompileConstant)
+						{
+							throw $es4.$$primitive(new (Error)('nested compile constants are not supported'));
+						}
+						inCompileConstant = true;
+						add = !previousAddValue;
+						match($es4.$$get(Token, null, null, 'OpenBraceTokenType'));
+						break;
+					case $es4.$$get(Token, null, null, 'IfTokenType'):
+						match($es4.$$get(Token, null, null, 'IfTokenType'));
+						match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
+						if (inCompileConstant)
+						{
+							throw $es4.$$primitive(new (Error)('nested compile constants are not supported'));
+						}
+					case $es4.$$get(Token, null, null, 'IdentifierTokenType'):
+						if ($es4.$$get(peek(ahead, 0, true), null, null, 'type') == $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType') && $es4.$$get(peek(ahead + 1, 0, true), null, null, 'type') == $es4.$$get(Token, null, null, 'IdentifierTokenType'))
+						{
+							if (inCompileConstant)
+							{
+								throw $es4.$$primitive(new (Error)('nested compile constants are not supported'));
+							}
+							var compileConstantIdentifier = '';
+							compileConstantIdentifier += $es4.$$get(match($es4.$$get(Token, null, null, 'IdentifierTokenType')), null, null, 'data');
+							compileConstantIdentifier += $es4.$$get(match($es4.$$get(Token, null, null, 'NamespaceQualifierTokenType')), null, null, 'data');
+							compileConstantIdentifier += $es4.$$get(match($es4.$$get(Token, null, null, 'IdentifierTokenType')), null, null, 'data');
+							match($es4.$$get(Token, null, null, 'ClosedParenTokenType'), true);
+							inCompileConstant = true;
+							add = $es4.$$get(compileConstants, null, null, compileConstantIdentifier) == 'true';
+							match($es4.$$get(Token, null, null, 'OpenBraceTokenType'));
+							break;
+						}
+						continue loopb;
+					case $es4.$$get(Token, null, null, 'ClosedBraceTokenType'):
+						if (inCompileConstant)
+						{
+							match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
+							inCompileConstant = false;
+							previousAddValue = add;
+							add = true;
+							break;
+						}
+						break loopb;
+					default:
+						throw error('Unexpected token found1.', token);
+				}
+				metaDataConstructs = [];
+				ahead = 1;
+			}
+			match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
+			return packageConstruct;
+		}
+;
+
+		function matchMetaDataConstruct() 
+		{
+			var metaDataConstruct = $es4.$$call(Construct, null, null, 'getNewMetaDataConstruct', $es4.$$EMPTY_ARRAY);
+			match($es4.$$get(Token, null, null, 'OpenBracketTokenType'));
+			while (!match($es4.$$get(Token, null, null, 'ClosedBracketTokenType'), true))
+			{
+				$es4.$$call(metaDataConstruct, null, null, 'tokens', 'push', [next()]);
+			}
+			match($es4.$$get(Token, null, null, 'EOSTokenType'), true, true);
+			return metaDataConstruct;
+		}
+;
+
+		function matchClassConstruct() 
+		{
+			var classConstruct = $es4.$$call(Construct, null, null, 'getNewClassConstruct', $es4.$$EMPTY_ARRAY);
+			var token;
+			loop1a:			while (token = next(0, true))
+			{
+				switch ($es4.$$get(token, null, null, 'type'))
+				{
+					case $es4.$$get(Token, null, null, 'IdentifierTokenType'):
+						if ($es4.$$get(token, null, null, 'data') == 'UNIMPLEMENTED')
+						{
+							$es4.$$set(classConstruct, null, null, 'UNIMPLEMENTEDToken', token, '=');
+						}
+						else
+						{
+							$es4.$$set(classConstruct, null, null, 'namespaceToken', token, '=');
+						}
+						break;
+					case $es4.$$get(Token, null, null, 'StaticTokenType'):
+						$es4.$$set(classConstruct, null, null, 'staticToken', token, '=');
+						break;
+					case $es4.$$get(Token, null, null, 'FinalTokenType'):
+						$es4.$$set(classConstruct, null, null, 'finalToken', token, '=');
+						break;
+					case $es4.$$get(Token, null, null, 'DynamicTokenType'):
+						$es4.$$set(classConstruct, null, null, 'dynamicToken', token, '=');
+						break;
+					case $es4.$$get(Token, null, null, 'ClassTokenType'):
+						break loop1a;
+					default:
+						throw error('Unexpected token found2.', token);
+				}
+			}
+			$es4.$$set(classConstruct, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
+			loop2a:			while (token = next())
+			{
+				switch ($es4.$$get(token, null, null, 'type'))
+				{
+					case $es4.$$get(Token, null, null, 'ExtendsTokenType'):
+						$es4.$$set(classConstruct, null, null, 'extendsNameConstruct', matchNameConstruct(), '=');
+						break;
+					case $es4.$$get(Token, null, null, 'ImplementsTokenType'):
+						$es4.$$call(classConstruct, null, null, 'implementsNameConstructs', 'push', [matchNameConstruct()]);
+						while (token = peek(1))
+						{
+							if ($es4.$$get(token, null, null, 'type') != $es4.$$get(Token, null, null, 'CommaTokenType'))
+							{
+								continue loop2a;
+							}
+							match($es4.$$get(Token, null, null, 'CommaTokenType'));
+							$es4.$$call(classConstruct, null, null, 'implementsNameConstructs', 'push', [matchNameConstruct()]);
+						}
+						break;
+					case $es4.$$get(Token, null, null, 'OpenBraceTokenType'):
+						break loop2a;
+					default:
+						throw error('Unexpected token found3.', token);
+				}
+			}
+			var add = true;
+			var inCompileConstant = false;
+			var previousAddValue = add;
+			var metaDataConstructs = [];
+			var ahead = 1;
+			loop3a:			while (token = peek(ahead, 0, true))
+			{
+				ahead++;
+				switch ($es4.$$get(token, null, null, 'type'))
+				{
+					case $es4.$$get(Token, null, null, 'ImportTokenType'):
+						var c = matchImportConstruct();
+						if (add)
+						{
+							$es4.$$call(classConstruct, null, null, 'importConstructs', 'push', [c]);
+						}
+						break;
+					case $es4.$$get(Token, null, null, 'OpenBracketTokenType'):
+						var c = matchMetaDataConstruct();
+						if (add)
+						{
+							$es4.$$call(metaDataConstructs, null, null, 'push', [c]);
+						}
+						ahead = 1;
+						continue loop3a;
+					case $es4.$$get(Token, null, null, 'OpenBraceTokenType'):
+						match($es4.$$get(Token, null, null, 'OpenBraceTokenType'));
+						var innerInnerToken;
+						while ((innerInnerToken = peek(1)) && ($es4.$$get(innerInnerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'ClosedBraceTokenType')))
+						{
+							var s = matchStatement();
+							if (add)
+							{
+								$es4.$$call(classConstruct, null, null, 'initializerStatements', 'push', [s]);
+							}
+						}
+						match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
+						break;
+					case $es4.$$get(Token, null, null, 'ElseTokenType'):
+						match($es4.$$get(Token, null, null, 'ElseTokenType'));
+						if (inCompileConstant)
+						{
+							throw $es4.$$primitive(new (Error)('nested compile constants are not supported'));
+						}
+						inCompileConstant = true;
+						add = !previousAddValue;
+						match($es4.$$get(Token, null, null, 'OpenBraceTokenType'));
+						break;
+					case $es4.$$get(Token, null, null, 'IfTokenType'):
+						match($es4.$$get(Token, null, null, 'IfTokenType'));
+						match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
+						if (inCompileConstant)
+						{
+							throw $es4.$$primitive(new (Error)('nested compile constants are not supported'));
+						}
+					case $es4.$$get(Token, null, null, 'IdentifierTokenType'):
+						if ($es4.$$get(peek(ahead, 0, true), null, null, 'type') == $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType') && $es4.$$get(peek(ahead + 1, 0, true), null, null, 'type') == $es4.$$get(Token, null, null, 'IdentifierTokenType'))
+						{
+							if (inCompileConstant)
+							{
+								throw $es4.$$primitive(new (Error)('nested compile constants are not supported'));
+							}
+							var compileConstantIdentifier = '';
+							compileConstantIdentifier += $es4.$$get(match($es4.$$get(Token, null, null, 'IdentifierTokenType')), null, null, 'data');
+							compileConstantIdentifier += $es4.$$get(match($es4.$$get(Token, null, null, 'NamespaceQualifierTokenType')), null, null, 'data');
+							compileConstantIdentifier += $es4.$$get(match($es4.$$get(Token, null, null, 'IdentifierTokenType')), null, null, 'data');
+							match($es4.$$get(Token, null, null, 'ClosedParenTokenType'), true);
+							inCompileConstant = true;
+							add = $es4.$$get(compileConstants, null, null, compileConstantIdentifier) == 'true';
+							match($es4.$$get(Token, null, null, 'OpenBraceTokenType'));
+							break;
+						}
+					case $es4.$$get(Token, null, null, 'OverrideTokenType'):
+					case $es4.$$get(Token, null, null, 'StaticTokenType'):
+					case $es4.$$get(Token, null, null, 'FinalTokenType'):
+						continue loop3a;
+					case $es4.$$get(Token, null, null, 'VarTokenType'):
+					case $es4.$$get(Token, null, null, 'ConstTokenType'):
+					case $es4.$$get(Token, null, null, 'NamespaceKeywordTokenType'):
+						var propertyConstruct = matchPropertyConstruct(metaDataConstructs);
+						if (add)
+						{
+							$es4.$$call(classConstruct, null, null, 'propertyConstructs', 'push', [propertyConstruct]);
+						}
+						break;
+					case $es4.$$get(Token, null, null, 'FunctionTokenType'):
+						var methodConstruct = matchMethodConstruct(metaDataConstructs);
+						if ($es4.$$get(methodConstruct, null, null, 'UNIMPLEMENTEDToken') && release)
+						{
+							break;
+						}
+						if ($es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') == $es4.$$get(classConstruct, null, null, 'identifierToken', 'data'))
+						{
+							if (add)
+							{
+								$es4.$$set(classConstruct, null, null, 'constructorMethodConstruct', methodConstruct, '=');
+							}
+							if ($es4.$$get(methodConstruct, null, null, 'isJavaScript'))
+							{
+								throw error('Constructor cannot be declared as native.', $es4.$$get(methodConstruct, null, null, 'identifierToken'));
+							}
+						}
+						else if (add)
+						{
+							$es4.$$call(classConstruct, null, null, 'methodConstructs', 'push', [methodConstruct]);
+						}
+						break;
+					case $es4.$$get(Token, null, null, 'UseTokenType'):
+						var useConstruct = matchUseConstruct();
+						if (add)
+						{
+							$es4.$$call(classConstruct, null, null, 'useConstructs', 'push', [useConstruct]);
+						}
+						break;
+					case $es4.$$get(Token, null, null, 'ClosedBraceTokenType'):
+						if (inCompileConstant)
+						{
+							match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
+							inCompileConstant = false;
+							previousAddValue = add;
+							add = true;
+							break;
+						}
+						break loop3a;
+					default:
+						throw error('Unexpected token found4.', token);
+				}
+				metaDataConstructs = [];
+				ahead = 1;
+			}
+			match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
+			return classConstruct;
+		}
+;
+
+		function matchUseConstruct() 
+		{
+			var useConstruct = $es4.$$call(Construct, null, null, 'getNewUseConstruct', $es4.$$EMPTY_ARRAY);
+			$es4.$$set(useConstruct, null, null, 'useToken', match($es4.$$get(Token, null, null, 'UseTokenType')), '=');
+			match($es4.$$get(Token, null, null, 'NamespaceKeywordTokenType'));
+			$es4.$$set(useConstruct, null, null, 'namespaceIdentifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
+			match($es4.$$get(Token, null, null, 'EOSTokenType'), true, true);
+			return useConstruct;
+		}
+;
+
+		function matchInterfaceConstruct() 
+		{
+			var interfaceConstruct = $es4.$$call(Construct, null, null, 'getNewInterfaceConstruct', $es4.$$EMPTY_ARRAY);
+			var token;
+			loop1b:			while (token = next())
+			{
+				switch ($es4.$$get(token, null, null, 'type'))
+				{
+					case $es4.$$get(Token, null, null, 'IdentifierTokenType'):
+						$es4.$$set(interfaceConstruct, null, null, 'namespaceToken', token, '=');
+						break;
+					case $es4.$$get(Token, null, null, 'InterfaceTokenType'):
+						break loop1b;
+					default:
+						throw error('Unexpected token found5.', token);
+				}
+			}
+			$es4.$$set(interfaceConstruct, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
+			loop2b:			while (token = next())
+			{
+				switch ($es4.$$get(token, null, null, 'type'))
+				{
+					case $es4.$$get(Token, null, null, 'ExtendsTokenType'):
+						$es4.$$call(interfaceConstruct, null, null, 'extendsNameConstructs', 'push', [matchNameConstruct()]);
+						while (token = peek(1))
+						{
+							if ($es4.$$get(token, null, null, 'type') != $es4.$$get(Token, null, null, 'CommaTokenType'))
+							{
+								continue loop2b;
+							}
+							match($es4.$$get(Token, null, null, 'CommaTokenType'));
+							$es4.$$call(interfaceConstruct, null, null, 'extendsNameConstructs', 'push', [matchNameConstruct()]);
+						}
+						break;
+					case $es4.$$get(Token, null, null, 'OpenBraceTokenType'):
+						break loop2b;
+					default:
+						throw error('Unexpected token found6.', token);
+				}
+			}
+			var ahead = 1;
+			loop3b:			while (token = peek(ahead))
+			{
+				ahead++;
+				switch ($es4.$$get(token, null, null, 'type'))
+				{
+					case $es4.$$get(Token, null, null, 'FunctionTokenType'):
+						var methodConstruct = $es4.$$call(Construct, null, null, 'getNewMethodConstruct', $es4.$$EMPTY_ARRAY);
+						match($es4.$$get(Token, null, null, 'FunctionTokenType'));
+						$es4.$$set(methodConstruct, null, null, 'setToken', match($es4.$$get(Token, null, null, 'SetTokenType'), true), '=');
+						if (!$es4.$$get(methodConstruct, null, null, 'setToken'))
+						{
+							$es4.$$set(methodConstruct, null, null, 'getToken', match($es4.$$get(Token, null, null, 'GetTokenType'), true), '=');
+						}
+						$es4.$$set(methodConstruct, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
+						match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
+						while (!match($es4.$$get(Token, null, null, 'ClosedParenTokenType'), true))
+						{
+							$es4.$$call(methodConstruct, null, null, 'parameterConstructs', 'push', [matchParameterConstruct()]);
+							match($es4.$$get(Token, null, null, 'CommaTokenType'), true);
+						}
+						if (match($es4.$$get(Token, null, null, 'ColonTokenType'), true))
+						{
+							$es4.$$set(methodConstruct, null, null, 'typeConstruct', matchTypeConstruct(), '=');
+						}
+						else
+						{
+							$es4.$$set(methodConstruct, null, null, 'typeConstruct', $es4.$$call(Construct, null, null, 'getNewTypeConstruct', $es4.$$EMPTY_ARRAY), '=');
+							$es4.$$set(methodConstruct, null, null, 'typeConstruct', 'mulToken', $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MulTokenType'), '*']), '=');
+						}
+						match($es4.$$get(Token, null, null, 'EOSTokenType'), true, true);
+						$es4.$$call(interfaceConstruct, null, null, 'methodConstructs', 'push', [methodConstruct]);
+						break;
+					case $es4.$$get(Token, null, null, 'ClosedBraceTokenType'):
+						break loop3b;
+					default:
+						throw error('Unexpected token found7.', token);
+				}
+				ahead = 1;
+			}
+			match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
+			return interfaceConstruct;
+		}
+;
+
+		function matchNameConstruct() 
+		{
+			var nameConstruct = $es4.$$call(Construct, null, null, 'getNewNameConstruct', $es4.$$EMPTY_ARRAY);
+			$es4.$$call(nameConstruct, null, null, 'identifierTokens', 'push', [match($es4.$$get(Token, null, null, 'IdentifierTokenType'))]);
+			var token1;
+			var token2;
+			while ((token1 = peek(1)) && (token2 = peek(2)))
+			{
+				if ($es4.$$get(token1, null, null, 'type') != $es4.$$get(Token, null, null, 'DotTokenType'))
+				{
+					break;
+				}
+				if ($es4.$$get(token2, null, null, 'type') != $es4.$$get(Token, null, null, 'IdentifierTokenType'))
+				{
+					break;
+				}
+				match($es4.$$get(Token, null, null, 'DotTokenType'));
+				$es4.$$call(nameConstruct, null, null, 'identifierTokens', 'push', [match($es4.$$get(Token, null, null, 'IdentifierTokenType'))]);
+			}
+			return nameConstruct;
+		}
+;
+
+		function matchImportConstruct() 
+		{
+			var importConstruct = $es4.$$call(Construct, null, null, 'getNewImportConstruct', $es4.$$EMPTY_ARRAY);
+			match($es4.$$get(Token, null, null, 'ImportTokenType'));
+			$es4.$$set(importConstruct, null, null, 'nameConstruct', matchNameConstruct(), '=');
+			if (match($es4.$$get(Token, null, null, 'DotTokenType'), true))
+			{
+				$es4.$$set(importConstruct, null, null, 'mulToken', match($es4.$$get(Token, null, null, 'MulTokenType')), '=');
+			}
+			match($es4.$$get(Token, null, null, 'EOSTokenType'), true, true);
+			return importConstruct;
+		}
+;
+
+		function matchPropertyConstruct($$$$metaDataConstructs) 
+		{
+			//set default parameter values
+			var metaDataConstructs = (0 > arguments.length - 1) ? null : $$$$metaDataConstructs;
+
+			var propertyConstruct = $es4.$$call(Construct, null, null, 'getNewPropertyConstruct', $es4.$$EMPTY_ARRAY);
+			var token;
+			loop1c:			while (token = next(0, true))
+			{
+				switch ($es4.$$get(token, null, null, 'type'))
+				{
+					case $es4.$$get(Token, null, null, 'IdentifierTokenType'):
+						$es4.$$set(propertyConstruct, null, null, 'namespaceToken', token, '=');
+						break;
+					case $es4.$$get(Token, null, null, 'StaticTokenType'):
+						$es4.$$set(propertyConstruct, null, null, 'staticToken', token, '=');
+						break;
+					case $es4.$$get(Token, null, null, 'NamespaceKeywordTokenType'):
+						$es4.$$set(propertyConstruct, null, null, 'namespaceKeywordToken', token, '=');
+						break loop1c;
+					case $es4.$$get(Token, null, null, 'ConstTokenType'):
+						$es4.$$set(propertyConstruct, null, null, 'constToken', token, '=');
+						break loop1c;
+					case $es4.$$get(Token, null, null, 'VarTokenType'):
+						break loop1c;
+					default:
+						throw error('Unexpected token found8.', token);
+				}
+			}
+			$es4.$$set(propertyConstruct, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
+			if (match($es4.$$get(Token, null, null, 'ColonTokenType'), true))
+			{
+				$es4.$$set(propertyConstruct, null, null, 'typeConstruct', matchTypeConstruct(), '=');
+			}
+			else
+			{
+				$es4.$$set(propertyConstruct, null, null, 'typeConstruct', $es4.$$call(Construct, null, null, 'getNewTypeConstruct', $es4.$$EMPTY_ARRAY), '=');
+				$es4.$$set(propertyConstruct, null, null, 'typeConstruct', 'mulToken', $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MulTokenType'), '*']), '=');
+			}
+			match($es4.$$get(Token, null, null, 'EOSTokenType'), true, true);
+			if (metaDataConstructs)
+			{
+				for (var i = 0; i < $es4.$$get(metaDataConstructs, null, null, 'length'); i++)
+				{
+					var metaDataConstruct = $es4.$$get(metaDataConstructs, null, null, i);
+					if ($es4.$$get(metaDataConstruct, null, null, 'tokens', 0, 'data') == 'Native')
+					{
+						$es4.$$set(propertyConstruct, null, null, 'isNative', true, '=');
+						if (!$es4.$$get(propertyConstruct, null, null, 'namespaceToken') || $es4.$$get(propertyConstruct, null, null, 'namespaceToken', 'data') != 'private')
+						{
+							throw $es4.$$primitive(new (Error)('native properties must be defined as private'));
+						}
+						if ($es4.$$get(propertyConstruct, null, null, 'typeConstruct') && !$es4.$$get(propertyConstruct, null, null, 'typeConstruct', 'mulToken'))
+						{
+							throw $es4.$$primitive(new (Error)('native properties must be defined as type *'));
+						}
+						$es4.$$set(propertyConstruct, null, null, 'namespaceToken', null, '=');
+					}
+				}
+			}
+			if (!match($es4.$$get(Token, null, null, 'AssignmentTokenType'), true))
+			{
+				return propertyConstruct;
+			}
+			$es4.$$set(propertyConstruct, null, null, 'valueExpression', matchExpression(), '=');
+			match($es4.$$get(Token, null, null, 'EOSTokenType'), true, true);
+			return propertyConstruct;
+		}
+;
+
+		function matchMethodConstruct($$$$metaDataConstructs) 
+		{
+			//set default parameter values
+			var metaDataConstructs = (0 > arguments.length - 1) ? null : $$$$metaDataConstructs;
+
+			var methodConstruct = $es4.$$call(Construct, null, null, 'getNewMethodConstruct', $es4.$$EMPTY_ARRAY);
+			var token;
+			loop1d:			while (token = next(0, true))
+			{
+				switch ($es4.$$get(token, null, null, 'type'))
+				{
+					case $es4.$$get(Token, null, null, 'IdentifierTokenType'):
+						if ($es4.$$get(token, null, null, 'data') == 'UNIMPLEMENTED')
+						{
+							$es4.$$set(methodConstruct, null, null, 'UNIMPLEMENTEDToken', token, '=');
+						}
+						else
+						{
+							$es4.$$set(methodConstruct, null, null, 'namespaceToken', token, '=');
+						}
+						break;
+					case $es4.$$get(Token, null, null, 'StaticTokenType'):
+						$es4.$$set(methodConstruct, null, null, 'staticToken', token, '=');
+						break;
+					case $es4.$$get(Token, null, null, 'OverrideTokenType'):
+						$es4.$$set(methodConstruct, null, null, 'overrideToken', token, '=');
+						break;
+					case $es4.$$get(Token, null, null, 'FinalTokenType'):
+						break;
+					case $es4.$$get(Token, null, null, 'FunctionTokenType'):
+						break loop1d;
+					default:
+						throw error('Unexpected token found9.', token);
+				}
+			}
+			$es4.$$set(methodConstruct, null, null, 'setToken', match($es4.$$get(Token, null, null, 'SetTokenType'), true), '=');
+			if (!$es4.$$get(methodConstruct, null, null, 'setToken'))
+			{
+				$es4.$$set(methodConstruct, null, null, 'getToken', match($es4.$$get(Token, null, null, 'GetTokenType'), true), '=');
+			}
+			$es4.$$set(methodConstruct, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
+			match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
+			while (!match($es4.$$get(Token, null, null, 'ClosedParenTokenType'), true))
+			{
+				$es4.$$call(methodConstruct, null, null, 'parameterConstructs', 'push', [matchParameterConstruct()]);
+				match($es4.$$get(Token, null, null, 'CommaTokenType'), true);
+			}
+			if (match($es4.$$get(Token, null, null, 'ColonTokenType'), true))
+			{
+				$es4.$$set(methodConstruct, null, null, 'typeConstruct', matchTypeConstruct(), '=');
+			}
+			else
+			{
+				$es4.$$set(methodConstruct, null, null, 'typeConstruct', $es4.$$call(Construct, null, null, 'getNewTypeConstruct', $es4.$$EMPTY_ARRAY), '=');
+				$es4.$$set(methodConstruct, null, null, 'typeConstruct', 'mulToken', $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MulTokenType'), '*']), '=');
+			}
+			if (metaDataConstructs)
+			{
+				for (var i = 0; i < $es4.$$get(metaDataConstructs, null, null, 'length'); i++)
+				{
+					var metaDataConstruct = $es4.$$get(metaDataConstructs, null, null, i);
+					if ($es4.$$get(metaDataConstruct, null, null, 'tokens', 0, 'data') == 'JavaScript')
+					{
+						$es4.$$set(methodConstruct, null, null, 'isJavaScript', true, '=');
+					}
+					if ($es4.$$get(metaDataConstruct, null, null, 'tokens', 0, 'data') == 'Native')
+					{
+						$es4.$$set(methodConstruct, null, null, 'isNative', true, '=');
+						if (!$es4.$$get(methodConstruct, null, null, 'namespaceToken') || $es4.$$get(methodConstruct, null, null, 'namespaceToken', 'data') != 'private')
+						{
+							throw $es4.$$primitive(new (Error)('native methods must be defined as private'));
+						}
+						$es4.$$set(methodConstruct, null, null, 'namespaceToken', null, '=');
+					}
+				}
+			}
+			match($es4.$$get(Token, null, null, 'OpenBraceTokenType'), undefined, undefined);
+			callsSuper = false;
+			var open = 1;
+			var closed = 0;
+			if ($es4.$$get(methodConstruct, null, null, 'isJavaScript'))
+			{
+				while (token = next(2, undefined))
+				{
+					if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'ClosedBraceTokenType'))
+					{
+						closed++;
+						if (closed == open)
+						{
+							break;
+						}
+					}
+					if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'OpenBraceTokenType'))
+					{
+						open++;
+					}
+					$es4.$$set(methodConstruct, null, null, 'javaScriptString', $es4.$$get(token, null, null, 'data'), '+=');
+				}
+			}
+			else
+			{
+				while (!match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'), true, undefined))
+				{
+					$es4.$$call(methodConstruct, null, null, 'bodyStatements', 'push', [matchStatement(false, $es4.$$get(methodConstruct, null, null, 'namedFunctionExpressions'))]);
+				}
+			}
+			$es4.$$set(methodConstruct, null, null, 'callsSuper', callsSuper, '=');
+			match($es4.$$get(Token, null, null, 'EOSTokenType'), true, true);
+			return methodConstruct;
+		}
+;
+
+		function matchParameterConstruct() 
+		{
+			var argumentConstruct = $es4.$$call(Construct, null, null, 'getNewParameterConstruct', $es4.$$EMPTY_ARRAY);
+			$es4.$$set(argumentConstruct, null, null, 'restToken', match($es4.$$get(Token, null, null, 'RestTokenType'), true), '=');
+			$es4.$$set(argumentConstruct, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
+			if ($es4.$$get(argumentConstruct, null, null, 'restToken'))
+			{
+				return argumentConstruct;
+			}
+			if (match($es4.$$get(Token, null, null, 'ColonTokenType'), true))
+			{
+				$es4.$$set(argumentConstruct, null, null, 'typeConstruct', matchTypeConstruct(), '=');
+			}
+			else
+			{
+				$es4.$$set(argumentConstruct, null, null, 'typeConstruct', $es4.$$call(Construct, null, null, 'getNewTypeConstruct', $es4.$$EMPTY_ARRAY), '=');
+				$es4.$$set(argumentConstruct, null, null, 'typeConstruct', 'mulToken', $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MulTokenType'), '*']), '=');
+			}
+			if (match($es4.$$get(Token, null, null, 'AssignmentTokenType'), true) && !match($es4.$$get(Token, null, null, 'MulTokenType'), true))
+			{
+				$es4.$$set(argumentConstruct, null, null, 'valueExpression', matchExpression(true), '=');
+			}
+			return argumentConstruct;
+		}
+;
+
+		function matchPropertyExpression($$$$construct) 
+		{
+			//set default parameter values
+			var construct = (0 > arguments.length - 1) ? null : $$$$construct;
+
+			var token = peek(1);
+			if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'ThisTokenType'))
+			{
+				construct = $es4.$$call(Construct, null, null, 'getNewThisConstruct', $es4.$$EMPTY_ARRAY);
+				$es4.$$set(construct, null, null, 'thisToken', match($es4.$$get(Token, null, null, 'ThisTokenType')), '=');
+			}
+			else if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'SuperTokenType'))
+			{
+				construct = $es4.$$call(Construct, null, null, 'getNewSuperConstruct', $es4.$$EMPTY_ARRAY);
+				$es4.$$set(construct, null, null, 'superToken', match($es4.$$get(Token, null, null, 'SuperTokenType')), '=');
+				callsSuper = true;
+			}
+			else if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'AtTokenType'))
+			{
+				match($es4.$$get(Token, null, null, 'AtTokenType'));
+				construct = $es4.$$call(Construct, null, null, 'getNewAtIdentifierConstruct', $es4.$$EMPTY_ARRAY);
+			}
+			else if (!construct)
+			{
+				construct = $es4.$$call(Construct, null, null, 'getNewIdentifierConstruct', $es4.$$EMPTY_ARRAY);
+				$es4.$$set(construct, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
+			}
+			var propertyExpression = $es4.$$call(Construct, null, null, 'getNewPropertyExpression', $es4.$$EMPTY_ARRAY);
+			$es4.$$set(propertyExpression, null, null, 'construct', construct, '=');
+			var innerPropertyExpression;
+			var nextPropertyExpression = propertyExpression;
+			loopc:			while (token = peek(1))
+			{
+				innerPropertyExpression = null;
+				switch ($es4.$$get(token, null, null, 'type'))
+				{
+					case $es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType'):
+						match($es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType'));
+						construct = $es4.$$call(Construct, null, null, 'getNewVectorConstruct', $es4.$$EMPTY_ARRAY);
+						$es4.$$set(construct, null, null, 'nameConstruct', matchNameConstruct(), '=');
+						match($es4.$$get(Token, null, null, 'VectorClosedArrowTokenType'));
+						break;
+					case $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType'):
+						construct = $es4.$$call(Construct, null, null, 'getNewNamespaceQualifierConstruct', $es4.$$EMPTY_ARRAY);
+						$es4.$$set(construct, null, null, 'namespaceQualifierToken', match($es4.$$get(Token, null, null, 'NamespaceQualifierTokenType')), '=');
+						$es4.$$set(construct, null, null, 'identifierToken', $es4.$$get(nextPropertyExpression, null, null, 'construct', 'identifierToken'), '=');
+						$es4.$$set(construct, null, null, 'namespaceIdentifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
+						$es4.$$set(nextPropertyExpression, null, null, 'construct', construct, '=');
+						continue loopc;
+					case $es4.$$get(Token, null, null, 'IdentifierTokenType'):
+						construct = $es4.$$call(Construct, null, null, 'getNewIdentifierConstruct', $es4.$$EMPTY_ARRAY);
+						$es4.$$set(construct, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
+						break;
+					case $es4.$$get(Token, null, null, 'DotTokenType'):
+						match($es4.$$get(Token, null, null, 'DotTokenType'));
+						if (match($es4.$$get(Token, null, null, 'AtTokenType'), true))
+						{
+							construct = $es4.$$call(Construct, null, null, 'getNewAtIdentifierConstruct', $es4.$$EMPTY_ARRAY);
+						}
+						else if (match($es4.$$get(Token, null, null, 'OpenParenTokenType'), true))
+						{
+							throw $es4.$$primitive(new (Error)('E4X is not supported'));
+							construct = $es4.$$call(Construct, null, null, 'getNewE4XSearchConstruct', $es4.$$EMPTY_ARRAY);
+							$es4.$$set(construct, null, null, 'expression', matchExpression(), '=');
+							if ($es4.$$get(construct, null, null, 'expression', 'constructor') == 'PropertyExpression')
+							{
+								$es4.$$set(construct, null, null, 'expression', 'root', false, '=');
+							}
+							match($es4.$$get(Token, null, null, 'ClosedParenTokenType'));
+						}
+						else
+						{
+							construct = $es4.$$call(Construct, null, null, 'getNewDotConstruct', $es4.$$EMPTY_ARRAY);
+							$es4.$$set(construct, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
+						}
+						break;
+					case $es4.$$get(Token, null, null, 'OpenBracketTokenType'):
+						match($es4.$$get(Token, null, null, 'OpenBracketTokenType'));
+						construct = $es4.$$call(Construct, null, null, 'getNewArrayAccessorConstruct', $es4.$$EMPTY_ARRAY);
+						$es4.$$set(construct, null, null, 'expression', matchExpression(), '=');
+						if ($es4.$$get(construct, null, null, 'expression', 'constructor') == 'PropertyExpression')
+						{
+							$es4.$$set(construct, null, null, 'expression', 'root', false, '=');
+						}
+						match($es4.$$get(Token, null, null, 'ClosedBracketTokenType'));
+						break;
+					case $es4.$$get(Token, null, null, 'OpenParenTokenType'):
+						match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
+						construct = $es4.$$call(Construct, null, null, 'getNewFunctionCallConstruct', $es4.$$EMPTY_ARRAY);
+						while (!match($es4.$$get(Token, null, null, 'ClosedParenTokenType'), true))
+						{
+							$es4.$$call(construct, null, null, 'argumentExpressions', 'push', [matchExpression(true)]);
+							match($es4.$$get(Token, null, null, 'CommaTokenType'), true);
+						}
+						break;
+					default:
+						break loopc;
+				}
+				if (!innerPropertyExpression)
+				{
+					innerPropertyExpression = $es4.$$call(Construct, null, null, 'getNewPropertyExpression', $es4.$$EMPTY_ARRAY);
+					$es4.$$set(innerPropertyExpression, null, null, 'construct', construct, '=');
+				}
+				$es4.$$set(nextPropertyExpression, null, null, 'nextPropertyExpression', innerPropertyExpression, '=');
+				nextPropertyExpression = innerPropertyExpression;
+			}
+			return propertyExpression;
+		}
+;
+
+		function matchStatement($$$$dontmatchEOS, $$$$namedFunctionExpressions, $$$$dontReadIn) 
+		{
+			//set default parameter values
+			var dontmatchEOS = (0 > arguments.length - 1) ? false : $es4.$$coerce($$$$dontmatchEOS, Boolean);
+			var namedFunctionExpressions = (1 > arguments.length - 1) ? null : $$$$namedFunctionExpressions;
+			var dontReadIn = (2 > arguments.length - 1) ? false : $es4.$$coerce($$$$dontReadIn, Boolean);
+
+			var statement;
+			var token = peek(1, undefined, undefined);
+			var innerToken;
+			var openBraceTokenType;
+			var innerToken1;
+			var innerToken2;
+			var innerInnerToken;
+			var tokenType = $es4.$$get(token, null, null, 'type');
+			var foundCompileConstantIdentifier = false;
+			if ($es4.$$get(peek(2, 0, true), null, null, 'type') == $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType') && $es4.$$get(compileConstants, null, null, $es4.$$get(token, null, null, 'data') + $es4.$$get(peek(2, 0, true), null, null, 'data') + $es4.$$get(peek(3, 0, true), null, null, 'data')) !== undefined)
+			{
+				foundCompileConstantIdentifier = true;
+				tokenType = $es4.$$get(Token, null, null, 'IfTokenType');
+			}
+			switch (tokenType)
+			{
+				case $es4.$$get(Token, null, null, 'ImportTokenType'):
+					var p = matchImportConstruct();
+					$es4.$$call(statementImportConstructs, null, null, 'push', [p]);
+					statement = $es4.$$call(Construct, null, null, 'getNewEmptyStatement', $es4.$$EMPTY_ARRAY);
+					break;
+				case $es4.$$get(Token, null, null, 'IfTokenType'):
+					if (!foundCompileConstantIdentifier)
+					{
+						match($es4.$$get(Token, null, null, 'IfTokenType'));
+					}
+					statement = $es4.$$call(Construct, null, null, 'getNewIfStatement', $es4.$$EMPTY_ARRAY);
+					if (!foundCompileConstantIdentifier)
+					{
+						match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
+					}
+					var inCompileConstant = false;
+					var inCompileConstantLocal = false;
+					var innerStatement;
+					var add = true;
+					if ($es4.$$get(peek(1, 0, true), null, null, 'type') == $es4.$$get(Token, null, null, 'IdentifierTokenType') && $es4.$$get(peek(2, 0, true), null, null, 'type') == $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType') && $es4.$$get(compileConstants, null, null, $es4.$$get(peek(1, 0, true), null, null, 'data') + $es4.$$get(peek(2, 0, true), null, null, 'data') + $es4.$$get(peek(3, 0, true), null, null, 'data')) !== undefined)
+					{
+						if (inCompileConstant)
+						{
+							throw $es4.$$primitive(new (Error)('nested compile constants are not supported'));
+						}
+						inCompileConstantLocal = true;
+						inCompileConstant = true;
+						var compileConstantIdentifier = '';
+						compileConstantIdentifier += $es4.$$get(match($es4.$$get(Token, null, null, 'IdentifierTokenType')), null, null, 'data');
+						compileConstantIdentifier += $es4.$$get(match($es4.$$get(Token, null, null, 'NamespaceQualifierTokenType')), null, null, 'data');
+						compileConstantIdentifier += $es4.$$get(match($es4.$$get(Token, null, null, 'IdentifierTokenType')), null, null, 'data');
+						add = $es4.$$get(compileConstants, null, null, compileConstantIdentifier) == 'true';
+						var booleanExpression = $es4.$$call(Construct, null, null, 'getNewBooleanExpression', $es4.$$EMPTY_ARRAY);
+						$es4.$$set(booleanExpression, null, null, 'booleanToken', $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BooleanTokenType'), $es4.$$call(add, null, null, 'toString', $es4.$$EMPTY_ARRAY)]), '=');
+						$es4.$$set(statement, null, null, 'conditionExpression', booleanExpression, '=');
+					}
+					else
+					{
+						$es4.$$set(statement, null, null, 'conditionExpression', matchExpression(false, namedFunctionExpressions), '=');
+					}
+					if (!foundCompileConstantIdentifier)
+					{
+						match($es4.$$get(Token, null, null, 'ClosedParenTokenType'));
+					}
+					foundCompileConstantIdentifier = false;
+					openBraceTokenType = match($es4.$$get(Token, null, null, 'OpenBraceTokenType'), true);
+					loopd:					while ((innerToken = peek(1)) && ($es4.$$get(innerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'ClosedBraceTokenType')))
+					{
+						innerStatement = matchStatement(false, namedFunctionExpressions);
+						if (add)
+						{
+							$es4.$$call(statement, null, null, 'bodyStatements', 'push', [innerStatement]);
+						}
+						if (!openBraceTokenType)
+						{
+							break loopd;
+						}
+					}
+					if (openBraceTokenType)
+					{
+						match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
+					}
+					while (((innerToken1 = peek(1)) && (innerToken2 = peek(2))) && ($es4.$$get(innerToken1, null, null, 'type') == $es4.$$get(Token, null, null, 'ElseTokenType') && $es4.$$get(innerToken2, null, null, 'type') == $es4.$$get(Token, null, null, 'IfTokenType')))
+					{
+						match($es4.$$get(Token, null, null, 'ElseTokenType'));
+						match($es4.$$get(Token, null, null, 'IfTokenType'));
+						var elseIfStatement = $es4.$$call(Construct, null, null, 'getNewElseIfStatement', $es4.$$EMPTY_ARRAY);
+						match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
+						$es4.$$set(elseIfStatement, null, null, 'conditionExpression', matchExpression(false, namedFunctionExpressions), '=');
+						match($es4.$$get(Token, null, null, 'ClosedParenTokenType'));
+						openBraceTokenType = match($es4.$$get(Token, null, null, 'OpenBraceTokenType'), true);
+						loope:						while ((innerToken = peek(1)) && ($es4.$$get(innerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'ClosedBraceTokenType')))
+						{
+							$es4.$$call(elseIfStatement, null, null, 'bodyStatements', 'push', [matchStatement(false, namedFunctionExpressions)]);
+							if (!openBraceTokenType)
+							{
+								break loope;
+							}
+						}
+						if (openBraceTokenType)
+						{
+							match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
+						}
+						$es4.$$call(statement, null, null, 'elseIfStatements', 'push', [elseIfStatement]);
+					}
+					while ((innerToken1 = peek(1)) && ($es4.$$get(innerToken1, null, null, 'type') == $es4.$$get(Token, null, null, 'ElseTokenType')))
+					{
+						var elseStatement = $es4.$$call(Construct, null, null, 'getNewElseStatement', $es4.$$EMPTY_ARRAY);
+						match($es4.$$get(Token, null, null, 'ElseTokenType'));
+						openBraceTokenType = match($es4.$$get(Token, null, null, 'OpenBraceTokenType'), true);
+						loopf:						while ((innerInnerToken = peek(1)) && ($es4.$$get(innerInnerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'ClosedBraceTokenType')))
+						{
+							innerStatement = matchStatement(false, namedFunctionExpressions);
+							if (inCompileConstantLocal)
+							{
+								if (!add)
+								{
+									$es4.$$call(elseStatement, null, null, 'bodyStatements', 'push', [innerStatement]);
+								}
+							}
+							else
+							{
+								$es4.$$call(elseStatement, null, null, 'bodyStatements', 'push', [innerStatement]);
+							}
+							if (!openBraceTokenType)
+							{
+								break loopf;
+							}
+						}
+						if (openBraceTokenType)
+						{
+							match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
+						}
+						$es4.$$set(statement, null, null, 'elseStatement', elseStatement, '=');
+					}
+					if (inCompileConstantLocal)
+					{
+						inCompileConstant = false;
+					}
+					break;
+				case $es4.$$get(Token, null, null, 'WhileTokenType'):
+					statement = $es4.$$call(Construct, null, null, 'getNewWhileStatement', $es4.$$EMPTY_ARRAY);
+					match($es4.$$get(Token, null, null, 'WhileTokenType'));
+					match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
+					$es4.$$set(statement, null, null, 'conditionExpression', matchExpression(false, namedFunctionExpressions), '=');
+					match($es4.$$get(Token, null, null, 'ClosedParenTokenType'));
+					openBraceTokenType = match($es4.$$get(Token, null, null, 'OpenBraceTokenType'), true);
+					loopg:					while ((innerToken = peek(1)) && ($es4.$$get(innerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'ClosedBraceTokenType')))
+					{
+						$es4.$$call(statement, null, null, 'bodyStatements', 'push', [matchStatement(false, namedFunctionExpressions)]);
+						if (!openBraceTokenType)
+						{
+							break loopg;
+						}
+					}
+					if (openBraceTokenType)
+					{
+						match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
+					}
+					break;
+				case $es4.$$get(Token, null, null, 'DoTokenType'):
+					statement = $es4.$$call(Construct, null, null, 'getNewDoWhileStatement', $es4.$$EMPTY_ARRAY);
+					match($es4.$$get(Token, null, null, 'DoTokenType'));
+					openBraceTokenType = match($es4.$$get(Token, null, null, 'OpenBraceTokenType'), true);
+					looph:					while ((innerToken = peek(1)) && ($es4.$$get(innerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'ClosedBraceTokenType')))
+					{
+						$es4.$$call(statement, null, null, 'bodyStatements', 'push', [matchStatement(false, namedFunctionExpressions)]);
+						if (!openBraceTokenType)
+						{
+							break looph;
+						}
+					}
+					if (openBraceTokenType)
+					{
+						match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
+					}
+					match($es4.$$get(Token, null, null, 'WhileTokenType'));
+					match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
+					$es4.$$set(statement, null, null, 'conditionExpression', matchExpression(false, namedFunctionExpressions), '=');
+					match($es4.$$get(Token, null, null, 'ClosedParenTokenType'));
+					break;
+				case $es4.$$get(Token, null, null, 'ForTokenType'):
+					match($es4.$$get(Token, null, null, 'ForTokenType'));
+					if ($es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'EachTokenType'))
+					{
+						match($es4.$$get(Token, null, null, 'EachTokenType'));
+						statement = $es4.$$call(Construct, null, null, 'getNewForEachStatement', $es4.$$EMPTY_ARRAY);
+						match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
+						$es4.$$set(statement, null, null, 'variableStatement', matchStatement(false, namedFunctionExpressions, true), '=');
+						match($es4.$$get(Token, null, null, 'InTokenType'));
+						$es4.$$set(statement, null, null, 'arrayExpression', matchExpression(false, namedFunctionExpressions), '=');
+						match($es4.$$get(Token, null, null, 'ClosedParenTokenType'));
+						openBraceTokenType = match($es4.$$get(Token, null, null, 'OpenBraceTokenType'), true);
+						loopi:						while ((innerToken = peek(1)) && ($es4.$$get(innerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'ClosedBraceTokenType')))
+						{
+							$es4.$$call(statement, null, null, 'bodyStatements', 'push', [matchStatement(false, namedFunctionExpressions)]);
+							if (!openBraceTokenType)
+							{
+								break loopi;
+							}
+						}
+						if (openBraceTokenType)
+						{
+							match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
+						}
+						break;
+					}
+					match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
+					var ahead = 1;
+					var openParens = 1;
+					var closedParens = 0;
+					var inTokenFound = false;
+					while (innerToken = peek(ahead))
+					{
+						if ($es4.$$get(innerToken, null, null, 'type') == $es4.$$get(Token, null, null, 'OpenParenTokenType'))
+						{
+							openParens++;
+						}
+						if ($es4.$$get(innerToken, null, null, 'type') == $es4.$$get(Token, null, null, 'ClosedParenTokenType'))
+						{
+							closedParens++;
+						}
+						if ($es4.$$get(innerToken, null, null, 'type') == $es4.$$get(Token, null, null, 'InTokenType'))
+						{
+							inTokenFound = true;
+						}
+						if (openParens == closedParens || inTokenFound)
+						{
+							break;
+						}
+						ahead++;
+					}
+					if (inTokenFound)
+					{
+						statement = $es4.$$call(Construct, null, null, 'getNewForInStatement', $es4.$$EMPTY_ARRAY);
+						$es4.$$set(statement, null, null, 'variableStatement', matchStatement(false, namedFunctionExpressions, true), '=');
+						match($es4.$$get(Token, null, null, 'InTokenType'));
+						$es4.$$set(statement, null, null, 'objectExpression', matchExpression(false, namedFunctionExpressions), '=');
+						match($es4.$$get(Token, null, null, 'ClosedParenTokenType'));
+					}
+					else
+					{
+						statement = $es4.$$call(Construct, null, null, 'getNewForStatement', $es4.$$EMPTY_ARRAY);
+						var eosTokenType = match($es4.$$get(Token, null, null, 'EOSTokenType'), 1);
+						if (!eosTokenType)
+						{
+							$es4.$$set(statement, null, null, 'variableStatement', matchStatement(true, namedFunctionExpressions), '=');
+							match($es4.$$get(Token, null, null, 'EOSTokenType'));
+						}
+						eosTokenType = match($es4.$$get(Token, null, null, 'EOSTokenType'), 1);
+						if (!eosTokenType)
+						{
+							$es4.$$set(statement, null, null, 'conditionExpression', matchExpression(false, namedFunctionExpressions), '=');
+							match($es4.$$get(Token, null, null, 'EOSTokenType'));
+						}
+						var closedParenTokenType = match($es4.$$get(Token, null, null, 'ClosedParenTokenType'), 1);
+						if (!closedParenTokenType)
+						{
+							$es4.$$set(statement, null, null, 'afterthoughtExpression', matchExpression(false, namedFunctionExpressions), '=');
+							match($es4.$$get(Token, null, null, 'ClosedParenTokenType'));
+						}
+					}
+					openBraceTokenType = match($es4.$$get(Token, null, null, 'OpenBraceTokenType'), true);
+					loop2f:					while ((innerToken = peek(1)) && ($es4.$$get(innerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'ClosedBraceTokenType')))
+					{
+						$es4.$$call(statement, null, null, 'bodyStatements', 'push', [matchStatement(false, namedFunctionExpressions)]);
+						if (!openBraceTokenType)
+						{
+							break loop2f;
+						}
+					}
+					if (openBraceTokenType)
+					{
+						match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
+					}
+					break;
+				case $es4.$$get(Token, null, null, 'BreakTokenType'):
+					statement = $es4.$$call(Construct, null, null, 'getNewBreakStatement', $es4.$$EMPTY_ARRAY);
+					$es4.$$set(statement, null, null, 'token', match($es4.$$get(Token, null, null, 'BreakTokenType')), '=');
+					$es4.$$set(statement, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType'), true), '=');
+					break;
+				case $es4.$$get(Token, null, null, 'ContinueTokenType'):
+					statement = $es4.$$call(Construct, null, null, 'getNewContinueStatement', $es4.$$EMPTY_ARRAY);
+					$es4.$$set(statement, null, null, 'token', match($es4.$$get(Token, null, null, 'ContinueTokenType')), '=');
+					$es4.$$set(statement, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType'), true), '=');
+					break;
+				case $es4.$$get(Token, null, null, 'ThrowTokenType'):
+					statement = $es4.$$call(Construct, null, null, 'getNewThrowStatement', $es4.$$EMPTY_ARRAY);
+					$es4.$$set(statement, null, null, 'token', match($es4.$$get(Token, null, null, 'ThrowTokenType')), '=');
+					$es4.$$set(statement, null, null, 'expression', matchExpression(false, namedFunctionExpressions), '=');
+					break;
+				case $es4.$$get(Token, null, null, 'UseTokenType'):
+					statement = $es4.$$call(Construct, null, null, 'getNewUseStatement', $es4.$$EMPTY_ARRAY);
+					$es4.$$set(statement, null, null, 'useToken', match($es4.$$get(Token, null, null, 'UseTokenType')), '=');
+					match($es4.$$get(Token, null, null, 'NamespaceKeywordTokenType'));
+					$es4.$$set(statement, null, null, 'namespaceIdentifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
+					break;
+				case $es4.$$get(Token, null, null, 'TryTokenType'):
+					match($es4.$$get(Token, null, null, 'TryTokenType'));
+					statement = $es4.$$call(Construct, null, null, 'getNewTryStatement', $es4.$$EMPTY_ARRAY);
+					openBraceTokenType = match($es4.$$get(Token, null, null, 'OpenBraceTokenType'), true);
+					loop2g:					while ((innerToken = peek(1)) && ($es4.$$get(innerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'ClosedBraceTokenType')))
+					{
+						$es4.$$call(statement, null, null, 'bodyStatements', 'push', [matchStatement(false, namedFunctionExpressions)]);
+						if (!openBraceTokenType)
+						{
+							break loop2g;
+						}
+					}
+					if (openBraceTokenType)
+					{
+						match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
+					}
+					while (match($es4.$$get(Token, null, null, 'CatchTokenType'), true))
+					{
+						var catchStatement = $es4.$$call(Construct, null, null, 'getNewCatchStatement', $es4.$$EMPTY_ARRAY);
+						match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
+						$es4.$$set(catchStatement, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
+						if (match($es4.$$get(Token, null, null, 'ColonTokenType'), true))
+						{
+							$es4.$$set(catchStatement, null, null, 'typeConstruct', matchTypeConstruct(), '=');
+						}
+						else
+						{
+							$es4.$$set(catchStatement, null, null, 'typeConstruct', $es4.$$call(Construct, null, null, 'getNewTypeConstruct', $es4.$$EMPTY_ARRAY), '=');
+							$es4.$$set(catchStatement, null, null, 'typeConstruct', 'mulToken', $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MulTokenType'), '*']), '=');
+						}
+						match($es4.$$get(Token, null, null, 'ClosedParenTokenType'));
+						openBraceTokenType = match($es4.$$get(Token, null, null, 'OpenBraceTokenType'), true);
+						loopt:						while ((innerInnerToken = peek(1)) && ($es4.$$get(innerInnerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'ClosedBraceTokenType')))
+						{
+							$es4.$$call(catchStatement, null, null, 'bodyStatements', 'push', [matchStatement(false, namedFunctionExpressions)]);
+							if (!openBraceTokenType)
+							{
+								break loopt;
+							}
+						}
+						if (openBraceTokenType)
+						{
+							match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
+						}
+						$es4.$$call(statement, null, null, 'catchStatements', 'push', [catchStatement]);
+					}
+					while (match($es4.$$get(Token, null, null, 'FinallyTokenType'), true))
+					{
+						var finallyStatement = $es4.$$call(Construct, null, null, 'getNewFinallyStatement', $es4.$$EMPTY_ARRAY);
+						openBraceTokenType = match($es4.$$get(Token, null, null, 'OpenBraceTokenType'), true);
+						loopx:						while ((innerInnerToken = peek(1)) && ($es4.$$get(innerInnerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'ClosedBraceTokenType')))
+						{
+							$es4.$$call(finallyStatement, null, null, 'bodyStatements', 'push', [matchStatement(false, namedFunctionExpressions)]);
+							if (!openBraceTokenType)
+							{
+								break loopx;
+							}
+						}
+						if (openBraceTokenType)
+						{
+							match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
+						}
+						$es4.$$set(statement, null, null, 'finallyStatement', finallyStatement, '=');
+					}
+					break;
+				case $es4.$$get(Token, null, null, 'VarTokenType'):
+				case $es4.$$get(Token, null, null, 'ConstTokenType'):
+					statement = $es4.$$call(Construct, null, null, 'getNewVarStatement', $es4.$$EMPTY_ARRAY);
+					if (match($es4.$$get(Token, null, null, 'VarTokenType'), true))
+					{
+					}
+					else
+					{
+						match($es4.$$get(Token, null, null, 'ConstTokenType'), true);
+					}
+					$es4.$$set(statement, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
+					if (match($es4.$$get(Token, null, null, 'ColonTokenType'), true))
+					{
+						$es4.$$set(statement, null, null, 'typeConstruct', matchTypeConstruct(), '=');
+					}
+					else
+					{
+						$es4.$$set(statement, null, null, 'typeConstruct', $es4.$$call(Construct, null, null, 'getNewTypeConstruct', $es4.$$EMPTY_ARRAY), '=');
+						$es4.$$set(statement, null, null, 'typeConstruct', 'mulToken', $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MulTokenType'), '*']), '=');
+					}
+					if (match($es4.$$get(Token, null, null, 'AssignmentTokenType'), true))
+					{
+						$es4.$$set(statement, null, null, 'valueExpression', matchExpression(true, namedFunctionExpressions), '=');
+					}
+					while (match($es4.$$get(Token, null, null, 'CommaTokenType'), true))
+					{
+						var innerVarStatement = $es4.$$call(Construct, null, null, 'getNewVarStatement', $es4.$$EMPTY_ARRAY);
+						$es4.$$set(innerVarStatement, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
+						if (match($es4.$$get(Token, null, null, 'ColonTokenType'), true))
+						{
+							$es4.$$set(innerVarStatement, null, null, 'typeConstruct', matchTypeConstruct(), '=');
+						}
+						else
+						{
+							$es4.$$set(innerVarStatement, null, null, 'typeConstruct', $es4.$$call(Construct, null, null, 'getNewTypeConstruct', $es4.$$EMPTY_ARRAY), '=');
+							$es4.$$set(innerVarStatement, null, null, 'typeConstruct', 'mulToken', $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MulTokenType'), '*']), '=');
+						}
+						if (match($es4.$$get(Token, null, null, 'AssignmentTokenType'), true))
+						{
+							$es4.$$set(innerVarStatement, null, null, 'valueExpression', matchExpression(true, namedFunctionExpressions), '=');
+						}
+						$es4.$$call(statement, null, null, 'innerVarStatements', 'push', [innerVarStatement]);
+					}
+					break;
+				case $es4.$$get(Token, null, null, 'SwitchTokenType'):
+					statement = $es4.$$call(Construct, null, null, 'getNewSwitchStatement', $es4.$$EMPTY_ARRAY);
+					match($es4.$$get(Token, null, null, 'SwitchTokenType'));
+					match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
+					$es4.$$set(statement, null, null, 'valueExpression', matchExpression(false, namedFunctionExpressions), '=');
+					match($es4.$$get(Token, null, null, 'ClosedParenTokenType'));
+					match($es4.$$get(Token, null, null, 'OpenBraceTokenType'), true);
+					while ((innerToken = peek(1)) && ($es4.$$get(innerToken, null, null, 'type') == $es4.$$get(Token, null, null, 'CaseTokenType') || $es4.$$get(innerToken, null, null, 'type') == $es4.$$get(Token, null, null, 'DefaultTokenType')))
+					{
+						var caseStatement = $es4.$$call(Construct, null, null, 'getNewCaseStatement', $es4.$$EMPTY_ARRAY);
+						if ($es4.$$get(innerToken, null, null, 'type') == $es4.$$get(Token, null, null, 'CaseTokenType'))
+						{
+							match($es4.$$get(Token, null, null, 'CaseTokenType'));
+							$es4.$$set(caseStatement, null, null, 'valueExpression', matchExpression(false, namedFunctionExpressions), '=');
+						}
+						if ($es4.$$get(innerToken, null, null, 'type') == $es4.$$get(Token, null, null, 'DefaultTokenType'))
+						{
+							$es4.$$set(caseStatement, null, null, 'defaultToken', match($es4.$$get(Token, null, null, 'DefaultTokenType')), '=');
+						}
+						match($es4.$$get(Token, null, null, 'ColonTokenType'));
+						var openFound = match($es4.$$get(Token, null, null, 'OpenBraceTokenType'), true);
+						while ((innerToken = peek(1)) && ($es4.$$get(innerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'CaseTokenType') && $es4.$$get(innerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'DefaultTokenType') && $es4.$$get(innerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'ClosedBraceTokenType')))
+						{
+							$es4.$$call(caseStatement, null, null, 'bodyStatements', 'push', [matchStatement(false, namedFunctionExpressions)]);
+						}
+						if (openFound)
+						{
+							match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
+						}
+						$es4.$$call(statement, null, null, 'caseStatements', 'push', [caseStatement]);
+					}
+					match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
+					break;
+				default:
+					if ($es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'IdentifierTokenType') && (peek(2) && $es4.$$get(peek(2), null, null, 'type') == $es4.$$get(Token, null, null, 'ColonTokenType')))
+					{
+						statement = $es4.$$call(Construct, null, null, 'getNewLabelStatement', $es4.$$EMPTY_ARRAY);
+						$es4.$$set(statement, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
+						match($es4.$$get(Token, null, null, 'ColonTokenType'));
+						break;
+					}
+					statement = matchExpression(false, namedFunctionExpressions, false, false, dontReadIn);
+			}
+			if (!dontmatchEOS)
+			{
+				match($es4.$$get(Token, null, null, 'EOSTokenType'), true, true);
+			}
+			return statement;
+		}
+;
+
+		function matchExpression($$$$ignoreCommas, $$$$namedFunctionExpressions, $$$$operand, $$$$optional, $$$$dontReadIn) 
+		{
+			//set default parameter values
+			var ignoreCommas = (0 > arguments.length - 1) ? false : $es4.$$coerce($$$$ignoreCommas, Boolean);
+			var namedFunctionExpressions = (1 > arguments.length - 1) ? null : $$$$namedFunctionExpressions;
+			var operand = (2 > arguments.length - 1) ? null : $$$$operand;
+			var optional = (3 > arguments.length - 1) ? false : $es4.$$coerce($$$$optional, Boolean);
+			var dontReadIn = (4 > arguments.length - 1) ? false : $es4.$$coerce($$$$dontReadIn, Boolean);
+
+			var expression = null;
+			var expressions = [];
+			var ternaryTokens = 0;
+			var token;
+			var construct;
+			var regExpString;
+			var prefixExpression;
+			var binaryExpression;
+			var binaryExpressionParent;
+			loopy:			while (token = peek(1))
+			{
+				switch ($es4.$$get(token, null, null, 'type'))
+				{
+					case $es4.$$get(Token, null, null, 'OpenParenTokenType'):
+						match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
+						expression = $es4.$$call(Construct, null, null, 'getNewParenExpression', $es4.$$EMPTY_ARRAY);
+						$es4.$$set(expression, null, null, 'expression', matchExpression(false, namedFunctionExpressions), '=');
+						match($es4.$$get(Token, null, null, 'ClosedParenTokenType'));
+						if (peek(1) && ($es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'DotTokenType') || $es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'OpenBracketTokenType') || $es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'OpenParenTokenType')))
+						{
+							construct = $es4.$$call(Construct, null, null, 'getNewParenConstruct', $es4.$$EMPTY_ARRAY);
+							$es4.$$set(construct, null, null, 'expression', expression, '=');
+							expression = matchPropertyExpression(construct);
+						}
+						break;
+					case $es4.$$get(Token, null, null, 'NumberTokenType'):
+						expression = $es4.$$call(Construct, null, null, 'getNewNumberExpression', $es4.$$EMPTY_ARRAY);
+						$es4.$$set(expression, null, null, 'numberToken', match($es4.$$get(Token, null, null, 'NumberTokenType')), '=');
+						break;
+					case $es4.$$get(Token, null, null, 'StringTokenType'):
+						expression = $es4.$$call(Construct, null, null, 'getNewStringExpression', $es4.$$EMPTY_ARRAY);
+						$es4.$$set(expression, null, null, 'stringToken', match($es4.$$get(Token, null, null, 'StringTokenType')), '=');
+						while (token = match($es4.$$get(Token, null, null, 'StringChunkTokenType'), true))
+						{
+							$es4.$$call(expression, null, null, 'stringChunkTokens', 'push', [token]);
+						}
+						$es4.$$set(expression, null, null, 'stringEndToken', match($es4.$$get(Token, null, null, 'StringEndTokenType')), '=');
+						if (peek(1) && ($es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'DotTokenType') || $es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'OpenBracketTokenType') || $es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'OpenParenTokenType')))
+						{
+							construct = $es4.$$call(Construct, null, null, 'getNewParenConstruct', $es4.$$EMPTY_ARRAY);
+							$es4.$$set(construct, null, null, 'expression', expression, '=');
+							expression = matchPropertyExpression(construct);
+						}
+						break;
+					case $es4.$$get(Token, null, null, 'ReturnTokenType'):
+						expression = $es4.$$call(Construct, null, null, 'getNewReturnExpression', $es4.$$EMPTY_ARRAY);
+						match($es4.$$get(Token, null, null, 'ReturnTokenType'));
+						if ($es4.$$get(peek(1), null, null, 'type') != $es4.$$get(Token, null, null, 'ClosedBraceTokenType') && $es4.$$get(peek(1), null, null, 'type') != $es4.$$get(Token, null, null, 'EOSTokenType'))
+						{
+							$es4.$$set(expression, null, null, 'expression', matchExpression(false, namedFunctionExpressions), '=');
+						}
+						break;
+					case $es4.$$get(Token, null, null, 'DeleteTokenType'):
+						expression = $es4.$$call(Construct, null, null, 'getNewDeleteExpression', $es4.$$EMPTY_ARRAY);
+						match($es4.$$get(Token, null, null, 'DeleteTokenType'));
+						$es4.$$set(expression, null, null, 'expression', matchExpression(ignoreCommas, namedFunctionExpressions, true), '=');
+						break;
+					case $es4.$$get(Token, null, null, 'FunctionTokenType'):
+						expression = $es4.$$call(Construct, null, null, 'getNewFunctionExpression', $es4.$$EMPTY_ARRAY);
+						match($es4.$$get(Token, null, null, 'FunctionTokenType'));
+						$es4.$$set(expression, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType'), true), '=');
+						if ($es4.$$get(expression, null, null, 'identifierToken') && namedFunctionExpressions)
+						{
+							$es4.$$call(namedFunctionExpressions, null, null, 'push', [expression]);
+						}
+						match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
+						while (!match($es4.$$get(Token, null, null, 'ClosedParenTokenType'), true))
+						{
+							$es4.$$call(expression, null, null, 'parameterConstructs', 'push', [matchParameterConstruct()]);
+							match($es4.$$get(Token, null, null, 'CommaTokenType'), true);
+						}
+						if (match($es4.$$get(Token, null, null, 'ColonTokenType'), true))
+						{
+							$es4.$$set(expression, null, null, 'typeConstruct', matchTypeConstruct(), '=');
+						}
+						else
+						{
+							$es4.$$set(expression, null, null, 'typeConstruct', $es4.$$call(Construct, null, null, 'getNewTypeConstruct', $es4.$$EMPTY_ARRAY), '=');
+							$es4.$$set(expression, null, null, 'typeConstruct', 'mulToken', $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MulTokenType'), '*']), '=');
+						}
+						match($es4.$$get(Token, null, null, 'OpenBraceTokenType'));
+						while (!match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'), true))
+						{
+							$es4.$$call(expression, null, null, 'bodyStatements', 'push', [matchStatement(false, $es4.$$get(expression, null, null, 'namedFunctionExpressions'))]);
+						}
+						break;
+					case $es4.$$get(Token, null, null, 'OpenBraceTokenType'):
+						expression = $es4.$$call(Construct, null, null, 'getNewObjectExpression', $es4.$$EMPTY_ARRAY);
+						match($es4.$$get(Token, null, null, 'OpenBraceTokenType'));
+						while (!match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'), true))
+						{
+							var objectPropertyConstruct = $es4.$$call(Construct, null, null, 'getNewObjectPropertyConstruct', $es4.$$EMPTY_ARRAY);
+							$es4.$$set(objectPropertyConstruct, null, null, 'expression', matchExpression(false, namedFunctionExpressions), '=');
+							match($es4.$$get(Token, null, null, 'ColonTokenType'));
+							$es4.$$set(objectPropertyConstruct, null, null, 'valueExpression', matchExpression(true, namedFunctionExpressions), '=');
+							$es4.$$call(expression, null, null, 'objectPropertyConstructs', 'push', [objectPropertyConstruct]);
+							match($es4.$$get(Token, null, null, 'CommaTokenType'), true);
+						}
+						if (peek(1) && ($es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'DotTokenType') || $es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'OpenBracketTokenType')))
+						{
+							expression = matchPropertyExpression($es4.$$call(Construct, null, null, 'getNewObjectConstruct', [expression]));
+						}
+						break;
+					case $es4.$$get(Token, null, null, 'OpenBracketTokenType'):
+						expression = $es4.$$call(Construct, null, null, 'getNewArrayExpression', $es4.$$EMPTY_ARRAY);
+						match($es4.$$get(Token, null, null, 'OpenBracketTokenType'));
+						while (!match($es4.$$get(Token, null, null, 'ClosedBracketTokenType'), true))
+						{
+							$es4.$$call(expression, null, null, 'valueExpressions', 'push', [matchExpression(true, namedFunctionExpressions)]);
+							match($es4.$$get(Token, null, null, 'CommaTokenType'), true);
+						}
+						if (peek(1) && ($es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'DotTokenType') || $es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'OpenBracketTokenType')))
+						{
+							expression = matchPropertyExpression($es4.$$call(Construct, null, null, 'getNewArrayConstruct', [expression]));
+						}
+						break;
+					case $es4.$$get(Token, null, null, 'BooleanTokenType'):
+						expression = $es4.$$call(Construct, null, null, 'getNewBooleanExpression', $es4.$$EMPTY_ARRAY);
+						$es4.$$set(expression, null, null, 'booleanToken', match($es4.$$get(Token, null, null, 'BooleanTokenType')), '=');
+						break;
+					case $es4.$$get(Token, null, null, 'NaNTokenType'):
+						expression = $es4.$$call(Construct, null, null, 'getNewExpression', [match($es4.$$get(Token, null, null, 'NaNTokenType'))]);
+						break;
+					case $es4.$$get(Token, null, null, 'UndefinedTokenType'):
+						expression = $es4.$$call(Construct, null, null, 'getNewExpression', [match($es4.$$get(Token, null, null, 'UndefinedTokenType'))]);
+						break;
+					case $es4.$$get(Token, null, null, 'ThisTokenType'):
+						expression = matchPropertyExpression();
+						break;
+					case $es4.$$get(Token, null, null, 'NullTokenType'):
+						expression = $es4.$$call(Construct, null, null, 'getNewExpression', [match($es4.$$get(Token, null, null, 'NullTokenType'))]);
+						break;
+					case $es4.$$get(Token, null, null, 'AddTokenType'):
+						expression = $es4.$$call(Construct, null, null, 'getNewExpression', [match($es4.$$get(Token, null, null, 'AddTokenType')), matchExpression(true, namedFunctionExpressions, true)]);
+						break;
+					case $es4.$$get(Token, null, null, 'SubTokenType'):
+						expression = $es4.$$call(Construct, null, null, 'getNewExpression', [match($es4.$$get(Token, null, null, 'SubTokenType')), matchExpression(true, namedFunctionExpressions, true)]);
+						break;
+					case $es4.$$get(Token, null, null, 'XMLOpenArrowTokenType'):
+						match($es4.$$get(Token, null, null, 'XMLOpenArrowTokenType'));
+						var isXMLList = $es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'XMLClosedArrowTokenType');
+						var openTags = 1;
+						var xmlString = '<';
+						if (isXMLList)
+						{
+							expression = $es4.$$call(Construct, null, null, 'getNewXMLListExpression', $es4.$$EMPTY_ARRAY);
+							match($es4.$$get(Token, null, null, 'XMLClosedArrowTokenType'));
+							match($es4.$$get(Token, null, null, 'XMLOpenArrowTokenType'));
+						}
+						else
+						{
+							expression = $es4.$$call(Construct, null, null, 'getNewXMLExpression', $es4.$$EMPTY_ARRAY);
+						}
+						var inNode = true;
+						while ((openTags || inNode || isXMLList) && (token = next(1)))
+						{
+							if (isXMLList)
+							{
+								if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'XMLOpenArrowTokenType') && peek(1) && $es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType') && peek(2) && $es4.$$get(peek(2), null, null, 'type') == $es4.$$get(Token, null, null, 'XMLClosedArrowTokenType'))
+								{
+									match($es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'));
+									match($es4.$$get(Token, null, null, 'XMLClosedArrowTokenType'));
+									break;
+								}
+							}
+							else
+							{
+								if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'XMLOpenArrowTokenType'))
+								{
+									inNode = true;
+								}
+								if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'XMLOpenArrowTokenType') && peek(1) && $es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'))
+								{
+									openTags--;
+								}
+								else if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'XMLOpenArrowTokenType'))
+								{
+									openTags++;
+								}
+								if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType') && peek(1) && $es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'XMLClosedArrowTokenType'))
+								{
+									openTags--;
+								}
+								if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'XMLClosedArrowTokenType'))
+								{
+									inNode = false;
+								}
+							}
+							if ($es4.$$get(token, null, null, 'data') == "'")
+							{
+								$es4.$$set(token, null, null, 'data', "\\'", '=');
+							}
+							if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'NewLineTokenType'))
+							{
+								xmlString += '\\' + $es4.$$get(token, null, null, 'data');
+							}
+							else
+							{
+								xmlString += $es4.$$get(token, null, null, 'data');
+							}
+						}
+						$es4.$$set(expression, null, null, 'string', xmlString, '=');
+						break;
+					case $es4.$$get(Token, null, null, 'RegExpTokenType'):
+						expression = $es4.$$call(Construct, null, null, 'getNewRegExpression', $es4.$$EMPTY_ARRAY);
+						regExpString = $es4.$$get(match($es4.$$get(Token, null, null, 'RegExpTokenType')), null, null, 'data');
+						while ((token = peek(1, 1)) && $es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'SpecialUFOTokenType'))
+						{
+							token = next();
+							regExpString += $es4.$$get(token, null, null, 'data');
+						}
+						$es4.$$set(expression, null, null, 'string', regExpString, '=');
+						break;
+					case $es4.$$get(Token, null, null, 'DivTokenType'):
+						expression = $es4.$$call(Construct, null, null, 'getNewRegExpression', $es4.$$EMPTY_ARRAY);
+						regExpString = $es4.$$get(match($es4.$$get(Token, null, null, 'DivTokenType')), null, null, 'data');
+						while (token = next(2))
+						{
+							regExpString += $es4.$$get(token, null, null, 'data');
+							if ($es4.$$call(regExpString, null, null, 'charAt', [$es4.$$get(regExpString, null, null, 'length') - 1]) == '/' && $es4.$$call(regExpString, null, null, 'charAt', [$es4.$$get(regExpString, null, null, 'length') - 2]) != '\\')
+							{
+								break;
+							}
+						}
+						while (token = peek(1, 1))
+						{
+							if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'NewLineTokenType') || $es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'TabTokenType') || $es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'SpaceTokenType') || $es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'EOSTokenType') || $es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'CommaTokenType'))
+							{
+								break;
+							}
+							token = next();
+							regExpString += $es4.$$get(token, null, null, 'data');
+						}
+						$es4.$$set(expression, null, null, 'string', regExpString, '=');
+						break;
+					case $es4.$$get(Token, null, null, 'IncrementTokenType'):
+						expression = $es4.$$call(Construct, null, null, 'getNewPrefixExpression', $es4.$$EMPTY_ARRAY);
+						$es4.$$set(expression, null, null, 'incrementToken', match($es4.$$get(Token, null, null, 'IncrementTokenType')), '=');
+						$es4.$$set(expression, null, null, 'expression', matchExpression(false, namedFunctionExpressions), '=');
+						if ($es4.$$get(expression, null, null, 'expression', 'constructor') != $es4.$$get(Construct, null, null, 'BinaryExpression'))
+						{
+							break;
+						}
+						prefixExpression = expression;
+						binaryExpression = expression = $es4.$$get(expression, null, null, 'expression');
+						binaryExpressionParent = binaryExpression;
+						while ($es4.$$get(binaryExpression, null, null, 'constructor') == $es4.$$get(Construct, null, null, 'BinaryExpression'))
+						{
+							binaryExpressionParent = binaryExpression;
+							binaryExpression = $es4.$$get(binaryExpression, null, null, 'leftExpression');
+						}
+						while ($es4.$$get(binaryExpression, null, null, 'constructor') == $es4.$$get(Construct, null, null, 'ParenExpression'))
+						{
+							binaryExpressionParent = binaryExpression;
+							binaryExpression = $es4.$$get(binaryExpression, null, null, 'expression');
+						}
+						$es4.$$set(prefixExpression, null, null, 'expression', binaryExpression, '=');
+						if ($es4.$$get(binaryExpressionParent, null, null, 'constructor') == $es4.$$get(Construct, null, null, 'ParenExpression'))
+						{
+							$es4.$$set(binaryExpressionParent, null, null, 'expression', prefixExpression, '=');
+						}
+						else
+						{
+							$es4.$$set(binaryExpressionParent, null, null, 'leftExpression', prefixExpression, '=');
+						}
+						break;
+					case $es4.$$get(Token, null, null, 'DecrementTokenType'):
+						expression = $es4.$$call(Construct, null, null, 'getNewPrefixExpression', $es4.$$EMPTY_ARRAY);
+						$es4.$$set(expression, null, null, 'decrementToken', match($es4.$$get(Token, null, null, 'DecrementTokenType')), '=');
+						$es4.$$set(expression, null, null, 'expression', matchExpression(false, namedFunctionExpressions), '=');
+						if ($es4.$$get(expression, null, null, 'expression', 'constructor') != $es4.$$get(Construct, null, null, 'BinaryExpression'))
+						{
+							break;
+						}
+						prefixExpression = expression;
+						binaryExpression = expression = $es4.$$get(expression, null, null, 'expression');
+						binaryExpressionParent = binaryExpression;
+						while ($es4.$$get(binaryExpression, null, null, 'constructor') == $es4.$$get(Construct, null, null, 'BinaryExpression'))
+						{
+							binaryExpressionParent = binaryExpression;
+							binaryExpression = $es4.$$get(binaryExpression, null, null, 'leftExpression');
+						}
+						while ($es4.$$get(binaryExpression, null, null, 'constructor') == $es4.$$get(Construct, null, null, 'ParenExpression'))
+						{
+							binaryExpressionParent = binaryExpression;
+							binaryExpression = $es4.$$get(binaryExpression, null, null, 'expression');
+						}
+						$es4.$$set(prefixExpression, null, null, 'expression', binaryExpression, '=');
+						if ($es4.$$get(binaryExpressionParent, null, null, 'constructor') == $es4.$$get(Construct, null, null, 'ParenExpression'))
+						{
+							$es4.$$set(binaryExpressionParent, null, null, 'expression', prefixExpression, '=');
+						}
+						else
+						{
+							$es4.$$set(binaryExpressionParent, null, null, 'leftExpression', prefixExpression, '=');
+						}
+						break;
+					case $es4.$$get(Token, null, null, 'BitwiseNotTokenType'):
+						expression = $es4.$$call(Construct, null, null, 'getNewExpression', [match($es4.$$get(Token, null, null, 'BitwiseNotTokenType')), matchExpression(false, namedFunctionExpressions, true)]);
+						break;
+					case $es4.$$get(Token, null, null, 'NotTokenType'):
+						expression = $es4.$$call(Construct, null, null, 'getNewExpression', [match($es4.$$get(Token, null, null, 'NotTokenType')), matchExpression(false, namedFunctionExpressions, true)]);
+						break;
+					case $es4.$$get(Token, null, null, 'TypeofTokenType'):
+						expression = $es4.$$call(Construct, null, null, 'getNewExpression', [match($es4.$$get(Token, null, null, 'TypeofTokenType')), matchExpression(false, namedFunctionExpressions, true)]);
+						break;
+					case $es4.$$get(Token, null, null, 'SuperTokenType'):
+						expression = matchPropertyExpression();
+						break;
+					case $es4.$$get(Token, null, null, 'NewTokenType'):
+						expression = $es4.$$call(Construct, null, null, 'getNewNewExpression', $es4.$$EMPTY_ARRAY);
+						match($es4.$$get(Token, null, null, 'NewTokenType'));
+						if ($es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'RelationalTokenType'))
+						{
+							next();
+							next();
+							next();
+							expression = matchExpression(ignoreCommas, namedFunctionExpressions, true);
+							break;
+						}
+						$es4.$$set(expression, null, null, 'expression', matchExpression(ignoreCommas, namedFunctionExpressions, true), '=');
+						break;
+					case $es4.$$get(Token, null, null, 'IdentifierTokenType'):
+						expression = matchPropertyExpression();
+						$es4.$$set(expression, null, null, 'root', true, '=');
+						break;
+					case $es4.$$get(Token, null, null, 'AtTokenType'):
+						expression = matchPropertyExpression();
+						break;
+					case $es4.$$get(Token, null, null, 'VoidTokenType'):
+						expression = $es4.$$call(Construct, null, null, 'getNewExpression', [match($es4.$$get(Token, null, null, 'VoidTokenType')), matchExpression(false, namedFunctionExpressions, null, true)]);
+						break;
+					default:
+						if (optional)
+						{
+							expression = $es4.$$call(Construct, null, null, 'getNewEmptyExpression', $es4.$$EMPTY_ARRAY);
+							break;
+						}
+						throw error('Unexpected token found10.', token);
+				}
+				token = match($es4.$$get(Token, null, null, 'IncrementTokenType'), true) || match($es4.$$get(Token, null, null, 'DecrementTokenType'), true);
+				if (token)
+				{
+					var originalExpression = expression;
+					expression = $es4.$$call(Construct, null, null, 'getNewPostfixExpression', $es4.$$EMPTY_ARRAY);
+					if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'IncrementTokenType'))
+					{
+						$es4.$$set(expression, null, null, 'incrementToken', token, '=');
+					}
+					else
+					{
+						$es4.$$set(expression, null, null, 'decrementToken', token, '=');
+					}
+					$es4.$$set(expression, null, null, 'expression', originalExpression, '=');
+				}
+				if (operand)
+				{
+					return expression;
+				}
+				$es4.$$call(expressions, null, null, 'push', [expression]);
+				token = match($es4.$$get(Token, null, null, 'AssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'AddTokenType'), true) || match($es4.$$get(Token, null, null, 'AsTokenType'), true) || match((dontReadIn) ? $es4.$$get(Token, null, null, 'SubTokenType') : $es4.$$get(Token, null, null, 'InTokenType'), true) || match($es4.$$get(Token, null, null, 'SubTokenType'), true) || match($es4.$$get(Token, null, null, 'MulTokenType'), true) || match($es4.$$get(Token, null, null, 'DivTokenType'), true) || match($es4.$$get(Token, null, null, 'ModTokenType'), true) || match($es4.$$get(Token, null, null, 'TernaryTokenType'), true) || match($es4.$$get(Token, null, null, 'IsTokenType'), true) || match($es4.$$get(Token, null, null, 'InstanceofTokenType'), true) || match($es4.$$get(Token, null, null, 'AndWithAssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'OrWithAssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'AndTokenType'), true) || match($es4.$$get(Token, null, null, 'OrTokenType'), true) || match($es4.$$get(Token, null, null, 'EqualityTokenType'), true) || match($es4.$$get(Token, null, null, 'RelationalTokenType'), true) || match($es4.$$get(Token, null, null, 'AddWithAssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'DivWithAssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'ModWithAssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'MulWithAssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'SubWithAssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'BitwiseLeftShiftTokenType'), true) || match($es4.$$get(Token, null, null, 'BitwiseRightShiftTokenType'), true) || match($es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftTokenType'), true) || match($es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'BitwiseAndTokenType'), true) || match($es4.$$get(Token, null, null, 'BitwiseOrTokenType'), true) || match($es4.$$get(Token, null, null, 'BitwiseXorTokenType'), true);
+				if (!ignoreCommas && !token)
+				{
+					token = match($es4.$$get(Token, null, null, 'CommaTokenType'), true);
+				}
+				if (token && $es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'TernaryTokenType'))
+				{
+					ternaryTokens++;
+				}
+				else if (!token && ternaryTokens)
+				{
+					token = match($es4.$$get(Token, null, null, 'ColonTokenType'));
+					ternaryTokens--;
+				}
+				if (!token)
+				{
+					break loopy;
+				}
+				$es4.$$call(expressions, null, null, 'push', [token]);
+			}
+			return combineExpressions(expressions);
+
+			function getBinaryTernaryOperatorPrecedence($$$$token) 
+			{
+				//set default parameter values
+				var token = $$$$token;
+
+				switch ($es4.$$get(token, null, null, 'type'))
+				{
+					case $es4.$$get(Token, null, null, 'ColonTokenType'):
+						return -1;
+					case $es4.$$get(Token, null, null, 'CommaTokenType'):
+						return 1;
+					case $es4.$$get(Token, null, null, 'AssignmentTokenType'):
+					case $es4.$$get(Token, null, null, 'MulWithAssignmentTokenType'):
+					case $es4.$$get(Token, null, null, 'DivWithAssignmentTokenType'):
+					case $es4.$$get(Token, null, null, 'ModWithAssignmentTokenType'):
+					case $es4.$$get(Token, null, null, 'AddWithAssignmentTokenType'):
+					case $es4.$$get(Token, null, null, 'SubWithAssignmentTokenType'):
+					case $es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType'):
+					case $es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType'):
+					case $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType'):
+					case $es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType'):
+					case $es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType'):
+					case $es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType'):
+					case $es4.$$get(Token, null, null, 'AndWithAssignmentTokenType'):
+					case $es4.$$get(Token, null, null, 'OrWithAssignmentTokenType'):
+						return 2;
+					case $es4.$$get(Token, null, null, 'TernaryTokenType'):
+						return 3;
+					case $es4.$$get(Token, null, null, 'OrTokenType'):
+						return 4;
+					case $es4.$$get(Token, null, null, 'AndTokenType'):
+						return 5;
+					case $es4.$$get(Token, null, null, 'BitwiseOrTokenType'):
+						return 6;
+					case $es4.$$get(Token, null, null, 'BitwiseXorTokenType'):
+						return 7;
+					case $es4.$$get(Token, null, null, 'BitwiseAndTokenType'):
+						return 8;
+					case $es4.$$get(Token, null, null, 'EqualityTokenType'):
+						return 9;
+					case $es4.$$get(Token, null, null, 'RelationalTokenType'):
+					case $es4.$$get(Token, null, null, 'AsTokenType'):
+					case $es4.$$get(Token, null, null, 'InTokenType'):
+					case $es4.$$get(Token, null, null, 'InstanceofTokenType'):
+					case $es4.$$get(Token, null, null, 'IsTokenType'):
+						return 10;
+					case $es4.$$get(Token, null, null, 'BitwiseLeftShiftTokenType'):
+					case $es4.$$get(Token, null, null, 'BitwiseRightShiftTokenType'):
+					case $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftTokenType'):
+						return 11;
+					case $es4.$$get(Token, null, null, 'AddTokenType'):
+					case $es4.$$get(Token, null, null, 'SubTokenType'):
+						return 12;
+					case $es4.$$get(Token, null, null, 'MulTokenType'):
+					case $es4.$$get(Token, null, null, 'DivTokenType'):
+					case $es4.$$get(Token, null, null, 'ModTokenType'):
+						return 13;
+					default:
+						throw $es4.$$primitive(new (Error)('unknown binary/ternary operator: ' + $es4.$$get(token, null, null, 'type', 'name')));
+				}
+			}
+;
+
+			function combineExpressions($$$$expressions) 
+			{
+				//set default parameter values
+				var expressions = $$$$expressions;
+
+				var currentOperatorPrecedence = 13;
+				var i = -1;
+				var expression;
+				var begin;
+				while ($es4.$$get(expressions, null, null, 'length') > 1 && currentOperatorPrecedence)
+				{
+					if (i >= $es4.$$get(expressions, null, null, 'length') - 1)
+					{
+						i = -1;
+						currentOperatorPrecedence--;
+					}
+					i++;
+					if (i % 2 == 0)
+					{
+						continue;
+					}
+					var token = $es4.$$get(expressions, null, null, i);
+					if (getBinaryTernaryOperatorPrecedence(token) != currentOperatorPrecedence)
+					{
+						continue;
+					}
+					if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'TernaryTokenType'))
+					{
+						expression = $es4.$$call(Construct, null, null, 'getNewTernaryExpression', $es4.$$EMPTY_ARRAY);
+						$es4.$$set(expression, null, null, 'conditionExpression', $es4.$$get(expressions, null, null, i - 1), '=');
+						var index = i + 1;
+						var ternaryTokens = 1;
+						var colonTokens = 0;
+						var innerExpressions = [];
+						while (ternaryTokens != colonTokens && index < $es4.$$get(expressions, null, null, 'length') - 1)
+						{
+							$es4.$$call(innerExpressions, null, null, 'push', [$es4.$$get(expressions, null, null, index)]);
+							if (index % 2 == 0)
+							{
+								index++;
+								continue;
+							}
+							if ($es4.$$get(expressions, null, null, index, 'type') == $es4.$$get(Token, null, null, 'TernaryTokenType'))
+							{
+								ternaryTokens++;
+							}
+							else if ($es4.$$get(expressions, null, null, index, 'type') == $es4.$$get(Token, null, null, 'ColonTokenType'))
+							{
+								colonTokens++;
+							}
+							index++;
+						}
+						$es4.$$set(expression, null, null, 'trueExpression', combineExpressions($es4.$$call(innerExpressions, null, null, 'slice', [0, $es4.$$get(innerExpressions, null, null, 'length') - 1])), '=');
+						$es4.$$set(expression, null, null, 'falseExpression', combineExpressions($es4.$$call(expressions, null, null, 'slice', [index])), '=');
+						begin = $es4.$$call(expressions, null, null, 'slice', [0, i - 1]);
+						expressions = $es4.$$call(begin, null, null, 'concat', [[expression]]);
+					}
+					else
+					{
+						expression = $es4.$$call(Construct, null, null, 'getNewBinaryExpression', $es4.$$EMPTY_ARRAY);
+						$es4.$$set(expression, null, null, 'token', token, '=');
+						$es4.$$set(expression, null, null, 'leftExpression', $es4.$$get(expressions, null, null, i - 1), '=');
+						$es4.$$set(expression, null, null, 'rightExpression', $es4.$$get(expressions, null, null, i + 1), '=');
+						begin = $es4.$$call(expressions, null, null, 'slice', [0, i - 1]);
+						var end = $es4.$$call(expressions, null, null, 'slice', [i + 2]);
+						expressions = $es4.$$call(begin, null, null, 'concat', [[expression], end]);
+					}
+					i = -1;
+				}
+				return $es4.$$get(expressions, null, null, 0);
+			}
+;
+		}
+;
+
+		function match($$$$type, $$$$optional, $$$$greedy) 
+		{
+			//set default parameter values
+			var type = $$$$type;
+			var optional = (1 > arguments.length - 1) ? false : $es4.$$coerce($$$$optional, Boolean);
+			var greedy = (2 > arguments.length - 1) ? false : $es4.$$coerce($$$$greedy, Boolean);
+
+			var token = (optional) ? peek(1) : next();
+			if (!token && !optional)
+			{
+				throw error('Expected token type: ' + $es4.$$get(type, null, null, 'name') + '. No token found.', null);
+			}
+			if (!token)
+			{
+				return false;
+			}
+			if ($es4.$$get(token, null, null, 'type') != type && !optional)
+			{
+				throw error('Expected token type: ' + type + '. Got', token);
+			}
+			if ($es4.$$get(token, null, null, 'type') != type)
+			{
+				return false;
+			}
+			if (optional)
+			{
+				token = next();
+			}
+			var gtoken = (greedy) ? match(type, true, greedy) : false;
+			return (gtoken) ? gtoken : token;
+		}
+;
+
+		function next($$$$includeLevel, $$$$keywordStrictMode) 
+		{
+			//set default parameter values
+			var includeLevel = (0 > arguments.length - 1) ? false : $es4.$$coerce($$$$includeLevel, Boolean);
+			var keywordStrictMode = (1 > arguments.length - 1) ? false : $es4.$$coerce($$$$keywordStrictMode, Boolean);
+
+			if (!includeLevel)
+			{
+				includeLevel = $es4.$$coerce(0, Boolean);
+			}
+			while (index < $es4.$$get(tokens, null, null, 'length') - 1)
+			{
+				var token = $es4.$$get(tokens, null, null, ++index);
+				switch ($es4.$$get(token, null, null, 'type'))
+				{
+					case $es4.$$get(Token, null, null, 'CommentTokenType'):
+					case $es4.$$get(Token, null, null, 'CommentChunkTokenType'):
+					case $es4.$$get(Token, null, null, 'MultiLineCommentTokenType'):
+					case $es4.$$get(Token, null, null, 'MultiLineCommentChunkTokenType'):
+					case $es4.$$get(Token, null, null, 'MultiLineCommentEndTokenType'):
+						if (includeLevel == 1 || includeLevel == 0)
+						{
+							break;
+						}
+					case $es4.$$get(Token, null, null, 'NewLineTokenType'):
+					case $es4.$$get(Token, null, null, 'TabTokenType'):
+					case $es4.$$get(Token, null, null, 'SpaceTokenType'):
+						if (includeLevel == 0)
+						{
+							break;
+						}
+					default:
+						if (keywordStrictMode)
+						{
+							return token;
+						}
+						if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'StaticTokenType'))
+						{
+							token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'IdentifierTokenType'), 'static']);
+						}
+						return token;
+				}
+			}
+			return null;
+		}
+;
+
+		function peek($$$$ahead, $$$$includeLevel, $$$$keywordStrictMode) 
+		{
+			//set default parameter values
+			var ahead = $$$$ahead;
+			var includeLevel = (1 > arguments.length - 1) ? false : $es4.$$coerce($$$$includeLevel, Boolean);
+			var keywordStrictMode = (2 > arguments.length - 1) ? false : $es4.$$coerce($$$$keywordStrictMode, Boolean);
+
+			if (!includeLevel)
+			{
+				includeLevel = $es4.$$coerce(0, Boolean);
+			}
+			var i = index;
+			while (true)
+			{
+				if (ahead > 0 && i >= $es4.$$get(tokens, null, null, 'length') - 1)
+				{
+					break;
+				}
+				if (ahead < 0 && i < 1)
+				{
+					break;
+				}
+				var token = (ahead > 0) ? $es4.$$get(tokens, null, null, ++i) : $es4.$$get(tokens, null, null, --i);
+				switch ($es4.$$get(token, null, null, 'type'))
+				{
+					case $es4.$$get(Token, null, null, 'CommentTokenType'):
+					case $es4.$$get(Token, null, null, 'CommentChunkTokenType'):
+					case $es4.$$get(Token, null, null, 'MultiLineCommentTokenType'):
+					case $es4.$$get(Token, null, null, 'MultiLineCommentChunkTokenType'):
+					case $es4.$$get(Token, null, null, 'MultiLineCommentEndTokenType'):
+						break;
+					case $es4.$$get(Token, null, null, 'TabTokenType'):
+					case $es4.$$get(Token, null, null, 'SpaceTokenType'):
+					case $es4.$$get(Token, null, null, 'NewLineTokenType'):
+						if (includeLevel != 1)
+						{
+							break;
+						}
+					default:
+						(ahead > 0) ? ahead-- : ahead++;
+						if (!ahead)
+						{
+							if (keywordStrictMode)
+							{
+								return token;
+							}
+							if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'StaticTokenType'))
+							{
+								token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'IdentifierTokenType'), 'static']);
+							}
+							return token;
+						}
+				}
+			}
+			return null;
+		}
+;
+
+		function error($$$$string, $$$$token) 
+		{
+			//set default parameter values
+			var string = $$$$string;
+			var token = $$$$token;
+
+			var i = (index - 25) < 25 ? 0 : index - 25;
+			for (i; i <= index; i++)
+			{
+				trace($es4.$$get(tokens, null, null, i, 'line') + ' : ' + $es4.$$get(tokens, null, null, i, 'position') + ' : ' + $es4.$$get(tokens, null, null, i, 'type') + ' => ' + $es4.$$get(tokens, null, null, i, 'data'));
+			}
+			if (token)
+			{
+				return $es4.$$primitive(new (Error)(string + ' token type ' + $es4.$$get(token, null, null, 'type') + ' found on line ' + $es4.$$get(token, null, null, 'line') + ', at position ' + $es4.$$get(token, null, null, 'position')));
+			}
+			else
+			{
+				return $es4.$$primitive(new (Error)(string));
+			}
+		}
+;
+
+		if ($es4.$$get(statementImportConstructs, null, null, 'length'))
+		{
+			$es4.$$set(rootConstruct, null, null, 'packageConstruct', 'importConstructs', $es4.$$call(rootConstruct, null, null, 'packageConstruct', 'importConstructs', 'concat', [statementImportConstructs]), '=');
+		}
+		return rootConstruct;
+	}));
+
+	function Parser()
+	{
+		//initialize class if not initialized
+		if (Parser.$$cinit !== undefined) Parser.$$cinit();
+
+		//save scope
+		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
+		var $$thisp = this;
+
+		//handle possible cast
+		if ($$this === $$thisp && (!($$this instanceof Parser) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Parser) : $es4.$$throwArgumentError();
+		Object.defineProperty($$this, '$$t', {value:1});
+
+		//constructor
+		$es4.$$constructor($$thisp, (function ()
+		{
+		}));
+
+		//call construct if no arguments, or argument zero does not equal manual construct
+		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
+		{
+			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
+
+			$es4.$$construct($$this, $$args);
+		}
+	}
+
+	return $es4.$$class(Parser, null, 'sweetrush.core::Parser');
+})();
+//sweetrush.core.Parser
+
+
 //sweetrush.core.TranslatorProto
 $es4.$$package('sweetrush.core').TranslatorProto = (function ()
 {
 	//imports
 	var Construct;
 	var Token;
-	var Analyzer;
-	var Transcompiler;
-	var Parser;
-	var Token;
-	var Lexer;
-	var TranslatorProto;
-	var FileUtil;
-	var Base64Util;
-	var JsonUtil;
-	var Construct;
 	var SwcUtil;
+	var Transcompiler;
 	var TranslatorPrototype;
+	var Parser;
+	var Lexer;
+	var Base64Util;
+	var Construct;
+	var JsonUtil;
+	var FileUtil;
+	var TranslatorProto;
+	var Token;
+	var Analyzer;
 
 	//class initializer
 	TranslatorProto.$$cinit = (function ()
@@ -6829,15 +7141,15 @@ $es4.$$package('sweetrush.core').TranslatorProto = (function ()
 		//initialize imports
 		Construct = $es4.$$['sweetrush.obj'].Construct;
 		Token = $es4.$$['sweetrush.obj'].Token;
-		Analyzer = $es4.$$['sweetrush.core'].Analyzer;
+		SwcUtil = $es4.$$['sweetrush.utils'].SwcUtil;
 		Transcompiler = $es4.$$['sweetrush'].Transcompiler;
+		TranslatorPrototype = $es4.$$['sweetrush.core'].TranslatorPrototype;
 		Parser = $es4.$$['sweetrush.core'].Parser;
 		Lexer = $es4.$$['sweetrush.core'].Lexer;
-		FileUtil = $es4.$$['sweetrush.utils'].FileUtil;
 		Base64Util = $es4.$$['sweetrush.utils'].Base64Util;
 		JsonUtil = $es4.$$['sweetrush.utils'].JsonUtil;
-		SwcUtil = $es4.$$['sweetrush.utils'].SwcUtil;
-		TranslatorPrototype = $es4.$$['sweetrush.core'].TranslatorPrototype;
+		FileUtil = $es4.$$['sweetrush.utils'].FileUtil;
+		Analyzer = $es4.$$['sweetrush.core'].Analyzer;
 	});
 
 	//method
@@ -9729,653 +10041,74 @@ $es4.$$package('sweetrush.core').TranslatorProto = (function ()
 //sweetrush.core.TranslatorProto
 
 
-//sweetrush.obj.Construct
-$es4.$$package('sweetrush.obj').Construct = (function ()
+//sweetrush.utils.Base64Util
+$es4.$$package('sweetrush.utils').Base64Util = (function ()
 {
-	//properties
-	Construct.Expression = 'Expression';
-	Construct.EmptyExpression = 'EmptyExpression';
-	Construct.BinaryExpression = 'BinaryExpression';
-	Construct.ObjectExpression = 'ObjectExpression';
-	Construct.ArrayExpression = 'ArrayExpression';
-	Construct.NewExpression = 'NewExpression';
-	Construct.PropertyExpression = 'PropertyExpression';
-	Construct.IdentifierConstruct = 'IdentifierConstruct';
-	Construct.NamespaceQualifierConstruct = 'NamespaceQualifierConstruct';
-	Construct.AtIdentifierConstruct = 'AtIdentifierConstruct';
-	Construct.DotConstruct = 'DotConstruct';
-	Construct.SuperConstruct = 'SuperConstruct';
-	Construct.ThisConstruct = 'ThisConstruct';
-	Construct.E4XSearchConstruct = 'E4XSearchConstruct';
-	Construct.ArrayAccessorConstruct = 'ArrayAccessorConstruct';
-	Construct.VectorConstruct = 'VectorConstruct';
-	Construct.TypeConstruct = 'TypeConstruct';
-	Construct.ParenConstruct = 'ParenConstruct';
-	Construct.ObjectConstruct = 'ObjectConstruct';
-	Construct.ArrayConstruct = 'ArrayConstruct';
-	Construct.TernaryExpression = 'TernaryExpression';
-	Construct.RegExpression = 'RegExpression';
-	Construct.ParenExpression = 'ParenExpression';
-	Construct.BooleanExpression = 'BooleanExpression';
-	Construct.NumberExpression = 'NumberExpression';
-	Construct.PrefixExpression = 'PrefixExpression';
-	Construct.PostfixExpression = 'PostfixExpression';
-	Construct.StringExpression = 'StringExpression';
-	Construct.FunctionExpression = 'FunctionExpression';
-	Construct.FunctionCallConstruct = 'FunctionCallConstruct';
-	Construct.RootConstruct = 'RootConstruct';
-	Construct.PackageConstruct = 'PackageConstruct';
-	Construct.ClassConstruct = 'ClassConstruct';
-	Construct.InterfaceConstruct = 'InterfaceConstruct';
-	Construct.NameConstruct = 'NameConstruct';
-	Construct.ImportConstruct = 'ImportConstruct';
-	Construct.UseConstruct = 'UseConstruct';
-	Construct.UseStatement = 'UseStatement';
-	Construct.ForEachStatement = 'ForEachStatement';
-	Construct.ReturnExpression = 'ReturnExpression';
-	Construct.DeleteExpression = 'DeleteExpression';
-	Construct.XMLExpression = 'XMLExpression';
-	Construct.XMLListExpression = 'XMLListExpression';
-	Construct.ForStatement = 'ForStatement';
-	Construct.ForInStatement = 'ForInStatement';
-	Construct.LabelStatement = 'LabelStatement';
-	Construct.WhileStatement = 'WhileStatement';
-	Construct.DoWhileStatement = 'DoWhileStatement';
-	Construct.IfStatement = 'IfStatement';
-	Construct.ElseIfStatement = 'ElseIfStatement';
-	Construct.ElseStatement = 'ElseStatement';
-	Construct.EmptyStatement = 'EmptyStatement';
-	Construct.TryStatement = 'TryStatement';
-	Construct.CatchStatement = 'CatchStatement';
-	Construct.FinallyStatement = 'FinallyStatement';
-	Construct.BreakStatement = 'BreakStatement';
-	Construct.ContinueStatement = 'ContinueStatement';
-	Construct.ThrowStatement = 'ThrowStatement';
-	Construct.SwitchStatement = 'SwitchStatement';
-	Construct.CaseStatement = 'CaseStatement';
-	Construct.VarStatement = 'VarStatement';
-	Construct.MethodConstruct = 'MethodConstruct';
-	Construct.ObjectPropertyConstruct = 'ObjectPropertyConstruct';
-	Construct.ParameterConstruct = 'ParameterConstruct';
-	Construct.PropertyConstruct = 'PropertyConstruct';
-	Construct.MetaDataConstruct = 'MetaDataConstruct';
+	//imports
+	var ByteArray;
 
 	//class initializer
-	Construct.$$cinit = (function ()
+	Base64Util.$$cinit = (function ()
 	{
-		Construct.$$cinit = undefined;
+		Base64Util.$$cinit = undefined;
 
+		//initialize imports
+		ByteArray = $es4.$$['flash.utils'].ByteArray;
 	});
 
 	//method
-	$es4.$$public_function('getNewExpression', Construct, (function ($$$$token, $$$$expression)
+	$es4.$$public_function('encodeString', Base64Util, (function ($$$$value)
 	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+		if (Base64Util.$$cinit !== undefined) Base64Util.$$cinit();
 
 		//set default parameter values
-		var token = $$$$token;
-		var expression = (1 > arguments.length - 1) ? null : $$$$expression;
+		var value = $es4.$$coerce($$$$value, String);
 
-		return {constructor:$es4.$$get(Construct, null, null, 'Expression'), token:token, expression:expression};
-	}));
-
-	//method
-	$es4.$$public_function('getNewEmptyExpression', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'EmptyExpression')};
-	}));
-
-	//method
-	$es4.$$public_function('getNewBinaryExpression', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'BinaryExpression'), token:null, leftExpression:null, rightExpression:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewObjectExpression', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'ObjectExpression'), objectPropertyConstructs:[]};
-	}));
-
-	//method
-	$es4.$$public_function('getNewArrayExpression', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'ArrayExpression'), valueExpressions:[]};
-	}));
-
-	//method
-	$es4.$$public_function('getNewNewExpression', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'NewExpression'), expression:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewPropertyExpression', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'PropertyExpression'), construct:null, nextPropertyExpression:null, root:false};
-	}));
-
-	//method
-	$es4.$$public_function('getNewIdentifierConstruct', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'IdentifierConstruct'), identifierToken:null, identifer:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewNamespaceQualifierConstruct', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'NamespaceQualifierConstruct'), namespaceQualifierToken:null, identifierToken:null, namespaceIdentifierToken:null, namespaceIdentifier:null, identifer:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewAtIdentifierConstruct', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'AtIdentifierConstruct')};
-	}));
-
-	//method
-	$es4.$$public_function('getNewDotConstruct', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'DotConstruct'), identifierToken:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewSuperConstruct', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'SuperConstruct'), superToken:null, identifer:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewThisConstruct', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'ThisConstruct'), thisToken:null, identifer:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewE4XSearchConstruct', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'E4XSearchConstruct'), expression:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewArrayAccessorConstruct', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'ArrayAccessorConstruct'), expression:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewVectorConstruct', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'VectorConstruct'), nameConstruct:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewTypeConstruct', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'TypeConstruct'), mulToken:null, voidToken:null, nameConstruct:null, vectorNameConstruct:null, identifer:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewParenConstruct', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'ParenConstruct'), expression:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewObjectConstruct', Construct, (function ($$$$expression)
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		//set default parameter values
-		var expression = $$$$expression;
-
-		return {constructor:$es4.$$get(Construct, null, null, 'ObjectConstruct'), expression:expression};
-	}));
-
-	//method
-	$es4.$$public_function('getNewArrayConstruct', Construct, (function ($$$$expression)
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		//set default parameter values
-		var expression = $$$$expression;
-
-		return {constructor:$es4.$$get(Construct, null, null, 'ArrayConstruct'), expression:expression};
-	}));
-
-	//method
-	$es4.$$public_function('getNewTernaryExpression', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'TernaryExpression'), conditionExpression:null, trueExpression:null, falseExpression:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewRegExpression', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'RegExpression'), string:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewParenExpression', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'ParenExpression'), expression:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewBooleanExpression', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'BooleanExpression'), booleanToken:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewNumberExpression', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'NumberExpression'), numberToken:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewPrefixExpression', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'PrefixExpression'), incrementToken:null, decrementToken:null, expression:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewPostfixExpression', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'PostfixExpression'), incrementToken:null, decrementToken:null, expression:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewStringExpression', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'StringExpression'), stringToken:null, stringChunkTokens:[], stringEndToken:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewFunctionExpression', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'FunctionExpression'), identifierToken:null, parameterConstructs:[], typeConstruct:null, bodyStatements:[], namedFunctionExpressions:[], identifer:null, type:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewFunctionCallConstruct', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'FunctionCallConstruct'), argumentExpressions:[]};
-	}));
-
-	//method
-	$es4.$$public_function('getNewRootConstruct', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'RootConstruct'), classConstructs:[], interfaceConstructs:[], methodConstructs:[], propertyConstructs:[], importConstructs:[], packageConstruct:null, namespacePropertyConstructs:[], instancePropertyConstructs:[], staticPropertyConstructs:[], instanceMethodConstructs:[], staticMethodConstructs:[], instanceAccessorConstructs:[], staticAccessorConstructs:[]};
-	}));
-
-	//method
-	$es4.$$public_function('getNewPackageConstruct', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'PackageConstruct'), nameConstruct:null, classConstruct:null, importConstructs:[], interfaceConstruct:null, methodConstruct:null, propertyConstruct:null, rootConstruct:null, useConstructs:[]};
-	}));
-
-	//method
-	$es4.$$public_function('getNewClassConstruct', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'ClassConstruct'), identifierToken:null, extendsNameConstruct:null, importConstructs:[], initializerStatements:[], implementsNameConstructs:[], metaDataConstructs:[], constructorMethodConstruct:null, propertyConstructs:[], methodConstructs:[], isInternal:false, packageConstruct:null, rootConstruct:null, dynamicToken:null, useConstructs:[], UNIMPLEMENTEDToken:null, namespacePropertyConstructs:[], instancePropertyConstructs:[], staticPropertyConstructs:[], instanceMethodConstructs:[], staticMethodConstructs:[], instanceAccessorConstructs:[], staticAccessorConstructs:[], packageName:null, identifer:null, type:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewInterfaceConstruct', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'InterfaceConstruct'), identifierToken:null, extendsNameConstructs:[], methodConstructs:[], propertyConstructs:[], isInternal:false, packageConstruct:null, rootConstruct:null, packageName:null, identifer:null, type:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewNameConstruct', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'NameConstruct'), identifierTokens:[]};
-	}));
-
-	//method
-	$es4.$$public_function('nameConstructToString', Construct, (function ($$$$nameConstruct)
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		//set default parameter values
-		var nameConstruct = $$$$nameConstruct;
-
-		if ($es4.$$get(nameConstruct, null, null, 'identifierTokens', 'length') == 1)
+		if (false)
 		{
-			return $es4.$$get(nameConstruct, null, null, 'identifierTokens', 0, 'data');
 		}
-		var data = [];
-		for (var i = 0; i < $es4.$$get(nameConstruct, null, null, 'identifierTokens', 'length'); i++)
+		if (true)
 		{
-			$es4.$$call(data, null, null, 'push', [$es4.$$get(nameConstruct, null, null, 'identifierTokens', i, 'data')]);
+			if ($es4.$$get(global, null, null, 'btoa') !== undefined)
+			{
+				return $es4.$$coerce($es4.$$call(global, null, null, 'btoa', [value]), String);
+			}
+			return $es4.$$coerce($es4.$$call($es4.$$call(global, null, null, 'Buffer', 'from', [value]), null, null, 'toString', ['base64']), String);
 		}
-		return $es4.$$call(data, null, null, 'join', ['.']);
 	}));
 
 	//method
-	$es4.$$public_function('getNewImportConstruct', Construct, (function ()
+	$es4.$$public_function('decodeString', Base64Util, (function ($$$$str)
 	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+		if (Base64Util.$$cinit !== undefined) Base64Util.$$cinit();
 
-		return {constructor:$es4.$$get(Construct, null, null, 'ImportConstruct'), nameConstruct:null, mulToken:null};
+		//set default parameter values
+		var str = $es4.$$coerce($$$$str, String);
+
+		if (false)
+		{
+		}
+		if (true)
+		{
+			if ($es4.$$get(global, null, null, 'atob') !== undefined)
+			{
+				return $es4.$$coerce($es4.$$call(global, null, null, 'atob', [str]), String);
+			}
+			return $es4.$$coerce($es4.$$call($es4.$$call(global, null, null, 'Buffer', 'from', [str, 'base64']), null, null, 'toString', $es4.$$EMPTY_ARRAY), String);
+		}
 	}));
 
-	//method
-	$es4.$$public_function('getNewUseConstruct', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'UseConstruct'), useToken:null, namespaceIdentifierToken:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewUseStatement', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'UseStatement'), useToken:null, namespaceIdentifierToken:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewForEachStatement', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'ForEachStatement'), variableStatement:null, arrayExpression:null, bodyStatements:[], index:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewReturnExpression', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'ReturnExpression'), expression:null, type:null, expectedType:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewDeleteExpression', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'DeleteExpression'), expression:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewXMLExpression', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'XMLExpression'), string:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewXMLListExpression', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'XMLListExpression'), string:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewForStatement', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'ForStatement'), variableStatement:null, conditionExpression:null, afterthoughtExpression:null, bodyStatements:[]};
-	}));
-
-	//method
-	$es4.$$public_function('getNewForInStatement', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'ForInStatement'), variableStatement:null, objectExpression:null, bodyStatements:[], index:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewLabelStatement', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'LabelStatement'), identifierToken:null, identifer:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewWhileStatement', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'WhileStatement'), conditionExpression:null, bodyStatements:[]};
-	}));
-
-	//method
-	$es4.$$public_function('getNewDoWhileStatement', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'DoWhileStatement'), conditionExpression:null, bodyStatements:[]};
-	}));
-
-	//method
-	$es4.$$public_function('getNewIfStatement', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'IfStatement'), conditionExpression:null, bodyStatements:[], elseIfStatements:[], elseStatement:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewElseIfStatement', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'ElseIfStatement'), conditionExpression:null, bodyStatements:[]};
-	}));
-
-	//method
-	$es4.$$public_function('getNewElseStatement', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'ElseStatement'), bodyStatements:[]};
-	}));
-
-	//method
-	$es4.$$public_function('getNewEmptyStatement', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'EmptyStatement'), bodyStatements:[]};
-	}));
-
-	//method
-	$es4.$$public_function('getNewTryStatement', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'TryStatement'), bodyStatements:[], catchStatements:[], finallyStatement:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewCatchStatement', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'CatchStatement'), identifierToken:null, typeConstruct:null, bodyStatements:[], index:null, identifer:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewFinallyStatement', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'FinallyStatement'), bodyStatements:[]};
-	}));
-
-	//method
-	$es4.$$public_function('getNewBreakStatement', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'BreakStatement'), token:null, identifierToken:null, identifer:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewContinueStatement', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'ContinueStatement'), token:null, identifierToken:null, identifer:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewThrowStatement', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'ThrowStatement'), token:null, expression:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewSwitchStatement', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'SwitchStatement'), valueExpression:null, caseStatements:[]};
-	}));
-
-	//method
-	$es4.$$public_function('getNewCaseStatement', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'CaseStatement'), valueExpression:null, bodyStatements:[], defaultToken:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewVarStatement', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'VarStatement'), identifierToken:null, innerVarStatements:[], typeConstruct:null, valueExpression:null, identifer:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewMethodConstruct', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'MethodConstruct'), identifierToken:null, parameterConstructs:[], typeConstruct:null, bodyStatements:[], staticToken:null, overrideToken:null, namespaceToken:null, setToken:null, getToken:null, callsSuper:null, isNative:null, isJavaScript:null, javaScriptString:'', namedFunctionExpressions:[], isInternal:null, packageConstruct:null, rootConstruct:null, UNIMPLEMENTEDToken:null, identifer:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewObjectPropertyConstruct', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'ObjectPropertyConstruct'), expression:null, valueExpression:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewParameterConstruct', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'ParameterConstruct'), identifierToken:null, typeConstruct:null, valueExpression:null, restToken:null, identifer:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewPropertyConstruct', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'PropertyConstruct'), identifierToken:null, typeConstruct:null, namespaceToken:null, namespaceValueToken:null, namespaceKeywordToken:null, staticToken:null, constToken:null, valueExpression:null, isNative:null, isInternal:false, packageConstruct:null, rootConstruct:null, identifer:null};
-	}));
-
-	//method
-	$es4.$$public_function('getNewMetaDataConstruct', Construct, (function ()
-	{
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
-
-		return {constructor:$es4.$$get(Construct, null, null, 'MetaDataConstruct'), tokens:[]};
-	}));
-
-	function Construct()
+	function Base64Util()
 	{
 		//initialize class if not initialized
-		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+		if (Base64Util.$$cinit !== undefined) Base64Util.$$cinit();
 
 		//save scope
 		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
 		var $$thisp = this;
 
 		//handle possible cast
-		if ($$this === $$thisp && (!($$this instanceof Construct) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Construct) : $es4.$$throwArgumentError();
+		if ($$this === $$thisp && (!($$this instanceof Base64Util) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Base64Util) : $es4.$$throwArgumentError();
 		Object.defineProperty($$this, '$$t', {value:1});
 
 		//constructor
@@ -10392,9 +10125,650 @@ $es4.$$package('sweetrush.obj').Construct = (function ()
 		}
 	}
 
-	return $es4.$$class(Construct, null, 'sweetrush.obj::Construct');
+	return $es4.$$class(Base64Util, null, 'sweetrush.utils::Base64Util');
 })();
-//sweetrush.obj.Construct
+//sweetrush.utils.Base64Util
+
+
+//sweetrush.utils.FileUtil
+$es4.$$package('sweetrush.utils').FileUtil = (function ()
+{
+	//imports
+	var ByteArray;
+	var SwcUtil;
+	var Transcompiler;
+	var TranslatorPrototype;
+	var Parser;
+	var Lexer;
+	var Base64Util;
+	var Construct;
+	var JsonUtil;
+	var FileUtil;
+	var TranslatorProto;
+	var Token;
+	var Analyzer;
+
+	//properties
+	$es4.$$private_property('fs', FileUtil);
+	$es4.$$private_property('path', FileUtil);
+
+	//class initializer
+	FileUtil.$$cinit = (function ()
+	{
+		FileUtil.$$cinit = undefined;
+
+		//initialize imports
+		ByteArray = $es4.$$['flash.utils'].ByteArray;
+		SwcUtil = $es4.$$['sweetrush.utils'].SwcUtil;
+		Transcompiler = $es4.$$['sweetrush'].Transcompiler;
+		TranslatorPrototype = $es4.$$['sweetrush.core'].TranslatorPrototype;
+		Parser = $es4.$$['sweetrush.core'].Parser;
+		Lexer = $es4.$$['sweetrush.core'].Lexer;
+		Base64Util = $es4.$$['sweetrush.utils'].Base64Util;
+		Construct = $es4.$$['sweetrush.obj'].Construct;
+		JsonUtil = $es4.$$['sweetrush.utils'].JsonUtil;
+		TranslatorProto = $es4.$$['sweetrush.core'].TranslatorProto;
+		Token = $es4.$$['sweetrush.obj'].Token;
+		Analyzer = $es4.$$['sweetrush.core'].Analyzer;
+
+		//initialize properties
+		FileUtil.fs = require('fs');
+		FileUtil.path = require('path');
+	});
+
+	//method
+	$es4.$$public_function('getBasePath', FileUtil, (function ()
+	{
+		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
+
+		if (true)
+		{
+			return $es4.$$call(FileUtil, null, null, 'path', 'join', [__dirname, '../../../', 'as3-js']);
+		}
+		if (false)
+		{
+		}
+	}));
+
+	//method
+	$es4.$$public_function('getExcludedPath', FileUtil, (function ()
+	{
+		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
+
+		if (true)
+		{
+			return $es4.$$call(FileUtil, null, null, 'path', 'join', [__dirname, '../../../', 'as3-js', '_excluded']);
+		}
+		if (false)
+		{
+		}
+	}));
+
+	//method
+	$es4.$$public_function('resolvePath', FileUtil, (function ($$$$src, $$$$append)
+	{
+		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
+
+		//set default parameter values
+		var src = $$$$src;
+		var append = $$$$append;
+
+		if (true)
+		{
+			return $es4.$$call(FileUtil, null, null, 'fixPath', [$es4.$$call(FileUtil, null, null, 'path', 'join', [src, append])]);
+		}
+		if (false)
+		{
+		}
+	}));
+
+	//method
+	$es4.$$public_function('read', FileUtil, (function ($$$$file)
+	{
+		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
+
+		//set default parameter values
+		var file = $$$$file;
+
+		if (false)
+		{
+		}
+		if (true)
+		{
+			return $es4.$$call($es4.$$call(FileUtil, null, null, 'fs', 'readFileSync', [file, 'utf8']), null, null, 'replace', [/^\uFEFF/, '']);
+		}
+	}));
+
+	//method
+	$es4.$$public_function('write', FileUtil, (function ($$$$file, $$$$contents)
+	{
+		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
+
+		//set default parameter values
+		var file = $$$$file;
+		var contents = $$$$contents;
+
+		if (false)
+		{
+		}
+		if (true)
+		{
+			$es4.$$call(FileUtil, null, null, 'fs', 'writeFileSync', [file, contents, 'utf8']);
+		}
+	}));
+
+	//method
+	$es4.$$public_function('readDirectory', FileUtil, (function ($$$$directory)
+	{
+		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
+
+		//set default parameter values
+		var directory = $$$$directory;
+
+		if (false)
+		{
+		}
+		if (true)
+		{
+			var files = $es4.$$coerce($es4.$$call(FileUtil, null, null, 'fs', 'readdirSync', [directory]), Array);
+			for (var i = 0; i < $es4.$$get(files, null, null, 'length'); i++)
+			{
+				$es4.$$set(files, null, null, i, directory + '/' + $es4.$$get(files, null, null, i), '=');
+			}
+			return files;
+		}
+	}));
+
+	//method
+	$es4.$$public_function('fixPath', FileUtil, (function ($$$$path)
+	{
+		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
+
+		//set default parameter values
+		var path = $$$$path;
+
+		return $es4.$$call($es4.$$call($es4.$$call($es4.$$call(path, null, null, 'split', ['\\\\']), null, null, 'join', ['/']), null, null, 'split', ['\\']), null, null, 'join', ['/']);
+	}));
+
+	//method
+	$es4.$$public_function('exists', FileUtil, (function ($$$$file)
+	{
+		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
+
+		//set default parameter values
+		var file = $$$$file;
+
+		if (false)
+		{
+		}
+		if (true)
+		{
+			return $es4.$$call(FileUtil, null, null, 'fs', 'existsSync', [file]);
+		}
+	}));
+
+	//method
+	$es4.$$public_function('getList', FileUtil, (function ($$$$path, $$$$recursive, $$$$filter)
+	{
+		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
+
+		//set default parameter values
+		var path = $$$$path;
+		var recursive = $$$$recursive;
+		var filter = $$$$filter;
+
+		var returnList = innerGetList(path, recursive, filter, path);
+		$es4.$$set(returnList, null, null, 'basepath', $es4.$$call(FileUtil, null, null, 'fixPath', [path]), '=');
+		return returnList;
+
+		function innerGetList($$$$path, $$$$recursive, $$$$filter, $$$$basePath) 
+		{
+			//set default parameter values
+			var path = $$$$path;
+			var recursive = $$$$recursive;
+			var filter = $$$$filter;
+			var basePath = $$$$basePath;
+
+			path = $es4.$$call(FileUtil, null, null, 'fixPath', [path]);
+			basePath = $es4.$$call(FileUtil, null, null, 'fixPath', [basePath]);
+			var file = $es4.$$primitive(new (VFile)(path));
+			var list = $es4.$$call(file, null, null, 'listFiles', $es4.$$EMPTY_ARRAY);
+			var returnList = $es4.$$primitive(new (Array)());
+			for (var i = 0; i < $es4.$$get(list, null, null, 'length'); i++)
+			{
+				file = $es4.$$get(list, null, null, i);
+				var result = filter(file, basePath);
+				if (result)
+				{
+					$es4.$$call(returnList, null, null, 'push', [result]);
+				}
+				if ($es4.$$call(file, null, null, 'isDirectory', $es4.$$EMPTY_ARRAY) && recursive)
+				{
+					var innerList = innerGetList($es4.$$get(file, null, null, 'src'), recursive, filter, basePath);
+					returnList = $es4.$$call(returnList, null, null, 'concat', [innerList]);
+				}
+			}
+			return returnList;
+		}
+;
+	}));
+
+	//method
+	$es4.$$public_function('filterList', FileUtil, (function ($$$$list, $$$$filter)
+	{
+		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
+
+		//set default parameter values
+		var list = $$$$list;
+		var filter = $$$$filter;
+
+		var returnList = [];
+		$es4.$$set(returnList, null, null, 'basepath', $es4.$$get(list, null, null, 'basepath'), '=');
+		for (var i = 0; i < $es4.$$get(list, null, null, 'length'); i++)
+		{
+			var file = filter($es4.$$get(list, null, null, i), $es4.$$get(list, null, null, 'basepath'));
+			if (!file)
+			{
+				continue;
+			}
+			$es4.$$call(returnList, null, null, 'push', [file]);
+		}
+		return returnList;
+	}));
+
+	//method
+	$es4.$$public_function('getListFilter_none', FileUtil, (function ()
+	{
+		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
+
+		function filter($$$$file, $$$$basePath) 
+		{
+			//set default parameter values
+			var file = $$$$file;
+			var basePath = $$$$basePath;
+
+			return file;
+		}
+;
+
+		return filter;
+	}));
+
+	//method
+	$es4.$$public_function('getListFilter_hidden', FileUtil, (function ()
+	{
+		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
+
+		function filter($$$$file, $$$$basePath) 
+		{
+			//set default parameter values
+			var file = $$$$file;
+			var basePath = $$$$basePath;
+
+			return $es4.$$call(file, null, null, 'isHidden', $es4.$$EMPTY_ARRAY) ? null : file;
+		}
+;
+
+		return filter;
+	}));
+
+	//method
+	$es4.$$public_function('getListFilter_extension', FileUtil, (function ($$$$extension, $$$$include_)
+	{
+		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
+
+		//set default parameter values
+		var extension = $$$$extension;
+		var include_ = $$$$include_;
+
+		extension = '.' + extension;
+
+		function filter($$$$file, $$$$basePath) 
+		{
+			//set default parameter values
+			var file = $$$$file;
+			var basePath = $$$$basePath;
+
+			var result = $es4.$$call(file, null, null, 'src', 'slice', [-$es4.$$get(extension, null, null, 'length')]);
+			if (result == extension)
+			{
+				return (include_) ? file : null;
+			}
+			return (include_) ? null : file;
+		}
+;
+
+		return filter;
+	}));
+
+	//method
+	$es4.$$public_function('getListFilter_name', FileUtil, (function ($$$$name, $$$$include_)
+	{
+		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
+
+		//set default parameter values
+		var name = $$$$name;
+		var include_ = $$$$include_;
+
+		function filter($$$$file, $$$$basePath) 
+		{
+			//set default parameter values
+			var file = $$$$file;
+			var basePath = $$$$basePath;
+
+			var result = $es4.$$call($es4.$$call($es4.$$call(FileUtil, null, null, 'fixPath', [$es4.$$get(file, null, null, 'src')]), null, null, 'split', ['/']), null, null, 'pop', $es4.$$EMPTY_ARRAY);
+			if (result == name)
+			{
+				return (include_) ? file : null;
+			}
+			return (include_) ? null : file;
+		}
+;
+
+		return filter;
+	}));
+
+	//method
+	$es4.$$public_function('getListFilter_directories', FileUtil, (function ()
+	{
+		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
+
+		function filter($$$$file, $$$$basePath) 
+		{
+			//set default parameter values
+			var file = $$$$file;
+			var basePath = $$$$basePath;
+
+			if ($es4.$$call(file, null, null, 'isDirectory', $es4.$$EMPTY_ARRAY))
+			{
+				return null;
+			}
+			return file;
+		}
+;
+
+		return filter;
+	}));
+
+	//method
+	$es4.$$public_function('getListFilter_directory', FileUtil, (function ($$$$path)
+	{
+		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
+
+		//set default parameter values
+		var path = $$$$path;
+
+		path = $es4.$$call(FileUtil, null, null, 'fixPath', [path]);
+
+		function filter($$$$file, $$$$basePath) 
+		{
+			//set default parameter values
+			var file = $$$$file;
+			var basePath = $$$$basePath;
+
+			basePath = $es4.$$call(FileUtil, null, null, 'fixPath', [basePath]);
+			if ($es4.$$call($es4.$$call(FileUtil, null, null, 'fixPath', [$es4.$$get(file, null, null, 'src')]), null, null, 'indexOf', [path]) == 0)
+			{
+				return null;
+			}
+			return file;
+		}
+;
+
+		return filter;
+	}));
+
+	//method
+	$es4.$$public_function('getListFilter_list', FileUtil, (function ($$$$list)
+	{
+		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
+
+		//set default parameter values
+		var list = $$$$list;
+
+		function filter($$$$file, $$$$basePath) 
+		{
+			//set default parameter values
+			var file = $$$$file;
+			var basePath = $$$$basePath;
+
+			basePath = $es4.$$call(FileUtil, null, null, 'fixPath', [basePath]);
+			var compare1 = $es4.$$get($es4.$$call($es4.$$call(FileUtil, null, null, 'fixPath', [$es4.$$get(file, null, null, 'src')]), null, null, 'split', [basePath]), null, null, 1);
+			for (var i = 0; i < $es4.$$get(list, null, null, 'length'); i++)
+			{
+				var compare2 = $es4.$$get($es4.$$call($es4.$$call(FileUtil, null, null, 'fixPath', [$es4.$$get(list, null, null, i, 'src')]), null, null, 'split', [$es4.$$call(FileUtil, null, null, 'fixPath', [$es4.$$get(list, null, null, 'basepath')])]), null, null, 1);
+				if (compare1 == compare2)
+				{
+					return null;
+				}
+			}
+			return file;
+		}
+;
+
+		return filter;
+	}));
+
+	//method
+	$es4.$$public_function('getListFilter_filters', FileUtil, (function ($$$$filters)
+	{
+		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
+
+		//set default parameter values
+		var filters = $$$$filters;
+
+		function filter($$$$file, $$$$basePath) 
+		{
+			//set default parameter values
+			var file = $$$$file;
+			var basePath = $$$$basePath;
+
+			for (var i = 0; i < $es4.$$get(filters, null, null, 'length'); i++)
+			{
+				var result = $es4.$$get(filters, null, null, i)(file, basePath);
+				if (!result)
+				{
+					return null;
+				}
+			}
+			return file;
+		}
+;
+
+		return filter;
+	}));
+
+	function FileUtil()
+	{
+		//initialize class if not initialized
+		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
+
+		//save scope
+		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
+		var $$thisp = this;
+
+		//handle possible cast
+		if ($$this === $$thisp && (!($$this instanceof FileUtil) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], FileUtil) : $es4.$$throwArgumentError();
+		Object.defineProperty($$this, '$$t', {value:1});
+
+		//constructor
+		$es4.$$constructor($$thisp, (function ()
+		{
+		}));
+
+		//call construct if no arguments, or argument zero does not equal manual construct
+		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
+		{
+			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
+
+			$es4.$$construct($$this, $$args);
+		}
+	}
+
+	////////////////INTERNAL CLASS////////////////
+	var VFile = (function ()
+	{
+		//imports
+		var FileUtil;
+
+		//properties
+		$es4.$$private_property('fs', VFile);
+		$es4.$$private_property('path', VFile);
+
+		//class initializer
+		VFile.$$cinit = (function ()
+		{
+			VFile.$$cinit = undefined;
+
+			//initialize imports
+			FileUtil = $es4.$$['sweetrush.utils'].FileUtil;
+
+			//initialize properties
+			VFile.fs = require('fs');
+			VFile.path = require('path');
+		});
+
+		function VFile()
+		{
+			//initialize class if not initialized
+			if (VFile.$$cinit !== undefined) VFile.$$cinit();
+
+			//save scope
+			var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
+			var $$thisp = this;
+
+			//handle possible cast
+			if ($$this === $$thisp && (!($$this instanceof VFile) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], VFile) : $es4.$$throwArgumentError();
+			Object.defineProperty($$this, '$$t', {value:1});
+
+			//properties
+			$es4.$$public_property('src', $$thisp, String);
+
+			//constructor
+			$es4.$$constructor($$thisp, (function ($$$$src)
+			{
+				//set default parameter values
+				var src = $$$$src;
+
+				if (true)
+				{
+					$es4.$$set($$this, $$this, $$thisp, 'src', $es4.$$call(FileUtil, $$this, $$thisp, 'fixPath', [$es4.$$call(VFile, $$this, $$thisp, 'path', 'normalize', [src])]), '=');
+				}
+				if (false)
+				{
+				}
+			}));
+
+			//method
+			$es4.$$public_function('listFiles', $$thisp, (function ()
+			{
+				function getFiles($$$$dir, $$$$files_) 
+				{
+					//set default parameter values
+					var dir = $$$$dir;
+					var files_ = $$$$files_;
+
+					files_ = files_ || [];
+					var files = $es4.$$call(FileUtil, $$this, $$thisp, 'readDirectory', [dir]);
+					for (var $$i0 = (files || $es4.$$EMPTY_OBJECT).$$nextNameIndex(0); $$i0 != 0; $$i0 = files.$$nextNameIndex($$i0))
+					{
+						var i = files.$$nextName($$i0);
+
+						var name = $es4.$$get(files, $$this, $$thisp, i);
+						if ($es4.$$call($es4.$$primitive(new (VFile)(name)), $$this, $$thisp, 'isDirectory', $es4.$$EMPTY_ARRAY))
+						{
+							getFiles(name, files_);
+						}
+						else
+						{
+							$es4.$$call(files_, $$this, $$thisp, 'push', [$es4.$$primitive(new (VFile)(name))]);
+						}
+					}
+					return files_;
+				}
+;
+
+				return getFiles($es4.$$get($$this, $$this, $$thisp, 'src'), []);
+			}));
+
+			//method
+			$es4.$$public_function('getPath', $$thisp, (function ()
+			{
+				if (false)
+				{
+				}
+				if (true)
+				{
+					return $es4.$$call($es4.$$call($es4.$$call(VFile, $$this, $$thisp, 'path', 'dirname', [$es4.$$get($$this, $$this, $$thisp, 'src')]), $$this, $$thisp, 'split', ['/']), $$this, $$thisp, 'pop', $es4.$$EMPTY_ARRAY);
+				}
+			}));
+
+			//method
+			$es4.$$public_function('getParent', $$thisp, (function ()
+			{
+				if (false)
+				{
+				}
+				if (true)
+				{
+					return $es4.$$call($es4.$$call($es4.$$call(VFile, $$this, $$thisp, 'path', 'dirname', [$es4.$$get($$this, $$this, $$thisp, 'src')]), $$this, $$thisp, 'split', ['/']), $$this, $$thisp, 'pop', $es4.$$EMPTY_ARRAY);
+				}
+			}));
+
+			//method
+			$es4.$$public_function('isHidden', $$thisp, (function ()
+			{
+				var parts = $es4.$$call($$this, $$this, $$thisp, 'src', 'split', ['/']);
+				if (!$es4.$$call($$this, $$this, $$thisp, 'isDirectory', $es4.$$EMPTY_ARRAY))
+				{
+					$es4.$$call(parts, $$this, $$thisp, 'pop', $es4.$$EMPTY_ARRAY);
+				}
+				var src = $es4.$$call(parts, $$this, $$thisp, 'join', ['/']);
+				return $es4.$$call(src, $$this, $$thisp, 'indexOf', ['/.']) !== -1;
+			}));
+
+			//method
+			$es4.$$public_function('equals', $$thisp, (function ($$$$file)
+			{
+				//set default parameter values
+				var file = $$$$file;
+
+				return $es4.$$get($$this, $$this, $$thisp, 'src') == $es4.$$get(file, $$this, $$thisp, 'src');
+			}));
+
+			//method
+			$es4.$$public_function('isDirectory', $$thisp, (function ()
+			{
+				if (false)
+				{
+				}
+				if (true)
+				{
+					return $es4.$$call($es4.$$call(VFile, $$this, $$thisp, 'fs', 'statSync', [$es4.$$get($$this, $$this, $$thisp, 'src')]), $$this, $$thisp, 'isDirectory', $es4.$$EMPTY_ARRAY);
+				}
+			}));
+
+			//method
+			$es4.$$public_function('toString', $$thisp, (function ()
+			{
+				return $es4.$$get($$this, $$this, $$thisp, 'src');
+			}));
+
+			//call construct if no arguments, or argument zero does not equal manual construct
+			if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
+			{
+				for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
+
+				$es4.$$construct($$this, $$args);
+			}
+		}
+
+		return $es4.$$class(VFile, null, 'VFile');
+	})();
+
+	return $es4.$$class(FileUtil, {CLASSES:[VFile]}, 'sweetrush.utils::FileUtil');
+})();
+//sweetrush.utils.FileUtil
 
 
 //sweetrush.core.TranslatorPrototype
@@ -10403,18 +10777,18 @@ $es4.$$package('sweetrush.core').TranslatorPrototype = (function ()
 	//imports
 	var Construct;
 	var Token;
-	var Analyzer;
-	var Transcompiler;
-	var Parser;
-	var Token;
-	var Lexer;
-	var TranslatorProto;
-	var FileUtil;
-	var Base64Util;
-	var JsonUtil;
-	var Construct;
 	var SwcUtil;
+	var Transcompiler;
 	var TranslatorPrototype;
+	var Parser;
+	var Lexer;
+	var Base64Util;
+	var Construct;
+	var JsonUtil;
+	var FileUtil;
+	var TranslatorProto;
+	var Token;
+	var Analyzer;
 
 	//class initializer
 	TranslatorPrototype.$$cinit = (function ()
@@ -10424,15 +10798,15 @@ $es4.$$package('sweetrush.core').TranslatorPrototype = (function ()
 		//initialize imports
 		Construct = $es4.$$['sweetrush.obj'].Construct;
 		Token = $es4.$$['sweetrush.obj'].Token;
-		Analyzer = $es4.$$['sweetrush.core'].Analyzer;
+		SwcUtil = $es4.$$['sweetrush.utils'].SwcUtil;
 		Transcompiler = $es4.$$['sweetrush'].Transcompiler;
 		Parser = $es4.$$['sweetrush.core'].Parser;
 		Lexer = $es4.$$['sweetrush.core'].Lexer;
-		TranslatorProto = $es4.$$['sweetrush.core'].TranslatorProto;
-		FileUtil = $es4.$$['sweetrush.utils'].FileUtil;
 		Base64Util = $es4.$$['sweetrush.utils'].Base64Util;
 		JsonUtil = $es4.$$['sweetrush.utils'].JsonUtil;
-		SwcUtil = $es4.$$['sweetrush.utils'].SwcUtil;
+		FileUtil = $es4.$$['sweetrush.utils'].FileUtil;
+		TranslatorProto = $es4.$$['sweetrush.core'].TranslatorProto;
+		Analyzer = $es4.$$['sweetrush.core'].Analyzer;
 	});
 
 	//method
@@ -13360,18 +13734,18 @@ $es4.$$package('sweetrush.core').Lexer = (function ()
 	//imports
 	var Transcompiler;
 	var Token;
-	var Analyzer;
-	var Transcompiler;
-	var Parser;
-	var Token;
-	var Lexer;
-	var TranslatorProto;
-	var FileUtil;
-	var Base64Util;
-	var JsonUtil;
-	var Construct;
 	var SwcUtil;
+	var Transcompiler;
 	var TranslatorPrototype;
+	var Parser;
+	var Lexer;
+	var Base64Util;
+	var Construct;
+	var JsonUtil;
+	var FileUtil;
+	var TranslatorProto;
+	var Token;
+	var Analyzer;
 
 	//properties
 	$es4.$$private_property('grammar', Lexer, Array);
@@ -13384,15 +13758,15 @@ $es4.$$package('sweetrush.core').Lexer = (function ()
 		//initialize imports
 		Transcompiler = $es4.$$['sweetrush'].Transcompiler;
 		Token = $es4.$$['sweetrush.obj'].Token;
-		Analyzer = $es4.$$['sweetrush.core'].Analyzer;
-		Parser = $es4.$$['sweetrush.core'].Parser;
-		TranslatorProto = $es4.$$['sweetrush.core'].TranslatorProto;
-		FileUtil = $es4.$$['sweetrush.utils'].FileUtil;
-		Base64Util = $es4.$$['sweetrush.utils'].Base64Util;
-		JsonUtil = $es4.$$['sweetrush.utils'].JsonUtil;
-		Construct = $es4.$$['sweetrush.obj'].Construct;
 		SwcUtil = $es4.$$['sweetrush.utils'].SwcUtil;
 		TranslatorPrototype = $es4.$$['sweetrush.core'].TranslatorPrototype;
+		Parser = $es4.$$['sweetrush.core'].Parser;
+		Base64Util = $es4.$$['sweetrush.utils'].Base64Util;
+		Construct = $es4.$$['sweetrush.obj'].Construct;
+		JsonUtil = $es4.$$['sweetrush.utils'].JsonUtil;
+		FileUtil = $es4.$$['sweetrush.utils'].FileUtil;
+		TranslatorProto = $es4.$$['sweetrush.core'].TranslatorProto;
+		Analyzer = $es4.$$['sweetrush.core'].Analyzer;
 
 		//initialize properties
 		Lexer.grammar = [$es4.$$get(Token, null, null, 'SpaceTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'EOSTokenType'), $es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'OpenBracketTokenType'), $es4.$$get(Token, null, null, 'ClosedBracketTokenType'), $es4.$$get(Token, null, null, 'OpenParenTokenType'), $es4.$$get(Token, null, null, 'ClosedParenTokenType'), $es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType'), $es4.$$get(Token, null, null, 'XMLTokenType'), $es4.$$get(Token, null, null, 'XMLCDATATokenType'), $es4.$$get(Token, null, null, 'EqualityTokenType'), $es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType'), $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType'), $es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType'), $es4.$$get(Token, null, null, 'BitwiseLeftShiftTokenType'), $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftTokenType'), $es4.$$get(Token, null, null, 'BitwiseRightShiftTokenType'), $es4.$$get(Token, null, null, 'RelationalTokenType'), $es4.$$get(Token, null, null, 'AddWithAssignmentTokenType'), $es4.$$get(Token, null, null, 'DivWithAssignmentTokenType'), $es4.$$get(Token, null, null, 'ModWithAssignmentTokenType'), $es4.$$get(Token, null, null, 'MulWithAssignmentTokenType'), $es4.$$get(Token, null, null, 'SubWithAssignmentTokenType'), $es4.$$get(Token, null, null, 'AssignmentTokenType'), $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType'), $es4.$$get(Token, null, null, 'ColonTokenType'), $es4.$$get(Token, null, null, 'CommaTokenType'), $es4.$$get(Token, null, null, 'BooleanTokenType'), $es4.$$get(Token, null, null, 'StringTokenType'), $es4.$$get(Token, null, null, 'AsTokenType'), $es4.$$get(Token, null, null, 'DeleteTokenType'), $es4.$$get(Token, null, null, 'IfTokenType'), $es4.$$get(Token, null, null, 'ElseTokenType'), $es4.$$get(Token, null, null, 'EachTokenType'), $es4.$$get(Token, null, null, 'ForTokenType'), $es4.$$get(Token, null, null, 'WhileTokenType'), $es4.$$get(Token, null, null, 'DoTokenType'), $es4.$$get(Token, null, null, 'TryTokenType'), $es4.$$get(Token, null, null, 'CatchTokenType'), $es4.$$get(Token, null, null, 'BreakTokenType'), $es4.$$get(Token, null, null, 'InTokenType'), $es4.$$get(Token, null, null, 'ContinueTokenType'), $es4.$$get(Token, null, null, 'DefaultTokenType'), $es4.$$get(Token, null, null, 'ConstTokenType'), $es4.$$get(Token, null, null, 'WithTokenType'), $es4.$$get(Token, null, null, 'FinallyTokenType'), $es4.$$get(Token, null, null, 'ThisTokenType'), $es4.$$get(Token, null, null, 'TypeofTokenType'), $es4.$$get(Token, null, null, 'NullTokenType'), $es4.$$get(Token, null, null, 'UndefinedTokenType'), $es4.$$get(Token, null, null, 'VoidTokenType'), $es4.$$get(Token, null, null, 'SuperTokenType'), $es4.$$get(Token, null, null, 'ReturnTokenType'), $es4.$$get(Token, null, null, 'ThrowTokenType'), $es4.$$get(Token, null, null, 'TernaryTokenType'), $es4.$$get(Token, null, null, 'ClassTokenType'), $es4.$$get(Token, null, null, 'ImportTokenType'), $es4.$$get(Token, null, null, 'ExtendsTokenType'), $es4.$$get(Token, null, null, 'ImplementsTokenType'), $es4.$$get(Token, null, null, 'OverrideTokenType'), $es4.$$get(Token, null, null, 'StaticTokenType'), $es4.$$get(Token, null, null, 'DynamicTokenType'), $es4.$$get(Token, null, null, 'InterfaceTokenType'), $es4.$$get(Token, null, null, 'FinalTokenType'), $es4.$$get(Token, null, null, 'NamespaceKeywordTokenType'), $es4.$$get(Token, null, null, 'NewTokenType'), $es4.$$get(Token, null, null, 'UseTokenType'), $es4.$$get(Token, null, null, 'CaseTokenType'), $es4.$$get(Token, null, null, 'FunctionTokenType'), $es4.$$get(Token, null, null, 'VarTokenType'), $es4.$$get(Token, null, null, 'NumberTokenType'), $es4.$$get(Token, null, null, 'AndWithAssignmentTokenType'), $es4.$$get(Token, null, null, 'OrWithAssignmentTokenType'), $es4.$$get(Token, null, null, 'AndTokenType'), $es4.$$get(Token, null, null, 'OrTokenType'), $es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType'), $es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType'), $es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType'), $es4.$$get(Token, null, null, 'BitwiseAndTokenType'), $es4.$$get(Token, null, null, 'BitwiseNotTokenType'), $es4.$$get(Token, null, null, 'BitwiseOrTokenType'), $es4.$$get(Token, null, null, 'BitwiseXorTokenType'), $es4.$$get(Token, null, null, 'AtTokenType'), $es4.$$get(Token, null, null, 'SwitchTokenType'), $es4.$$get(Token, null, null, 'DotDotTokenType'), $es4.$$get(Token, null, null, 'DotTokenType'), $es4.$$get(Token, null, null, 'NotTokenType'), $es4.$$get(Token, null, null, 'IncrementTokenType'), $es4.$$get(Token, null, null, 'DecrementTokenType'), $es4.$$get(Token, null, null, 'OpenBraceTokenType'), $es4.$$get(Token, null, null, 'ClosedBraceTokenType'), $es4.$$get(Token, null, null, 'PackageTokenType'), $es4.$$get(Token, null, null, 'IsTokenType'), $es4.$$get(Token, null, null, 'NaNTokenType'), $es4.$$get(Token, null, null, 'InstanceofTokenType'), $es4.$$get(Token, null, null, 'IdentifierTokenType'), $es4.$$get(Token, null, null, 'CommentTokenType'), $es4.$$get(Token, null, null, 'MultiLineCommentTokenType'), $es4.$$get(Token, null, null, 'AddTokenType'), $es4.$$get(Token, null, null, 'SubTokenType'), $es4.$$get(Token, null, null, 'RegExpTokenType'), $es4.$$get(Token, null, null, 'DivTokenType'), $es4.$$get(Token, null, null, 'MulTokenType'), $es4.$$get(Token, null, null, 'ModTokenType'), $es4.$$get(Token, null, null, 'UFOTokenType')];
@@ -13544,24 +13918,1031 @@ $es4.$$package('sweetrush.core').Lexer = (function ()
 //sweetrush.core.Lexer
 
 
+//sweetrush.utils.JsonUtil
+$es4.$$package('sweetrush.utils').JsonUtil = (function ()
+{
+	//class initializer
+	JsonUtil.$$cinit = (function ()
+	{
+		JsonUtil.$$cinit = undefined;
+
+	});
+
+	function JsonUtil()
+	{
+		//initialize class if not initialized
+		if (JsonUtil.$$cinit !== undefined) JsonUtil.$$cinit();
+
+		//save scope
+		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
+		var $$thisp = this;
+
+		//handle possible cast
+		if ($$this === $$thisp && (!($$this instanceof JsonUtil) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], JsonUtil) : $es4.$$throwArgumentError();
+		Object.defineProperty($$this, '$$t', {value:1});
+
+		//constructor
+		$es4.$$constructor($$thisp, (function ()
+		{
+		}));
+
+		//method
+		$es4.$$public_function('parse', $$thisp, (function ($$$$string)
+		{
+			//set default parameter values
+			var string = $es4.$$coerce($$$$string, String);
+
+			return $es4.$$get($es4.$$primitive(new (Hydrate)(string)), $$this, $$thisp, 'result');
+		}));
+
+		//method
+		$es4.$$public_function('stringify', $$thisp, (function ($$$$obj)
+		{
+			//set default parameter values
+			var obj = $$$$obj;
+
+			return $es4.$$coerce($es4.$$get($es4.$$primitive(new (Dehydrate)(obj)), $$this, $$thisp, 'result'), String);
+		}));
+
+		//call construct if no arguments, or argument zero does not equal manual construct
+		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
+		{
+			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
+
+			$es4.$$construct($$this, $$args);
+		}
+	}
+
+	////////////////INTERNAL CLASS////////////////
+	var Hydrate = (function ()
+	{
+		//imports
+		var getDefinitionByName;
+		var getQualifiedClassName;
+		var Dictionary;
+		var Base64Util;
+
+		//class initializer
+		Hydrate.$$cinit = (function ()
+		{
+			Hydrate.$$cinit = undefined;
+
+			//initialize imports
+			getDefinitionByName = $es4.$$['flash.utils'].getDefinitionByName;
+			getQualifiedClassName = $es4.$$['flash.utils'].getQualifiedClassName;
+			Dictionary = $es4.$$['flash.utils'].Dictionary;
+			Base64Util = $es4.$$['sweetrush.utils'].Base64Util;
+		});
+
+		function Hydrate()
+		{
+			//initialize class if not initialized
+			if (Hydrate.$$cinit !== undefined) Hydrate.$$cinit();
+
+			//save scope
+			var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
+			var $$thisp = this;
+
+			//handle possible cast
+			if ($$this === $$thisp && (!($$this instanceof Hydrate) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Hydrate) : $es4.$$throwArgumentError();
+			Object.defineProperty($$this, '$$t', {value:1});
+
+			//properties
+			$es4.$$private_property('_dehydratedObj', $$thisp, Object);
+			$es4.$$private_property('_hydratedIDs', $$thisp, Object);
+			$es4.$$private_property('_result', $$thisp, Object);
+
+			//constructor
+			$es4.$$constructor($$thisp, (function ($$$$string)
+			{
+				//set default parameter values
+				var string = $es4.$$coerce($$$$string, String);
+
+				if (!string)
+				{
+					return;
+				}
+				$es4.$$set($$thisp, $$this, $$thisp, '_dehydratedObj', $es4.$$call(JSON, $$this, $$thisp, 'parse', [string]) || {}, '=');
+				$es4.$$get($$thisp, $$this, $$thisp, '_dehydratedObj', 'dehydrated') || {};
+				$es4.$$set($$thisp, $$this, $$thisp, '_hydratedIDs', {}, '=');
+				$es4.$$set($$thisp, $$this, $$thisp, '_result', $es4.$$call($$thisp, $$this, $$thisp, 'hydrateObject', [$es4.$$get($$thisp, $$this, $$thisp, '_dehydratedObj', 'dehydrated'), $es4.$$get($$thisp, $$this, $$thisp, '_dehydratedObj', 'type')]), '=');
+			}));
+
+			//method
+			$es4.$$private_function('hydrateObject', $$thisp, (function ($$$$object, $$$$type)
+			{
+				//set default parameter values
+				var object = $es4.$$coerce($$$$object, Object);
+				var type = $es4.$$coerce($$$$type, String);
+
+				if ($es4.$$get($$thisp, $$this, $$thisp, '_hydratedIDs', $es4.$$get(object, $$this, $$thisp, 'id')) !== undefined)
+				{
+					return $es4.$$get($$thisp, $$this, $$thisp, '_hydratedIDs', $es4.$$get(object, $$this, $$thisp, 'id'));
+				}
+				var properties = null;
+				var propertyName = null;
+				var robject = type === 'array' ? [] : {};
+				$es4.$$set($$thisp, $$this, $$thisp, '_hydratedIDs', $es4.$$get(object, $$this, $$thisp, 'id'), robject, '=');
+				properties = $es4.$$get(object, $$this, $$thisp, 'p') || {};
+				for (var $$i0 = (properties || $es4.$$EMPTY_OBJECT).$$nextNameIndex(0); $$i0 != 0; $$i0 = properties.$$nextNameIndex($$i0))
+				{
+					propertyName = $es4.$$coerce(properties.$$nextName($$i0), String);
+
+					$es4.$$set(robject, $$this, $$thisp, propertyName, $es4.$$call($$thisp, $$this, $$thisp, 'getValueObject', [$es4.$$get(properties, $$this, $$thisp, propertyName)]), '=');
+				}
+				return robject;
+			}));
+
+			//method
+			$es4.$$private_function('getValueObject', $$thisp, (function ($$$$object)
+			{
+				//set default parameter values
+				var object = $$$$object;
+
+				if ($es4.$$is(object, String) && object == '__NaN__')
+				{
+					return $es4.$$coerce(NaN, Object);
+				}
+				if ($es4.$$is(object, String))
+				{
+					return $es4.$$call(Base64Util, $$this, $$thisp, 'decodeString', [object]);
+				}
+				if ($es4.$$is(object, Number) || $es4.$$is(object, Boolean) || object == null)
+				{
+					return object;
+				}
+				if ($es4.$$get(object, $$this, $$thisp, 'constructor') == Object)
+				{
+					if ($es4.$$get(object, $$this, $$thisp, 'r') !== undefined)
+					{
+						var id = $es4.$$coerce($es4.$$get(object, $$this, $$thisp, 'r'), String);
+						var obj = $es4.$$get($$thisp, $$this, $$thisp, '_dehydratedObj', 'o');
+						return $es4.$$call($$thisp, $$this, $$thisp, 'hydrateObject', [$es4.$$get(obj, $$this, $$thisp, id), $es4.$$get(obj, $$this, $$thisp, id, 'type')]);
+					}
+				}
+				throw $es4.$$primitive(new (Error)('unknown value type'));
+			}));
+
+			//accessor
+			$es4.$$public_accessor('result', $$thisp, (function ()
+			{
+				return $es4.$$get($$thisp, $$this, $$thisp, '_result');
+			}), null);
+
+			//call construct if no arguments, or argument zero does not equal manual construct
+			if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
+			{
+				for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
+
+				$es4.$$construct($$this, $$args);
+			}
+		}
+
+		return $es4.$$class(Hydrate, null, 'Hydrate');
+	})();
+
+	////////////////INTERNAL CLASS////////////////
+	var Dehydrate = (function ()
+	{
+		//imports
+		var getDefinitionByName;
+		var getQualifiedClassName;
+		var Dictionary;
+		var Base64Util;
+
+		//class initializer
+		Dehydrate.$$cinit = (function ()
+		{
+			Dehydrate.$$cinit = undefined;
+
+			//initialize imports
+			getDefinitionByName = $es4.$$['flash.utils'].getDefinitionByName;
+			getQualifiedClassName = $es4.$$['flash.utils'].getQualifiedClassName;
+			Dictionary = $es4.$$['flash.utils'].Dictionary;
+			Base64Util = $es4.$$['sweetrush.utils'].Base64Util;
+		});
+
+		function Dehydrate()
+		{
+			//initialize class if not initialized
+			if (Dehydrate.$$cinit !== undefined) Dehydrate.$$cinit();
+
+			//save scope
+			var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
+			var $$thisp = this;
+
+			//handle possible cast
+			if ($$this === $$thisp && (!($$this instanceof Dehydrate) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Dehydrate) : $es4.$$throwArgumentError();
+			Object.defineProperty($$this, '$$t', {value:1});
+
+			//properties
+			$es4.$$private_property('_dehydratedObjects', $$thisp, Object);
+			$es4.$$private_property('_dehydratedNodes', $$thisp, Dictionary);
+			$es4.$$private_property('_idCounter', $$thisp, int);
+			$es4.$$private_property('_result', $$thisp, String);
+
+			//initializer
+			$es4.$$iinit($$thisp, (function ()
+			{
+				//initialize properties
+				$es4.$$set($$this, $$this, $$thisp, '_dehydratedObjects', {}, '=');
+				$es4.$$set($$this, $$this, $$thisp, '_dehydratedNodes', $es4.$$primitive(new (Dictionary)()), '=');
+				$es4.$$set($$this, $$this, $$thisp, '_idCounter', 1, '=');
+			}));
+
+			//constructor
+			$es4.$$constructor($$thisp, (function ($$$$persistable)
+			{
+				//set default parameter values
+				var persistable = $$$$persistable;
+
+				var dehydrated = $es4.$$call($$thisp, $$this, $$thisp, 'dehydrateObject', [persistable]);
+				var obj = {};
+				$es4.$$set(obj, $$this, $$thisp, 'dehydrated', dehydrated, '=');
+				$es4.$$set(obj, $$this, $$thisp, 'type', $es4.$$is(persistable, Array) ? 'array' : 'object', '=');
+				$es4.$$set(obj, $$this, $$thisp, 'o', $es4.$$get($$thisp, $$this, $$thisp, '_dehydratedObjects'), '=');
+				$es4.$$set($$thisp, $$this, $$thisp, '_result', $es4.$$call(JSON, $$this, $$thisp, 'stringify', [obj]), '=');
+			}));
+
+			//method
+			$es4.$$private_function('dehydrateObject', $$thisp, (function ($$$$object)
+			{
+				//set default parameter values
+				var object = $es4.$$coerce($$$$object, Object);
+
+				var dehydrated = $es4.$$call($$thisp, $$this, $$thisp, 'getDehydrated', [object]);
+				if (dehydrated)
+				{
+					return dehydrated;
+				}
+				dehydrated = {};
+				$es4.$$set(dehydrated, $$this, $$thisp, 'id', $es4.$$call($$thisp, $$this, $$thisp, 'generateID', $es4.$$EMPTY_ARRAY), '=');
+				$es4.$$set(dehydrated, $$this, $$thisp, 'type', $es4.$$is(object, Array) ? 'array' : 'object', '=');
+				$es4.$$set($$thisp, $$this, $$thisp, '_dehydratedNodes', object, dehydrated, '=');
+				if ($es4.$$is(object, Array) || $es4.$$is($es4.$$typeof($es4.$$call(object, $$this, $$thisp, 'valueOf', $es4.$$EMPTY_ARRAY)), Object))
+				{
+					$es4.$$set($$thisp, $$this, $$thisp, '_dehydratedObjects', $es4.$$get(dehydrated, $$this, $$thisp, 'id'), dehydrated, '=');
+					for (var $$i1 = (object || $es4.$$EMPTY_OBJECT).$$nextNameIndex(0); $$i1 != 0; $$i1 = object.$$nextNameIndex($$i1))
+					{
+						var property = $es4.$$coerce(object.$$nextName($$i1), String);
+
+						if ($es4.$$get(dehydrated, $$this, $$thisp, 'p') === undefined)
+						{
+							$es4.$$set(dehydrated, $$this, $$thisp, 'p', {}, '=');
+						}
+						$es4.$$set(dehydrated, $$this, $$thisp, 'p', property, $es4.$$call($$thisp, $$this, $$thisp, 'getValue', [$es4.$$get(object, $$this, $$thisp, property)]), '=');
+					}
+					return dehydrated;
+				}
+				throw $es4.$$primitive(new (Error)('Type is not supported for dehydration'));
+			}));
+
+			//method
+			$es4.$$private_function('getDehydrated', $$thisp, (function ($$$$object)
+			{
+				//set default parameter values
+				var object = $es4.$$coerce($$$$object, Object);
+
+				return $es4.$$get($$thisp, $$this, $$thisp, '_dehydratedNodes', object);
+			}));
+
+			//method
+			$es4.$$private_function('getValue', $$thisp, (function ($$$$object)
+			{
+				//set default parameter values
+				var object = $es4.$$coerce($$$$object, Object);
+
+				if ($es4.$$is(object, String))
+				{
+					return $es4.$$call(Base64Util, $$this, $$thisp, 'encodeString', [$es4.$$as(object, String)]);
+				}
+				if ($es4.$$is(object, Number) && isNaN($es4.$$as(object, Number)))
+				{
+					return '__NaN__';
+				}
+				if ($es4.$$is(object, Number) || $es4.$$is(object, Boolean) || object == null)
+				{
+					return object;
+				}
+				object = $es4.$$call($$thisp, $$this, $$thisp, 'dehydrateObject', [object]);
+				return {r:$es4.$$get(object, $$this, $$thisp, 'id')};
+			}));
+
+			//method
+			$es4.$$private_function('generateID', $$thisp, (function ()
+			{
+				return $es4.$$call(($es4.$$set($$thisp, $$this, $$thisp, '_idCounter', 'postfix', '++')), $$this, $$thisp, 'toString', $es4.$$EMPTY_ARRAY);
+			}));
+
+			//accessor
+			$es4.$$public_accessor('result', $$thisp, (function ()
+			{
+				return $es4.$$get($$thisp, $$this, $$thisp, '_result');
+			}), null);
+
+			//call construct if no arguments, or argument zero does not equal manual construct
+			if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
+			{
+				for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
+
+				$es4.$$construct($$this, $$args);
+			}
+		}
+
+		return $es4.$$class(Dehydrate, null, 'Dehydrate');
+	})();
+
+	return $es4.$$class(JsonUtil, {CLASSES:[Hydrate, Dehydrate]}, 'sweetrush.utils::JsonUtil');
+})();
+//sweetrush.utils.JsonUtil
+
+
+//sweetrush.obj.Construct
+$es4.$$package('sweetrush.obj').Construct = (function ()
+{
+	//properties
+	Construct.Expression = 'Expression';
+	Construct.EmptyExpression = 'EmptyExpression';
+	Construct.BinaryExpression = 'BinaryExpression';
+	Construct.ObjectExpression = 'ObjectExpression';
+	Construct.ArrayExpression = 'ArrayExpression';
+	Construct.NewExpression = 'NewExpression';
+	Construct.PropertyExpression = 'PropertyExpression';
+	Construct.IdentifierConstruct = 'IdentifierConstruct';
+	Construct.NamespaceQualifierConstruct = 'NamespaceQualifierConstruct';
+	Construct.AtIdentifierConstruct = 'AtIdentifierConstruct';
+	Construct.DotConstruct = 'DotConstruct';
+	Construct.SuperConstruct = 'SuperConstruct';
+	Construct.ThisConstruct = 'ThisConstruct';
+	Construct.E4XSearchConstruct = 'E4XSearchConstruct';
+	Construct.ArrayAccessorConstruct = 'ArrayAccessorConstruct';
+	Construct.VectorConstruct = 'VectorConstruct';
+	Construct.TypeConstruct = 'TypeConstruct';
+	Construct.ParenConstruct = 'ParenConstruct';
+	Construct.ObjectConstruct = 'ObjectConstruct';
+	Construct.ArrayConstruct = 'ArrayConstruct';
+	Construct.TernaryExpression = 'TernaryExpression';
+	Construct.RegExpression = 'RegExpression';
+	Construct.ParenExpression = 'ParenExpression';
+	Construct.BooleanExpression = 'BooleanExpression';
+	Construct.NumberExpression = 'NumberExpression';
+	Construct.PrefixExpression = 'PrefixExpression';
+	Construct.PostfixExpression = 'PostfixExpression';
+	Construct.StringExpression = 'StringExpression';
+	Construct.FunctionExpression = 'FunctionExpression';
+	Construct.FunctionCallConstruct = 'FunctionCallConstruct';
+	Construct.RootConstruct = 'RootConstruct';
+	Construct.PackageConstruct = 'PackageConstruct';
+	Construct.ClassConstruct = 'ClassConstruct';
+	Construct.InterfaceConstruct = 'InterfaceConstruct';
+	Construct.NameConstruct = 'NameConstruct';
+	Construct.ImportConstruct = 'ImportConstruct';
+	Construct.UseConstruct = 'UseConstruct';
+	Construct.UseStatement = 'UseStatement';
+	Construct.ForEachStatement = 'ForEachStatement';
+	Construct.ReturnExpression = 'ReturnExpression';
+	Construct.DeleteExpression = 'DeleteExpression';
+	Construct.XMLExpression = 'XMLExpression';
+	Construct.XMLListExpression = 'XMLListExpression';
+	Construct.ForStatement = 'ForStatement';
+	Construct.ForInStatement = 'ForInStatement';
+	Construct.LabelStatement = 'LabelStatement';
+	Construct.WhileStatement = 'WhileStatement';
+	Construct.DoWhileStatement = 'DoWhileStatement';
+	Construct.IfStatement = 'IfStatement';
+	Construct.ElseIfStatement = 'ElseIfStatement';
+	Construct.ElseStatement = 'ElseStatement';
+	Construct.EmptyStatement = 'EmptyStatement';
+	Construct.TryStatement = 'TryStatement';
+	Construct.CatchStatement = 'CatchStatement';
+	Construct.FinallyStatement = 'FinallyStatement';
+	Construct.BreakStatement = 'BreakStatement';
+	Construct.ContinueStatement = 'ContinueStatement';
+	Construct.ThrowStatement = 'ThrowStatement';
+	Construct.SwitchStatement = 'SwitchStatement';
+	Construct.CaseStatement = 'CaseStatement';
+	Construct.VarStatement = 'VarStatement';
+	Construct.MethodConstruct = 'MethodConstruct';
+	Construct.ObjectPropertyConstruct = 'ObjectPropertyConstruct';
+	Construct.ParameterConstruct = 'ParameterConstruct';
+	Construct.PropertyConstruct = 'PropertyConstruct';
+	Construct.MetaDataConstruct = 'MetaDataConstruct';
+
+	//class initializer
+	Construct.$$cinit = (function ()
+	{
+		Construct.$$cinit = undefined;
+
+	});
+
+	//method
+	$es4.$$public_function('getNewExpression', Construct, (function ($$$$token, $$$$expression)
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		//set default parameter values
+		var token = $$$$token;
+		var expression = (1 > arguments.length - 1) ? null : $$$$expression;
+
+		return {constructor:$es4.$$get(Construct, null, null, 'Expression'), token:token, expression:expression};
+	}));
+
+	//method
+	$es4.$$public_function('getNewEmptyExpression', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'EmptyExpression')};
+	}));
+
+	//method
+	$es4.$$public_function('getNewBinaryExpression', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'BinaryExpression'), token:null, leftExpression:null, rightExpression:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewObjectExpression', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'ObjectExpression'), objectPropertyConstructs:[]};
+	}));
+
+	//method
+	$es4.$$public_function('getNewArrayExpression', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'ArrayExpression'), valueExpressions:[]};
+	}));
+
+	//method
+	$es4.$$public_function('getNewNewExpression', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'NewExpression'), expression:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewPropertyExpression', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'PropertyExpression'), construct:null, nextPropertyExpression:null, root:false};
+	}));
+
+	//method
+	$es4.$$public_function('getNewIdentifierConstruct', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'IdentifierConstruct'), identifierToken:null, identifer:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewNamespaceQualifierConstruct', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'NamespaceQualifierConstruct'), namespaceQualifierToken:null, identifierToken:null, namespaceIdentifierToken:null, namespaceIdentifier:null, identifer:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewAtIdentifierConstruct', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'AtIdentifierConstruct')};
+	}));
+
+	//method
+	$es4.$$public_function('getNewDotConstruct', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'DotConstruct'), identifierToken:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewSuperConstruct', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'SuperConstruct'), superToken:null, identifer:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewThisConstruct', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'ThisConstruct'), thisToken:null, identifer:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewE4XSearchConstruct', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'E4XSearchConstruct'), expression:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewArrayAccessorConstruct', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'ArrayAccessorConstruct'), expression:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewVectorConstruct', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'VectorConstruct'), nameConstruct:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewTypeConstruct', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'TypeConstruct'), mulToken:null, voidToken:null, nameConstruct:null, vectorNameConstruct:null, identifer:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewParenConstruct', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'ParenConstruct'), expression:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewObjectConstruct', Construct, (function ($$$$expression)
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		//set default parameter values
+		var expression = $$$$expression;
+
+		return {constructor:$es4.$$get(Construct, null, null, 'ObjectConstruct'), expression:expression};
+	}));
+
+	//method
+	$es4.$$public_function('getNewArrayConstruct', Construct, (function ($$$$expression)
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		//set default parameter values
+		var expression = $$$$expression;
+
+		return {constructor:$es4.$$get(Construct, null, null, 'ArrayConstruct'), expression:expression};
+	}));
+
+	//method
+	$es4.$$public_function('getNewTernaryExpression', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'TernaryExpression'), conditionExpression:null, trueExpression:null, falseExpression:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewRegExpression', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'RegExpression'), string:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewParenExpression', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'ParenExpression'), expression:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewBooleanExpression', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'BooleanExpression'), booleanToken:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewNumberExpression', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'NumberExpression'), numberToken:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewPrefixExpression', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'PrefixExpression'), incrementToken:null, decrementToken:null, expression:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewPostfixExpression', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'PostfixExpression'), incrementToken:null, decrementToken:null, expression:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewStringExpression', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'StringExpression'), stringToken:null, stringChunkTokens:[], stringEndToken:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewFunctionExpression', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'FunctionExpression'), identifierToken:null, parameterConstructs:[], typeConstruct:null, bodyStatements:[], namedFunctionExpressions:[], identifer:null, type:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewFunctionCallConstruct', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'FunctionCallConstruct'), argumentExpressions:[]};
+	}));
+
+	//method
+	$es4.$$public_function('getNewRootConstruct', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'RootConstruct'), classConstructs:[], interfaceConstructs:[], methodConstructs:[], propertyConstructs:[], importConstructs:[], packageConstruct:null, namespacePropertyConstructs:[], instancePropertyConstructs:[], staticPropertyConstructs:[], instanceMethodConstructs:[], staticMethodConstructs:[], instanceAccessorConstructs:[], staticAccessorConstructs:[]};
+	}));
+
+	//method
+	$es4.$$public_function('getNewPackageConstruct', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'PackageConstruct'), nameConstruct:null, classConstruct:null, importConstructs:[], interfaceConstruct:null, methodConstruct:null, propertyConstruct:null, rootConstruct:null, useConstructs:[]};
+	}));
+
+	//method
+	$es4.$$public_function('getNewClassConstruct', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'ClassConstruct'), identifierToken:null, extendsNameConstruct:null, importConstructs:[], initializerStatements:[], implementsNameConstructs:[], metaDataConstructs:[], constructorMethodConstruct:null, propertyConstructs:[], methodConstructs:[], isInternal:false, packageConstruct:null, rootConstruct:null, dynamicToken:null, useConstructs:[], UNIMPLEMENTEDToken:null, namespacePropertyConstructs:[], instancePropertyConstructs:[], staticPropertyConstructs:[], instanceMethodConstructs:[], staticMethodConstructs:[], instanceAccessorConstructs:[], staticAccessorConstructs:[], packageName:null, identifer:null, type:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewInterfaceConstruct', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'InterfaceConstruct'), identifierToken:null, extendsNameConstructs:[], methodConstructs:[], propertyConstructs:[], isInternal:false, packageConstruct:null, rootConstruct:null, packageName:null, identifer:null, type:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewNameConstruct', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'NameConstruct'), identifierTokens:[]};
+	}));
+
+	//method
+	$es4.$$public_function('nameConstructToString', Construct, (function ($$$$nameConstruct)
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		//set default parameter values
+		var nameConstruct = $$$$nameConstruct;
+
+		if ($es4.$$get(nameConstruct, null, null, 'identifierTokens', 'length') == 1)
+		{
+			return $es4.$$get(nameConstruct, null, null, 'identifierTokens', 0, 'data');
+		}
+		var data = [];
+		for (var i = 0; i < $es4.$$get(nameConstruct, null, null, 'identifierTokens', 'length'); i++)
+		{
+			$es4.$$call(data, null, null, 'push', [$es4.$$get(nameConstruct, null, null, 'identifierTokens', i, 'data')]);
+		}
+		return $es4.$$call(data, null, null, 'join', ['.']);
+	}));
+
+	//method
+	$es4.$$public_function('getNewImportConstruct', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'ImportConstruct'), nameConstruct:null, mulToken:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewUseConstruct', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'UseConstruct'), useToken:null, namespaceIdentifierToken:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewUseStatement', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'UseStatement'), useToken:null, namespaceIdentifierToken:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewForEachStatement', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'ForEachStatement'), variableStatement:null, arrayExpression:null, bodyStatements:[], index:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewReturnExpression', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'ReturnExpression'), expression:null, type:null, expectedType:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewDeleteExpression', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'DeleteExpression'), expression:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewXMLExpression', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'XMLExpression'), string:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewXMLListExpression', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'XMLListExpression'), string:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewForStatement', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'ForStatement'), variableStatement:null, conditionExpression:null, afterthoughtExpression:null, bodyStatements:[]};
+	}));
+
+	//method
+	$es4.$$public_function('getNewForInStatement', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'ForInStatement'), variableStatement:null, objectExpression:null, bodyStatements:[], index:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewLabelStatement', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'LabelStatement'), identifierToken:null, identifer:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewWhileStatement', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'WhileStatement'), conditionExpression:null, bodyStatements:[]};
+	}));
+
+	//method
+	$es4.$$public_function('getNewDoWhileStatement', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'DoWhileStatement'), conditionExpression:null, bodyStatements:[]};
+	}));
+
+	//method
+	$es4.$$public_function('getNewIfStatement', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'IfStatement'), conditionExpression:null, bodyStatements:[], elseIfStatements:[], elseStatement:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewElseIfStatement', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'ElseIfStatement'), conditionExpression:null, bodyStatements:[]};
+	}));
+
+	//method
+	$es4.$$public_function('getNewElseStatement', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'ElseStatement'), bodyStatements:[]};
+	}));
+
+	//method
+	$es4.$$public_function('getNewEmptyStatement', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'EmptyStatement'), bodyStatements:[]};
+	}));
+
+	//method
+	$es4.$$public_function('getNewTryStatement', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'TryStatement'), bodyStatements:[], catchStatements:[], finallyStatement:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewCatchStatement', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'CatchStatement'), identifierToken:null, typeConstruct:null, bodyStatements:[], index:null, identifer:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewFinallyStatement', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'FinallyStatement'), bodyStatements:[]};
+	}));
+
+	//method
+	$es4.$$public_function('getNewBreakStatement', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'BreakStatement'), token:null, identifierToken:null, identifer:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewContinueStatement', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'ContinueStatement'), token:null, identifierToken:null, identifer:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewThrowStatement', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'ThrowStatement'), token:null, expression:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewSwitchStatement', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'SwitchStatement'), valueExpression:null, caseStatements:[]};
+	}));
+
+	//method
+	$es4.$$public_function('getNewCaseStatement', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'CaseStatement'), valueExpression:null, bodyStatements:[], defaultToken:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewVarStatement', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'VarStatement'), identifierToken:null, innerVarStatements:[], typeConstruct:null, valueExpression:null, identifer:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewMethodConstruct', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'MethodConstruct'), identifierToken:null, parameterConstructs:[], typeConstruct:null, bodyStatements:[], staticToken:null, overrideToken:null, namespaceToken:null, setToken:null, getToken:null, callsSuper:null, isNative:null, isJavaScript:null, javaScriptString:'', namedFunctionExpressions:[], isInternal:null, packageConstruct:null, rootConstruct:null, UNIMPLEMENTEDToken:null, identifer:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewObjectPropertyConstruct', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'ObjectPropertyConstruct'), expression:null, valueExpression:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewParameterConstruct', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'ParameterConstruct'), identifierToken:null, typeConstruct:null, valueExpression:null, restToken:null, identifer:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewPropertyConstruct', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'PropertyConstruct'), identifierToken:null, typeConstruct:null, namespaceToken:null, namespaceValueToken:null, namespaceKeywordToken:null, staticToken:null, constToken:null, valueExpression:null, isNative:null, isInternal:false, packageConstruct:null, rootConstruct:null, identifer:null};
+	}));
+
+	//method
+	$es4.$$public_function('getNewMetaDataConstruct', Construct, (function ()
+	{
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		return {constructor:$es4.$$get(Construct, null, null, 'MetaDataConstruct'), tokens:[]};
+	}));
+
+	function Construct()
+	{
+		//initialize class if not initialized
+		if (Construct.$$cinit !== undefined) Construct.$$cinit();
+
+		//save scope
+		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
+		var $$thisp = this;
+
+		//handle possible cast
+		if ($$this === $$thisp && (!($$this instanceof Construct) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Construct) : $es4.$$throwArgumentError();
+		Object.defineProperty($$this, '$$t', {value:1});
+
+		//constructor
+		$es4.$$constructor($$thisp, (function ()
+		{
+		}));
+
+		//call construct if no arguments, or argument zero does not equal manual construct
+		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
+		{
+			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
+
+			$es4.$$construct($$this, $$args);
+		}
+	}
+
+	return $es4.$$class(Construct, null, 'sweetrush.obj::Construct');
+})();
+//sweetrush.obj.Construct
+
+
 //sweetrush.core.Analyzer
 $es4.$$package('sweetrush.core').Analyzer = (function ()
 {
 	//imports
 	var Construct;
 	var Token;
-	var Analyzer;
-	var Transcompiler;
-	var Parser;
-	var Token;
-	var Lexer;
-	var TranslatorProto;
-	var FileUtil;
-	var Base64Util;
-	var JsonUtil;
-	var Construct;
 	var SwcUtil;
+	var Transcompiler;
 	var TranslatorPrototype;
+	var Parser;
+	var Lexer;
+	var Base64Util;
+	var Construct;
+	var JsonUtil;
+	var FileUtil;
+	var TranslatorProto;
+	var Token;
+	var Analyzer;
 
 	//properties
 	$es4.$$private_property('globalIdentifiers', Analyzer, Array);
@@ -13575,15 +14956,15 @@ $es4.$$package('sweetrush.core').Analyzer = (function ()
 		//initialize imports
 		Construct = $es4.$$['sweetrush.obj'].Construct;
 		Token = $es4.$$['sweetrush.obj'].Token;
+		SwcUtil = $es4.$$['sweetrush.utils'].SwcUtil;
 		Transcompiler = $es4.$$['sweetrush'].Transcompiler;
+		TranslatorPrototype = $es4.$$['sweetrush.core'].TranslatorPrototype;
 		Parser = $es4.$$['sweetrush.core'].Parser;
 		Lexer = $es4.$$['sweetrush.core'].Lexer;
-		TranslatorProto = $es4.$$['sweetrush.core'].TranslatorProto;
-		FileUtil = $es4.$$['sweetrush.utils'].FileUtil;
 		Base64Util = $es4.$$['sweetrush.utils'].Base64Util;
 		JsonUtil = $es4.$$['sweetrush.utils'].JsonUtil;
-		SwcUtil = $es4.$$['sweetrush.utils'].SwcUtil;
-		TranslatorPrototype = $es4.$$['sweetrush.core'].TranslatorPrototype;
+		FileUtil = $es4.$$['sweetrush.utils'].FileUtil;
+		TranslatorProto = $es4.$$['sweetrush.core'].TranslatorProto;
 
 		//initialize properties
 		Analyzer.globalIdentifiers = [{name:'trace', returnType:'void'}, {name:'parseInt', returnType:'Number'}, {name:'parseFloat', returnType:'Number'}, {name:'isNaN', returnType:'Boolean'}, {name:'isFinite', returnType:'Boolean'}, {name:'escape', returnType:'String'}, {name:'unescape', returnType:'String'}, {name:'decodeURIComponent', returnType:'String'}, {name:'encodeURIComponent', returnType:'String'}, {name:'decodeURI', returnType:'String'}, {name:'encodeURI', returnType:'String'}, {name:'isXMLName', returnType:'Boolean'}, {name:'$es4', returnType:'Object'}, {name:'window', returnType:'Object'}, {name:'document', returnType:'Object'}, {name:'console', returnType:'Object'}, {name:'$', returnType:'Object'}, {name:'_', returnType:'Object'}, {name:'alert', returnType:'Object'}, {name:'debugger', returnType:'Object'}, {name:'setInterval', returnType:'Object'}, {name:'clearInterval', returnType:'Object'}, {name:'setTimeout', returnType:'Object'}, {name:'clearTimeout', returnType:'Object'}, {name:'require', returnType:'Object'}, {name:'global', returnType:'Object'}, {name:'process', returnType:'Object'}, {name:'__dirname', returnType:'String'}];
@@ -17204,2920 +18585,1878 @@ $es4.$$package('sweetrush.core').Analyzer = (function ()
 //sweetrush.core.Analyzer
 
 
-//sweetrush.utils.FileUtil
-$es4.$$package('sweetrush.utils').FileUtil = (function ()
+//sweetrush.obj.Token
+$es4.$$package('sweetrush.obj').Token = (function ()
 {
 	//imports
-	var ByteArray;
-	var Analyzer;
-	var Transcompiler;
-	var Parser;
-	var Token;
 	var Lexer;
-	var TranslatorProto;
-	var FileUtil;
-	var Base64Util;
-	var JsonUtil;
-	var Construct;
-	var SwcUtil;
-	var TranslatorPrototype;
 
 	//properties
-	$es4.$$private_property('fs', FileUtil);
-	$es4.$$private_property('path', FileUtil);
+	$es4.$$private_property('whitespaceCharacters', Token, Object);
+	$es4.$$private_property('identifierStartCharacters', Token, Object);
+	Token.OpenParenTokenType = 'OpenParenTokenType';
+	Token.ClosedParenTokenType = 'ClosedParenTokenType';
+	Token.OpenBraceTokenType = 'OpenBraceTokenType';
+	Token.ClosedBraceTokenType = 'ClosedBraceTokenType';
+	Token.OpenBracketTokenType = 'OpenBracketTokenType';
+	Token.ClosedBracketTokenType = 'ClosedBracketTokenType';
+	Token.EOSTokenType = 'EOSTokenType';
+	Token.PackageTokenType = 'PackageTokenType';
+	Token.ImportTokenType = 'ImportTokenType';
+	Token.ClassTokenType = 'ClassTokenType';
+	Token.InterfaceTokenType = 'InterfaceTokenType';
+	Token.NewTokenType = 'NewTokenType';
+	Token.UseTokenType = 'UseTokenType';
+	Token.CaseTokenType = 'CaseTokenType';
+	Token.FunctionTokenType = 'FunctionTokenType';
+	Token.GetTokenType = 'GetTokenType';
+	Token.SetTokenType = 'SetTokenType';
+	Token.RestTokenType = 'RestTokenType';
+	Token.ExtendsTokenType = 'ExtendsTokenType';
+	Token.ImplementsTokenType = 'ImplementsTokenType';
+	Token.CommentTokenType = 'CommentTokenType';
+	Token.CommentChunkTokenType = 'CommentChunkTokenType';
+	Token.MultiLineCommentTokenType = 'MultiLineCommentTokenType';
+	Token.MultiLineCommentChunkTokenType = 'MultiLineCommentChunkTokenType';
+	Token.MultiLineCommentEndTokenType = 'MultiLineCommentEndTokenType';
+	Token.OverrideTokenType = 'OverrideTokenType';
+	Token.StaticTokenType = 'StaticTokenType';
+	Token.DynamicTokenType = 'DynamicTokenType';
+	Token.FinalTokenType = 'FinalTokenType';
+	Token.VarTokenType = 'VarTokenType';
+	Token.ConstTokenType = 'ConstTokenType';
+	Token.IdentifierTokenType = 'IdentifierTokenType';
+	Token.BooleanTokenType = 'BooleanTokenType';
+	Token.ThisTokenType = 'ThisTokenType';
+	Token.TypeofTokenType = 'TypeofTokenType';
+	Token.NullTokenType = 'NullTokenType';
+	Token.VoidTokenType = 'VoidTokenType';
+	Token.UndefinedTokenType = 'UndefinedTokenType';
+	Token.IsTokenType = 'IsTokenType';
+	Token.NaNTokenType = 'NaNTokenType';
+	Token.InstanceofTokenType = 'InstanceofTokenType';
+	Token.ReturnTokenType = 'ReturnTokenType';
+	Token.SwitchTokenType = 'SwitchTokenType';
+	Token.SuperTokenType = 'SuperTokenType';
+	Token.ThrowTokenType = 'ThrowTokenType';
+	Token.DotDotTokenType = 'DotDotTokenType';
+	Token.DotTokenType = 'DotTokenType';
+	Token.NotTokenType = 'NotTokenType';
+	Token.BitwiseNotTokenType = 'BitwiseNotTokenType';
+	Token.ColonTokenType = 'ColonTokenType';
+	Token.CommaTokenType = 'CommaTokenType';
+	Token.TernaryTokenType = 'TernaryTokenType';
+	Token.IncrementTokenType = 'IncrementTokenType';
+	Token.DecrementTokenType = 'DecrementTokenType';
+	Token.BreakTokenType = 'BreakTokenType';
+	Token.ContinueTokenType = 'ContinueTokenType';
+	Token.DefaultTokenType = 'DefaultTokenType';
+	Token.InTokenType = 'InTokenType';
+	Token.AsTokenType = 'AsTokenType';
+	Token.DeleteTokenType = 'DeleteTokenType';
+	Token.IfTokenType = 'IfTokenType';
+	Token.ElseTokenType = 'ElseTokenType';
+	Token.EachTokenType = 'EachTokenType';
+	Token.ForTokenType = 'ForTokenType';
+	Token.WhileTokenType = 'WhileTokenType';
+	Token.DoTokenType = 'DoTokenType';
+	Token.WithTokenType = 'WithTokenType';
+	Token.TryTokenType = 'TryTokenType';
+	Token.CatchTokenType = 'CatchTokenType';
+	Token.RegExpTokenType = 'RegExpTokenType';
+	Token.SpecialUFOTokenType = 'SpecialUFOTokenType';
+	Token.FinallyTokenType = 'FinallyTokenType';
+	Token.AtTokenType = 'AtTokenType';
+	Token.BitwiseLeftShiftAssignmentTokenType = 'BitwiseLeftShiftAssignmentTokenType';
+	Token.BitwiseRightShiftAssignmentTokenType = 'BitwiseRightShiftAssignmentTokenType';
+	Token.BitwiseUnsignedRightShiftAssignmentTokenType = 'BitwiseUnsignedRightShiftAssignmentTokenType';
+	Token.BitwiseAndAssignmentTokenType = 'BitwiseAndAssignmentTokenType';
+	Token.BitwiseOrAssignmentTokenType = 'BitwiseOrAssignmentTokenType';
+	Token.BitwiseXorAssignmentTokenType = 'BitwiseXorAssignmentTokenType';
+	Token.AddWithAssignmentTokenType = 'AddWithAssignmentTokenType';
+	Token.DivWithAssignmentTokenType = 'DivWithAssignmentTokenType';
+	Token.ModWithAssignmentTokenType = 'ModWithAssignmentTokenType';
+	Token.MulWithAssignmentTokenType = 'MulWithAssignmentTokenType';
+	Token.SubWithAssignmentTokenType = 'SubWithAssignmentTokenType';
+	Token.EqualityTokenType = 'EqualityTokenType';
+	Token.RelationalTokenType = 'RelationalTokenType';
+	Token.BitwiseAndTokenType = 'BitwiseAndTokenType';
+	Token.BitwiseXorTokenType = 'BitwiseXorTokenType';
+	Token.BitwiseOrTokenType = 'BitwiseOrTokenType';
+	Token.AndTokenType = 'AndTokenType';
+	Token.AndWithAssignmentTokenType = 'AndWithAssignmentTokenType';
+	Token.OrTokenType = 'OrTokenType';
+	Token.OrWithAssignmentTokenType = 'OrWithAssignmentTokenType';
+	Token.BitwiseLeftShiftTokenType = 'BitwiseLeftShiftTokenType';
+	Token.BitwiseRightShiftTokenType = 'BitwiseRightShiftTokenType';
+	Token.BitwiseUnsignedRightShiftTokenType = 'BitwiseUnsignedRightShiftTokenType';
+	Token.SubTokenType = 'SubTokenType';
+	Token.AddTokenType = 'AddTokenType';
+	Token.DivTokenType = 'DivTokenType';
+	Token.MulTokenType = 'MulTokenType';
+	Token.ModTokenType = 'ModTokenType';
+	Token.AssignmentTokenType = 'AssignmentTokenType';
+	Token.NamespaceKeywordTokenType = 'NamespaceKeywordTokenType';
+	Token.XMLTokenType = 'XMLTokenType';
+	Token.XMLIdentifierTokenType = 'XMLIdentifierTokenType';
+	Token.XMLTextTokenType = 'XMLTextTokenType';
+	Token.XMLCDATATokenType = 'XMLCDATATokenType';
+	Token.XMLCDATAChunkTokenType = 'XMLCDATAChunkTokenType';
+	Token.XMLCDATAEndTokenType = 'XMLCDATAEndTokenType';
+	Token.XMLOpenArrowTokenType = 'XMLOpenArrowTokenType';
+	Token.XMLClosedArrowTokenType = 'XMLClosedArrowTokenType';
+	Token.XMLForwardSlashTokenType = 'XMLForwardSlashTokenType';
+	Token.NamespaceQualifierTokenType = 'NamespaceQualifierTokenType';
+	Token.VectorDotOpenArrowTokenType = 'VectorDotOpenArrowTokenType';
+	Token.VectorClosedArrowTokenType = 'VectorClosedArrowTokenType';
+	Token.StringTokenType = 'StringTokenType';
+	Token.StringChunkTokenType = 'StringChunkTokenType';
+	Token.StringMultiLineDelimiterTokenType = 'StringMultiLineDelimiterTokenType';
+	Token.StringEndTokenType = 'StringEndTokenType';
+	Token.NumberTokenType = 'NumberTokenType';
+	Token.SpaceTokenType = 'SpaceTokenType';
+	Token.TabTokenType = 'TabTokenType';
+	Token.NewLineTokenType = 'NewLineTokenType';
+	Token.UFOTokenType = 'UFOTokenType';
+	$es4.$$public_property('tokenFunctions', Token, Object);
 
 	//class initializer
-	FileUtil.$$cinit = (function ()
+	Token.$$cinit = (function ()
 	{
-		FileUtil.$$cinit = undefined;
+		Token.$$cinit = undefined;
 
 		//initialize imports
-		ByteArray = $es4.$$['flash.utils'].ByteArray;
-		Analyzer = $es4.$$['sweetrush.core'].Analyzer;
-		Transcompiler = $es4.$$['sweetrush'].Transcompiler;
-		Parser = $es4.$$['sweetrush.core'].Parser;
-		Token = $es4.$$['sweetrush.obj'].Token;
 		Lexer = $es4.$$['sweetrush.core'].Lexer;
-		TranslatorProto = $es4.$$['sweetrush.core'].TranslatorProto;
-		Base64Util = $es4.$$['sweetrush.utils'].Base64Util;
-		JsonUtil = $es4.$$['sweetrush.utils'].JsonUtil;
-		Construct = $es4.$$['sweetrush.obj'].Construct;
-		SwcUtil = $es4.$$['sweetrush.utils'].SwcUtil;
-		TranslatorPrototype = $es4.$$['sweetrush.core'].TranslatorPrototype;
 
 		//initialize properties
-		FileUtil.fs = require('fs');
-		FileUtil.path = require('path');
-	});
-
-	//method
-	$es4.$$public_function('getBasePath', FileUtil, (function ()
-	{
-		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
-
-		if (true)
-		{
-			return $es4.$$call(FileUtil, null, null, 'path', 'join', [__dirname, '../../../', 'as3-js']);
-		}
-		if (false)
-		{
-		}
-	}));
-
-	//method
-	$es4.$$public_function('getExcludedPath', FileUtil, (function ()
-	{
-		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
-
-		if (true)
-		{
-			return $es4.$$call(FileUtil, null, null, 'path', 'join', [__dirname, '../../../', 'as3-js', '_excluded']);
-		}
-		if (false)
-		{
-		}
-	}));
-
-	//method
-	$es4.$$public_function('resolvePath', FileUtil, (function ($$$$src, $$$$append)
-	{
-		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
-
+		Token.whitespaceCharacters = {'\u0020':true, '\u0009':true, '\u000A':true, '\u000C':true, '\u000D':true};
+		Token.identifierStartCharacters = {'_':true, '$':true, 'a':true, 'b':true, 'c':true, 'd':true, 'e':true, 'f':true, 'g':true, 'h':true, 'i':true, 'j':true, 'k':true, 'l':true, 'm':true, 'n':true, 'o':true, 'p':true, 'q':true, 'r':true, 's':true, 't':true, 'u':true, 'v':true, 'w':true, 'x':true, 'y':true, 'z':true, 'A':true, 'B':true, 'C':true, 'D':true, 'E':true, 'F':true, 'G':true, 'H':true, 'I':true, 'J':true, 'K':true, 'L':true, 'M':true, 'N':true, 'O':true, 'P':true, 'Q':true, 'R':true, 'S':true, 'T':true, 'U':true, 'V':true, 'W':true, 'X':true, 'Y':true, 'Z':true};
+		Token.tokenFunctions = {};
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OpenParenTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClosedParenTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OpenBraceTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClosedBraceTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OpenBracketTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClosedBracketTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EOSTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'PackageTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ImportTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClassTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InterfaceTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UseTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CaseTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FunctionTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'GetTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SetTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RestTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ExtendsTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ImplementsTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CommentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CommentChunkTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MultiLineCommentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MultiLineCommentChunkTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MultiLineCommentEndTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OverrideTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StaticTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DynamicTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinalTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VarTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ConstTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IdentifierTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BooleanTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ThisTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TypeofTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NullTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VoidTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UndefinedTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IsTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NaNTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InstanceofTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ReturnTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SwitchTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SuperTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ThrowTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DotDotTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DotTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NotTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseNotTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ColonTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CommaTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TernaryTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IncrementTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DecrementTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BreakTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ContinueTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DefaultTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AsTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DeleteTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IfTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ElseTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EachTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ForTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WhileTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DoTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WithTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TryTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CatchTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RegExpTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SpecialUFOTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinallyTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AtTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AddWithAssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DivWithAssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ModWithAssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MulWithAssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SubWithAssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EqualityTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RelationalTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseAndTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseXorTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseOrTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AndTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AndWithAssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OrTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OrWithAssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseLeftShiftTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseRightShiftTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SubTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AddTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DivTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MulTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ModTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AssignmentTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NamespaceKeywordTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLIdentifierTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLTextTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLCDATATokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLCDATAChunkTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLCDATAEndTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLOpenArrowTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLClosedArrowTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VectorClosedArrowTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StringTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StringChunkTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StringMultiLineDelimiterTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StringEndTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NumberTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SpaceTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TabTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewLineTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UFOTokenType'), {}, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OpenParenTokenType'), 'find', function ($$$$input) 
+{
 		//set default parameter values
-		var src = $$$$src;
-		var append = $$$$append;
+		var input = $$$$input;
 
-		if (true)
-		{
-			return $es4.$$call(FileUtil, null, null, 'fixPath', [$es4.$$call(FileUtil, null, null, 'path', 'join', [src, append])]);
-		}
-		if (false)
-		{
-		}
-	}));
-
-	//method
-	$es4.$$public_function('read', FileUtil, (function ($$$$file)
-	{
-		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
-
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '(') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'OpenParenTokenType'), '(']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClosedParenTokenType'), 'find', function ($$$$input) 
+{
 		//set default parameter values
-		var file = $$$$file;
+		var input = $$$$input;
 
-		if (false)
-		{
-		}
-		if (true)
-		{
-			return $es4.$$call($es4.$$call(FileUtil, null, null, 'fs', 'readFileSync', [file, 'utf8']), null, null, 'replace', [/^\uFEFF/, '']);
-		}
-	}));
-
-	//method
-	$es4.$$public_function('write', FileUtil, (function ($$$$file, $$$$contents)
-	{
-		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
-
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == ')') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'ClosedParenTokenType'), ')']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OpenBraceTokenType'), 'find', function ($$$$input) 
+{
 		//set default parameter values
-		var file = $$$$file;
-		var contents = $$$$contents;
+		var input = $$$$input;
 
-		if (false)
-		{
-		}
-		if (true)
-		{
-			$es4.$$call(FileUtil, null, null, 'fs', 'writeFileSync', [file, contents, 'utf8']);
-		}
-	}));
-
-	//method
-	$es4.$$public_function('readDirectory', FileUtil, (function ($$$$directory)
-	{
-		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
-
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '{') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'OpenBraceTokenType'), '{']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClosedBraceTokenType'), 'find', function ($$$$input) 
+{
 		//set default parameter values
-		var directory = $$$$directory;
+		var input = $$$$input;
 
-		if (false)
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '}') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'ClosedBraceTokenType'), '}']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OpenBracketTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '[') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'OpenBracketTokenType'), '[']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClosedBracketTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == ']') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'ClosedBracketTokenType'), ']']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EOSTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == ';') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'EOSTokenType'), ';']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'PackageTokenType'), 'keyword', 'package', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'PackageTokenType'), 'terminator', /^([\s]|\{)/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'PackageTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'p' || $es4.$$call(input, null, null, 'charAt', [1]) != 'a') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'PackageTokenType'), [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType'), $es4.$$get(Token, null, null, 'IdentifierTokenType'), $es4.$$get(Token, null, null, 'DotTokenType')]]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ImportTokenType'), 'keyword', 'import', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ImportTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 'm') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'import', $es4.$$get(Token, null, null, 'ImportTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClassTokenType'), 'keyword', 'class', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ClassTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'c' || $es4.$$call(input, null, null, 'charAt', [1]) != 'l') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'class', $es4.$$get(Token, null, null, 'ClassTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InterfaceTokenType'), 'keyword', 'interface', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InterfaceTokenType'), 'terminator', /^[\s]/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InterfaceTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 'n') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'interface', $es4.$$get(Token, null, null, 'InterfaceTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewTokenType'), 'keyword', 'new', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewTokenType'), 'terminator', /^[\s]/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'n' || $es4.$$call(input, null, null, 'charAt', [1]) != 'e') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'NewTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UseTokenType'), 'keyword', 'use', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UseTokenType'), 'terminator', /^[\s]/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UseTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'u' || $es4.$$call(input, null, null, 'charAt', [1]) != 's') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'UseTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CaseTokenType'), 'keyword', 'case', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CaseTokenType'), 'terminator', /^[\s]/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CaseTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'c' || $es4.$$call(input, null, null, 'charAt', [1]) != 'a') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'CaseTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FunctionTokenType'), 'keyword', 'function', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FunctionTokenType'), 'terminator', /^[\s]|\(/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FunctionTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	if ($es4.$$call(input, null, null, 'charAt', [0]) != 'f')
+	{
+		return null;
+	}
+	var result = $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'FunctionTokenType'), [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType'), $es4.$$get(Token, null, null, 'GetTokenType'), $es4.$$get(Token, null, null, 'SetTokenType'), $es4.$$get(Token, null, null, 'IdentifierTokenType')]]);
+	if (!result)
+	{
+		return null;
+	}
+	var tokens = $es4.$$get(result, null, null, 'tokens');
+	var index = $es4.$$get(result, null, null, 'index');
+	result = $es4.$$call(Lexer, null, null, 'lex', [$es4.$$call(input, null, null, 'slice', [index + 1]), [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType'), $es4.$$get(Token, null, null, 'OpenParenTokenType'), $es4.$$get(Token, null, null, 'ClosedParenTokenType'), $es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType'), $es4.$$get(Token, null, null, 'VectorClosedArrowTokenType'), $es4.$$get(Token, null, null, 'VoidTokenType'), $es4.$$get(Token, null, null, 'StringTokenType'), $es4.$$get(Token, null, null, 'BooleanTokenType'), $es4.$$get(Token, null, null, 'SubTokenType'), $es4.$$get(Token, null, null, 'AddTokenType'), $es4.$$get(Token, null, null, 'RestTokenType'), $es4.$$get(Token, null, null, 'NumberTokenType'), $es4.$$get(Token, null, null, 'NullTokenType'), $es4.$$get(Token, null, null, 'UndefinedTokenType'), $es4.$$get(Token, null, null, 'NaNTokenType'), $es4.$$get(Token, null, null, 'ColonTokenType'), $es4.$$get(Token, null, null, 'MulTokenType'), $es4.$$get(Token, null, null, 'CommaTokenType'), $es4.$$get(Token, null, null, 'AssignmentTokenType'), $es4.$$get(Token, null, null, 'IdentifierTokenType'), $es4.$$get(Token, null, null, 'DotTokenType')], true]);
+	tokens = $es4.$$call(tokens, null, null, 'concat', [$es4.$$get(result, null, null, 'tokens')]);
+	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, $es4.$$get(result, null, null, 'index') + index]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'GetTokenType'), 'keyword', 'get', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'GetTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'g' || $es4.$$call(input, null, null, 'charAt', [1]) != 'e') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'get', $es4.$$get(Token, null, null, 'GetTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SetTokenType'), 'keyword', 'set', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SetTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 's' || $es4.$$call(input, null, null, 'charAt', [1]) != 'e') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'set', $es4.$$get(Token, null, null, 'SetTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RestTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '.' || $es4.$$call(input, null, null, 'charAt', [1]) != '.') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, '...', $es4.$$get(Token, null, null, 'RestTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), false]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ExtendsTokenType'), 'keyword', 'extends', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ExtendsTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'e' || $es4.$$call(input, null, null, 'charAt', [1]) != 'x') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'extends', $es4.$$get(Token, null, null, 'ExtendsTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ImplementsTokenType'), 'keyword', 'implements', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ImplementsTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 'm') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'implements', $es4.$$get(Token, null, null, 'ImplementsTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CommentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	if ($es4.$$call(input, null, null, 'charAt', [0]) != '/' || $es4.$$call(input, null, null, 'charAt', [1]) != '/')
+	{
+		return null;
+	}
+	var tokens = [];
+	var i = 2;
+	var commentChunk = '';
+	var token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'CommentTokenType'), $es4.$$call(input, null, null, 'charAt', [0]) + $es4.$$call(input, null, null, 'charAt', [1])]);
+	$es4.$$call(tokens, null, null, 'push', [token]);
+	while (i < $es4.$$get(input, null, null, 'length'))
+	{
+		if ($es4.$$call($es4.$$call(input, null, null, 'charAt', [i]), null, null, 'match', [/[\r\n]/]))
 		{
+			break;
 		}
-		if (true)
+		commentChunk += $es4.$$call(input, null, null, 'charAt', [i]);
+		i++;
+	}
+	if (i > 2)
+	{
+		token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'CommentChunkTokenType'), commentChunk]);
+		$es4.$$call(tokens, null, null, 'push', [token]);
+	}
+	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, i - 1]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MultiLineCommentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	if ($es4.$$call(input, null, null, 'charAt', [0]) != '/' || $es4.$$call(input, null, null, 'charAt', [1]) != '*')
+	{
+		return null;
+	}
+	var tokens = [];
+	var token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MultiLineCommentTokenType'), $es4.$$call(input, null, null, 'charAt', [0]) + $es4.$$call(input, null, null, 'charAt', [1])]);
+	$es4.$$call(tokens, null, null, 'push', [token]);
+	var i = 2;
+	var lastChar;
+	var commentChunk = '';
+	while (i < $es4.$$get(input, null, null, 'length'))
+	{
+		if ($es4.$$call($es4.$$call(input, null, null, 'charAt', [i]), null, null, 'match', [/[\r\n]/]))
 		{
-			var files = $es4.$$coerce($es4.$$call(FileUtil, null, null, 'fs', 'readdirSync', [directory]), Array);
-			for (var i = 0; i < $es4.$$get(files, null, null, 'length'); i++)
+			if ($es4.$$get(commentChunk, null, null, 'length') > 0)
 			{
-				$es4.$$set(files, null, null, i, directory + '/' + $es4.$$get(files, null, null, i), '=');
+				token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MultiLineCommentChunkTokenType'), commentChunk]);
+				$es4.$$call(tokens, null, null, 'push', [token]);
 			}
-			return files;
+			token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$call(input, null, null, 'charAt', [i])]);
+			$es4.$$call(tokens, null, null, 'push', [token]);
+			commentChunk = '';
 		}
-	}));
-
-	//method
-	$es4.$$public_function('fixPath', FileUtil, (function ($$$$path)
-	{
-		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
-
-		//set default parameter values
-		var path = $$$$path;
-
-		return $es4.$$call($es4.$$call($es4.$$call($es4.$$call(path, null, null, 'split', ['\\\\']), null, null, 'join', ['/']), null, null, 'split', ['\\']), null, null, 'join', ['/']);
-	}));
-
-	//method
-	$es4.$$public_function('exists', FileUtil, (function ($$$$file)
-	{
-		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
-
-		//set default parameter values
-		var file = $$$$file;
-
-		if (false)
+		else if (lastChar == '*' && $es4.$$call(input, null, null, 'charAt', [i]) == '/')
 		{
+			commentChunk = $es4.$$call(commentChunk, null, null, 'slice', [0, $es4.$$get(commentChunk, null, null, 'length') - 1]);
+			i--;
+			break;
 		}
-		if (true)
+		else
 		{
-			return $es4.$$call(FileUtil, null, null, 'fs', 'existsSync', [file]);
+			commentChunk += $es4.$$call(input, null, null, 'charAt', [i]);
 		}
-	}));
-
-	//method
-	$es4.$$public_function('getList', FileUtil, (function ($$$$path, $$$$recursive, $$$$filter)
+		lastChar = $es4.$$call(input, null, null, 'charAt', [i]);
+		i++;
+	}
+	if ($es4.$$get(commentChunk, null, null, 'length') > 0)
 	{
-		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
-
+		token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MultiLineCommentChunkTokenType'), commentChunk]);
+		$es4.$$call(tokens, null, null, 'push', [token]);
+	}
+	token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MultiLineCommentEndTokenType'), $es4.$$call(input, null, null, 'charAt', [i]) + $es4.$$call(input, null, null, 'charAt', [i + 1])]);
+	$es4.$$call(tokens, null, null, 'push', [token]);
+	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, i + 1]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OverrideTokenType'), 'keyword', 'override', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OverrideTokenType'), 'find', function ($$$$input) 
+{
 		//set default parameter values
-		var path = $$$$path;
-		var recursive = $$$$recursive;
-		var filter = $$$$filter;
+		var input = $$$$input;
 
-		var returnList = innerGetList(path, recursive, filter, path);
-		$es4.$$set(returnList, null, null, 'basepath', $es4.$$call(FileUtil, null, null, 'fixPath', [path]), '=');
-		return returnList;
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'o' || $es4.$$call(input, null, null, 'charAt', [1]) != 'v') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'override', $es4.$$get(Token, null, null, 'OverrideTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StaticTokenType'), 'keyword', 'static', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StaticTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
 
-		function innerGetList($$$$path, $$$$recursive, $$$$filter, $$$$basePath) 
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 's' || $es4.$$call(input, null, null, 'charAt', [1]) != 't') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'static', $es4.$$get(Token, null, null, 'StaticTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DynamicTokenType'), 'keyword', 'dynamic', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DynamicTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'd' || $es4.$$call(input, null, null, 'charAt', [1]) != 'y') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'dynamic', $es4.$$get(Token, null, null, 'DynamicTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinalTokenType'), 'keyword', 'final', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinalTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'f' || $es4.$$call(input, null, null, 'charAt', [1]) != 'i') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'final', $es4.$$get(Token, null, null, 'FinalTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VarTokenType'), 'keyword', 'var', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VarTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'v' || $es4.$$call(input, null, null, 'charAt', [1]) != 'a') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'var', $es4.$$get(Token, null, null, 'VarTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ConstTokenType'), 'keyword', 'const', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ConstTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'c' || $es4.$$call(input, null, null, 'charAt', [1]) != 'o') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'const', $es4.$$get(Token, null, null, 'ConstTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IdentifierTokenType'), 'regex', /^[a-zA-Z_$][a-zA-Z_0-9$]*/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IdentifierTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'IdentifierTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BooleanTokenType'), 'regex', /^(true|false)(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BooleanTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 't' && $es4.$$call(input, null, null, 'charAt', [0]) != 'f') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BooleanTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ThisTokenType'), 'regex', /^this(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ThisTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 't' || $es4.$$call(input, null, null, 'charAt', [1]) != 'h') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'ThisTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TypeofTokenType'), 'regex', /^typeof(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TypeofTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 't' || $es4.$$call(input, null, null, 'charAt', [1]) != 'y') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'TypeofTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NullTokenType'), 'regex', /^null(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NullTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'n' || $es4.$$call(input, null, null, 'charAt', [1]) != 'u') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'NullTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VoidTokenType'), 'regex', /^void(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VoidTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'v' || $es4.$$call(input, null, null, 'charAt', [1]) != 'o') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'VoidTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UndefinedTokenType'), 'regex', /^undefined(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UndefinedTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'u' || $es4.$$call(input, null, null, 'charAt', [1]) != 'n') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'UndefinedTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IsTokenType'), 'regex', /^is(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IsTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 's') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'IsTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NaNTokenType'), 'regex', /^NaN(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NaNTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'N' || $es4.$$call(input, null, null, 'charAt', [1]) != 'a') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'NaNTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InstanceofTokenType'), 'regex', /^instanceof(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InstanceofTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 'n') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'InstanceofTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ReturnTokenType'), 'regex', /^return(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ReturnTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'r' || $es4.$$call(input, null, null, 'charAt', [1]) != 'e') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'ReturnTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SwitchTokenType'), 'regex', /^switch(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SwitchTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 's' || $es4.$$call(input, null, null, 'charAt', [1]) != 'w') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'SwitchTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SuperTokenType'), 'regex', /^super(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SuperTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 's' || $es4.$$call(input, null, null, 'charAt', [1]) != 'u') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'SuperTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ThrowTokenType'), 'regex', /^throw(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ThrowTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 't' || $es4.$$call(input, null, null, 'charAt', [1]) != 'h') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'ThrowTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DotDotTokenType'), 'regex', /^\.\./, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DotDotTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '.' || $es4.$$call(input, null, null, 'charAt', [1]) != '.') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'DotDotTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DotTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '.') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'DotTokenType'), '.']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NotTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '!') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'NotTokenType'), '!']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseNotTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '~') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseNotTokenType'), '~']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ColonTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == ':') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'ColonTokenType'), ':']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CommaTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == ',') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'CommaTokenType'), ',']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TernaryTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '?') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'TernaryTokenType'), '?']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IncrementTokenType'), 'regex', /^\+\+/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IncrementTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '+' || $es4.$$call(input, null, null, 'charAt', [1]) != '+') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'IncrementTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DecrementTokenType'), 'regex', /^\-\-/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DecrementTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '-' || $es4.$$call(input, null, null, 'charAt', [1]) != '-') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'DecrementTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BreakTokenType'), 'regex', /^break(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BreakTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'b' || $es4.$$call(input, null, null, 'charAt', [1]) != 'r') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BreakTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ContinueTokenType'), 'regex', /^continue(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ContinueTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'c' || $es4.$$call(input, null, null, 'charAt', [1]) != 'o') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'ContinueTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DefaultTokenType'), 'regex', /^default(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DefaultTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'd' || $es4.$$call(input, null, null, 'charAt', [1]) != 'e') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'DefaultTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InTokenType'), 'regex', /^in(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'InTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 'n') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'InTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AsTokenType'), 'regex', /^as(?![a-zA-Z0-9_])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AsTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'a' || $es4.$$call(input, null, null, 'charAt', [1]) != 's') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'AsTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DeleteTokenType'), 'regex', /^delete(?![a-zA-Z0-9_.(])/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DeleteTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'd' || $es4.$$call(input, null, null, 'charAt', [1]) != 'e') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'DeleteTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IfTokenType'), 'keyword', 'if', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'IfTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'i' || $es4.$$call(input, null, null, 'charAt', [1]) != 'f') ? null : $es4.$$call(Token, null, null, 'keywordFind2', [input, 'if', $es4.$$get(Token, null, null, 'IfTokenType'), '(', false]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ElseTokenType'), 'keyword', 'else', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ElseTokenType'), 'terminator', /^([\s]|\{)/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ElseTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'e' || $es4.$$call(input, null, null, 'charAt', [1]) != 'l') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'ElseTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EachTokenType'), 'keyword', 'each', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EachTokenType'), 'terminator', /^([\s]|\()/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EachTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'e' || $es4.$$call(input, null, null, 'charAt', [1]) != 'a') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'EachTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ForTokenType'), 'keyword', 'for', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ForTokenType'), 'terminator', /^([\s]|\()/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ForTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'f' || $es4.$$call(input, null, null, 'charAt', [1]) != 'o') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'ForTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WhileTokenType'), 'keyword', 'while', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WhileTokenType'), 'terminator', /^([\s]|\()/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WhileTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'w' || $es4.$$call(input, null, null, 'charAt', [1]) != 'h') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'WhileTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DoTokenType'), 'keyword', 'do', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DoTokenType'), 'terminator', /^([\s]|\{)/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DoTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'd' || $es4.$$call(input, null, null, 'charAt', [1]) != 'o') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'DoTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WithTokenType'), 'keyword', 'with', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WithTokenType'), 'terminator', /^([\s]|\{)/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'WithTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'w' || $es4.$$call(input, null, null, 'charAt', [1]) != 'i') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'WithTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TryTokenType'), 'keyword', 'try', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TryTokenType'), 'terminator', /^([\s]|\{)/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TryTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 't' || $es4.$$call(input, null, null, 'charAt', [1]) != 'r') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'TryTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CatchTokenType'), 'keyword', 'catch', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CatchTokenType'), 'terminator', /^([\s]|\()/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'CatchTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	if ($es4.$$call(input, null, null, 'charAt', [0]) != 'c' || $es4.$$call(input, null, null, 'charAt', [1]) != 'a')
+	{
+		return null;
+	}
+	var result = $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'CatchTokenType'), [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType')]]);
+	if (!result)
+	{
+		return null;
+	}
+	var tokens = $es4.$$get(result, null, null, 'tokens');
+	var index = $es4.$$get(result, null, null, 'index');
+	result = $es4.$$call(Lexer, null, null, 'lex', [$es4.$$call(input, null, null, 'slice', [index + 1]), [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType'), $es4.$$get(Token, null, null, 'OpenParenTokenType'), $es4.$$get(Token, null, null, 'ClosedParenTokenType'), $es4.$$get(Token, null, null, 'IdentifierTokenType'), $es4.$$get(Token, null, null, 'DotTokenType'), $es4.$$get(Token, null, null, 'ColonTokenType')], true]);
+	tokens = $es4.$$call(tokens, null, null, 'concat', [$es4.$$get(result, null, null, 'tokens')]);
+	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, $es4.$$get(result, null, null, 'index') + index]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RegExpTokenType'), 'find', function ($$$$input, $$$$foundTokens) 
+{
+		//set default parameter values
+		var input = $$$$input;
+		var foundTokens = $$$$foundTokens;
+
+	if ($es4.$$call(input, null, null, 'charAt', [0]) != '/')
+	{
+		return null;
+	}
+	outer:	for (var j = $es4.$$get(foundTokens, null, null, 'length') - 1; j >= 0; j--)
+	{
+		var tokens = $es4.$$get(foundTokens, null, null, j);
+		var token;
+		var i;
+		for (i = $es4.$$get(tokens, null, null, 'length') - 1; i >= 0; i--)
 		{
-			//set default parameter values
-			var path = $$$$path;
-			var recursive = $$$$recursive;
-			var filter = $$$$filter;
-			var basePath = $$$$basePath;
-
-			path = $es4.$$call(FileUtil, null, null, 'fixPath', [path]);
-			basePath = $es4.$$call(FileUtil, null, null, 'fixPath', [basePath]);
-			var file = $es4.$$primitive(new (VFile)(path));
-			var list = $es4.$$call(file, null, null, 'listFiles', $es4.$$EMPTY_ARRAY);
-			var returnList = $es4.$$primitive(new (Array)());
-			for (var i = 0; i < $es4.$$get(list, null, null, 'length'); i++)
+			token = $es4.$$get(tokens, null, null, i);
+			switch ($es4.$$get(token, null, null, 'type'))
 			{
-				file = $es4.$$get(list, null, null, i);
-				var result = filter(file, basePath);
-				if (result)
-				{
-					$es4.$$call(returnList, null, null, 'push', [result]);
-				}
-				if ($es4.$$call(file, null, null, 'isDirectory', $es4.$$EMPTY_ARRAY) && recursive)
-				{
-					var innerList = innerGetList($es4.$$get(file, null, null, 'src'), recursive, filter, basePath);
-					returnList = $es4.$$call(returnList, null, null, 'concat', [innerList]);
-				}
+				case $es4.$$get(Token, null, null, 'SpaceTokenType'):
+				case $es4.$$get(Token, null, null, 'TabTokenType'):
+				case $es4.$$get(Token, null, null, 'NewLineTokenType'):
+					break;
+				case $es4.$$get(Token, null, null, 'EOSTokenType'):
+				case $es4.$$get(Token, null, null, 'OpenBracketTokenType'):
+				case $es4.$$get(Token, null, null, 'OpenParenTokenType'):
+				case $es4.$$get(Token, null, null, 'EqualityTokenType'):
+				case $es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'BitwiseLeftShiftTokenType'):
+				case $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftTokenType'):
+				case $es4.$$get(Token, null, null, 'BitwiseRightShiftTokenType'):
+				case $es4.$$get(Token, null, null, 'RelationalTokenType'):
+				case $es4.$$get(Token, null, null, 'AddWithAssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'DivWithAssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'ModWithAssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'MulWithAssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'SubWithAssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'AssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'CommaTokenType'):
+				case $es4.$$get(Token, null, null, 'DeleteTokenType'):
+				case $es4.$$get(Token, null, null, 'InTokenType'):
+				case $es4.$$get(Token, null, null, 'WithTokenType'):
+				case $es4.$$get(Token, null, null, 'TypeofTokenType'):
+				case $es4.$$get(Token, null, null, 'VoidTokenType'):
+				case $es4.$$get(Token, null, null, 'ReturnTokenType'):
+				case $es4.$$get(Token, null, null, 'ThrowTokenType'):
+				case $es4.$$get(Token, null, null, 'NewTokenType'):
+				case $es4.$$get(Token, null, null, 'CaseTokenType'):
+				case $es4.$$get(Token, null, null, 'AndWithAssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'OrWithAssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'AndTokenType'):
+				case $es4.$$get(Token, null, null, 'OrTokenType'):
+				case $es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType'):
+				case $es4.$$get(Token, null, null, 'BitwiseAndTokenType'):
+				case $es4.$$get(Token, null, null, 'BitwiseNotTokenType'):
+				case $es4.$$get(Token, null, null, 'BitwiseOrTokenType'):
+				case $es4.$$get(Token, null, null, 'BitwiseXorTokenType'):
+				case $es4.$$get(Token, null, null, 'NotTokenType'):
+				case $es4.$$get(Token, null, null, 'IncrementTokenType'):
+				case $es4.$$get(Token, null, null, 'DecrementTokenType'):
+				case $es4.$$get(Token, null, null, 'OpenBraceTokenType'):
+				case $es4.$$get(Token, null, null, 'IsTokenType'):
+				case $es4.$$get(Token, null, null, 'InstanceofTokenType'):
+				case $es4.$$get(Token, null, null, 'AddTokenType'):
+				case $es4.$$get(Token, null, null, 'RegExpTokenType'):
+				case $es4.$$get(Token, null, null, 'SubTokenType'):
+				case $es4.$$get(Token, null, null, 'DivTokenType'):
+				case $es4.$$get(Token, null, null, 'MulTokenType'):
+				case $es4.$$get(Token, null, null, 'ModTokenType'):
+					break outer;
+				default:
+					return null;
 			}
-			return returnList;
 		}
-;
-	}));
-
-	//method
-	$es4.$$public_function('filterList', FileUtil, (function ($$$$list, $$$$filter)
+	}
+	var result = $es4.$$call(Lexer, null, null, 'lex', [$es4.$$call(input, null, null, 'slice', [1]), [$es4.$$get(Token, null, null, 'SpecialUFOTokenType')], true]);
+	var previousToken;
+	var tokens = $es4.$$get(result, null, null, 'tokens');
+	var foundEnd = false;
+	for (i = 0; i < $es4.$$get(tokens, null, null, 'length'); i++)
 	{
-		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
-
-		//set default parameter values
-		var list = $$$$list;
-		var filter = $$$$filter;
-
-		var returnList = [];
-		$es4.$$set(returnList, null, null, 'basepath', $es4.$$get(list, null, null, 'basepath'), '=');
-		for (var i = 0; i < $es4.$$get(list, null, null, 'length'); i++)
+		token = $es4.$$get(tokens, null, null, i);
+		if (foundEnd)
 		{
-			var file = filter($es4.$$get(list, null, null, i), $es4.$$get(list, null, null, 'basepath'));
-			if (!file)
+			if ($es4.$$get(token, null, null, 'data') == ',' || $es4.$$get(token, null, null, 'data') == ';' || $es4.$$get(token, null, null, 'data') == ']' || $es4.$$get(token, null, null, 'data') == ')' || $es4.$$get(token, null, null, 'data') == ']' || $es4.$$get(token, null, null, 'data') == '.' || $es4.$$get(token, null, null, 'data') == ' ' || $es4.$$get(token, null, null, 'data') == '	' || $es4.$$call(token, null, null, 'data', 'match', [/[\r\n]/]))
+			{
+				i++;
+				break;
+			}
+		}
+		else if ($es4.$$get(token, null, null, 'data') == '/' && previousToken && $es4.$$get(previousToken, null, null, 'data') != '\\')
+		{
+			foundEnd = true;
+		}
+		previousToken = token;
+	}
+	if (!foundEnd)
+	{
+		return null;
+	}
+	tokens = $es4.$$call(tokens, null, null, 'splice', [0, i - 1]);
+	$es4.$$call(tokens, null, null, 'unshift', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'RegExpTokenType'), '/'])]);
+	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, i - 1]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SpecialUFOTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	if ($es4.$$call(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewLineTokenType'), 'find', [input]) != null)
+	{
+		return null;
+	}
+	return $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'SpecialUFOTokenType'), $es4.$$call(input, null, null, 'charAt', [0])]), 0]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinallyTokenType'), 'keyword', 'finally', '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinallyTokenType'), 'terminator', /^([\s]|\{)/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'FinallyTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != 'f' || $es4.$$call(input, null, null, 'charAt', [1]) != 'i') ? null : $es4.$$call(Token, null, null, 'keywordFind', [input, $es4.$$get(Token, null, null, 'FinallyTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AtTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '@') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'AtTokenType'), '@']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType'), 'regex', /^<<=/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '<' || $es4.$$call(input, null, null, 'charAt', [1]) != '<') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType'), 'regex', /^>>=/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '>' || $es4.$$call(input, null, null, 'charAt', [1]) != '>') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType'), 'regex', /^>>>=/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '>' || $es4.$$call(input, null, null, 'charAt', [1]) != '>') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType'), 'regex', /^&=/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '&' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType'), 'regex', /^\|=/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '|' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType'), 'regex', /^\^=/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '^' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AddWithAssignmentTokenType'), 'regex', /^\+\=/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AddWithAssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '+' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'AddWithAssignmentTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DivWithAssignmentTokenType'), 'regex', /^\/\=/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DivWithAssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '/' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'DivWithAssignmentTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ModWithAssignmentTokenType'), 'regex', /^\%\=/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ModWithAssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '%' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'ModWithAssignmentTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MulWithAssignmentTokenType'), 'regex', /^\*\=/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MulWithAssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '*' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'MulWithAssignmentTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SubWithAssignmentTokenType'), 'regex', /^\-\=/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SubWithAssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '-' || $es4.$$call(input, null, null, 'charAt', [1]) != '=') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'SubWithAssignmentTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EqualityTokenType'), 'operators', ['===', '!==', '==', '!='], '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EqualityTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	if ($es4.$$call(input, null, null, 'charAt', [0]) != '=' && $es4.$$call(input, null, null, 'charAt', [0]) != '!')
+	{
+		return null;
+	}
+	for (var i = 0; i < $es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EqualityTokenType'), 'operators', 'length'); i++)
+	{
+		var operator = $es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'EqualityTokenType'), 'operators', i);
+		var match = $es4.$$call(input, null, null, 'match', [$es4.$$primitive(new (RegExp)("^" + operator))]);
+		if (!match)
+		{
+			continue;
+		}
+		var token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'EqualityTokenType'), operator]);
+		return $es4.$$call(Token, null, null, 'getNewResult', [token, $es4.$$get(operator, null, null, 'length') - 1]);
+	}
+	return null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RelationalTokenType'), 'operators', ['>=', '>', '<=', '<'], '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RelationalTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	if ($es4.$$call(input, null, null, 'charAt', [0]) != '>' && $es4.$$call(input, null, null, 'charAt', [0]) != '<')
+	{
+		return null;
+	}
+	for (var i = 0; i < $es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RelationalTokenType'), 'operators', 'length'); i++)
+	{
+		var operator = $es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'RelationalTokenType'), 'operators', i);
+		var match = $es4.$$call(input, null, null, 'match', [$es4.$$primitive(new (RegExp)("^" + operator))]);
+		if (!match)
+		{
+			continue;
+		}
+		var token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'RelationalTokenType'), operator]);
+		return $es4.$$call(Token, null, null, 'getNewResult', [token, $es4.$$get(operator, null, null, 'length') - 1]);
+	}
+	return null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseAndTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '&') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseAndTokenType'), '&']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseXorTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '^') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseXorTokenType'), '^']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseOrTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '|') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseOrTokenType'), '|']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AndTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '&' && $es4.$$call(input, null, null, 'charAt', [1]) == '&') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'AndTokenType'), '&&']), 1]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AndWithAssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '&' && $es4.$$call(input, null, null, 'charAt', [1]) == '&' && $es4.$$call(input, null, null, 'charAt', [2]) == '=') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'AndWithAssignmentTokenType'), '&&=']), 2]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OrTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '|' && $es4.$$call(input, null, null, 'charAt', [1]) == '|') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'OrTokenType'), '||']), 1]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'OrWithAssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '|' && $es4.$$call(input, null, null, 'charAt', [1]) == '|' && $es4.$$call(input, null, null, 'charAt', [2]) == '=') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'OrWithAssignmentTokenType'), '||=']), 2]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseLeftShiftTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '<' && $es4.$$call(input, null, null, 'charAt', [1]) == '<') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseLeftShiftTokenType'), '<<']), 1]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseRightShiftTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '>' && $es4.$$call(input, null, null, 'charAt', [1]) == '>') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseRightShiftTokenType'), '>>']), 1]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '>' && $es4.$$call(input, null, null, 'charAt', [1]) == '>' && $es4.$$call(input, null, null, 'charAt', [2]) == '>') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftTokenType'), '>>>']), 2]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SubTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '-') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'SubTokenType'), '-']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AddTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '+') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'AddTokenType'), '+']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'DivTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '/') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'DivTokenType'), '/']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'MulTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '*') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MulTokenType'), '*']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'ModTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '%') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'ModTokenType'), '%']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'AssignmentTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '=') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'AssignmentTokenType'), '=']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NamespaceKeywordTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == 'n') ? $es4.$$call(Token, null, null, 'keywordFind2', [input, 'namespace', $es4.$$get(Token, null, null, 'NamespaceKeywordTokenType'), $es4.$$get(Token, null, null, 'identifierStartCharacters'), true]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	if ($es4.$$call(input, null, null, 'charAt', [0]) != '<')
+	{
+		return null;
+	}
+	var isXMLList = $es4.$$call(input, null, null, 'charAt', [1]) == '>';
+	var resultTokens = [];
+	var index = -1;
+	var openNodes = 0;
+	while (true)
+	{
+		var result = $es4.$$call(Lexer, null, null, 'lex', [input, [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType'), $es4.$$get(Token, null, null, 'StringTokenType'), $es4.$$get(Token, null, null, 'AssignmentTokenType'), $es4.$$get(Token, null, null, 'ColonTokenType'), $es4.$$get(Token, null, null, 'XMLOpenArrowTokenType'), $es4.$$get(Token, null, null, 'XMLIdentifierTokenType'), $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType')], true]);
+		if (!$es4.$$get(result, null, null, 'tokens', 'length'))
+		{
+			break;
+		}
+		if ($es4.$$call(input, null, null, 'charAt', [$es4.$$get(result, null, null, 'index')]) != '>')
+		{
+			break;
+		}
+		var tokens = $es4.$$call(result, null, null, 'tokens', 'concat', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLClosedArrowTokenType'), '>'])]);
+		input = $es4.$$call(input, null, null, 'slice', [$es4.$$get(result, null, null, 'index') + 1]);
+		index += $es4.$$get(result, null, null, 'index') + 1;
+		resultTokens = $es4.$$call(resultTokens, null, null, 'concat', [tokens]);
+		if ($es4.$$get(tokens, null, null, 1, 'type') != $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'))
+		{
+			openNodes++;
+		}
+		if ($es4.$$get(tokens, null, null, 1, 'type') == $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'))
+		{
+			openNodes--;
+		}
+		else if ($es4.$$get(tokens, null, null, $es4.$$get(tokens, null, null, 'length') - 2, 'type') == $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'))
+		{
+			openNodes--;
+		}
+		if (!openNodes)
+		{
+			break;
+		}
+		if (isXMLList && openNodes == 1)
+		{
+			result = $es4.$$call(Lexer, null, null, 'lex', [input, [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType')], true]);
+			if (!$es4.$$get(result, null, null, 'tokens', 'length'))
 			{
 				continue;
 			}
-			$es4.$$call(returnList, null, null, 'push', [file]);
+			input = $es4.$$call(input, null, null, 'slice', [$es4.$$get(result, null, null, 'index')]);
+			index += $es4.$$get(result, null, null, 'index');
+			resultTokens = $es4.$$call(resultTokens, null, null, 'concat', [$es4.$$get(result, null, null, 'tokens')]);
 		}
-		return returnList;
-	}));
-
-	//method
-	$es4.$$public_function('getListFilter_none', FileUtil, (function ()
-	{
-		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
-
-		function filter($$$$file, $$$$basePath) 
+		else
 		{
-			//set default parameter values
-			var file = $$$$file;
-			var basePath = $$$$basePath;
-
-			return file;
+			result = $es4.$$call(Lexer, null, null, 'lex', [input, [$es4.$$get(Token, null, null, 'XMLTextTokenType'), $es4.$$get(Token, null, null, 'XMLCDATATokenType')], true]);
+			if (!$es4.$$get(result, null, null, 'tokens', 'length'))
+			{
+				continue;
+			}
+			input = $es4.$$call(input, null, null, 'slice', [$es4.$$get(result, null, null, 'index')]);
+			index += $es4.$$get(result, null, null, 'index');
+			resultTokens = $es4.$$call(resultTokens, null, null, 'concat', [$es4.$$get(result, null, null, 'tokens')]);
 		}
-;
-
-		return filter;
-	}));
-
-	//method
-	$es4.$$public_function('getListFilter_hidden', FileUtil, (function ()
+	}
+	if (openNodes || !$es4.$$get(resultTokens, null, null, 'length'))
 	{
-		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
+		return null;
+	}
+	return $es4.$$call(Token, null, null, 'getNewResult', [resultTokens, index]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLIdentifierTokenType'), 'regex', /^[a-zA-Z_][a-zA-Z_0-9]*/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLIdentifierTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
 
-		function filter($$$$file, $$$$basePath) 
+	return $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'XMLIdentifierTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLTextTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	if ($es4.$$call(input, null, null, 'charAt', [0]) == '<')
+	{
+		return null;
+	}
+	var token;
+	var tokens = [];
+	var i = 0;
+	var chunk = '';
+	while (i < $es4.$$get(input, null, null, 'length'))
+	{
+		if ($es4.$$call($es4.$$call(input, null, null, 'charAt', [i]), null, null, 'match', [/[\r\n]/]))
 		{
-			//set default parameter values
-			var file = $$$$file;
-			var basePath = $$$$basePath;
-
-			return $es4.$$call(file, null, null, 'isHidden', $es4.$$EMPTY_ARRAY) ? null : file;
+			if ($es4.$$get(chunk, null, null, 'length') > 0)
+			{
+				token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLTextTokenType'), chunk]);
+				$es4.$$call(tokens, null, null, 'push', [token]);
+			}
+			token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$call(input, null, null, 'charAt', [i])]);
+			$es4.$$call(tokens, null, null, 'push', [token]);
+			chunk = '';
 		}
-;
+		else if ($es4.$$call(input, null, null, 'charAt', [i]) == '<')
+		{
+			i--;
+			break;
+		}
+		else
+		{
+			chunk += $es4.$$call(input, null, null, 'charAt', [i]);
+		}
+		i++;
+	}
+	if ($es4.$$get(chunk, null, null, 'length') > 0)
+	{
+		token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLTextTokenType'), chunk]);
+		$es4.$$call(tokens, null, null, 'push', [token]);
+	}
+	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, i]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLCDATATokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
 
-		return filter;
-	}));
+	if ($es4.$$call(input, null, null, 'charAt', [0]) != '<' || $es4.$$call(input, null, null, 'charAt', [1]) != '!' || $es4.$$call(input, null, null, 'charAt', [2]) != '[' || $es4.$$call(input, null, null, 'indexOf', ['<![CDATA[']) != 0)
+	{
+		return null;
+	}
+	var tokens = [];
+	var token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLCDATATokenType'), '<![CDATA[']);
+	$es4.$$call(tokens, null, null, 'push', [token]);
+	var i = 9;
+	var chunk = '';
+	while (i < $es4.$$get(input, null, null, 'length'))
+	{
+		if ($es4.$$call($es4.$$call(input, null, null, 'charAt', [i]), null, null, 'match', [/[\r\n]/]))
+		{
+			if ($es4.$$get(chunk, null, null, 'length') > 0)
+			{
+				token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLCDATAChunkTokenType'), chunk]);
+				$es4.$$call(tokens, null, null, 'push', [token]);
+			}
+			token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$call(input, null, null, 'charAt', [i])]);
+			$es4.$$call(tokens, null, null, 'push', [token]);
+			chunk = '';
+		}
+		else if ($es4.$$call(input, null, null, 'charAt', [i - 2]) == ']' && $es4.$$call(input, null, null, 'charAt', [i - 1]) == ']' && $es4.$$call(input, null, null, 'charAt', [i]) == '>')
+		{
+			chunk = $es4.$$call(chunk, null, null, 'slice', [0, $es4.$$get(chunk, null, null, 'length') - 2]);
+			break;
+		}
+		else
+		{
+			chunk += $es4.$$call(input, null, null, 'charAt', [i]);
+		}
+		i++;
+	}
+	if ($es4.$$get(chunk, null, null, 'length') > 0)
+	{
+		token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLCDATAChunkTokenType'), chunk]);
+		$es4.$$call(tokens, null, null, 'push', [token]);
+	}
+	token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLCDATAEndTokenType'), ']]>']);
+	$es4.$$call(tokens, null, null, 'push', [token]);
+	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, i]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLOpenArrowTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '<') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLOpenArrowTokenType'), '<']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLClosedArrowTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '>') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'XMLClosedArrowTokenType'), '>']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'), 'regex', /^\//, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != '/') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType'), 'regex', /^::/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) != ':' || $es4.$$call(input, null, null, 'charAt', [1]) != ':') ? null : $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType'), 'regex', /^\.\</, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	if ($es4.$$call(input, null, null, 'charAt', [0]) != '.')
+	{
+		return null;
+	}
+	var result = $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType')]);
+	if (!result)
+	{
+		return null;
+	}
+	var tokens = $es4.$$get(result, null, null, 'tokens');
+	var index = $es4.$$get(result, null, null, 'index');
+	result = $es4.$$call(Lexer, null, null, 'lex', [$es4.$$call(input, null, null, 'slice', [index + 1]), [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$get(Token, null, null, 'TabTokenType'), $es4.$$get(Token, null, null, 'SpaceTokenType'), $es4.$$get(Token, null, null, 'IdentifierTokenType'), $es4.$$get(Token, null, null, 'DotTokenType'), $es4.$$get(Token, null, null, 'VectorClosedArrowTokenType')], true]);
+	tokens = $es4.$$call(tokens, null, null, 'concat', [$es4.$$get(result, null, null, 'tokens')]);
+	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, $es4.$$get(result, null, null, 'index') + index]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'VectorClosedArrowTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '>') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'VectorClosedArrowTokenType'), '>']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StringTokenType'), 'prefixAllowed', ["'", '"'], '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'StringTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	if ($es4.$$call(input, null, null, 'charAt', [0]) != "'" && $es4.$$call(input, null, null, 'charAt', [0]) != '"')
+	{
+		return null;
+	}
+	var tokens = [];
+	var token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'StringTokenType'), $es4.$$call(input, null, null, 'charAt', [0])]);
+	$es4.$$call(tokens, null, null, 'push', [token]);
+	var i = 1;
+	var ignore = false;
+	var lastChar;
+	var stringChunk = '';
+	while (i < $es4.$$get(input, null, null, 'length') && ($es4.$$call(input, null, null, 'charAt', [0]) != $es4.$$call(input, null, null, 'charAt', [i]) || ignore))
+	{
+		if (lastChar == '\\' && $es4.$$call($es4.$$call(input, null, null, 'charAt', [i]), null, null, 'match', [/[\r\n]/]) && !ignore)
+		{
+			if ($es4.$$get(stringChunk, null, null, 'length') - 1 > 0)
+			{
+				token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'StringChunkTokenType'), $es4.$$call(stringChunk, null, null, 'slice', [0, $es4.$$get(stringChunk, null, null, 'length') - 1])]);
+				$es4.$$call(tokens, null, null, 'push', [token]);
+			}
+			token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'StringMultiLineDelimiterTokenType'), lastChar]);
+			$es4.$$call(tokens, null, null, 'push', [token]);
+			token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$call(input, null, null, 'charAt', [i])]);
+			$es4.$$call(tokens, null, null, 'push', [token]);
+			stringChunk = '';
+		}
+		else
+		{
+			stringChunk += $es4.$$call(input, null, null, 'charAt', [i]);
+		}
+		lastChar = $es4.$$call(input, null, null, 'charAt', [i]);
+		ignore = lastChar == '\\' && !ignore;
+		i++;
+	}
+	if ($es4.$$get(stringChunk, null, null, 'length') > 0)
+	{
+		token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'StringChunkTokenType'), stringChunk]);
+		$es4.$$call(tokens, null, null, 'push', [token]);
+	}
+	token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'StringEndTokenType'), $es4.$$call(input, null, null, 'charAt', [i])]);
+	$es4.$$call(tokens, null, null, 'push', [token]);
+	return $es4.$$call(Token, null, null, 'getNewResult', [tokens, i]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NumberTokenType'), 'regex1', /^([0-9]|[\.][0-9\.]+)[0-9\.]*(e[+-][0-9]+)*/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NumberTokenType'), 'regex2', /^0x[a-fA-F0-9]+/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NumberTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	if ($es4.$$call(input, null, null, 'charAt', [0]) == '0' && $es4.$$call(input, null, null, 'charAt', [1]) == 'x')
+	{
+		return $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'NumberTokenType'), $es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NumberTokenType'), 'regex2')]);
+	}
+	if ($es4.$$call(input, null, null, 'charAt', [0]) != '0' && $es4.$$call(input, null, null, 'charAt', [0]) != '1' && $es4.$$call(input, null, null, 'charAt', [0]) != '2' && $es4.$$call(input, null, null, 'charAt', [0]) != '3' && $es4.$$call(input, null, null, 'charAt', [0]) != '4' && $es4.$$call(input, null, null, 'charAt', [0]) != '5' && $es4.$$call(input, null, null, 'charAt', [0]) != '6' && $es4.$$call(input, null, null, 'charAt', [0]) != '7' && $es4.$$call(input, null, null, 'charAt', [0]) != '8' && $es4.$$call(input, null, null, 'charAt', [0]) != '9' && $es4.$$call(input, null, null, 'charAt', [0]) != '.')
+	{
+		return;
+	}
+	return $es4.$$call(Token, null, null, 'regexFind', [input, $es4.$$get(Token, null, null, 'NumberTokenType'), $es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NumberTokenType'), 'regex1')]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'SpaceTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == ' ') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'SpaceTokenType'), ' ']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'TabTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return ($es4.$$call(input, null, null, 'charAt', [0]) == '	') ? $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'TabTokenType'), '	']), 0]) : null;
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewLineTokenType'), 'regex', /[\r\n]/, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewLineTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	var tokens;
+	var index = -1;
+	while ($es4.$$call($es4.$$call(input, null, null, 'charAt', [index + 1]), null, null, 'match', [$es4.$$get(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'NewLineTokenType'), 'regex')]))
+	{
+		if (!tokens)
+		{
+			tokens = [];
+		}
+		$es4.$$call(tokens, null, null, 'push', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'NewLineTokenType'), $es4.$$call(input, null, null, 'charAt', [index + 1])])]);
+		index++;
+	}
+	return (index == -1) ? null : $es4.$$call(Token, null, null, 'getNewResult', [tokens, index]);
+}
+, '=');
+		$es4.$$set(Token, null, null, 'tokenFunctions', $es4.$$get(Token, null, null, 'UFOTokenType'), 'find', function ($$$$input) 
+{
+		//set default parameter values
+		var input = $$$$input;
+
+	return $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'UFOTokenType'), $es4.$$call(input, null, null, 'charAt', [0])]), 0]);
+}
+, '=');
+	});
 
 	//method
-	$es4.$$public_function('getListFilter_extension', FileUtil, (function ($$$$extension, $$$$include_)
+	$es4.$$public_function('getNewToken', Token, (function ($$$$type, $$$$data)
 	{
-		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
+		if (Token.$$cinit !== undefined) Token.$$cinit();
 
 		//set default parameter values
-		var extension = $$$$extension;
-		var include_ = $$$$include_;
+		var type = $es4.$$coerce($$$$type, String);
+		var data = $$$$data;
 
-		extension = '.' + extension;
-
-		function filter($$$$file, $$$$basePath) 
-		{
-			//set default parameter values
-			var file = $$$$file;
-			var basePath = $$$$basePath;
-
-			var result = $es4.$$call(file, null, null, 'src', 'slice', [-$es4.$$get(extension, null, null, 'length')]);
-			if (result == extension)
-			{
-				return (include_) ? file : null;
-			}
-			return (include_) ? null : file;
-		}
-;
-
-		return filter;
+		return {constructor:"token", type:type, data:data, line:NaN, position:NaN};
 	}));
 
 	//method
-	$es4.$$public_function('getListFilter_name', FileUtil, (function ($$$$name, $$$$include_)
+	$es4.$$public_function('getNewResult', Token, (function ($$$$tokens, $$$$index)
 	{
-		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
+		if (Token.$$cinit !== undefined) Token.$$cinit();
 
 		//set default parameter values
-		var name = $$$$name;
-		var include_ = $$$$include_;
+		var tokens = $$$$tokens;
+		var index = $es4.$$coerce($$$$index, Number);
 
-		function filter($$$$file, $$$$basePath) 
+		if (!($es4.$$is(tokens, Array)))
 		{
-			//set default parameter values
-			var file = $$$$file;
-			var basePath = $$$$basePath;
-
-			var result = $es4.$$call($es4.$$call($es4.$$call(FileUtil, null, null, 'fixPath', [$es4.$$get(file, null, null, 'src')]), null, null, 'split', ['/']), null, null, 'pop', $es4.$$EMPTY_ARRAY);
-			if (result == name)
-			{
-				return (include_) ? file : null;
-			}
-			return (include_) ? null : file;
+			tokens = [tokens];
 		}
-;
-
-		return filter;
+		return {tokens:tokens, index:index};
 	}));
 
 	//method
-	$es4.$$public_function('getListFilter_directories', FileUtil, (function ()
+	$es4.$$public_function('keywordFind2', Token, (function ($$$$input, $$$$keyword, $$$$TokenType, $$$$matchNext, $$$$requireWhitespace)
 	{
-		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
+		if (Token.$$cinit !== undefined) Token.$$cinit();
 
-		function filter($$$$file, $$$$basePath) 
+		//set default parameter values
+		var input = $$$$input;
+		var keyword = $$$$keyword;
+		var TokenType = $$$$TokenType;
+		var matchNext = $$$$matchNext;
+		var requireWhitespace = $es4.$$coerce($$$$requireWhitespace, Boolean);
+
+		if ($es4.$$call(input, null, null, 'substring', [0, $es4.$$get(keyword, null, null, 'length')]) != keyword)
 		{
-			//set default parameter values
-			var file = $$$$file;
-			var basePath = $$$$basePath;
-
-			if ($es4.$$call(file, null, null, 'isDirectory', $es4.$$EMPTY_ARRAY))
+			return null;
+		}
+		var cur = null;
+		var whitespace = 0;
+		var inputLength = $es4.$$get(input, null, null, 'length');
+		for (var i = $es4.$$get(keyword, null, null, 'length'); i < inputLength; i++)
+		{
+			cur = $es4.$$call(input, null, null, 'charAt', [i]);
+			if ($es4.$$get(Token, null, null, 'whitespaceCharacters', cur) === undefined)
+			{
+				break;
+			}
+			whitespace++;
+		}
+		if (requireWhitespace && whitespace === 0)
+		{
+			return null;
+		}
+		if ($es4.$$is(matchNext, String))
+		{
+			if (cur != matchNext)
 			{
 				return null;
 			}
-			return file;
 		}
-;
-
-		return filter;
-	}));
-
-	//method
-	$es4.$$public_function('getListFilter_directory', FileUtil, (function ($$$$path)
-	{
-		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
-
-		//set default parameter values
-		var path = $$$$path;
-
-		path = $es4.$$call(FileUtil, null, null, 'fixPath', [path]);
-
-		function filter($$$$file, $$$$basePath) 
+		else
 		{
-			//set default parameter values
-			var file = $$$$file;
-			var basePath = $$$$basePath;
-
-			basePath = $es4.$$call(FileUtil, null, null, 'fixPath', [basePath]);
-			if ($es4.$$call($es4.$$call(FileUtil, null, null, 'fixPath', [$es4.$$get(file, null, null, 'src')]), null, null, 'indexOf', [path]) == 0)
+			if ($es4.$$get(matchNext, null, null, cur) === undefined)
 			{
 				return null;
 			}
-			return file;
 		}
-;
-
-		return filter;
+		return $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [TokenType, keyword]), $es4.$$get(keyword, null, null, 'length') - 1]);
 	}));
 
 	//method
-	$es4.$$public_function('getListFilter_list', FileUtil, (function ($$$$list)
+	$es4.$$public_function('keywordFind', Token, (function ($$$$input, $$$$TokenType, $$$$grammer)
 	{
-		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
+		if (Token.$$cinit !== undefined) Token.$$cinit();
 
 		//set default parameter values
-		var list = $$$$list;
+		var input = $$$$input;
+		var TokenType = $$$$TokenType;
+		var grammer = (2 > arguments.length - 1) ? null : $$$$grammer;
 
-		function filter($$$$file, $$$$basePath) 
+		for (var i = 0; i < $es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'keyword', 'length'); i++)
 		{
-			//set default parameter values
-			var file = $$$$file;
-			var basePath = $$$$basePath;
-
-			basePath = $es4.$$call(FileUtil, null, null, 'fixPath', [basePath]);
-			var compare1 = $es4.$$get($es4.$$call($es4.$$call(FileUtil, null, null, 'fixPath', [$es4.$$get(file, null, null, 'src')]), null, null, 'split', [basePath]), null, null, 1);
-			for (var i = 0; i < $es4.$$get(list, null, null, 'length'); i++)
+			if ($es4.$$call(Token, null, null, 'tokenFunctions', TokenType, 'keyword', 'charAt', [i]) !== $es4.$$call(input, null, null, 'charAt', [i]))
 			{
-				var compare2 = $es4.$$get($es4.$$call($es4.$$call(FileUtil, null, null, 'fixPath', [$es4.$$get(list, null, null, i, 'src')]), null, null, 'split', [$es4.$$call(FileUtil, null, null, 'fixPath', [$es4.$$get(list, null, null, 'basepath')])]), null, null, 1);
-				if (compare1 == compare2)
-				{
-					return null;
-				}
-			}
-			return file;
-		}
-;
-
-		return filter;
-	}));
-
-	//method
-	$es4.$$public_function('getListFilter_filters', FileUtil, (function ($$$$filters)
-	{
-		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
-
-		//set default parameter values
-		var filters = $$$$filters;
-
-		function filter($$$$file, $$$$basePath) 
-		{
-			//set default parameter values
-			var file = $$$$file;
-			var basePath = $$$$basePath;
-
-			for (var i = 0; i < $es4.$$get(filters, null, null, 'length'); i++)
-			{
-				var result = $es4.$$get(filters, null, null, i)(file, basePath);
-				if (!result)
-				{
-					return null;
-				}
-			}
-			return file;
-		}
-;
-
-		return filter;
-	}));
-
-	function FileUtil()
-	{
-		//initialize class if not initialized
-		if (FileUtil.$$cinit !== undefined) FileUtil.$$cinit();
-
-		//save scope
-		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
-		var $$thisp = this;
-
-		//handle possible cast
-		if ($$this === $$thisp && (!($$this instanceof FileUtil) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], FileUtil) : $es4.$$throwArgumentError();
-		Object.defineProperty($$this, '$$t', {value:1});
-
-		//constructor
-		$es4.$$constructor($$thisp, (function ()
-		{
-		}));
-
-		//call construct if no arguments, or argument zero does not equal manual construct
-		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
-		{
-			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
-
-			$es4.$$construct($$this, $$args);
-		}
-	}
-
-	////////////////INTERNAL CLASS////////////////
-	var VFile = (function ()
-	{
-		//imports
-		var FileUtil;
-
-		//properties
-		$es4.$$private_property('fs', VFile);
-		$es4.$$private_property('path', VFile);
-
-		//class initializer
-		VFile.$$cinit = (function ()
-		{
-			VFile.$$cinit = undefined;
-
-			//initialize imports
-			FileUtil = $es4.$$['sweetrush.utils'].FileUtil;
-
-			//initialize properties
-			VFile.fs = require('fs');
-			VFile.path = require('path');
-		});
-
-		function VFile()
-		{
-			//initialize class if not initialized
-			if (VFile.$$cinit !== undefined) VFile.$$cinit();
-
-			//save scope
-			var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
-			var $$thisp = this;
-
-			//handle possible cast
-			if ($$this === $$thisp && (!($$this instanceof VFile) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], VFile) : $es4.$$throwArgumentError();
-			Object.defineProperty($$this, '$$t', {value:1});
-
-			//properties
-			$es4.$$public_property('src', $$thisp, String);
-
-			//constructor
-			$es4.$$constructor($$thisp, (function ($$$$src)
-			{
-				//set default parameter values
-				var src = $$$$src;
-
-				if (true)
-				{
-					$es4.$$set($$this, $$this, $$thisp, 'src', $es4.$$call(FileUtil, $$this, $$thisp, 'fixPath', [$es4.$$call(VFile, $$this, $$thisp, 'path', 'normalize', [src])]), '=');
-				}
-				if (false)
-				{
-				}
-			}));
-
-			//method
-			$es4.$$public_function('listFiles', $$thisp, (function ()
-			{
-				function getFiles($$$$dir, $$$$files_) 
-				{
-					//set default parameter values
-					var dir = $$$$dir;
-					var files_ = $$$$files_;
-
-					files_ = files_ || [];
-					var files = $es4.$$call(FileUtil, $$this, $$thisp, 'readDirectory', [dir]);
-					for (var $$i0 = (files || $es4.$$EMPTY_OBJECT).$$nextNameIndex(0); $$i0 != 0; $$i0 = files.$$nextNameIndex($$i0))
-					{
-						var i = files.$$nextName($$i0);
-
-						var name = $es4.$$get(files, $$this, $$thisp, i);
-						if ($es4.$$call($es4.$$primitive(new (VFile)(name)), $$this, $$thisp, 'isDirectory', $es4.$$EMPTY_ARRAY))
-						{
-							getFiles(name, files_);
-						}
-						else
-						{
-							$es4.$$call(files_, $$this, $$thisp, 'push', [$es4.$$primitive(new (VFile)(name))]);
-						}
-					}
-					return files_;
-				}
-;
-
-				return getFiles($es4.$$get($$this, $$this, $$thisp, 'src'), []);
-			}));
-
-			//method
-			$es4.$$public_function('getPath', $$thisp, (function ()
-			{
-				if (false)
-				{
-				}
-				if (true)
-				{
-					return $es4.$$call($es4.$$call($es4.$$call(VFile, $$this, $$thisp, 'path', 'dirname', [$es4.$$get($$this, $$this, $$thisp, 'src')]), $$this, $$thisp, 'split', ['/']), $$this, $$thisp, 'pop', $es4.$$EMPTY_ARRAY);
-				}
-			}));
-
-			//method
-			$es4.$$public_function('getParent', $$thisp, (function ()
-			{
-				if (false)
-				{
-				}
-				if (true)
-				{
-					return $es4.$$call($es4.$$call($es4.$$call(VFile, $$this, $$thisp, 'path', 'dirname', [$es4.$$get($$this, $$this, $$thisp, 'src')]), $$this, $$thisp, 'split', ['/']), $$this, $$thisp, 'pop', $es4.$$EMPTY_ARRAY);
-				}
-			}));
-
-			//method
-			$es4.$$public_function('isHidden', $$thisp, (function ()
-			{
-				var parts = $es4.$$call($$this, $$this, $$thisp, 'src', 'split', ['/']);
-				if (!$es4.$$call($$this, $$this, $$thisp, 'isDirectory', $es4.$$EMPTY_ARRAY))
-				{
-					$es4.$$call(parts, $$this, $$thisp, 'pop', $es4.$$EMPTY_ARRAY);
-				}
-				var src = $es4.$$call(parts, $$this, $$thisp, 'join', ['/']);
-				return $es4.$$call(src, $$this, $$thisp, 'indexOf', ['/.']) !== -1;
-			}));
-
-			//method
-			$es4.$$public_function('equals', $$thisp, (function ($$$$file)
-			{
-				//set default parameter values
-				var file = $$$$file;
-
-				return $es4.$$get($$this, $$this, $$thisp, 'src') == $es4.$$get(file, $$this, $$thisp, 'src');
-			}));
-
-			//method
-			$es4.$$public_function('isDirectory', $$thisp, (function ()
-			{
-				if (false)
-				{
-				}
-				if (true)
-				{
-					return $es4.$$call($es4.$$call(VFile, $$this, $$thisp, 'fs', 'statSync', [$es4.$$get($$this, $$this, $$thisp, 'src')]), $$this, $$thisp, 'isDirectory', $es4.$$EMPTY_ARRAY);
-				}
-			}));
-
-			//method
-			$es4.$$public_function('toString', $$thisp, (function ()
-			{
-				return $es4.$$get($$this, $$this, $$thisp, 'src');
-			}));
-
-			//call construct if no arguments, or argument zero does not equal manual construct
-			if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
-			{
-				for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
-
-				$es4.$$construct($$this, $$args);
+				return null;
 			}
 		}
-
-		return $es4.$$class(VFile, null, 'VFile');
-	})();
-
-	return $es4.$$class(FileUtil, {CLASSES:[VFile]}, 'sweetrush.utils::FileUtil');
-})();
-//sweetrush.utils.FileUtil
-
-
-//sweetrush.core.Parser
-$es4.$$package('sweetrush.core').Parser = (function ()
-{
-	//imports
-	var Construct;
-	var Token;
-	var Analyzer;
-	var Transcompiler;
-	var Parser;
-	var Token;
-	var Lexer;
-	var TranslatorProto;
-	var FileUtil;
-	var Base64Util;
-	var JsonUtil;
-	var Construct;
-	var SwcUtil;
-	var TranslatorPrototype;
-
-	//class initializer
-	Parser.$$cinit = (function ()
-	{
-		Parser.$$cinit = undefined;
-
-		//initialize imports
-		Construct = $es4.$$['sweetrush.obj'].Construct;
-		Token = $es4.$$['sweetrush.obj'].Token;
-		Analyzer = $es4.$$['sweetrush.core'].Analyzer;
-		Transcompiler = $es4.$$['sweetrush'].Transcompiler;
-		Lexer = $es4.$$['sweetrush.core'].Lexer;
-		TranslatorProto = $es4.$$['sweetrush.core'].TranslatorProto;
-		FileUtil = $es4.$$['sweetrush.utils'].FileUtil;
-		Base64Util = $es4.$$['sweetrush.utils'].Base64Util;
-		JsonUtil = $es4.$$['sweetrush.utils'].JsonUtil;
-		SwcUtil = $es4.$$['sweetrush.utils'].SwcUtil;
-		TranslatorPrototype = $es4.$$['sweetrush.core'].TranslatorPrototype;
-	});
-
-	//method
-	$es4.$$public_function('parse', Parser, (function ($$$$tokens, $$$$compileConstants, $$$$release)
-	{
-		if (Parser.$$cinit !== undefined) Parser.$$cinit();
-
-		//set default parameter values
-		var tokens = $es4.$$coerce($$$$tokens, Array);
-		var compileConstants = $es4.$$coerce($$$$compileConstants, Object);
-		var release = (2 > arguments.length - 1) ? false : $es4.$$coerce($$$$release, Boolean);
-
-		if (!$es4.$$get(tokens, null, null, 'length'))
+		if (!$es4.$$call($es4.$$call(input, null, null, 'charAt', [i]), null, null, 'match', [$es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'terminator')]))
 		{
 			return null;
 		}
-		if (!compileConstants)
+		if (!grammer)
 		{
-			compileConstants = {};
+			return $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [TokenType, $es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'keyword')]), $es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'keyword', 'length') - 1]);
 		}
-		var index = -1;
-		var ahead = 1;
-		var rootConstruct = $es4.$$call(Construct, null, null, 'getNewRootConstruct', $es4.$$EMPTY_ARRAY);
-		var callsSuper = false;
-		var inCompileConstant = false;
-		var add = true;
-		var previousAddValue = add;
-		var token;
-		var statementImportConstructs = [];
-		loopa:		while (token = peek(ahead))
-		{
-			ahead++;
-			switch ($es4.$$get(token, null, null, 'type'))
-			{
-				case $es4.$$get(Token, null, null, 'PackageTokenType'):
-					var p = matchPackageConstruct(rootConstruct);
-					if (add)
-					{
-						$es4.$$set(rootConstruct, null, null, 'packageConstruct', p, '=');
-						$es4.$$set(rootConstruct, null, null, 'packageConstruct', 'rootConstruct', rootConstruct, '=');
-					}
-					break;
-				case $es4.$$get(Token, null, null, 'ImportTokenType'):
-					var p = matchImportConstruct();
-					if (add)
-					{
-						$es4.$$call(rootConstruct, null, null, 'importConstructs', 'push', [p]);
-					}
-					break;
-				case $es4.$$get(Token, null, null, 'ElseTokenType'):
-					match($es4.$$get(Token, null, null, 'ElseTokenType'));
-					if (inCompileConstant)
-					{
-						throw $es4.$$primitive(new (Error)('nested compile constants are not supported'));
-					}
-					inCompileConstant = true;
-					add = !previousAddValue;
-					match($es4.$$get(Token, null, null, 'OpenBraceTokenType'));
-					break;
-				case $es4.$$get(Token, null, null, 'IfTokenType'):
-					match($es4.$$get(Token, null, null, 'IfTokenType'));
-					match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
-					if (inCompileConstant)
-					{
-						throw $es4.$$primitive(new (Error)('nested compile constants are not supported'));
-					}
-				case $es4.$$get(Token, null, null, 'IdentifierTokenType'):
-					if ($es4.$$get(peek(ahead, 0, true), null, null, 'type') == $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType') && $es4.$$get(peek(ahead + 1, 0, true), null, null, 'type') == $es4.$$get(Token, null, null, 'IdentifierTokenType'))
-					{
-						if (inCompileConstant)
-						{
-							throw $es4.$$primitive(new (Error)('nested compile constants are not supported'));
-						}
-						var compileConstantIdentifier = '';
-						compileConstantIdentifier += $es4.$$get(match($es4.$$get(Token, null, null, 'IdentifierTokenType')), null, null, 'data');
-						compileConstantIdentifier += $es4.$$get(match($es4.$$get(Token, null, null, 'NamespaceQualifierTokenType')), null, null, 'data');
-						compileConstantIdentifier += $es4.$$get(match($es4.$$get(Token, null, null, 'IdentifierTokenType')), null, null, 'data');
-						match($es4.$$get(Token, null, null, 'ClosedParenTokenType'), true);
-						inCompileConstant = true;
-						add = $es4.$$get(compileConstants, null, null, compileConstantIdentifier) == 'true';
-						match($es4.$$get(Token, null, null, 'OpenBraceTokenType'));
-						break;
-					}
-					continue loopa;
-				case $es4.$$get(Token, null, null, 'ClosedBraceTokenType'):
-					if (inCompileConstant)
-					{
-						match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
-						inCompileConstant = false;
-						previousAddValue = add;
-						add = true;
-						break;
-					}
-				case $es4.$$get(Token, null, null, 'FinalTokenType'):
-				case $es4.$$get(Token, null, null, 'DynamicTokenType'):
-					continue loopa;
-				case $es4.$$get(Token, null, null, 'ClassTokenType'):
-					var classConstruct = matchClassConstruct();
-					if (add)
-					{
-						$es4.$$set(classConstruct, null, null, 'isInternal', true, '=');
-						$es4.$$set(classConstruct, null, null, 'rootConstruct', rootConstruct, '=');
-						$es4.$$set(rootConstruct, null, null, 'importConstructs', $es4.$$call(classConstruct, null, null, 'importConstructs', 'concat', [$es4.$$get(rootConstruct, null, null, 'importConstructs')]), '=');
-						$es4.$$call(rootConstruct, null, null, 'classConstructs', 'push', [classConstruct]);
-					}
-					break;
-				case $es4.$$get(Token, null, null, 'InterfaceTokenType'):
-					var interfaceConstruct = matchInterfaceConstruct();
-					if (add)
-					{
-						$es4.$$set(interfaceConstruct, null, null, 'isInternal', true, '=');
-						$es4.$$set(interfaceConstruct, null, null, 'rootConstruct', rootConstruct, '=');
-						$es4.$$call(rootConstruct, null, null, 'interfaceConstructs', 'push', [interfaceConstruct]);
-					}
-					break;
-				case $es4.$$get(Token, null, null, 'FunctionTokenType'):
-					var methodConstruct = matchMethodConstruct();
-					if (add)
-					{
-						$es4.$$set(methodConstruct, null, null, 'isInternal', true, '=');
-						$es4.$$set(methodConstruct, null, null, 'rootConstruct', rootConstruct, '=');
-						if (!($es4.$$get(methodConstruct, null, null, 'UNIMPLEMENTEDToken') && release))
-						{
-							$es4.$$call(rootConstruct, null, null, 'methodConstructs', 'push', [methodConstruct]);
-						}
-					}
-					break;
-				case $es4.$$get(Token, null, null, 'NamespaceKeywordTokenType'):
-				case $es4.$$get(Token, null, null, 'VarTokenType'):
-					var propertyConstruct = matchPropertyConstruct();
-					if (add)
-					{
-						$es4.$$set(propertyConstruct, null, null, 'isInternal', true, '=');
-						$es4.$$set(propertyConstruct, null, null, 'rootConstruct', rootConstruct, '=');
-						$es4.$$call(rootConstruct, null, null, 'propertyConstructs', 'push', [propertyConstruct]);
-					}
-					break;
-				default:
-					throw error('Unexpected token found11.', token);
-			}
-			ahead = 1;
-		}
-
-		function matchTypeConstruct() 
-		{
-			var typeConstruct = $es4.$$call(Construct, null, null, 'getNewTypeConstruct', $es4.$$EMPTY_ARRAY);
-			var token = peek(1);
-			if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'MulTokenType'))
-			{
-				$es4.$$set(typeConstruct, null, null, 'mulToken', match($es4.$$get(Token, null, null, 'MulTokenType')), '=');
-			}
-			else if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'VoidTokenType'))
-			{
-				$es4.$$set(typeConstruct, null, null, 'voidToken', match($es4.$$get(Token, null, null, 'VoidTokenType')), '=');
-			}
-			else
-			{
-				$es4.$$set(typeConstruct, null, null, 'nameConstruct', matchNameConstruct(), '=');
-				if (match($es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType'), true))
-				{
-					$es4.$$set(typeConstruct, null, null, 'vectorNameConstruct', matchNameConstruct(), '=');
-					match($es4.$$get(Token, null, null, 'VectorClosedArrowTokenType'));
-				}
-			}
-			return typeConstruct;
-		}
-;
-
-		function matchPackageConstruct($$$$rootConstruct) 
-		{
-			//set default parameter values
-			var rootConstruct = $$$$rootConstruct;
-
-			var packageConstruct = $es4.$$call(Construct, null, null, 'getNewPackageConstruct', $es4.$$EMPTY_ARRAY);
-			match($es4.$$get(Token, null, null, 'PackageTokenType'));
-			if ($es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'IdentifierTokenType'))
-			{
-				$es4.$$set(packageConstruct, null, null, 'nameConstruct', matchNameConstruct(), '=');
-			}
-			else
-			{
-				$es4.$$set(packageConstruct, null, null, 'nameConstruct', $es4.$$call(Construct, null, null, 'getNewNameConstruct', $es4.$$EMPTY_ARRAY), '=');
-			}
-			match($es4.$$get(Token, null, null, 'OpenBraceTokenType'));
-			var ahead = 1;
-			var metaDataConstructs = [];
-			var token;
-			var inCompileConstant = false;
-			var add = true;
-			var previousAddValue = add;
-			loopb:			while (token = peek(ahead, 0, true))
-			{
-				ahead++;
-				switch ($es4.$$get(token, null, null, 'type'))
-				{
-					case $es4.$$get(Token, null, null, 'ImportTokenType'):
-						var c = matchImportConstruct();
-						if (add)
-						{
-							$es4.$$call(packageConstruct, null, null, 'importConstructs', 'push', [c]);
-						}
-						break;
-					case $es4.$$get(Token, null, null, 'OpenBracketTokenType'):
-						var c = matchMetaDataConstruct();
-						if (add)
-						{
-							$es4.$$call(metaDataConstructs, null, null, 'push', [c]);
-						}
-						ahead = 1;
-						continue loopb;
-					case $es4.$$get(Token, null, null, 'StaticTokenType'):
-					case $es4.$$get(Token, null, null, 'FinalTokenType'):
-					case $es4.$$get(Token, null, null, 'OverrideTokenType'):
-					case $es4.$$get(Token, null, null, 'DynamicTokenType'):
-						continue loopb;
-					case $es4.$$get(Token, null, null, 'UseTokenType'):
-						var useConstruct = matchUseConstruct();
-						if (add)
-						{
-							$es4.$$call(packageConstruct, null, null, 'useConstructs', 'push', [useConstruct]);
-						}
-						break;
-					case $es4.$$get(Token, null, null, 'NamespaceKeywordTokenType'):
-						var p = matchPropertyConstruct(metaDataConstructs);
-						if (add)
-						{
-							$es4.$$set(packageConstruct, null, null, 'propertyConstruct', p, '=');
-							$es4.$$set(packageConstruct, null, null, 'propertyConstruct', 'packageConstruct', packageConstruct, '=');
-							$es4.$$set(packageConstruct, null, null, 'propertyConstruct', 'rootConstruct', rootConstruct, '=');
-						}
-						break;
-					case $es4.$$get(Token, null, null, 'FunctionTokenType'):
-						var m = matchMethodConstruct(metaDataConstructs);
-						if (add)
-						{
-							$es4.$$set(packageConstruct, null, null, 'methodConstruct', m, '=');
-							$es4.$$set(packageConstruct, null, null, 'methodConstruct', 'packageConstruct', packageConstruct, '=');
-							$es4.$$set(packageConstruct, null, null, 'methodConstruct', 'rootConstruct', rootConstruct, '=');
-						}
-						break;
-					case $es4.$$get(Token, null, null, 'ClassTokenType'):
-						if (add && $es4.$$get(packageConstruct, null, null, 'classConstruct'))
-						{
-							throw error('Multiple definitions found in package.', token);
-						}
-						var c = matchClassConstruct();
-						if (add)
-						{
-							$es4.$$set(packageConstruct, null, null, 'classConstruct', c, '=');
-							$es4.$$set(packageConstruct, null, null, 'classConstruct', 'packageConstruct', packageConstruct, '=');
-							$es4.$$set(packageConstruct, null, null, 'importConstructs', $es4.$$call(packageConstruct, null, null, 'classConstruct', 'importConstructs', 'concat', [$es4.$$get(packageConstruct, null, null, 'importConstructs')]), '=');
-							$es4.$$set(packageConstruct, null, null, 'classConstruct', 'rootConstruct', rootConstruct, '=');
-						}
-						break;
-					case $es4.$$get(Token, null, null, 'InterfaceTokenType'):
-						if (add && $es4.$$get(packageConstruct, null, null, 'interfaceConstruct'))
-						{
-							throw error('Multiple definitions found in package.', token);
-						}
-						var c = matchInterfaceConstruct();
-						if (add)
-						{
-							$es4.$$set(packageConstruct, null, null, 'interfaceConstruct', c, '=');
-							$es4.$$set(packageConstruct, null, null, 'interfaceConstruct', 'packageConstruct', packageConstruct, '=');
-							$es4.$$set(packageConstruct, null, null, 'interfaceConstruct', 'rootConstruct', rootConstruct, '=');
-						}
-						break;
-					case $es4.$$get(Token, null, null, 'ElseTokenType'):
-						match($es4.$$get(Token, null, null, 'ElseTokenType'));
-						if (inCompileConstant)
-						{
-							throw $es4.$$primitive(new (Error)('nested compile constants are not supported'));
-						}
-						inCompileConstant = true;
-						add = !previousAddValue;
-						match($es4.$$get(Token, null, null, 'OpenBraceTokenType'));
-						break;
-					case $es4.$$get(Token, null, null, 'IfTokenType'):
-						match($es4.$$get(Token, null, null, 'IfTokenType'));
-						match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
-						if (inCompileConstant)
-						{
-							throw $es4.$$primitive(new (Error)('nested compile constants are not supported'));
-						}
-					case $es4.$$get(Token, null, null, 'IdentifierTokenType'):
-						if ($es4.$$get(peek(ahead, 0, true), null, null, 'type') == $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType') && $es4.$$get(peek(ahead + 1, 0, true), null, null, 'type') == $es4.$$get(Token, null, null, 'IdentifierTokenType'))
-						{
-							if (inCompileConstant)
-							{
-								throw $es4.$$primitive(new (Error)('nested compile constants are not supported'));
-							}
-							var compileConstantIdentifier = '';
-							compileConstantIdentifier += $es4.$$get(match($es4.$$get(Token, null, null, 'IdentifierTokenType')), null, null, 'data');
-							compileConstantIdentifier += $es4.$$get(match($es4.$$get(Token, null, null, 'NamespaceQualifierTokenType')), null, null, 'data');
-							compileConstantIdentifier += $es4.$$get(match($es4.$$get(Token, null, null, 'IdentifierTokenType')), null, null, 'data');
-							match($es4.$$get(Token, null, null, 'ClosedParenTokenType'), true);
-							inCompileConstant = true;
-							add = $es4.$$get(compileConstants, null, null, compileConstantIdentifier) == 'true';
-							match($es4.$$get(Token, null, null, 'OpenBraceTokenType'));
-							break;
-						}
-						continue loopb;
-					case $es4.$$get(Token, null, null, 'ClosedBraceTokenType'):
-						if (inCompileConstant)
-						{
-							match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
-							inCompileConstant = false;
-							previousAddValue = add;
-							add = true;
-							break;
-						}
-						break loopb;
-					default:
-						throw error('Unexpected token found1.', token);
-				}
-				metaDataConstructs = [];
-				ahead = 1;
-			}
-			match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
-			return packageConstruct;
-		}
-;
-
-		function matchMetaDataConstruct() 
-		{
-			var metaDataConstruct = $es4.$$call(Construct, null, null, 'getNewMetaDataConstruct', $es4.$$EMPTY_ARRAY);
-			match($es4.$$get(Token, null, null, 'OpenBracketTokenType'));
-			while (!match($es4.$$get(Token, null, null, 'ClosedBracketTokenType'), true))
-			{
-				$es4.$$call(metaDataConstruct, null, null, 'tokens', 'push', [next()]);
-			}
-			match($es4.$$get(Token, null, null, 'EOSTokenType'), true, true);
-			return metaDataConstruct;
-		}
-;
-
-		function matchClassConstruct() 
-		{
-			var classConstruct = $es4.$$call(Construct, null, null, 'getNewClassConstruct', $es4.$$EMPTY_ARRAY);
-			var token;
-			loop1a:			while (token = next(0, true))
-			{
-				switch ($es4.$$get(token, null, null, 'type'))
-				{
-					case $es4.$$get(Token, null, null, 'IdentifierTokenType'):
-						if ($es4.$$get(token, null, null, 'data') == 'UNIMPLEMENTED')
-						{
-							$es4.$$set(classConstruct, null, null, 'UNIMPLEMENTEDToken', token, '=');
-						}
-						else
-						{
-							$es4.$$set(classConstruct, null, null, 'namespaceToken', token, '=');
-						}
-						break;
-					case $es4.$$get(Token, null, null, 'StaticTokenType'):
-						$es4.$$set(classConstruct, null, null, 'staticToken', token, '=');
-						break;
-					case $es4.$$get(Token, null, null, 'FinalTokenType'):
-						$es4.$$set(classConstruct, null, null, 'finalToken', token, '=');
-						break;
-					case $es4.$$get(Token, null, null, 'DynamicTokenType'):
-						$es4.$$set(classConstruct, null, null, 'dynamicToken', token, '=');
-						break;
-					case $es4.$$get(Token, null, null, 'ClassTokenType'):
-						break loop1a;
-					default:
-						throw error('Unexpected token found2.', token);
-				}
-			}
-			$es4.$$set(classConstruct, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
-			loop2a:			while (token = next())
-			{
-				switch ($es4.$$get(token, null, null, 'type'))
-				{
-					case $es4.$$get(Token, null, null, 'ExtendsTokenType'):
-						$es4.$$set(classConstruct, null, null, 'extendsNameConstruct', matchNameConstruct(), '=');
-						break;
-					case $es4.$$get(Token, null, null, 'ImplementsTokenType'):
-						$es4.$$call(classConstruct, null, null, 'implementsNameConstructs', 'push', [matchNameConstruct()]);
-						while (token = peek(1))
-						{
-							if ($es4.$$get(token, null, null, 'type') != $es4.$$get(Token, null, null, 'CommaTokenType'))
-							{
-								continue loop2a;
-							}
-							match($es4.$$get(Token, null, null, 'CommaTokenType'));
-							$es4.$$call(classConstruct, null, null, 'implementsNameConstructs', 'push', [matchNameConstruct()]);
-						}
-						break;
-					case $es4.$$get(Token, null, null, 'OpenBraceTokenType'):
-						break loop2a;
-					default:
-						throw error('Unexpected token found3.', token);
-				}
-			}
-			var add = true;
-			var inCompileConstant = false;
-			var previousAddValue = add;
-			var metaDataConstructs = [];
-			var ahead = 1;
-			loop3a:			while (token = peek(ahead, 0, true))
-			{
-				ahead++;
-				switch ($es4.$$get(token, null, null, 'type'))
-				{
-					case $es4.$$get(Token, null, null, 'ImportTokenType'):
-						var c = matchImportConstruct();
-						if (add)
-						{
-							$es4.$$call(classConstruct, null, null, 'importConstructs', 'push', [c]);
-						}
-						break;
-					case $es4.$$get(Token, null, null, 'OpenBracketTokenType'):
-						var c = matchMetaDataConstruct();
-						if (add)
-						{
-							$es4.$$call(metaDataConstructs, null, null, 'push', [c]);
-						}
-						ahead = 1;
-						continue loop3a;
-					case $es4.$$get(Token, null, null, 'OpenBraceTokenType'):
-						match($es4.$$get(Token, null, null, 'OpenBraceTokenType'));
-						var innerInnerToken;
-						while ((innerInnerToken = peek(1)) && ($es4.$$get(innerInnerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'ClosedBraceTokenType')))
-						{
-							var s = matchStatement();
-							if (add)
-							{
-								$es4.$$call(classConstruct, null, null, 'initializerStatements', 'push', [s]);
-							}
-						}
-						match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
-						break;
-					case $es4.$$get(Token, null, null, 'ElseTokenType'):
-						match($es4.$$get(Token, null, null, 'ElseTokenType'));
-						if (inCompileConstant)
-						{
-							throw $es4.$$primitive(new (Error)('nested compile constants are not supported'));
-						}
-						inCompileConstant = true;
-						add = !previousAddValue;
-						match($es4.$$get(Token, null, null, 'OpenBraceTokenType'));
-						break;
-					case $es4.$$get(Token, null, null, 'IfTokenType'):
-						match($es4.$$get(Token, null, null, 'IfTokenType'));
-						match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
-						if (inCompileConstant)
-						{
-							throw $es4.$$primitive(new (Error)('nested compile constants are not supported'));
-						}
-					case $es4.$$get(Token, null, null, 'IdentifierTokenType'):
-						if ($es4.$$get(peek(ahead, 0, true), null, null, 'type') == $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType') && $es4.$$get(peek(ahead + 1, 0, true), null, null, 'type') == $es4.$$get(Token, null, null, 'IdentifierTokenType'))
-						{
-							if (inCompileConstant)
-							{
-								throw $es4.$$primitive(new (Error)('nested compile constants are not supported'));
-							}
-							var compileConstantIdentifier = '';
-							compileConstantIdentifier += $es4.$$get(match($es4.$$get(Token, null, null, 'IdentifierTokenType')), null, null, 'data');
-							compileConstantIdentifier += $es4.$$get(match($es4.$$get(Token, null, null, 'NamespaceQualifierTokenType')), null, null, 'data');
-							compileConstantIdentifier += $es4.$$get(match($es4.$$get(Token, null, null, 'IdentifierTokenType')), null, null, 'data');
-							match($es4.$$get(Token, null, null, 'ClosedParenTokenType'), true);
-							inCompileConstant = true;
-							add = $es4.$$get(compileConstants, null, null, compileConstantIdentifier) == 'true';
-							match($es4.$$get(Token, null, null, 'OpenBraceTokenType'));
-							break;
-						}
-					case $es4.$$get(Token, null, null, 'OverrideTokenType'):
-					case $es4.$$get(Token, null, null, 'StaticTokenType'):
-					case $es4.$$get(Token, null, null, 'FinalTokenType'):
-						continue loop3a;
-					case $es4.$$get(Token, null, null, 'VarTokenType'):
-					case $es4.$$get(Token, null, null, 'ConstTokenType'):
-					case $es4.$$get(Token, null, null, 'NamespaceKeywordTokenType'):
-						var propertyConstruct = matchPropertyConstruct(metaDataConstructs);
-						if (add)
-						{
-							$es4.$$call(classConstruct, null, null, 'propertyConstructs', 'push', [propertyConstruct]);
-						}
-						break;
-					case $es4.$$get(Token, null, null, 'FunctionTokenType'):
-						var methodConstruct = matchMethodConstruct(metaDataConstructs);
-						if ($es4.$$get(methodConstruct, null, null, 'UNIMPLEMENTEDToken') && release)
-						{
-							break;
-						}
-						if ($es4.$$get(methodConstruct, null, null, 'identifierToken', 'data') == $es4.$$get(classConstruct, null, null, 'identifierToken', 'data'))
-						{
-							if (add)
-							{
-								$es4.$$set(classConstruct, null, null, 'constructorMethodConstruct', methodConstruct, '=');
-							}
-							if ($es4.$$get(methodConstruct, null, null, 'isJavaScript'))
-							{
-								throw error('Constructor cannot be declared as native.', $es4.$$get(methodConstruct, null, null, 'identifierToken'));
-							}
-						}
-						else if (add)
-						{
-							$es4.$$call(classConstruct, null, null, 'methodConstructs', 'push', [methodConstruct]);
-						}
-						break;
-					case $es4.$$get(Token, null, null, 'UseTokenType'):
-						var useConstruct = matchUseConstruct();
-						if (add)
-						{
-							$es4.$$call(classConstruct, null, null, 'useConstructs', 'push', [useConstruct]);
-						}
-						break;
-					case $es4.$$get(Token, null, null, 'ClosedBraceTokenType'):
-						if (inCompileConstant)
-						{
-							match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
-							inCompileConstant = false;
-							previousAddValue = add;
-							add = true;
-							break;
-						}
-						break loop3a;
-					default:
-						throw error('Unexpected token found4.', token);
-				}
-				metaDataConstructs = [];
-				ahead = 1;
-			}
-			match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
-			return classConstruct;
-		}
-;
-
-		function matchUseConstruct() 
-		{
-			var useConstruct = $es4.$$call(Construct, null, null, 'getNewUseConstruct', $es4.$$EMPTY_ARRAY);
-			$es4.$$set(useConstruct, null, null, 'useToken', match($es4.$$get(Token, null, null, 'UseTokenType')), '=');
-			match($es4.$$get(Token, null, null, 'NamespaceKeywordTokenType'));
-			$es4.$$set(useConstruct, null, null, 'namespaceIdentifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
-			match($es4.$$get(Token, null, null, 'EOSTokenType'), true, true);
-			return useConstruct;
-		}
-;
-
-		function matchInterfaceConstruct() 
-		{
-			var interfaceConstruct = $es4.$$call(Construct, null, null, 'getNewInterfaceConstruct', $es4.$$EMPTY_ARRAY);
-			var token;
-			loop1b:			while (token = next())
-			{
-				switch ($es4.$$get(token, null, null, 'type'))
-				{
-					case $es4.$$get(Token, null, null, 'IdentifierTokenType'):
-						$es4.$$set(interfaceConstruct, null, null, 'namespaceToken', token, '=');
-						break;
-					case $es4.$$get(Token, null, null, 'InterfaceTokenType'):
-						break loop1b;
-					default:
-						throw error('Unexpected token found5.', token);
-				}
-			}
-			$es4.$$set(interfaceConstruct, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
-			loop2b:			while (token = next())
-			{
-				switch ($es4.$$get(token, null, null, 'type'))
-				{
-					case $es4.$$get(Token, null, null, 'ExtendsTokenType'):
-						$es4.$$call(interfaceConstruct, null, null, 'extendsNameConstructs', 'push', [matchNameConstruct()]);
-						while (token = peek(1))
-						{
-							if ($es4.$$get(token, null, null, 'type') != $es4.$$get(Token, null, null, 'CommaTokenType'))
-							{
-								continue loop2b;
-							}
-							match($es4.$$get(Token, null, null, 'CommaTokenType'));
-							$es4.$$call(interfaceConstruct, null, null, 'extendsNameConstructs', 'push', [matchNameConstruct()]);
-						}
-						break;
-					case $es4.$$get(Token, null, null, 'OpenBraceTokenType'):
-						break loop2b;
-					default:
-						throw error('Unexpected token found6.', token);
-				}
-			}
-			var ahead = 1;
-			loop3b:			while (token = peek(ahead))
-			{
-				ahead++;
-				switch ($es4.$$get(token, null, null, 'type'))
-				{
-					case $es4.$$get(Token, null, null, 'FunctionTokenType'):
-						var methodConstruct = $es4.$$call(Construct, null, null, 'getNewMethodConstruct', $es4.$$EMPTY_ARRAY);
-						match($es4.$$get(Token, null, null, 'FunctionTokenType'));
-						$es4.$$set(methodConstruct, null, null, 'setToken', match($es4.$$get(Token, null, null, 'SetTokenType'), true), '=');
-						if (!$es4.$$get(methodConstruct, null, null, 'setToken'))
-						{
-							$es4.$$set(methodConstruct, null, null, 'getToken', match($es4.$$get(Token, null, null, 'GetTokenType'), true), '=');
-						}
-						$es4.$$set(methodConstruct, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
-						match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
-						while (!match($es4.$$get(Token, null, null, 'ClosedParenTokenType'), true))
-						{
-							$es4.$$call(methodConstruct, null, null, 'parameterConstructs', 'push', [matchParameterConstruct()]);
-							match($es4.$$get(Token, null, null, 'CommaTokenType'), true);
-						}
-						if (match($es4.$$get(Token, null, null, 'ColonTokenType'), true))
-						{
-							$es4.$$set(methodConstruct, null, null, 'typeConstruct', matchTypeConstruct(), '=');
-						}
-						else
-						{
-							$es4.$$set(methodConstruct, null, null, 'typeConstruct', $es4.$$call(Construct, null, null, 'getNewTypeConstruct', $es4.$$EMPTY_ARRAY), '=');
-							$es4.$$set(methodConstruct, null, null, 'typeConstruct', 'mulToken', $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MulTokenType'), '*']), '=');
-						}
-						match($es4.$$get(Token, null, null, 'EOSTokenType'), true, true);
-						$es4.$$call(interfaceConstruct, null, null, 'methodConstructs', 'push', [methodConstruct]);
-						break;
-					case $es4.$$get(Token, null, null, 'ClosedBraceTokenType'):
-						break loop3b;
-					default:
-						throw error('Unexpected token found7.', token);
-				}
-				ahead = 1;
-			}
-			match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
-			return interfaceConstruct;
-		}
-;
-
-		function matchNameConstruct() 
-		{
-			var nameConstruct = $es4.$$call(Construct, null, null, 'getNewNameConstruct', $es4.$$EMPTY_ARRAY);
-			$es4.$$call(nameConstruct, null, null, 'identifierTokens', 'push', [match($es4.$$get(Token, null, null, 'IdentifierTokenType'))]);
-			var token1;
-			var token2;
-			while ((token1 = peek(1)) && (token2 = peek(2)))
-			{
-				if ($es4.$$get(token1, null, null, 'type') != $es4.$$get(Token, null, null, 'DotTokenType'))
-				{
-					break;
-				}
-				if ($es4.$$get(token2, null, null, 'type') != $es4.$$get(Token, null, null, 'IdentifierTokenType'))
-				{
-					break;
-				}
-				match($es4.$$get(Token, null, null, 'DotTokenType'));
-				$es4.$$call(nameConstruct, null, null, 'identifierTokens', 'push', [match($es4.$$get(Token, null, null, 'IdentifierTokenType'))]);
-			}
-			return nameConstruct;
-		}
-;
-
-		function matchImportConstruct() 
-		{
-			var importConstruct = $es4.$$call(Construct, null, null, 'getNewImportConstruct', $es4.$$EMPTY_ARRAY);
-			match($es4.$$get(Token, null, null, 'ImportTokenType'));
-			$es4.$$set(importConstruct, null, null, 'nameConstruct', matchNameConstruct(), '=');
-			if (match($es4.$$get(Token, null, null, 'DotTokenType'), true))
-			{
-				$es4.$$set(importConstruct, null, null, 'mulToken', match($es4.$$get(Token, null, null, 'MulTokenType')), '=');
-			}
-			match($es4.$$get(Token, null, null, 'EOSTokenType'), true, true);
-			return importConstruct;
-		}
-;
-
-		function matchPropertyConstruct($$$$metaDataConstructs) 
-		{
-			//set default parameter values
-			var metaDataConstructs = (0 > arguments.length - 1) ? null : $$$$metaDataConstructs;
-
-			var propertyConstruct = $es4.$$call(Construct, null, null, 'getNewPropertyConstruct', $es4.$$EMPTY_ARRAY);
-			var token;
-			loop1c:			while (token = next(0, true))
-			{
-				switch ($es4.$$get(token, null, null, 'type'))
-				{
-					case $es4.$$get(Token, null, null, 'IdentifierTokenType'):
-						$es4.$$set(propertyConstruct, null, null, 'namespaceToken', token, '=');
-						break;
-					case $es4.$$get(Token, null, null, 'StaticTokenType'):
-						$es4.$$set(propertyConstruct, null, null, 'staticToken', token, '=');
-						break;
-					case $es4.$$get(Token, null, null, 'NamespaceKeywordTokenType'):
-						$es4.$$set(propertyConstruct, null, null, 'namespaceKeywordToken', token, '=');
-						break loop1c;
-					case $es4.$$get(Token, null, null, 'ConstTokenType'):
-						$es4.$$set(propertyConstruct, null, null, 'constToken', token, '=');
-						break loop1c;
-					case $es4.$$get(Token, null, null, 'VarTokenType'):
-						break loop1c;
-					default:
-						throw error('Unexpected token found8.', token);
-				}
-			}
-			$es4.$$set(propertyConstruct, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
-			if (match($es4.$$get(Token, null, null, 'ColonTokenType'), true))
-			{
-				$es4.$$set(propertyConstruct, null, null, 'typeConstruct', matchTypeConstruct(), '=');
-			}
-			else
-			{
-				$es4.$$set(propertyConstruct, null, null, 'typeConstruct', $es4.$$call(Construct, null, null, 'getNewTypeConstruct', $es4.$$EMPTY_ARRAY), '=');
-				$es4.$$set(propertyConstruct, null, null, 'typeConstruct', 'mulToken', $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MulTokenType'), '*']), '=');
-			}
-			match($es4.$$get(Token, null, null, 'EOSTokenType'), true, true);
-			if (metaDataConstructs)
-			{
-				for (var i = 0; i < $es4.$$get(metaDataConstructs, null, null, 'length'); i++)
-				{
-					var metaDataConstruct = $es4.$$get(metaDataConstructs, null, null, i);
-					if ($es4.$$get(metaDataConstruct, null, null, 'tokens', 0, 'data') == 'Native')
-					{
-						$es4.$$set(propertyConstruct, null, null, 'isNative', true, '=');
-						if (!$es4.$$get(propertyConstruct, null, null, 'namespaceToken') || $es4.$$get(propertyConstruct, null, null, 'namespaceToken', 'data') != 'private')
-						{
-							throw $es4.$$primitive(new (Error)('native properties must be defined as private'));
-						}
-						if ($es4.$$get(propertyConstruct, null, null, 'typeConstruct') && !$es4.$$get(propertyConstruct, null, null, 'typeConstruct', 'mulToken'))
-						{
-							throw $es4.$$primitive(new (Error)('native properties must be defined as type *'));
-						}
-						$es4.$$set(propertyConstruct, null, null, 'namespaceToken', null, '=');
-					}
-				}
-			}
-			if (!match($es4.$$get(Token, null, null, 'AssignmentTokenType'), true))
-			{
-				return propertyConstruct;
-			}
-			$es4.$$set(propertyConstruct, null, null, 'valueExpression', matchExpression(), '=');
-			match($es4.$$get(Token, null, null, 'EOSTokenType'), true, true);
-			return propertyConstruct;
-		}
-;
-
-		function matchMethodConstruct($$$$metaDataConstructs) 
-		{
-			//set default parameter values
-			var metaDataConstructs = (0 > arguments.length - 1) ? null : $$$$metaDataConstructs;
-
-			var methodConstruct = $es4.$$call(Construct, null, null, 'getNewMethodConstruct', $es4.$$EMPTY_ARRAY);
-			var token;
-			loop1d:			while (token = next(0, true))
-			{
-				switch ($es4.$$get(token, null, null, 'type'))
-				{
-					case $es4.$$get(Token, null, null, 'IdentifierTokenType'):
-						if ($es4.$$get(token, null, null, 'data') == 'UNIMPLEMENTED')
-						{
-							$es4.$$set(methodConstruct, null, null, 'UNIMPLEMENTEDToken', token, '=');
-						}
-						else
-						{
-							$es4.$$set(methodConstruct, null, null, 'namespaceToken', token, '=');
-						}
-						break;
-					case $es4.$$get(Token, null, null, 'StaticTokenType'):
-						$es4.$$set(methodConstruct, null, null, 'staticToken', token, '=');
-						break;
-					case $es4.$$get(Token, null, null, 'OverrideTokenType'):
-						$es4.$$set(methodConstruct, null, null, 'overrideToken', token, '=');
-						break;
-					case $es4.$$get(Token, null, null, 'FinalTokenType'):
-						break;
-					case $es4.$$get(Token, null, null, 'FunctionTokenType'):
-						break loop1d;
-					default:
-						throw error('Unexpected token found9.', token);
-				}
-			}
-			$es4.$$set(methodConstruct, null, null, 'setToken', match($es4.$$get(Token, null, null, 'SetTokenType'), true), '=');
-			if (!$es4.$$get(methodConstruct, null, null, 'setToken'))
-			{
-				$es4.$$set(methodConstruct, null, null, 'getToken', match($es4.$$get(Token, null, null, 'GetTokenType'), true), '=');
-			}
-			$es4.$$set(methodConstruct, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
-			match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
-			while (!match($es4.$$get(Token, null, null, 'ClosedParenTokenType'), true))
-			{
-				$es4.$$call(methodConstruct, null, null, 'parameterConstructs', 'push', [matchParameterConstruct()]);
-				match($es4.$$get(Token, null, null, 'CommaTokenType'), true);
-			}
-			if (match($es4.$$get(Token, null, null, 'ColonTokenType'), true))
-			{
-				$es4.$$set(methodConstruct, null, null, 'typeConstruct', matchTypeConstruct(), '=');
-			}
-			else
-			{
-				$es4.$$set(methodConstruct, null, null, 'typeConstruct', $es4.$$call(Construct, null, null, 'getNewTypeConstruct', $es4.$$EMPTY_ARRAY), '=');
-				$es4.$$set(methodConstruct, null, null, 'typeConstruct', 'mulToken', $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MulTokenType'), '*']), '=');
-			}
-			if (metaDataConstructs)
-			{
-				for (var i = 0; i < $es4.$$get(metaDataConstructs, null, null, 'length'); i++)
-				{
-					var metaDataConstruct = $es4.$$get(metaDataConstructs, null, null, i);
-					if ($es4.$$get(metaDataConstruct, null, null, 'tokens', 0, 'data') == 'JavaScript')
-					{
-						$es4.$$set(methodConstruct, null, null, 'isJavaScript', true, '=');
-					}
-					if ($es4.$$get(metaDataConstruct, null, null, 'tokens', 0, 'data') == 'Native')
-					{
-						$es4.$$set(methodConstruct, null, null, 'isNative', true, '=');
-						if (!$es4.$$get(methodConstruct, null, null, 'namespaceToken') || $es4.$$get(methodConstruct, null, null, 'namespaceToken', 'data') != 'private')
-						{
-							throw $es4.$$primitive(new (Error)('native methods must be defined as private'));
-						}
-						$es4.$$set(methodConstruct, null, null, 'namespaceToken', null, '=');
-					}
-				}
-			}
-			match($es4.$$get(Token, null, null, 'OpenBraceTokenType'), undefined, undefined);
-			callsSuper = false;
-			var open = 1;
-			var closed = 0;
-			if ($es4.$$get(methodConstruct, null, null, 'isJavaScript'))
-			{
-				while (token = next(2, undefined))
-				{
-					if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'ClosedBraceTokenType'))
-					{
-						closed++;
-						if (closed == open)
-						{
-							break;
-						}
-					}
-					if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'OpenBraceTokenType'))
-					{
-						open++;
-					}
-					$es4.$$set(methodConstruct, null, null, 'javaScriptString', $es4.$$get(token, null, null, 'data'), '+=');
-				}
-			}
-			else
-			{
-				while (!match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'), true, undefined))
-				{
-					$es4.$$call(methodConstruct, null, null, 'bodyStatements', 'push', [matchStatement(false, $es4.$$get(methodConstruct, null, null, 'namedFunctionExpressions'))]);
-				}
-			}
-			$es4.$$set(methodConstruct, null, null, 'callsSuper', callsSuper, '=');
-			match($es4.$$get(Token, null, null, 'EOSTokenType'), true, true);
-			return methodConstruct;
-		}
-;
-
-		function matchParameterConstruct() 
-		{
-			var argumentConstruct = $es4.$$call(Construct, null, null, 'getNewParameterConstruct', $es4.$$EMPTY_ARRAY);
-			$es4.$$set(argumentConstruct, null, null, 'restToken', match($es4.$$get(Token, null, null, 'RestTokenType'), true), '=');
-			$es4.$$set(argumentConstruct, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
-			if ($es4.$$get(argumentConstruct, null, null, 'restToken'))
-			{
-				return argumentConstruct;
-			}
-			if (match($es4.$$get(Token, null, null, 'ColonTokenType'), true))
-			{
-				$es4.$$set(argumentConstruct, null, null, 'typeConstruct', matchTypeConstruct(), '=');
-			}
-			else
-			{
-				$es4.$$set(argumentConstruct, null, null, 'typeConstruct', $es4.$$call(Construct, null, null, 'getNewTypeConstruct', $es4.$$EMPTY_ARRAY), '=');
-				$es4.$$set(argumentConstruct, null, null, 'typeConstruct', 'mulToken', $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MulTokenType'), '*']), '=');
-			}
-			if (match($es4.$$get(Token, null, null, 'AssignmentTokenType'), true) && !match($es4.$$get(Token, null, null, 'MulTokenType'), true))
-			{
-				$es4.$$set(argumentConstruct, null, null, 'valueExpression', matchExpression(true), '=');
-			}
-			return argumentConstruct;
-		}
-;
-
-		function matchPropertyExpression($$$$construct) 
-		{
-			//set default parameter values
-			var construct = (0 > arguments.length - 1) ? null : $$$$construct;
-
-			var token = peek(1);
-			if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'ThisTokenType'))
-			{
-				construct = $es4.$$call(Construct, null, null, 'getNewThisConstruct', $es4.$$EMPTY_ARRAY);
-				$es4.$$set(construct, null, null, 'thisToken', match($es4.$$get(Token, null, null, 'ThisTokenType')), '=');
-			}
-			else if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'SuperTokenType'))
-			{
-				construct = $es4.$$call(Construct, null, null, 'getNewSuperConstruct', $es4.$$EMPTY_ARRAY);
-				$es4.$$set(construct, null, null, 'superToken', match($es4.$$get(Token, null, null, 'SuperTokenType')), '=');
-				callsSuper = true;
-			}
-			else if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'AtTokenType'))
-			{
-				match($es4.$$get(Token, null, null, 'AtTokenType'));
-				construct = $es4.$$call(Construct, null, null, 'getNewAtIdentifierConstruct', $es4.$$EMPTY_ARRAY);
-			}
-			else if (!construct)
-			{
-				construct = $es4.$$call(Construct, null, null, 'getNewIdentifierConstruct', $es4.$$EMPTY_ARRAY);
-				$es4.$$set(construct, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
-			}
-			var propertyExpression = $es4.$$call(Construct, null, null, 'getNewPropertyExpression', $es4.$$EMPTY_ARRAY);
-			$es4.$$set(propertyExpression, null, null, 'construct', construct, '=');
-			var innerPropertyExpression;
-			var nextPropertyExpression = propertyExpression;
-			loopc:			while (token = peek(1))
-			{
-				innerPropertyExpression = null;
-				switch ($es4.$$get(token, null, null, 'type'))
-				{
-					case $es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType'):
-						match($es4.$$get(Token, null, null, 'VectorDotOpenArrowTokenType'));
-						construct = $es4.$$call(Construct, null, null, 'getNewVectorConstruct', $es4.$$EMPTY_ARRAY);
-						$es4.$$set(construct, null, null, 'nameConstruct', matchNameConstruct(), '=');
-						match($es4.$$get(Token, null, null, 'VectorClosedArrowTokenType'));
-						break;
-					case $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType'):
-						construct = $es4.$$call(Construct, null, null, 'getNewNamespaceQualifierConstruct', $es4.$$EMPTY_ARRAY);
-						$es4.$$set(construct, null, null, 'namespaceQualifierToken', match($es4.$$get(Token, null, null, 'NamespaceQualifierTokenType')), '=');
-						$es4.$$set(construct, null, null, 'identifierToken', $es4.$$get(nextPropertyExpression, null, null, 'construct', 'identifierToken'), '=');
-						$es4.$$set(construct, null, null, 'namespaceIdentifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
-						$es4.$$set(nextPropertyExpression, null, null, 'construct', construct, '=');
-						continue loopc;
-					case $es4.$$get(Token, null, null, 'IdentifierTokenType'):
-						construct = $es4.$$call(Construct, null, null, 'getNewIdentifierConstruct', $es4.$$EMPTY_ARRAY);
-						$es4.$$set(construct, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
-						break;
-					case $es4.$$get(Token, null, null, 'DotTokenType'):
-						match($es4.$$get(Token, null, null, 'DotTokenType'));
-						if (match($es4.$$get(Token, null, null, 'AtTokenType'), true))
-						{
-							construct = $es4.$$call(Construct, null, null, 'getNewAtIdentifierConstruct', $es4.$$EMPTY_ARRAY);
-						}
-						else if (match($es4.$$get(Token, null, null, 'OpenParenTokenType'), true))
-						{
-							throw $es4.$$primitive(new (Error)('E4X is not supported'));
-							construct = $es4.$$call(Construct, null, null, 'getNewE4XSearchConstruct', $es4.$$EMPTY_ARRAY);
-							$es4.$$set(construct, null, null, 'expression', matchExpression(), '=');
-							if ($es4.$$get(construct, null, null, 'expression', 'constructor') == 'PropertyExpression')
-							{
-								$es4.$$set(construct, null, null, 'expression', 'root', false, '=');
-							}
-							match($es4.$$get(Token, null, null, 'ClosedParenTokenType'));
-						}
-						else
-						{
-							construct = $es4.$$call(Construct, null, null, 'getNewDotConstruct', $es4.$$EMPTY_ARRAY);
-							$es4.$$set(construct, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
-						}
-						break;
-					case $es4.$$get(Token, null, null, 'OpenBracketTokenType'):
-						match($es4.$$get(Token, null, null, 'OpenBracketTokenType'));
-						construct = $es4.$$call(Construct, null, null, 'getNewArrayAccessorConstruct', $es4.$$EMPTY_ARRAY);
-						$es4.$$set(construct, null, null, 'expression', matchExpression(), '=');
-						if ($es4.$$get(construct, null, null, 'expression', 'constructor') == 'PropertyExpression')
-						{
-							$es4.$$set(construct, null, null, 'expression', 'root', false, '=');
-						}
-						match($es4.$$get(Token, null, null, 'ClosedBracketTokenType'));
-						break;
-					case $es4.$$get(Token, null, null, 'OpenParenTokenType'):
-						match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
-						construct = $es4.$$call(Construct, null, null, 'getNewFunctionCallConstruct', $es4.$$EMPTY_ARRAY);
-						while (!match($es4.$$get(Token, null, null, 'ClosedParenTokenType'), true))
-						{
-							$es4.$$call(construct, null, null, 'argumentExpressions', 'push', [matchExpression(true)]);
-							match($es4.$$get(Token, null, null, 'CommaTokenType'), true);
-						}
-						break;
-					default:
-						break loopc;
-				}
-				if (!innerPropertyExpression)
-				{
-					innerPropertyExpression = $es4.$$call(Construct, null, null, 'getNewPropertyExpression', $es4.$$EMPTY_ARRAY);
-					$es4.$$set(innerPropertyExpression, null, null, 'construct', construct, '=');
-				}
-				$es4.$$set(nextPropertyExpression, null, null, 'nextPropertyExpression', innerPropertyExpression, '=');
-				nextPropertyExpression = innerPropertyExpression;
-			}
-			return propertyExpression;
-		}
-;
-
-		function matchStatement($$$$dontmatchEOS, $$$$namedFunctionExpressions, $$$$dontReadIn) 
-		{
-			//set default parameter values
-			var dontmatchEOS = (0 > arguments.length - 1) ? false : $es4.$$coerce($$$$dontmatchEOS, Boolean);
-			var namedFunctionExpressions = (1 > arguments.length - 1) ? null : $$$$namedFunctionExpressions;
-			var dontReadIn = (2 > arguments.length - 1) ? false : $es4.$$coerce($$$$dontReadIn, Boolean);
-
-			var statement;
-			var token = peek(1, undefined, undefined);
-			var innerToken;
-			var openBraceTokenType;
-			var innerToken1;
-			var innerToken2;
-			var innerInnerToken;
-			var tokenType = $es4.$$get(token, null, null, 'type');
-			var foundCompileConstantIdentifier = false;
-			if ($es4.$$get(peek(2, 0, true), null, null, 'type') == $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType') && $es4.$$get(compileConstants, null, null, $es4.$$get(token, null, null, 'data') + $es4.$$get(peek(2, 0, true), null, null, 'data') + $es4.$$get(peek(3, 0, true), null, null, 'data')) !== undefined)
-			{
-				foundCompileConstantIdentifier = true;
-				tokenType = $es4.$$get(Token, null, null, 'IfTokenType');
-			}
-			switch (tokenType)
-			{
-				case $es4.$$get(Token, null, null, 'ImportTokenType'):
-					var p = matchImportConstruct();
-					$es4.$$call(statementImportConstructs, null, null, 'push', [p]);
-					statement = $es4.$$call(Construct, null, null, 'getNewEmptyStatement', $es4.$$EMPTY_ARRAY);
-					break;
-				case $es4.$$get(Token, null, null, 'IfTokenType'):
-					if (!foundCompileConstantIdentifier)
-					{
-						match($es4.$$get(Token, null, null, 'IfTokenType'));
-					}
-					statement = $es4.$$call(Construct, null, null, 'getNewIfStatement', $es4.$$EMPTY_ARRAY);
-					if (!foundCompileConstantIdentifier)
-					{
-						match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
-					}
-					var inCompileConstant = false;
-					var inCompileConstantLocal = false;
-					var innerStatement;
-					var add = true;
-					if ($es4.$$get(peek(1, 0, true), null, null, 'type') == $es4.$$get(Token, null, null, 'IdentifierTokenType') && $es4.$$get(peek(2, 0, true), null, null, 'type') == $es4.$$get(Token, null, null, 'NamespaceQualifierTokenType') && $es4.$$get(compileConstants, null, null, $es4.$$get(peek(1, 0, true), null, null, 'data') + $es4.$$get(peek(2, 0, true), null, null, 'data') + $es4.$$get(peek(3, 0, true), null, null, 'data')) !== undefined)
-					{
-						if (inCompileConstant)
-						{
-							throw $es4.$$primitive(new (Error)('nested compile constants are not supported'));
-						}
-						inCompileConstantLocal = true;
-						inCompileConstant = true;
-						var compileConstantIdentifier = '';
-						compileConstantIdentifier += $es4.$$get(match($es4.$$get(Token, null, null, 'IdentifierTokenType')), null, null, 'data');
-						compileConstantIdentifier += $es4.$$get(match($es4.$$get(Token, null, null, 'NamespaceQualifierTokenType')), null, null, 'data');
-						compileConstantIdentifier += $es4.$$get(match($es4.$$get(Token, null, null, 'IdentifierTokenType')), null, null, 'data');
-						add = $es4.$$get(compileConstants, null, null, compileConstantIdentifier) == 'true';
-						var booleanExpression = $es4.$$call(Construct, null, null, 'getNewBooleanExpression', $es4.$$EMPTY_ARRAY);
-						$es4.$$set(booleanExpression, null, null, 'booleanToken', $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'BooleanTokenType'), $es4.$$call(add, null, null, 'toString', $es4.$$EMPTY_ARRAY)]), '=');
-						$es4.$$set(statement, null, null, 'conditionExpression', booleanExpression, '=');
-					}
-					else
-					{
-						$es4.$$set(statement, null, null, 'conditionExpression', matchExpression(false, namedFunctionExpressions), '=');
-					}
-					if (!foundCompileConstantIdentifier)
-					{
-						match($es4.$$get(Token, null, null, 'ClosedParenTokenType'));
-					}
-					foundCompileConstantIdentifier = false;
-					openBraceTokenType = match($es4.$$get(Token, null, null, 'OpenBraceTokenType'), true);
-					loopd:					while ((innerToken = peek(1)) && ($es4.$$get(innerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'ClosedBraceTokenType')))
-					{
-						innerStatement = matchStatement(false, namedFunctionExpressions);
-						if (add)
-						{
-							$es4.$$call(statement, null, null, 'bodyStatements', 'push', [innerStatement]);
-						}
-						if (!openBraceTokenType)
-						{
-							break loopd;
-						}
-					}
-					if (openBraceTokenType)
-					{
-						match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
-					}
-					while (((innerToken1 = peek(1)) && (innerToken2 = peek(2))) && ($es4.$$get(innerToken1, null, null, 'type') == $es4.$$get(Token, null, null, 'ElseTokenType') && $es4.$$get(innerToken2, null, null, 'type') == $es4.$$get(Token, null, null, 'IfTokenType')))
-					{
-						match($es4.$$get(Token, null, null, 'ElseTokenType'));
-						match($es4.$$get(Token, null, null, 'IfTokenType'));
-						var elseIfStatement = $es4.$$call(Construct, null, null, 'getNewElseIfStatement', $es4.$$EMPTY_ARRAY);
-						match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
-						$es4.$$set(elseIfStatement, null, null, 'conditionExpression', matchExpression(false, namedFunctionExpressions), '=');
-						match($es4.$$get(Token, null, null, 'ClosedParenTokenType'));
-						openBraceTokenType = match($es4.$$get(Token, null, null, 'OpenBraceTokenType'), true);
-						loope:						while ((innerToken = peek(1)) && ($es4.$$get(innerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'ClosedBraceTokenType')))
-						{
-							$es4.$$call(elseIfStatement, null, null, 'bodyStatements', 'push', [matchStatement(false, namedFunctionExpressions)]);
-							if (!openBraceTokenType)
-							{
-								break loope;
-							}
-						}
-						if (openBraceTokenType)
-						{
-							match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
-						}
-						$es4.$$call(statement, null, null, 'elseIfStatements', 'push', [elseIfStatement]);
-					}
-					while ((innerToken1 = peek(1)) && ($es4.$$get(innerToken1, null, null, 'type') == $es4.$$get(Token, null, null, 'ElseTokenType')))
-					{
-						var elseStatement = $es4.$$call(Construct, null, null, 'getNewElseStatement', $es4.$$EMPTY_ARRAY);
-						match($es4.$$get(Token, null, null, 'ElseTokenType'));
-						openBraceTokenType = match($es4.$$get(Token, null, null, 'OpenBraceTokenType'), true);
-						loopf:						while ((innerInnerToken = peek(1)) && ($es4.$$get(innerInnerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'ClosedBraceTokenType')))
-						{
-							innerStatement = matchStatement(false, namedFunctionExpressions);
-							if (inCompileConstantLocal)
-							{
-								if (!add)
-								{
-									$es4.$$call(elseStatement, null, null, 'bodyStatements', 'push', [innerStatement]);
-								}
-							}
-							else
-							{
-								$es4.$$call(elseStatement, null, null, 'bodyStatements', 'push', [innerStatement]);
-							}
-							if (!openBraceTokenType)
-							{
-								break loopf;
-							}
-						}
-						if (openBraceTokenType)
-						{
-							match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
-						}
-						$es4.$$set(statement, null, null, 'elseStatement', elseStatement, '=');
-					}
-					if (inCompileConstantLocal)
-					{
-						inCompileConstant = false;
-					}
-					break;
-				case $es4.$$get(Token, null, null, 'WhileTokenType'):
-					statement = $es4.$$call(Construct, null, null, 'getNewWhileStatement', $es4.$$EMPTY_ARRAY);
-					match($es4.$$get(Token, null, null, 'WhileTokenType'));
-					match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
-					$es4.$$set(statement, null, null, 'conditionExpression', matchExpression(false, namedFunctionExpressions), '=');
-					match($es4.$$get(Token, null, null, 'ClosedParenTokenType'));
-					openBraceTokenType = match($es4.$$get(Token, null, null, 'OpenBraceTokenType'), true);
-					loopg:					while ((innerToken = peek(1)) && ($es4.$$get(innerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'ClosedBraceTokenType')))
-					{
-						$es4.$$call(statement, null, null, 'bodyStatements', 'push', [matchStatement(false, namedFunctionExpressions)]);
-						if (!openBraceTokenType)
-						{
-							break loopg;
-						}
-					}
-					if (openBraceTokenType)
-					{
-						match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
-					}
-					break;
-				case $es4.$$get(Token, null, null, 'DoTokenType'):
-					statement = $es4.$$call(Construct, null, null, 'getNewDoWhileStatement', $es4.$$EMPTY_ARRAY);
-					match($es4.$$get(Token, null, null, 'DoTokenType'));
-					openBraceTokenType = match($es4.$$get(Token, null, null, 'OpenBraceTokenType'), true);
-					looph:					while ((innerToken = peek(1)) && ($es4.$$get(innerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'ClosedBraceTokenType')))
-					{
-						$es4.$$call(statement, null, null, 'bodyStatements', 'push', [matchStatement(false, namedFunctionExpressions)]);
-						if (!openBraceTokenType)
-						{
-							break looph;
-						}
-					}
-					if (openBraceTokenType)
-					{
-						match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
-					}
-					match($es4.$$get(Token, null, null, 'WhileTokenType'));
-					match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
-					$es4.$$set(statement, null, null, 'conditionExpression', matchExpression(false, namedFunctionExpressions), '=');
-					match($es4.$$get(Token, null, null, 'ClosedParenTokenType'));
-					break;
-				case $es4.$$get(Token, null, null, 'ForTokenType'):
-					match($es4.$$get(Token, null, null, 'ForTokenType'));
-					if ($es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'EachTokenType'))
-					{
-						match($es4.$$get(Token, null, null, 'EachTokenType'));
-						statement = $es4.$$call(Construct, null, null, 'getNewForEachStatement', $es4.$$EMPTY_ARRAY);
-						match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
-						$es4.$$set(statement, null, null, 'variableStatement', matchStatement(false, namedFunctionExpressions, true), '=');
-						match($es4.$$get(Token, null, null, 'InTokenType'));
-						$es4.$$set(statement, null, null, 'arrayExpression', matchExpression(false, namedFunctionExpressions), '=');
-						match($es4.$$get(Token, null, null, 'ClosedParenTokenType'));
-						openBraceTokenType = match($es4.$$get(Token, null, null, 'OpenBraceTokenType'), true);
-						loopi:						while ((innerToken = peek(1)) && ($es4.$$get(innerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'ClosedBraceTokenType')))
-						{
-							$es4.$$call(statement, null, null, 'bodyStatements', 'push', [matchStatement(false, namedFunctionExpressions)]);
-							if (!openBraceTokenType)
-							{
-								break loopi;
-							}
-						}
-						if (openBraceTokenType)
-						{
-							match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
-						}
-						break;
-					}
-					match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
-					var ahead = 1;
-					var openParens = 1;
-					var closedParens = 0;
-					var inTokenFound = false;
-					while (innerToken = peek(ahead))
-					{
-						if ($es4.$$get(innerToken, null, null, 'type') == $es4.$$get(Token, null, null, 'OpenParenTokenType'))
-						{
-							openParens++;
-						}
-						if ($es4.$$get(innerToken, null, null, 'type') == $es4.$$get(Token, null, null, 'ClosedParenTokenType'))
-						{
-							closedParens++;
-						}
-						if ($es4.$$get(innerToken, null, null, 'type') == $es4.$$get(Token, null, null, 'InTokenType'))
-						{
-							inTokenFound = true;
-						}
-						if (openParens == closedParens || inTokenFound)
-						{
-							break;
-						}
-						ahead++;
-					}
-					if (inTokenFound)
-					{
-						statement = $es4.$$call(Construct, null, null, 'getNewForInStatement', $es4.$$EMPTY_ARRAY);
-						$es4.$$set(statement, null, null, 'variableStatement', matchStatement(false, namedFunctionExpressions, true), '=');
-						match($es4.$$get(Token, null, null, 'InTokenType'));
-						$es4.$$set(statement, null, null, 'objectExpression', matchExpression(false, namedFunctionExpressions), '=');
-						match($es4.$$get(Token, null, null, 'ClosedParenTokenType'));
-					}
-					else
-					{
-						statement = $es4.$$call(Construct, null, null, 'getNewForStatement', $es4.$$EMPTY_ARRAY);
-						var eosTokenType = match($es4.$$get(Token, null, null, 'EOSTokenType'), 1);
-						if (!eosTokenType)
-						{
-							$es4.$$set(statement, null, null, 'variableStatement', matchStatement(true, namedFunctionExpressions), '=');
-							match($es4.$$get(Token, null, null, 'EOSTokenType'));
-						}
-						eosTokenType = match($es4.$$get(Token, null, null, 'EOSTokenType'), 1);
-						if (!eosTokenType)
-						{
-							$es4.$$set(statement, null, null, 'conditionExpression', matchExpression(false, namedFunctionExpressions), '=');
-							match($es4.$$get(Token, null, null, 'EOSTokenType'));
-						}
-						var closedParenTokenType = match($es4.$$get(Token, null, null, 'ClosedParenTokenType'), 1);
-						if (!closedParenTokenType)
-						{
-							$es4.$$set(statement, null, null, 'afterthoughtExpression', matchExpression(false, namedFunctionExpressions), '=');
-							match($es4.$$get(Token, null, null, 'ClosedParenTokenType'));
-						}
-					}
-					openBraceTokenType = match($es4.$$get(Token, null, null, 'OpenBraceTokenType'), true);
-					loop2f:					while ((innerToken = peek(1)) && ($es4.$$get(innerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'ClosedBraceTokenType')))
-					{
-						$es4.$$call(statement, null, null, 'bodyStatements', 'push', [matchStatement(false, namedFunctionExpressions)]);
-						if (!openBraceTokenType)
-						{
-							break loop2f;
-						}
-					}
-					if (openBraceTokenType)
-					{
-						match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
-					}
-					break;
-				case $es4.$$get(Token, null, null, 'BreakTokenType'):
-					statement = $es4.$$call(Construct, null, null, 'getNewBreakStatement', $es4.$$EMPTY_ARRAY);
-					$es4.$$set(statement, null, null, 'token', match($es4.$$get(Token, null, null, 'BreakTokenType')), '=');
-					$es4.$$set(statement, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType'), true), '=');
-					break;
-				case $es4.$$get(Token, null, null, 'ContinueTokenType'):
-					statement = $es4.$$call(Construct, null, null, 'getNewContinueStatement', $es4.$$EMPTY_ARRAY);
-					$es4.$$set(statement, null, null, 'token', match($es4.$$get(Token, null, null, 'ContinueTokenType')), '=');
-					$es4.$$set(statement, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType'), true), '=');
-					break;
-				case $es4.$$get(Token, null, null, 'ThrowTokenType'):
-					statement = $es4.$$call(Construct, null, null, 'getNewThrowStatement', $es4.$$EMPTY_ARRAY);
-					$es4.$$set(statement, null, null, 'token', match($es4.$$get(Token, null, null, 'ThrowTokenType')), '=');
-					$es4.$$set(statement, null, null, 'expression', matchExpression(false, namedFunctionExpressions), '=');
-					break;
-				case $es4.$$get(Token, null, null, 'UseTokenType'):
-					statement = $es4.$$call(Construct, null, null, 'getNewUseStatement', $es4.$$EMPTY_ARRAY);
-					$es4.$$set(statement, null, null, 'useToken', match($es4.$$get(Token, null, null, 'UseTokenType')), '=');
-					match($es4.$$get(Token, null, null, 'NamespaceKeywordTokenType'));
-					$es4.$$set(statement, null, null, 'namespaceIdentifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
-					break;
-				case $es4.$$get(Token, null, null, 'TryTokenType'):
-					match($es4.$$get(Token, null, null, 'TryTokenType'));
-					statement = $es4.$$call(Construct, null, null, 'getNewTryStatement', $es4.$$EMPTY_ARRAY);
-					openBraceTokenType = match($es4.$$get(Token, null, null, 'OpenBraceTokenType'), true);
-					loop2g:					while ((innerToken = peek(1)) && ($es4.$$get(innerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'ClosedBraceTokenType')))
-					{
-						$es4.$$call(statement, null, null, 'bodyStatements', 'push', [matchStatement(false, namedFunctionExpressions)]);
-						if (!openBraceTokenType)
-						{
-							break loop2g;
-						}
-					}
-					if (openBraceTokenType)
-					{
-						match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
-					}
-					while (match($es4.$$get(Token, null, null, 'CatchTokenType'), true))
-					{
-						var catchStatement = $es4.$$call(Construct, null, null, 'getNewCatchStatement', $es4.$$EMPTY_ARRAY);
-						match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
-						$es4.$$set(catchStatement, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
-						if (match($es4.$$get(Token, null, null, 'ColonTokenType'), true))
-						{
-							$es4.$$set(catchStatement, null, null, 'typeConstruct', matchTypeConstruct(), '=');
-						}
-						else
-						{
-							$es4.$$set(catchStatement, null, null, 'typeConstruct', $es4.$$call(Construct, null, null, 'getNewTypeConstruct', $es4.$$EMPTY_ARRAY), '=');
-							$es4.$$set(catchStatement, null, null, 'typeConstruct', 'mulToken', $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MulTokenType'), '*']), '=');
-						}
-						match($es4.$$get(Token, null, null, 'ClosedParenTokenType'));
-						openBraceTokenType = match($es4.$$get(Token, null, null, 'OpenBraceTokenType'), true);
-						loopt:						while ((innerInnerToken = peek(1)) && ($es4.$$get(innerInnerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'ClosedBraceTokenType')))
-						{
-							$es4.$$call(catchStatement, null, null, 'bodyStatements', 'push', [matchStatement(false, namedFunctionExpressions)]);
-							if (!openBraceTokenType)
-							{
-								break loopt;
-							}
-						}
-						if (openBraceTokenType)
-						{
-							match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
-						}
-						$es4.$$call(statement, null, null, 'catchStatements', 'push', [catchStatement]);
-					}
-					while (match($es4.$$get(Token, null, null, 'FinallyTokenType'), true))
-					{
-						var finallyStatement = $es4.$$call(Construct, null, null, 'getNewFinallyStatement', $es4.$$EMPTY_ARRAY);
-						openBraceTokenType = match($es4.$$get(Token, null, null, 'OpenBraceTokenType'), true);
-						loopx:						while ((innerInnerToken = peek(1)) && ($es4.$$get(innerInnerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'ClosedBraceTokenType')))
-						{
-							$es4.$$call(finallyStatement, null, null, 'bodyStatements', 'push', [matchStatement(false, namedFunctionExpressions)]);
-							if (!openBraceTokenType)
-							{
-								break loopx;
-							}
-						}
-						if (openBraceTokenType)
-						{
-							match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
-						}
-						$es4.$$set(statement, null, null, 'finallyStatement', finallyStatement, '=');
-					}
-					break;
-				case $es4.$$get(Token, null, null, 'VarTokenType'):
-				case $es4.$$get(Token, null, null, 'ConstTokenType'):
-					statement = $es4.$$call(Construct, null, null, 'getNewVarStatement', $es4.$$EMPTY_ARRAY);
-					if (match($es4.$$get(Token, null, null, 'VarTokenType'), true))
-					{
-					}
-					else
-					{
-						match($es4.$$get(Token, null, null, 'ConstTokenType'), true);
-					}
-					$es4.$$set(statement, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
-					if (match($es4.$$get(Token, null, null, 'ColonTokenType'), true))
-					{
-						$es4.$$set(statement, null, null, 'typeConstruct', matchTypeConstruct(), '=');
-					}
-					else
-					{
-						$es4.$$set(statement, null, null, 'typeConstruct', $es4.$$call(Construct, null, null, 'getNewTypeConstruct', $es4.$$EMPTY_ARRAY), '=');
-						$es4.$$set(statement, null, null, 'typeConstruct', 'mulToken', $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MulTokenType'), '*']), '=');
-					}
-					if (match($es4.$$get(Token, null, null, 'AssignmentTokenType'), true))
-					{
-						$es4.$$set(statement, null, null, 'valueExpression', matchExpression(true, namedFunctionExpressions), '=');
-					}
-					while (match($es4.$$get(Token, null, null, 'CommaTokenType'), true))
-					{
-						var innerVarStatement = $es4.$$call(Construct, null, null, 'getNewVarStatement', $es4.$$EMPTY_ARRAY);
-						$es4.$$set(innerVarStatement, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
-						if (match($es4.$$get(Token, null, null, 'ColonTokenType'), true))
-						{
-							$es4.$$set(innerVarStatement, null, null, 'typeConstruct', matchTypeConstruct(), '=');
-						}
-						else
-						{
-							$es4.$$set(innerVarStatement, null, null, 'typeConstruct', $es4.$$call(Construct, null, null, 'getNewTypeConstruct', $es4.$$EMPTY_ARRAY), '=');
-							$es4.$$set(innerVarStatement, null, null, 'typeConstruct', 'mulToken', $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MulTokenType'), '*']), '=');
-						}
-						if (match($es4.$$get(Token, null, null, 'AssignmentTokenType'), true))
-						{
-							$es4.$$set(innerVarStatement, null, null, 'valueExpression', matchExpression(true, namedFunctionExpressions), '=');
-						}
-						$es4.$$call(statement, null, null, 'innerVarStatements', 'push', [innerVarStatement]);
-					}
-					break;
-				case $es4.$$get(Token, null, null, 'SwitchTokenType'):
-					statement = $es4.$$call(Construct, null, null, 'getNewSwitchStatement', $es4.$$EMPTY_ARRAY);
-					match($es4.$$get(Token, null, null, 'SwitchTokenType'));
-					match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
-					$es4.$$set(statement, null, null, 'valueExpression', matchExpression(false, namedFunctionExpressions), '=');
-					match($es4.$$get(Token, null, null, 'ClosedParenTokenType'));
-					match($es4.$$get(Token, null, null, 'OpenBraceTokenType'), true);
-					while ((innerToken = peek(1)) && ($es4.$$get(innerToken, null, null, 'type') == $es4.$$get(Token, null, null, 'CaseTokenType') || $es4.$$get(innerToken, null, null, 'type') == $es4.$$get(Token, null, null, 'DefaultTokenType')))
-					{
-						var caseStatement = $es4.$$call(Construct, null, null, 'getNewCaseStatement', $es4.$$EMPTY_ARRAY);
-						if ($es4.$$get(innerToken, null, null, 'type') == $es4.$$get(Token, null, null, 'CaseTokenType'))
-						{
-							match($es4.$$get(Token, null, null, 'CaseTokenType'));
-							$es4.$$set(caseStatement, null, null, 'valueExpression', matchExpression(false, namedFunctionExpressions), '=');
-						}
-						if ($es4.$$get(innerToken, null, null, 'type') == $es4.$$get(Token, null, null, 'DefaultTokenType'))
-						{
-							$es4.$$set(caseStatement, null, null, 'defaultToken', match($es4.$$get(Token, null, null, 'DefaultTokenType')), '=');
-						}
-						match($es4.$$get(Token, null, null, 'ColonTokenType'));
-						var openFound = match($es4.$$get(Token, null, null, 'OpenBraceTokenType'), true);
-						while ((innerToken = peek(1)) && ($es4.$$get(innerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'CaseTokenType') && $es4.$$get(innerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'DefaultTokenType') && $es4.$$get(innerToken, null, null, 'type') != $es4.$$get(Token, null, null, 'ClosedBraceTokenType')))
-						{
-							$es4.$$call(caseStatement, null, null, 'bodyStatements', 'push', [matchStatement(false, namedFunctionExpressions)]);
-						}
-						if (openFound)
-						{
-							match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
-						}
-						$es4.$$call(statement, null, null, 'caseStatements', 'push', [caseStatement]);
-					}
-					match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'));
-					break;
-				default:
-					if ($es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'IdentifierTokenType') && (peek(2) && $es4.$$get(peek(2), null, null, 'type') == $es4.$$get(Token, null, null, 'ColonTokenType')))
-					{
-						statement = $es4.$$call(Construct, null, null, 'getNewLabelStatement', $es4.$$EMPTY_ARRAY);
-						$es4.$$set(statement, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType')), '=');
-						match($es4.$$get(Token, null, null, 'ColonTokenType'));
-						break;
-					}
-					statement = matchExpression(false, namedFunctionExpressions, false, false, dontReadIn);
-			}
-			if (!dontmatchEOS)
-			{
-				match($es4.$$get(Token, null, null, 'EOSTokenType'), true, true);
-			}
-			return statement;
-		}
-;
-
-		function matchExpression($$$$ignoreCommas, $$$$namedFunctionExpressions, $$$$operand, $$$$optional, $$$$dontReadIn) 
-		{
-			//set default parameter values
-			var ignoreCommas = (0 > arguments.length - 1) ? false : $es4.$$coerce($$$$ignoreCommas, Boolean);
-			var namedFunctionExpressions = (1 > arguments.length - 1) ? null : $$$$namedFunctionExpressions;
-			var operand = (2 > arguments.length - 1) ? null : $$$$operand;
-			var optional = (3 > arguments.length - 1) ? false : $es4.$$coerce($$$$optional, Boolean);
-			var dontReadIn = (4 > arguments.length - 1) ? false : $es4.$$coerce($$$$dontReadIn, Boolean);
-
-			var expression = null;
-			var expressions = [];
-			var ternaryTokens = 0;
-			var token;
-			var construct;
-			var regExpString;
-			var prefixExpression;
-			var binaryExpression;
-			var binaryExpressionParent;
-			loopy:			while (token = peek(1))
-			{
-				switch ($es4.$$get(token, null, null, 'type'))
-				{
-					case $es4.$$get(Token, null, null, 'OpenParenTokenType'):
-						match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
-						expression = $es4.$$call(Construct, null, null, 'getNewParenExpression', $es4.$$EMPTY_ARRAY);
-						$es4.$$set(expression, null, null, 'expression', matchExpression(false, namedFunctionExpressions), '=');
-						match($es4.$$get(Token, null, null, 'ClosedParenTokenType'));
-						if (peek(1) && ($es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'DotTokenType') || $es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'OpenBracketTokenType') || $es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'OpenParenTokenType')))
-						{
-							construct = $es4.$$call(Construct, null, null, 'getNewParenConstruct', $es4.$$EMPTY_ARRAY);
-							$es4.$$set(construct, null, null, 'expression', expression, '=');
-							expression = matchPropertyExpression(construct);
-						}
-						break;
-					case $es4.$$get(Token, null, null, 'NumberTokenType'):
-						expression = $es4.$$call(Construct, null, null, 'getNewNumberExpression', $es4.$$EMPTY_ARRAY);
-						$es4.$$set(expression, null, null, 'numberToken', match($es4.$$get(Token, null, null, 'NumberTokenType')), '=');
-						break;
-					case $es4.$$get(Token, null, null, 'StringTokenType'):
-						expression = $es4.$$call(Construct, null, null, 'getNewStringExpression', $es4.$$EMPTY_ARRAY);
-						$es4.$$set(expression, null, null, 'stringToken', match($es4.$$get(Token, null, null, 'StringTokenType')), '=');
-						while (token = match($es4.$$get(Token, null, null, 'StringChunkTokenType'), true))
-						{
-							$es4.$$call(expression, null, null, 'stringChunkTokens', 'push', [token]);
-						}
-						$es4.$$set(expression, null, null, 'stringEndToken', match($es4.$$get(Token, null, null, 'StringEndTokenType')), '=');
-						if (peek(1) && ($es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'DotTokenType') || $es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'OpenBracketTokenType') || $es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'OpenParenTokenType')))
-						{
-							construct = $es4.$$call(Construct, null, null, 'getNewParenConstruct', $es4.$$EMPTY_ARRAY);
-							$es4.$$set(construct, null, null, 'expression', expression, '=');
-							expression = matchPropertyExpression(construct);
-						}
-						break;
-					case $es4.$$get(Token, null, null, 'ReturnTokenType'):
-						expression = $es4.$$call(Construct, null, null, 'getNewReturnExpression', $es4.$$EMPTY_ARRAY);
-						match($es4.$$get(Token, null, null, 'ReturnTokenType'));
-						if ($es4.$$get(peek(1), null, null, 'type') != $es4.$$get(Token, null, null, 'ClosedBraceTokenType') && $es4.$$get(peek(1), null, null, 'type') != $es4.$$get(Token, null, null, 'EOSTokenType'))
-						{
-							$es4.$$set(expression, null, null, 'expression', matchExpression(false, namedFunctionExpressions), '=');
-						}
-						break;
-					case $es4.$$get(Token, null, null, 'DeleteTokenType'):
-						expression = $es4.$$call(Construct, null, null, 'getNewDeleteExpression', $es4.$$EMPTY_ARRAY);
-						match($es4.$$get(Token, null, null, 'DeleteTokenType'));
-						$es4.$$set(expression, null, null, 'expression', matchExpression(ignoreCommas, namedFunctionExpressions, true), '=');
-						break;
-					case $es4.$$get(Token, null, null, 'FunctionTokenType'):
-						expression = $es4.$$call(Construct, null, null, 'getNewFunctionExpression', $es4.$$EMPTY_ARRAY);
-						match($es4.$$get(Token, null, null, 'FunctionTokenType'));
-						$es4.$$set(expression, null, null, 'identifierToken', match($es4.$$get(Token, null, null, 'IdentifierTokenType'), true), '=');
-						if ($es4.$$get(expression, null, null, 'identifierToken') && namedFunctionExpressions)
-						{
-							$es4.$$call(namedFunctionExpressions, null, null, 'push', [expression]);
-						}
-						match($es4.$$get(Token, null, null, 'OpenParenTokenType'));
-						while (!match($es4.$$get(Token, null, null, 'ClosedParenTokenType'), true))
-						{
-							$es4.$$call(expression, null, null, 'parameterConstructs', 'push', [matchParameterConstruct()]);
-							match($es4.$$get(Token, null, null, 'CommaTokenType'), true);
-						}
-						if (match($es4.$$get(Token, null, null, 'ColonTokenType'), true))
-						{
-							$es4.$$set(expression, null, null, 'typeConstruct', matchTypeConstruct(), '=');
-						}
-						else
-						{
-							$es4.$$set(expression, null, null, 'typeConstruct', $es4.$$call(Construct, null, null, 'getNewTypeConstruct', $es4.$$EMPTY_ARRAY), '=');
-							$es4.$$set(expression, null, null, 'typeConstruct', 'mulToken', $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'MulTokenType'), '*']), '=');
-						}
-						match($es4.$$get(Token, null, null, 'OpenBraceTokenType'));
-						while (!match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'), true))
-						{
-							$es4.$$call(expression, null, null, 'bodyStatements', 'push', [matchStatement(false, $es4.$$get(expression, null, null, 'namedFunctionExpressions'))]);
-						}
-						break;
-					case $es4.$$get(Token, null, null, 'OpenBraceTokenType'):
-						expression = $es4.$$call(Construct, null, null, 'getNewObjectExpression', $es4.$$EMPTY_ARRAY);
-						match($es4.$$get(Token, null, null, 'OpenBraceTokenType'));
-						while (!match($es4.$$get(Token, null, null, 'ClosedBraceTokenType'), true))
-						{
-							var objectPropertyConstruct = $es4.$$call(Construct, null, null, 'getNewObjectPropertyConstruct', $es4.$$EMPTY_ARRAY);
-							$es4.$$set(objectPropertyConstruct, null, null, 'expression', matchExpression(false, namedFunctionExpressions), '=');
-							match($es4.$$get(Token, null, null, 'ColonTokenType'));
-							$es4.$$set(objectPropertyConstruct, null, null, 'valueExpression', matchExpression(true, namedFunctionExpressions), '=');
-							$es4.$$call(expression, null, null, 'objectPropertyConstructs', 'push', [objectPropertyConstruct]);
-							match($es4.$$get(Token, null, null, 'CommaTokenType'), true);
-						}
-						if (peek(1) && ($es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'DotTokenType') || $es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'OpenBracketTokenType')))
-						{
-							expression = matchPropertyExpression($es4.$$call(Construct, null, null, 'getNewObjectConstruct', [expression]));
-						}
-						break;
-					case $es4.$$get(Token, null, null, 'OpenBracketTokenType'):
-						expression = $es4.$$call(Construct, null, null, 'getNewArrayExpression', $es4.$$EMPTY_ARRAY);
-						match($es4.$$get(Token, null, null, 'OpenBracketTokenType'));
-						while (!match($es4.$$get(Token, null, null, 'ClosedBracketTokenType'), true))
-						{
-							$es4.$$call(expression, null, null, 'valueExpressions', 'push', [matchExpression(true, namedFunctionExpressions)]);
-							match($es4.$$get(Token, null, null, 'CommaTokenType'), true);
-						}
-						if (peek(1) && ($es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'DotTokenType') || $es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'OpenBracketTokenType')))
-						{
-							expression = matchPropertyExpression($es4.$$call(Construct, null, null, 'getNewArrayConstruct', [expression]));
-						}
-						break;
-					case $es4.$$get(Token, null, null, 'BooleanTokenType'):
-						expression = $es4.$$call(Construct, null, null, 'getNewBooleanExpression', $es4.$$EMPTY_ARRAY);
-						$es4.$$set(expression, null, null, 'booleanToken', match($es4.$$get(Token, null, null, 'BooleanTokenType')), '=');
-						break;
-					case $es4.$$get(Token, null, null, 'NaNTokenType'):
-						expression = $es4.$$call(Construct, null, null, 'getNewExpression', [match($es4.$$get(Token, null, null, 'NaNTokenType'))]);
-						break;
-					case $es4.$$get(Token, null, null, 'UndefinedTokenType'):
-						expression = $es4.$$call(Construct, null, null, 'getNewExpression', [match($es4.$$get(Token, null, null, 'UndefinedTokenType'))]);
-						break;
-					case $es4.$$get(Token, null, null, 'ThisTokenType'):
-						expression = matchPropertyExpression();
-						break;
-					case $es4.$$get(Token, null, null, 'NullTokenType'):
-						expression = $es4.$$call(Construct, null, null, 'getNewExpression', [match($es4.$$get(Token, null, null, 'NullTokenType'))]);
-						break;
-					case $es4.$$get(Token, null, null, 'AddTokenType'):
-						expression = $es4.$$call(Construct, null, null, 'getNewExpression', [match($es4.$$get(Token, null, null, 'AddTokenType')), matchExpression(true, namedFunctionExpressions, true)]);
-						break;
-					case $es4.$$get(Token, null, null, 'SubTokenType'):
-						expression = $es4.$$call(Construct, null, null, 'getNewExpression', [match($es4.$$get(Token, null, null, 'SubTokenType')), matchExpression(true, namedFunctionExpressions, true)]);
-						break;
-					case $es4.$$get(Token, null, null, 'XMLOpenArrowTokenType'):
-						match($es4.$$get(Token, null, null, 'XMLOpenArrowTokenType'));
-						var isXMLList = $es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'XMLClosedArrowTokenType');
-						var openTags = 1;
-						var xmlString = '<';
-						if (isXMLList)
-						{
-							expression = $es4.$$call(Construct, null, null, 'getNewXMLListExpression', $es4.$$EMPTY_ARRAY);
-							match($es4.$$get(Token, null, null, 'XMLClosedArrowTokenType'));
-							match($es4.$$get(Token, null, null, 'XMLOpenArrowTokenType'));
-						}
-						else
-						{
-							expression = $es4.$$call(Construct, null, null, 'getNewXMLExpression', $es4.$$EMPTY_ARRAY);
-						}
-						var inNode = true;
-						while ((openTags || inNode || isXMLList) && (token = next(1)))
-						{
-							if (isXMLList)
-							{
-								if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'XMLOpenArrowTokenType') && peek(1) && $es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType') && peek(2) && $es4.$$get(peek(2), null, null, 'type') == $es4.$$get(Token, null, null, 'XMLClosedArrowTokenType'))
-								{
-									match($es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'));
-									match($es4.$$get(Token, null, null, 'XMLClosedArrowTokenType'));
-									break;
-								}
-							}
-							else
-							{
-								if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'XMLOpenArrowTokenType'))
-								{
-									inNode = true;
-								}
-								if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'XMLOpenArrowTokenType') && peek(1) && $es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType'))
-								{
-									openTags--;
-								}
-								else if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'XMLOpenArrowTokenType'))
-								{
-									openTags++;
-								}
-								if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'XMLForwardSlashTokenType') && peek(1) && $es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'XMLClosedArrowTokenType'))
-								{
-									openTags--;
-								}
-								if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'XMLClosedArrowTokenType'))
-								{
-									inNode = false;
-								}
-							}
-							if ($es4.$$get(token, null, null, 'data') == "'")
-							{
-								$es4.$$set(token, null, null, 'data', "\\'", '=');
-							}
-							if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'NewLineTokenType'))
-							{
-								xmlString += '\\' + $es4.$$get(token, null, null, 'data');
-							}
-							else
-							{
-								xmlString += $es4.$$get(token, null, null, 'data');
-							}
-						}
-						$es4.$$set(expression, null, null, 'string', xmlString, '=');
-						break;
-					case $es4.$$get(Token, null, null, 'RegExpTokenType'):
-						expression = $es4.$$call(Construct, null, null, 'getNewRegExpression', $es4.$$EMPTY_ARRAY);
-						regExpString = $es4.$$get(match($es4.$$get(Token, null, null, 'RegExpTokenType')), null, null, 'data');
-						while ((token = peek(1, 1)) && $es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'SpecialUFOTokenType'))
-						{
-							token = next();
-							regExpString += $es4.$$get(token, null, null, 'data');
-						}
-						$es4.$$set(expression, null, null, 'string', regExpString, '=');
-						break;
-					case $es4.$$get(Token, null, null, 'DivTokenType'):
-						expression = $es4.$$call(Construct, null, null, 'getNewRegExpression', $es4.$$EMPTY_ARRAY);
-						regExpString = $es4.$$get(match($es4.$$get(Token, null, null, 'DivTokenType')), null, null, 'data');
-						while (token = next(2))
-						{
-							regExpString += $es4.$$get(token, null, null, 'data');
-							if ($es4.$$call(regExpString, null, null, 'charAt', [$es4.$$get(regExpString, null, null, 'length') - 1]) == '/' && $es4.$$call(regExpString, null, null, 'charAt', [$es4.$$get(regExpString, null, null, 'length') - 2]) != '\\')
-							{
-								break;
-							}
-						}
-						while (token = peek(1, 1))
-						{
-							if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'NewLineTokenType') || $es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'TabTokenType') || $es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'SpaceTokenType') || $es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'EOSTokenType') || $es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'CommaTokenType'))
-							{
-								break;
-							}
-							token = next();
-							regExpString += $es4.$$get(token, null, null, 'data');
-						}
-						$es4.$$set(expression, null, null, 'string', regExpString, '=');
-						break;
-					case $es4.$$get(Token, null, null, 'IncrementTokenType'):
-						expression = $es4.$$call(Construct, null, null, 'getNewPrefixExpression', $es4.$$EMPTY_ARRAY);
-						$es4.$$set(expression, null, null, 'incrementToken', match($es4.$$get(Token, null, null, 'IncrementTokenType')), '=');
-						$es4.$$set(expression, null, null, 'expression', matchExpression(false, namedFunctionExpressions), '=');
-						if ($es4.$$get(expression, null, null, 'expression', 'constructor') != $es4.$$get(Construct, null, null, 'BinaryExpression'))
-						{
-							break;
-						}
-						prefixExpression = expression;
-						binaryExpression = expression = $es4.$$get(expression, null, null, 'expression');
-						binaryExpressionParent = binaryExpression;
-						while ($es4.$$get(binaryExpression, null, null, 'constructor') == $es4.$$get(Construct, null, null, 'BinaryExpression'))
-						{
-							binaryExpressionParent = binaryExpression;
-							binaryExpression = $es4.$$get(binaryExpression, null, null, 'leftExpression');
-						}
-						while ($es4.$$get(binaryExpression, null, null, 'constructor') == $es4.$$get(Construct, null, null, 'ParenExpression'))
-						{
-							binaryExpressionParent = binaryExpression;
-							binaryExpression = $es4.$$get(binaryExpression, null, null, 'expression');
-						}
-						$es4.$$set(prefixExpression, null, null, 'expression', binaryExpression, '=');
-						if ($es4.$$get(binaryExpressionParent, null, null, 'constructor') == $es4.$$get(Construct, null, null, 'ParenExpression'))
-						{
-							$es4.$$set(binaryExpressionParent, null, null, 'expression', prefixExpression, '=');
-						}
-						else
-						{
-							$es4.$$set(binaryExpressionParent, null, null, 'leftExpression', prefixExpression, '=');
-						}
-						break;
-					case $es4.$$get(Token, null, null, 'DecrementTokenType'):
-						expression = $es4.$$call(Construct, null, null, 'getNewPrefixExpression', $es4.$$EMPTY_ARRAY);
-						$es4.$$set(expression, null, null, 'decrementToken', match($es4.$$get(Token, null, null, 'DecrementTokenType')), '=');
-						$es4.$$set(expression, null, null, 'expression', matchExpression(false, namedFunctionExpressions), '=');
-						if ($es4.$$get(expression, null, null, 'expression', 'constructor') != $es4.$$get(Construct, null, null, 'BinaryExpression'))
-						{
-							break;
-						}
-						prefixExpression = expression;
-						binaryExpression = expression = $es4.$$get(expression, null, null, 'expression');
-						binaryExpressionParent = binaryExpression;
-						while ($es4.$$get(binaryExpression, null, null, 'constructor') == $es4.$$get(Construct, null, null, 'BinaryExpression'))
-						{
-							binaryExpressionParent = binaryExpression;
-							binaryExpression = $es4.$$get(binaryExpression, null, null, 'leftExpression');
-						}
-						while ($es4.$$get(binaryExpression, null, null, 'constructor') == $es4.$$get(Construct, null, null, 'ParenExpression'))
-						{
-							binaryExpressionParent = binaryExpression;
-							binaryExpression = $es4.$$get(binaryExpression, null, null, 'expression');
-						}
-						$es4.$$set(prefixExpression, null, null, 'expression', binaryExpression, '=');
-						if ($es4.$$get(binaryExpressionParent, null, null, 'constructor') == $es4.$$get(Construct, null, null, 'ParenExpression'))
-						{
-							$es4.$$set(binaryExpressionParent, null, null, 'expression', prefixExpression, '=');
-						}
-						else
-						{
-							$es4.$$set(binaryExpressionParent, null, null, 'leftExpression', prefixExpression, '=');
-						}
-						break;
-					case $es4.$$get(Token, null, null, 'BitwiseNotTokenType'):
-						expression = $es4.$$call(Construct, null, null, 'getNewExpression', [match($es4.$$get(Token, null, null, 'BitwiseNotTokenType')), matchExpression(false, namedFunctionExpressions, true)]);
-						break;
-					case $es4.$$get(Token, null, null, 'NotTokenType'):
-						expression = $es4.$$call(Construct, null, null, 'getNewExpression', [match($es4.$$get(Token, null, null, 'NotTokenType')), matchExpression(false, namedFunctionExpressions, true)]);
-						break;
-					case $es4.$$get(Token, null, null, 'TypeofTokenType'):
-						expression = $es4.$$call(Construct, null, null, 'getNewExpression', [match($es4.$$get(Token, null, null, 'TypeofTokenType')), matchExpression(false, namedFunctionExpressions, true)]);
-						break;
-					case $es4.$$get(Token, null, null, 'SuperTokenType'):
-						expression = matchPropertyExpression();
-						break;
-					case $es4.$$get(Token, null, null, 'NewTokenType'):
-						expression = $es4.$$call(Construct, null, null, 'getNewNewExpression', $es4.$$EMPTY_ARRAY);
-						match($es4.$$get(Token, null, null, 'NewTokenType'));
-						if ($es4.$$get(peek(1), null, null, 'type') == $es4.$$get(Token, null, null, 'RelationalTokenType'))
-						{
-							next();
-							next();
-							next();
-							expression = matchExpression(ignoreCommas, namedFunctionExpressions, true);
-							break;
-						}
-						$es4.$$set(expression, null, null, 'expression', matchExpression(ignoreCommas, namedFunctionExpressions, true), '=');
-						break;
-					case $es4.$$get(Token, null, null, 'IdentifierTokenType'):
-						expression = matchPropertyExpression();
-						$es4.$$set(expression, null, null, 'root', true, '=');
-						break;
-					case $es4.$$get(Token, null, null, 'AtTokenType'):
-						expression = matchPropertyExpression();
-						break;
-					case $es4.$$get(Token, null, null, 'VoidTokenType'):
-						expression = $es4.$$call(Construct, null, null, 'getNewExpression', [match($es4.$$get(Token, null, null, 'VoidTokenType')), matchExpression(false, namedFunctionExpressions, null, true)]);
-						break;
-					default:
-						if (optional)
-						{
-							expression = $es4.$$call(Construct, null, null, 'getNewEmptyExpression', $es4.$$EMPTY_ARRAY);
-							break;
-						}
-						throw error('Unexpected token found10.', token);
-				}
-				token = match($es4.$$get(Token, null, null, 'IncrementTokenType'), true) || match($es4.$$get(Token, null, null, 'DecrementTokenType'), true);
-				if (token)
-				{
-					var originalExpression = expression;
-					expression = $es4.$$call(Construct, null, null, 'getNewPostfixExpression', $es4.$$EMPTY_ARRAY);
-					if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'IncrementTokenType'))
-					{
-						$es4.$$set(expression, null, null, 'incrementToken', token, '=');
-					}
-					else
-					{
-						$es4.$$set(expression, null, null, 'decrementToken', token, '=');
-					}
-					$es4.$$set(expression, null, null, 'expression', originalExpression, '=');
-				}
-				if (operand)
-				{
-					return expression;
-				}
-				$es4.$$call(expressions, null, null, 'push', [expression]);
-				token = match($es4.$$get(Token, null, null, 'AssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'AddTokenType'), true) || match($es4.$$get(Token, null, null, 'AsTokenType'), true) || match((dontReadIn) ? $es4.$$get(Token, null, null, 'SubTokenType') : $es4.$$get(Token, null, null, 'InTokenType'), true) || match($es4.$$get(Token, null, null, 'SubTokenType'), true) || match($es4.$$get(Token, null, null, 'MulTokenType'), true) || match($es4.$$get(Token, null, null, 'DivTokenType'), true) || match($es4.$$get(Token, null, null, 'ModTokenType'), true) || match($es4.$$get(Token, null, null, 'TernaryTokenType'), true) || match($es4.$$get(Token, null, null, 'IsTokenType'), true) || match($es4.$$get(Token, null, null, 'InstanceofTokenType'), true) || match($es4.$$get(Token, null, null, 'AndWithAssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'OrWithAssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'AndTokenType'), true) || match($es4.$$get(Token, null, null, 'OrTokenType'), true) || match($es4.$$get(Token, null, null, 'EqualityTokenType'), true) || match($es4.$$get(Token, null, null, 'RelationalTokenType'), true) || match($es4.$$get(Token, null, null, 'AddWithAssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'DivWithAssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'ModWithAssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'MulWithAssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'SubWithAssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'BitwiseLeftShiftTokenType'), true) || match($es4.$$get(Token, null, null, 'BitwiseRightShiftTokenType'), true) || match($es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftTokenType'), true) || match($es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType'), true) || match($es4.$$get(Token, null, null, 'BitwiseAndTokenType'), true) || match($es4.$$get(Token, null, null, 'BitwiseOrTokenType'), true) || match($es4.$$get(Token, null, null, 'BitwiseXorTokenType'), true);
-				if (!ignoreCommas && !token)
-				{
-					token = match($es4.$$get(Token, null, null, 'CommaTokenType'), true);
-				}
-				if (token && $es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'TernaryTokenType'))
-				{
-					ternaryTokens++;
-				}
-				else if (!token && ternaryTokens)
-				{
-					token = match($es4.$$get(Token, null, null, 'ColonTokenType'));
-					ternaryTokens--;
-				}
-				if (!token)
-				{
-					break loopy;
-				}
-				$es4.$$call(expressions, null, null, 'push', [token]);
-			}
-			return combineExpressions(expressions);
-
-			function getBinaryTernaryOperatorPrecedence($$$$token) 
-			{
-				//set default parameter values
-				var token = $$$$token;
-
-				switch ($es4.$$get(token, null, null, 'type'))
-				{
-					case $es4.$$get(Token, null, null, 'ColonTokenType'):
-						return -1;
-					case $es4.$$get(Token, null, null, 'CommaTokenType'):
-						return 1;
-					case $es4.$$get(Token, null, null, 'AssignmentTokenType'):
-					case $es4.$$get(Token, null, null, 'MulWithAssignmentTokenType'):
-					case $es4.$$get(Token, null, null, 'DivWithAssignmentTokenType'):
-					case $es4.$$get(Token, null, null, 'ModWithAssignmentTokenType'):
-					case $es4.$$get(Token, null, null, 'AddWithAssignmentTokenType'):
-					case $es4.$$get(Token, null, null, 'SubWithAssignmentTokenType'):
-					case $es4.$$get(Token, null, null, 'BitwiseLeftShiftAssignmentTokenType'):
-					case $es4.$$get(Token, null, null, 'BitwiseRightShiftAssignmentTokenType'):
-					case $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftAssignmentTokenType'):
-					case $es4.$$get(Token, null, null, 'BitwiseAndAssignmentTokenType'):
-					case $es4.$$get(Token, null, null, 'BitwiseXorAssignmentTokenType'):
-					case $es4.$$get(Token, null, null, 'BitwiseOrAssignmentTokenType'):
-					case $es4.$$get(Token, null, null, 'AndWithAssignmentTokenType'):
-					case $es4.$$get(Token, null, null, 'OrWithAssignmentTokenType'):
-						return 2;
-					case $es4.$$get(Token, null, null, 'TernaryTokenType'):
-						return 3;
-					case $es4.$$get(Token, null, null, 'OrTokenType'):
-						return 4;
-					case $es4.$$get(Token, null, null, 'AndTokenType'):
-						return 5;
-					case $es4.$$get(Token, null, null, 'BitwiseOrTokenType'):
-						return 6;
-					case $es4.$$get(Token, null, null, 'BitwiseXorTokenType'):
-						return 7;
-					case $es4.$$get(Token, null, null, 'BitwiseAndTokenType'):
-						return 8;
-					case $es4.$$get(Token, null, null, 'EqualityTokenType'):
-						return 9;
-					case $es4.$$get(Token, null, null, 'RelationalTokenType'):
-					case $es4.$$get(Token, null, null, 'AsTokenType'):
-					case $es4.$$get(Token, null, null, 'InTokenType'):
-					case $es4.$$get(Token, null, null, 'InstanceofTokenType'):
-					case $es4.$$get(Token, null, null, 'IsTokenType'):
-						return 10;
-					case $es4.$$get(Token, null, null, 'BitwiseLeftShiftTokenType'):
-					case $es4.$$get(Token, null, null, 'BitwiseRightShiftTokenType'):
-					case $es4.$$get(Token, null, null, 'BitwiseUnsignedRightShiftTokenType'):
-						return 11;
-					case $es4.$$get(Token, null, null, 'AddTokenType'):
-					case $es4.$$get(Token, null, null, 'SubTokenType'):
-						return 12;
-					case $es4.$$get(Token, null, null, 'MulTokenType'):
-					case $es4.$$get(Token, null, null, 'DivTokenType'):
-					case $es4.$$get(Token, null, null, 'ModTokenType'):
-						return 13;
-					default:
-						throw $es4.$$primitive(new (Error)('unknown binary/ternary operator: ' + $es4.$$get(token, null, null, 'type', 'name')));
-				}
-			}
-;
-
-			function combineExpressions($$$$expressions) 
-			{
-				//set default parameter values
-				var expressions = $$$$expressions;
-
-				var currentOperatorPrecedence = 13;
-				var i = -1;
-				var expression;
-				var begin;
-				while ($es4.$$get(expressions, null, null, 'length') > 1 && currentOperatorPrecedence)
-				{
-					if (i >= $es4.$$get(expressions, null, null, 'length') - 1)
-					{
-						i = -1;
-						currentOperatorPrecedence--;
-					}
-					i++;
-					if (i % 2 == 0)
-					{
-						continue;
-					}
-					var token = $es4.$$get(expressions, null, null, i);
-					if (getBinaryTernaryOperatorPrecedence(token) != currentOperatorPrecedence)
-					{
-						continue;
-					}
-					if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'TernaryTokenType'))
-					{
-						expression = $es4.$$call(Construct, null, null, 'getNewTernaryExpression', $es4.$$EMPTY_ARRAY);
-						$es4.$$set(expression, null, null, 'conditionExpression', $es4.$$get(expressions, null, null, i - 1), '=');
-						var index = i + 1;
-						var ternaryTokens = 1;
-						var colonTokens = 0;
-						var innerExpressions = [];
-						while (ternaryTokens != colonTokens && index < $es4.$$get(expressions, null, null, 'length') - 1)
-						{
-							$es4.$$call(innerExpressions, null, null, 'push', [$es4.$$get(expressions, null, null, index)]);
-							if (index % 2 == 0)
-							{
-								index++;
-								continue;
-							}
-							if ($es4.$$get(expressions, null, null, index, 'type') == $es4.$$get(Token, null, null, 'TernaryTokenType'))
-							{
-								ternaryTokens++;
-							}
-							else if ($es4.$$get(expressions, null, null, index, 'type') == $es4.$$get(Token, null, null, 'ColonTokenType'))
-							{
-								colonTokens++;
-							}
-							index++;
-						}
-						$es4.$$set(expression, null, null, 'trueExpression', combineExpressions($es4.$$call(innerExpressions, null, null, 'slice', [0, $es4.$$get(innerExpressions, null, null, 'length') - 1])), '=');
-						$es4.$$set(expression, null, null, 'falseExpression', combineExpressions($es4.$$call(expressions, null, null, 'slice', [index])), '=');
-						begin = $es4.$$call(expressions, null, null, 'slice', [0, i - 1]);
-						expressions = $es4.$$call(begin, null, null, 'concat', [[expression]]);
-					}
-					else
-					{
-						expression = $es4.$$call(Construct, null, null, 'getNewBinaryExpression', $es4.$$EMPTY_ARRAY);
-						$es4.$$set(expression, null, null, 'token', token, '=');
-						$es4.$$set(expression, null, null, 'leftExpression', $es4.$$get(expressions, null, null, i - 1), '=');
-						$es4.$$set(expression, null, null, 'rightExpression', $es4.$$get(expressions, null, null, i + 1), '=');
-						begin = $es4.$$call(expressions, null, null, 'slice', [0, i - 1]);
-						var end = $es4.$$call(expressions, null, null, 'slice', [i + 2]);
-						expressions = $es4.$$call(begin, null, null, 'concat', [[expression], end]);
-					}
-					i = -1;
-				}
-				return $es4.$$get(expressions, null, null, 0);
-			}
-;
-		}
-;
-
-		function match($$$$type, $$$$optional, $$$$greedy) 
-		{
-			//set default parameter values
-			var type = $$$$type;
-			var optional = (1 > arguments.length - 1) ? false : $es4.$$coerce($$$$optional, Boolean);
-			var greedy = (2 > arguments.length - 1) ? false : $es4.$$coerce($$$$greedy, Boolean);
-
-			var token = (optional) ? peek(1) : next();
-			if (!token && !optional)
-			{
-				throw error('Expected token type: ' + $es4.$$get(type, null, null, 'name') + '. No token found.', null);
-			}
-			if (!token)
-			{
-				return false;
-			}
-			if ($es4.$$get(token, null, null, 'type') != type && !optional)
-			{
-				throw error('Expected token type: ' + type + '. Got', token);
-			}
-			if ($es4.$$get(token, null, null, 'type') != type)
-			{
-				return false;
-			}
-			if (optional)
-			{
-				token = next();
-			}
-			var gtoken = (greedy) ? match(type, true, greedy) : false;
-			return (gtoken) ? gtoken : token;
-		}
-;
-
-		function next($$$$includeLevel, $$$$keywordStrictMode) 
-		{
-			//set default parameter values
-			var includeLevel = (0 > arguments.length - 1) ? false : $es4.$$coerce($$$$includeLevel, Boolean);
-			var keywordStrictMode = (1 > arguments.length - 1) ? false : $es4.$$coerce($$$$keywordStrictMode, Boolean);
-
-			if (!includeLevel)
-			{
-				includeLevel = $es4.$$coerce(0, Boolean);
-			}
-			while (index < $es4.$$get(tokens, null, null, 'length') - 1)
-			{
-				var token = $es4.$$get(tokens, null, null, ++index);
-				switch ($es4.$$get(token, null, null, 'type'))
-				{
-					case $es4.$$get(Token, null, null, 'CommentTokenType'):
-					case $es4.$$get(Token, null, null, 'CommentChunkTokenType'):
-					case $es4.$$get(Token, null, null, 'MultiLineCommentTokenType'):
-					case $es4.$$get(Token, null, null, 'MultiLineCommentChunkTokenType'):
-					case $es4.$$get(Token, null, null, 'MultiLineCommentEndTokenType'):
-						if (includeLevel == 1 || includeLevel == 0)
-						{
-							break;
-						}
-					case $es4.$$get(Token, null, null, 'NewLineTokenType'):
-					case $es4.$$get(Token, null, null, 'TabTokenType'):
-					case $es4.$$get(Token, null, null, 'SpaceTokenType'):
-						if (includeLevel == 0)
-						{
-							break;
-						}
-					default:
-						if (keywordStrictMode)
-						{
-							return token;
-						}
-						if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'StaticTokenType'))
-						{
-							token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'IdentifierTokenType'), 'static']);
-						}
-						return token;
-				}
-			}
-			return null;
-		}
-;
-
-		function peek($$$$ahead, $$$$includeLevel, $$$$keywordStrictMode) 
-		{
-			//set default parameter values
-			var ahead = $$$$ahead;
-			var includeLevel = (1 > arguments.length - 1) ? false : $es4.$$coerce($$$$includeLevel, Boolean);
-			var keywordStrictMode = (2 > arguments.length - 1) ? false : $es4.$$coerce($$$$keywordStrictMode, Boolean);
-
-			if (!includeLevel)
-			{
-				includeLevel = $es4.$$coerce(0, Boolean);
-			}
-			var i = index;
-			while (true)
-			{
-				if (ahead > 0 && i >= $es4.$$get(tokens, null, null, 'length') - 1)
-				{
-					break;
-				}
-				if (ahead < 0 && i < 1)
-				{
-					break;
-				}
-				var token = (ahead > 0) ? $es4.$$get(tokens, null, null, ++i) : $es4.$$get(tokens, null, null, --i);
-				switch ($es4.$$get(token, null, null, 'type'))
-				{
-					case $es4.$$get(Token, null, null, 'CommentTokenType'):
-					case $es4.$$get(Token, null, null, 'CommentChunkTokenType'):
-					case $es4.$$get(Token, null, null, 'MultiLineCommentTokenType'):
-					case $es4.$$get(Token, null, null, 'MultiLineCommentChunkTokenType'):
-					case $es4.$$get(Token, null, null, 'MultiLineCommentEndTokenType'):
-						break;
-					case $es4.$$get(Token, null, null, 'TabTokenType'):
-					case $es4.$$get(Token, null, null, 'SpaceTokenType'):
-					case $es4.$$get(Token, null, null, 'NewLineTokenType'):
-						if (includeLevel != 1)
-						{
-							break;
-						}
-					default:
-						(ahead > 0) ? ahead-- : ahead++;
-						if (!ahead)
-						{
-							if (keywordStrictMode)
-							{
-								return token;
-							}
-							if ($es4.$$get(token, null, null, 'type') == $es4.$$get(Token, null, null, 'StaticTokenType'))
-							{
-								token = $es4.$$call(Token, null, null, 'getNewToken', [$es4.$$get(Token, null, null, 'IdentifierTokenType'), 'static']);
-							}
-							return token;
-						}
-				}
-			}
-			return null;
-		}
-;
-
-		function error($$$$string, $$$$token) 
-		{
-			//set default parameter values
-			var string = $$$$string;
-			var token = $$$$token;
-
-			var i = (index - 25) < 25 ? 0 : index - 25;
-			for (i; i <= index; i++)
-			{
-				trace($es4.$$get(tokens, null, null, i, 'line') + ' : ' + $es4.$$get(tokens, null, null, i, 'position') + ' : ' + $es4.$$get(tokens, null, null, i, 'type') + ' => ' + $es4.$$get(tokens, null, null, i, 'data'));
-			}
-			if (token)
-			{
-				return $es4.$$primitive(new (Error)(string + ' token type ' + $es4.$$get(token, null, null, 'type') + ' found on line ' + $es4.$$get(token, null, null, 'line') + ', at position ' + $es4.$$get(token, null, null, 'position')));
-			}
-			else
-			{
-				return $es4.$$primitive(new (Error)(string));
-			}
-		}
-;
-
-		if ($es4.$$get(statementImportConstructs, null, null, 'length'))
-		{
-			$es4.$$set(rootConstruct, null, null, 'packageConstruct', 'importConstructs', $es4.$$call(rootConstruct, null, null, 'packageConstruct', 'importConstructs', 'concat', [statementImportConstructs]), '=');
-		}
-		return rootConstruct;
-	}));
-
-	function Parser()
-	{
-		//initialize class if not initialized
-		if (Parser.$$cinit !== undefined) Parser.$$cinit();
-
-		//save scope
-		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
-		var $$thisp = this;
-
-		//handle possible cast
-		if ($$this === $$thisp && (!($$this instanceof Parser) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Parser) : $es4.$$throwArgumentError();
-		Object.defineProperty($$this, '$$t', {value:1});
-
-		//constructor
-		$es4.$$constructor($$thisp, (function ()
-		{
-		}));
-
-		//call construct if no arguments, or argument zero does not equal manual construct
-		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
-		{
-			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
-
-			$es4.$$construct($$this, $$args);
-		}
-	}
-
-	return $es4.$$class(Parser, null, 'sweetrush.core::Parser');
-})();
-//sweetrush.core.Parser
-
-
-//sweetrush.utils.Base64Util
-$es4.$$package('sweetrush.utils').Base64Util = (function ()
-{
-	//imports
-	var ByteArray;
-
-	//class initializer
-	Base64Util.$$cinit = (function ()
-	{
-		Base64Util.$$cinit = undefined;
-
-		//initialize imports
-		ByteArray = $es4.$$['flash.utils'].ByteArray;
-	});
-
-	//method
-	$es4.$$public_function('encodeString', Base64Util, (function ($$$$value)
-	{
-		if (Base64Util.$$cinit !== undefined) Base64Util.$$cinit();
-
-		//set default parameter values
-		var value = $es4.$$coerce($$$$value, String);
-
-		if (false)
-		{
-		}
-		if (true)
-		{
-			if ($es4.$$get(global, null, null, 'btoa') !== undefined)
-			{
-				return $es4.$$coerce($es4.$$call(global, null, null, 'btoa', [value]), String);
-			}
-			return $es4.$$coerce($es4.$$call($es4.$$call(global, null, null, 'Buffer', 'from', [value]), null, null, 'toString', ['base64']), String);
-		}
+		var result = $es4.$$call(Lexer, null, null, 'lex', [$es4.$$call(input, null, null, 'slice', [$es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'keyword', 'length')]), grammer, true]);
+		$es4.$$call(result, null, null, 'tokens', 'unshift', [$es4.$$call(Token, null, null, 'getNewToken', [TokenType, $es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'keyword')])]);
+		return $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$get(result, null, null, 'tokens'), $es4.$$get(result, null, null, 'index') + $es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'keyword', 'length') - 1]);
 	}));
 
 	//method
-	$es4.$$public_function('decodeString', Base64Util, (function ($$$$str)
+	$es4.$$public_function('regexFind', Token, (function ($$$$input, $$$$TokenType, $$$$regex)
 	{
-		if (Base64Util.$$cinit !== undefined) Base64Util.$$cinit();
+		if (Token.$$cinit !== undefined) Token.$$cinit();
 
 		//set default parameter values
-		var str = $es4.$$coerce($$$$str, String);
+		var input = $$$$input;
+		var TokenType = $$$$TokenType;
+		var regex = (2 > arguments.length - 1) ? null : $$$$regex;
 
-		if (false)
+		if (!regex)
 		{
+			regex = $es4.$$get(Token, null, null, 'tokenFunctions', TokenType, 'regex');
 		}
-		if (true)
+		var match = $es4.$$call(input, null, null, 'match', [regex]);
+		if (!match)
 		{
-			if ($es4.$$get(global, null, null, 'atob') !== undefined)
-			{
-				return $es4.$$coerce($es4.$$call(global, null, null, 'atob', [str]), String);
-			}
-			return $es4.$$coerce($es4.$$call($es4.$$call(global, null, null, 'Buffer', 'from', [str, 'base64']), null, null, 'toString', $es4.$$EMPTY_ARRAY), String);
+			return null;
 		}
+		return $es4.$$call(Token, null, null, 'getNewResult', [$es4.$$call(Token, null, null, 'getNewToken', [TokenType, $es4.$$get(match, null, null, 0)]), $es4.$$get(match, null, null, 0, 'length') - 1]);
 	}));
 
-	function Base64Util()
+	function Token()
 	{
 		//initialize class if not initialized
-		if (Base64Util.$$cinit !== undefined) Base64Util.$$cinit();
+		if (Token.$$cinit !== undefined) Token.$$cinit();
 
 		//save scope
 		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
 		var $$thisp = this;
 
 		//handle possible cast
-		if ($$this === $$thisp && (!($$this instanceof Base64Util) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Base64Util) : $es4.$$throwArgumentError();
+		if ($$this === $$thisp && (!($$this instanceof Token) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Token) : $es4.$$throwArgumentError();
 		Object.defineProperty($$this, '$$t', {value:1});
 
 		//constructor
@@ -20134,374 +20473,35 @@ $es4.$$package('sweetrush.utils').Base64Util = (function ()
 		}
 	}
 
-	return $es4.$$class(Base64Util, null, 'sweetrush.utils::Base64Util');
+	return $es4.$$class(Token, null, 'sweetrush.obj::Token');
 })();
-//sweetrush.utils.Base64Util
+//sweetrush.obj.Token
 
-
-//sweetrush.utils.JsonUtil
-$es4.$$package('sweetrush.utils').JsonUtil = (function ()
-{
-	//class initializer
-	JsonUtil.$$cinit = (function ()
-	{
-		JsonUtil.$$cinit = undefined;
-
-	});
-
-	function JsonUtil()
-	{
-		//initialize class if not initialized
-		if (JsonUtil.$$cinit !== undefined) JsonUtil.$$cinit();
-
-		//save scope
-		var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
-		var $$thisp = this;
-
-		//handle possible cast
-		if ($$this === $$thisp && (!($$this instanceof JsonUtil) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], JsonUtil) : $es4.$$throwArgumentError();
-		Object.defineProperty($$this, '$$t', {value:1});
-
-		//constructor
-		$es4.$$constructor($$thisp, (function ()
-		{
-		}));
-
-		//method
-		$es4.$$public_function('parse', $$thisp, (function ($$$$string)
-		{
-			//set default parameter values
-			var string = $es4.$$coerce($$$$string, String);
-
-			return $es4.$$get($es4.$$primitive(new (Hydrate)(string)), $$this, $$thisp, 'result');
-		}));
-
-		//method
-		$es4.$$public_function('stringify', $$thisp, (function ($$$$obj)
-		{
-			//set default parameter values
-			var obj = $$$$obj;
-
-			return $es4.$$coerce($es4.$$get($es4.$$primitive(new (Dehydrate)(obj)), $$this, $$thisp, 'result'), String);
-		}));
-
-		//call construct if no arguments, or argument zero does not equal manual construct
-		if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
-		{
-			for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
-
-			$es4.$$construct($$this, $$args);
-		}
-	}
-
-	////////////////INTERNAL CLASS////////////////
-	var Hydrate = (function ()
-	{
-		//imports
-		var getDefinitionByName;
-		var getQualifiedClassName;
-		var Dictionary;
-		var Base64Util;
-
-		//class initializer
-		Hydrate.$$cinit = (function ()
-		{
-			Hydrate.$$cinit = undefined;
-
-			//initialize imports
-			getDefinitionByName = $es4.$$['flash.utils'].getDefinitionByName;
-			getQualifiedClassName = $es4.$$['flash.utils'].getQualifiedClassName;
-			Dictionary = $es4.$$['flash.utils'].Dictionary;
-			Base64Util = $es4.$$['sweetrush.utils'].Base64Util;
-		});
-
-		function Hydrate()
-		{
-			//initialize class if not initialized
-			if (Hydrate.$$cinit !== undefined) Hydrate.$$cinit();
-
-			//save scope
-			var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
-			var $$thisp = this;
-
-			//handle possible cast
-			if ($$this === $$thisp && (!($$this instanceof Hydrate) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Hydrate) : $es4.$$throwArgumentError();
-			Object.defineProperty($$this, '$$t', {value:1});
-
-			//properties
-			$es4.$$private_property('_dehydratedObj', $$thisp, Object);
-			$es4.$$private_property('_hydratedIDs', $$thisp, Object);
-			$es4.$$private_property('_result', $$thisp, Object);
-
-			//constructor
-			$es4.$$constructor($$thisp, (function ($$$$string)
-			{
-				//set default parameter values
-				var string = $es4.$$coerce($$$$string, String);
-
-				if (!string)
-				{
-					return;
-				}
-				$es4.$$set($$thisp, $$this, $$thisp, '_dehydratedObj', $es4.$$call(JSON, $$this, $$thisp, 'parse', [string]) || {}, '=');
-				$es4.$$get($$thisp, $$this, $$thisp, '_dehydratedObj', 'dehydrated') || {};
-				$es4.$$set($$thisp, $$this, $$thisp, '_hydratedIDs', {}, '=');
-				$es4.$$set($$thisp, $$this, $$thisp, '_result', $es4.$$call($$thisp, $$this, $$thisp, 'hydrateObject', [$es4.$$get($$thisp, $$this, $$thisp, '_dehydratedObj', 'dehydrated'), $es4.$$get($$thisp, $$this, $$thisp, '_dehydratedObj', 'type')]), '=');
-			}));
-
-			//method
-			$es4.$$private_function('hydrateObject', $$thisp, (function ($$$$object, $$$$type)
-			{
-				//set default parameter values
-				var object = $es4.$$coerce($$$$object, Object);
-				var type = $es4.$$coerce($$$$type, String);
-
-				if ($es4.$$get($$thisp, $$this, $$thisp, '_hydratedIDs', $es4.$$get(object, $$this, $$thisp, 'id')) !== undefined)
-				{
-					return $es4.$$get($$thisp, $$this, $$thisp, '_hydratedIDs', $es4.$$get(object, $$this, $$thisp, 'id'));
-				}
-				var properties = null;
-				var propertyName = null;
-				var robject = type === 'array' ? [] : {};
-				$es4.$$set($$thisp, $$this, $$thisp, '_hydratedIDs', $es4.$$get(object, $$this, $$thisp, 'id'), robject, '=');
-				properties = $es4.$$get(object, $$this, $$thisp, 'p') || {};
-				for (var $$i0 = (properties || $es4.$$EMPTY_OBJECT).$$nextNameIndex(0); $$i0 != 0; $$i0 = properties.$$nextNameIndex($$i0))
-				{
-					propertyName = $es4.$$coerce(properties.$$nextName($$i0), String);
-
-					$es4.$$set(robject, $$this, $$thisp, propertyName, $es4.$$call($$thisp, $$this, $$thisp, 'getValueObject', [$es4.$$get(properties, $$this, $$thisp, propertyName)]), '=');
-				}
-				return robject;
-			}));
-
-			//method
-			$es4.$$private_function('getValueObject', $$thisp, (function ($$$$object)
-			{
-				//set default parameter values
-				var object = $$$$object;
-
-				if ($es4.$$is(object, String) && object == '__NaN__')
-				{
-					return $es4.$$coerce(NaN, Object);
-				}
-				if ($es4.$$is(object, String))
-				{
-					return $es4.$$call(Base64Util, $$this, $$thisp, 'decodeString', [object]);
-				}
-				if ($es4.$$is(object, Number) || $es4.$$is(object, Boolean) || object == null)
-				{
-					return object;
-				}
-				if ($es4.$$get(object, $$this, $$thisp, 'constructor') == Object)
-				{
-					if ($es4.$$get(object, $$this, $$thisp, 'r') !== undefined)
-					{
-						var id = $es4.$$coerce($es4.$$get(object, $$this, $$thisp, 'r'), String);
-						var obj = $es4.$$get($$thisp, $$this, $$thisp, '_dehydratedObj', 'o');
-						return $es4.$$call($$thisp, $$this, $$thisp, 'hydrateObject', [$es4.$$get(obj, $$this, $$thisp, id), $es4.$$get(obj, $$this, $$thisp, id, 'type')]);
-					}
-				}
-				throw $es4.$$primitive(new (Error)('unknown value type'));
-			}));
-
-			//accessor
-			$es4.$$public_accessor('result', $$thisp, (function ()
-			{
-				return $es4.$$get($$thisp, $$this, $$thisp, '_result');
-			}), null);
-
-			//call construct if no arguments, or argument zero does not equal manual construct
-			if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
-			{
-				for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
-
-				$es4.$$construct($$this, $$args);
-			}
-		}
-
-		return $es4.$$class(Hydrate, null, 'Hydrate');
-	})();
-
-	////////////////INTERNAL CLASS////////////////
-	var Dehydrate = (function ()
-	{
-		//imports
-		var getDefinitionByName;
-		var getQualifiedClassName;
-		var Dictionary;
-		var Base64Util;
-
-		//class initializer
-		Dehydrate.$$cinit = (function ()
-		{
-			Dehydrate.$$cinit = undefined;
-
-			//initialize imports
-			getDefinitionByName = $es4.$$['flash.utils'].getDefinitionByName;
-			getQualifiedClassName = $es4.$$['flash.utils'].getQualifiedClassName;
-			Dictionary = $es4.$$['flash.utils'].Dictionary;
-			Base64Util = $es4.$$['sweetrush.utils'].Base64Util;
-		});
-
-		function Dehydrate()
-		{
-			//initialize class if not initialized
-			if (Dehydrate.$$cinit !== undefined) Dehydrate.$$cinit();
-
-			//save scope
-			var $$this = (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) ? arguments[1] : this;
-			var $$thisp = this;
-
-			//handle possible cast
-			if ($$this === $$thisp && (!($$this instanceof Dehydrate) || $$this.$$t !== undefined)) return (arguments.length !== 0) ? $es4.$$as(arguments[0], Dehydrate) : $es4.$$throwArgumentError();
-			Object.defineProperty($$this, '$$t', {value:1});
-
-			//properties
-			$es4.$$private_property('_dehydratedObjects', $$thisp, Object);
-			$es4.$$private_property('_dehydratedNodes', $$thisp, Dictionary);
-			$es4.$$private_property('_idCounter', $$thisp, int);
-			$es4.$$private_property('_result', $$thisp, String);
-
-			//initializer
-			$es4.$$iinit($$thisp, (function ()
-			{
-				//initialize properties
-				$es4.$$set($$this, $$this, $$thisp, '_dehydratedObjects', {}, '=');
-				$es4.$$set($$this, $$this, $$thisp, '_dehydratedNodes', $es4.$$primitive(new (Dictionary)()), '=');
-				$es4.$$set($$this, $$this, $$thisp, '_idCounter', 1, '=');
-			}));
-
-			//constructor
-			$es4.$$constructor($$thisp, (function ($$$$persistable)
-			{
-				//set default parameter values
-				var persistable = $$$$persistable;
-
-				var dehydrated = $es4.$$call($$thisp, $$this, $$thisp, 'dehydrateObject', [persistable]);
-				var obj = {};
-				$es4.$$set(obj, $$this, $$thisp, 'dehydrated', dehydrated, '=');
-				$es4.$$set(obj, $$this, $$thisp, 'type', $es4.$$is(persistable, Array) ? 'array' : 'object', '=');
-				$es4.$$set(obj, $$this, $$thisp, 'o', $es4.$$get($$thisp, $$this, $$thisp, '_dehydratedObjects'), '=');
-				$es4.$$set($$thisp, $$this, $$thisp, '_result', $es4.$$call(JSON, $$this, $$thisp, 'stringify', [obj]), '=');
-			}));
-
-			//method
-			$es4.$$private_function('dehydrateObject', $$thisp, (function ($$$$object)
-			{
-				//set default parameter values
-				var object = $es4.$$coerce($$$$object, Object);
-
-				var dehydrated = $es4.$$call($$thisp, $$this, $$thisp, 'getDehydrated', [object]);
-				if (dehydrated)
-				{
-					return dehydrated;
-				}
-				dehydrated = {};
-				$es4.$$set(dehydrated, $$this, $$thisp, 'id', $es4.$$call($$thisp, $$this, $$thisp, 'generateID', $es4.$$EMPTY_ARRAY), '=');
-				$es4.$$set(dehydrated, $$this, $$thisp, 'type', $es4.$$is(object, Array) ? 'array' : 'object', '=');
-				$es4.$$set($$thisp, $$this, $$thisp, '_dehydratedNodes', object, dehydrated, '=');
-				if ($es4.$$is(object, Array) || $es4.$$is($es4.$$typeof($es4.$$call(object, $$this, $$thisp, 'valueOf', $es4.$$EMPTY_ARRAY)), Object))
-				{
-					$es4.$$set($$thisp, $$this, $$thisp, '_dehydratedObjects', $es4.$$get(dehydrated, $$this, $$thisp, 'id'), dehydrated, '=');
-					for (var $$i1 = (object || $es4.$$EMPTY_OBJECT).$$nextNameIndex(0); $$i1 != 0; $$i1 = object.$$nextNameIndex($$i1))
-					{
-						var property = $es4.$$coerce(object.$$nextName($$i1), String);
-
-						if ($es4.$$get(dehydrated, $$this, $$thisp, 'p') === undefined)
-						{
-							$es4.$$set(dehydrated, $$this, $$thisp, 'p', {}, '=');
-						}
-						$es4.$$set(dehydrated, $$this, $$thisp, 'p', property, $es4.$$call($$thisp, $$this, $$thisp, 'getValue', [$es4.$$get(object, $$this, $$thisp, property)]), '=');
-					}
-					return dehydrated;
-				}
-				throw $es4.$$primitive(new (Error)('Type is not supported for dehydration'));
-			}));
-
-			//method
-			$es4.$$private_function('getDehydrated', $$thisp, (function ($$$$object)
-			{
-				//set default parameter values
-				var object = $es4.$$coerce($$$$object, Object);
-
-				return $es4.$$get($$thisp, $$this, $$thisp, '_dehydratedNodes', object);
-			}));
-
-			//method
-			$es4.$$private_function('getValue', $$thisp, (function ($$$$object)
-			{
-				//set default parameter values
-				var object = $es4.$$coerce($$$$object, Object);
-
-				if ($es4.$$is(object, String))
-				{
-					return $es4.$$call(Base64Util, $$this, $$thisp, 'encodeString', [$es4.$$as(object, String)]);
-				}
-				if ($es4.$$is(object, Number) && isNaN($es4.$$as(object, Number)))
-				{
-					return '__NaN__';
-				}
-				if ($es4.$$is(object, Number) || $es4.$$is(object, Boolean) || object == null)
-				{
-					return object;
-				}
-				object = $es4.$$call($$thisp, $$this, $$thisp, 'dehydrateObject', [object]);
-				return {r:$es4.$$get(object, $$this, $$thisp, 'id')};
-			}));
-
-			//method
-			$es4.$$private_function('generateID', $$thisp, (function ()
-			{
-				return $es4.$$call(($es4.$$set($$thisp, $$this, $$thisp, '_idCounter', 'postfix', '++')), $$this, $$thisp, 'toString', $es4.$$EMPTY_ARRAY);
-			}));
-
-			//accessor
-			$es4.$$public_accessor('result', $$thisp, (function ()
-			{
-				return $es4.$$get($$thisp, $$this, $$thisp, '_result');
-			}), null);
-
-			//call construct if no arguments, or argument zero does not equal manual construct
-			if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)
-			{
-				for (var $$i = 0, $$length = arguments.length, $$args = new Array($$length); $$i < $$length; $$i += 1) $$args[$$i] = arguments[$$i];
-
-				$es4.$$construct($$this, $$args);
-			}
-		}
-
-		return $es4.$$class(Dehydrate, null, 'Dehydrate');
-	})();
-
-	return $es4.$$class(JsonUtil, {CLASSES:[Hydrate, Dehydrate]}, 'sweetrush.utils::JsonUtil');
-})();
-//sweetrush.utils.JsonUtil
-
-
-$es4.$$['sweetrush.obj'].Token.$$pcinit();
-
-$es4.$$['sweetrush'].Transcompiler.$$pcinit();
 
 $es4.$$['sweetrush.utils'].SwcUtil.$$pcinit();
 
+$es4.$$['sweetrush'].Transcompiler.$$pcinit();
+
+$es4.$$['sweetrush.core'].Parser.$$pcinit();
+
 $es4.$$['sweetrush.core'].TranslatorProto.$$pcinit();
 
-$es4.$$['sweetrush.obj'].Construct.$$pcinit();
+$es4.$$['sweetrush.utils'].Base64Util.$$pcinit();
+
+$es4.$$['sweetrush.utils'].FileUtil.$$pcinit();
 
 $es4.$$['sweetrush.core'].TranslatorPrototype.$$pcinit();
 
 $es4.$$['sweetrush.core'].Lexer.$$pcinit();
 
-$es4.$$['sweetrush.core'].Analyzer.$$pcinit();
-
-$es4.$$['sweetrush.utils'].FileUtil.$$pcinit();
-
-$es4.$$['sweetrush.core'].Parser.$$pcinit();
-
-$es4.$$['sweetrush.utils'].Base64Util.$$pcinit();
-
 $es4.$$['sweetrush.utils'].JsonUtil.$$pcinit();
 
-var _object = module.exports = new $es4.$$['sweetrush'].Transcompiler($es4.$$MANUAL_CONSTRUCT)
+$es4.$$['sweetrush.obj'].Construct.$$pcinit();
+
+$es4.$$['sweetrush.core'].Analyzer.$$pcinit();
+
+$es4.$$['sweetrush.obj'].Token.$$pcinit();
+
+var _object = module.exports = return new $es4.$$['sweetrush'].Transcompiler($es4.$$MANUAL_CONSTRUCT)
 $es4.$$construct(_object, $es4.$$EMPTY_ARRAY);
 _object;
