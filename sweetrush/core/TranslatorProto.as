@@ -224,7 +224,7 @@ package sweetrush.core
 
                 var js = '';
                 var innerJS;
-                var cr = false;
+                var cr:* = false;
 
                 var accessor = construct.getToken || construct.setToken;
 
@@ -359,7 +359,7 @@ package sweetrush.core
                 upLevel();
 
                 var innerJS;
-                var cr = false;
+                var cr:* = false;
                 js += print(construct.identifierToken.data + ' = (function ()', 0, 1);
                 js += print('{', _indent, 1);
                 js += (innerJS = translateImports(construct)) ? cr = innerJS : '';
@@ -2113,14 +2113,19 @@ package sweetrush.core
                         {
 							if (state.doNew)
 							{
-								if (functionCallExpression.construct.argumentExpressions.length) js = '$es4.$$primitive(new (' + js + ')(';
-								else js = '$es4.$$primitive(new (' + js + ')(';
+                                if (js != name) js = '(' + js + ')'; //"Sprite" => no, "$es4.$$get($es4.$$['flash.display'], $$this, $$thisp, 'Sprite')" => yes
+								if (functionCallExpression.construct.argumentExpressions.length) js = '$es4.$$primitive(new ' + js + '(';
+								else js = '$es4.$$primitive(new ' + js + '(';
 							}
 							else js += '(';
 						}
                         else
                         {
-							 if (state.doNew) js = '$es4.$$primitive(new (' + js + '))(';
+							 if (state.doNew)
+                             {
+                                 if (js != name) js = '(' + js + ')';  //"Sprite" => no, "$es4.$$get($es4.$$['flash.display'], $$this, $$thisp, 'Sprite')" => yes
+                                 js = '$es4.$$primitive(new ' + js + ')(';
+                             }
                             else
                             {
                                 if (!lastAccessTypeWasArrayAccessor)
@@ -2165,7 +2170,11 @@ package sweetrush.core
                     else if (state.doPostfix) js += operator;
 
                     if (state.doDelete) js = 'delete ' + js;
-					 if (state.doNew) js = '$es4.$$primitive(new (' + js + '()))';
+                    if (state.doNew)
+                    {
+                        if (js != name) js = '(' + js + ')';  //"Sprite" => no, "$es4.$$get($es4.$$['flash.display'], $$this, $$thisp, 'Sprite')" => yes
+                        js = '$es4.$$primitive(new ' + js + '())';
+                    }
                 }
                 else
                 {

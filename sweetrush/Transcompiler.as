@@ -101,7 +101,6 @@ package sweetrush
 			//fix all the paths
 			srcDir = FileUtil.fixPath(srcDir);
 			if (mainFile) mainFile = FileUtil.fixPath(mainFile);
-			if (!special) for (var i = 0; i < swcs.length; i++) swcs[i] = FileUtil.fixPath(swcs[i]);
 
 			//get the list of as files we will be compiling
 			var files = getSrcFiles(srcDir, srcFiles, excludeDirectories, platform);

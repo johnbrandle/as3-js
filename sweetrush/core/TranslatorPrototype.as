@@ -225,7 +225,7 @@ package sweetrush.core
 
                 var js = '';
                 var innerJS;
-                var cr = false;
+                var cr:* = false;
 
                 var accessor = construct.getToken || construct.setToken;
 
@@ -362,7 +362,7 @@ package sweetrush.core
                 _extendsNameConflict = construct.extendsNameConflict;
 
                 var innerJS;
-                var cr = false;
+                var cr:* = false;
                 js += print(construct.identifierToken.data + ' = (function ()', 0, 1);
                 js += print('{', _indent, 1);
                 js += (innerJS = translateImports(construct)) ? cr = innerJS : '';
@@ -449,7 +449,6 @@ package sweetrush.core
 
 				extraCR = 0;
 
-                //js += print('Object.defineProperty(' + className + '.prototype, \'$$construct\', {value:' + className + '.$$construct});', _indent + 2, 1);
                 js += print('//hold private values', _indent + 2, 1);
                 js += print('Object.defineProperty(' + className + '.prototype, \'$$v\', {value:{}});', _indent + 2, 1);
 
@@ -519,8 +518,6 @@ package sweetrush.core
                 //initialize class if not initialized
                 js += print('var $$this;', _indent + 1, 2);
 
-                //js += print('if (' + construct.identifierToken.data + '.$$cinit !== undefined) ' + construct.identifierToken.data + '.$$cinit();', _indent + 1, 2);
-
                 //save scope
                 js += print('//save scope', _indent + 1, 1);
                 js += print('if (arguments.length !== 0 && arguments[0] === $es4.$$MANUAL_CONSTRUCT && arguments[1] !== undefined) $$this = arguments[1];', _indent + 1, 1);
@@ -529,14 +526,6 @@ package sweetrush.core
                 js += print('var $$this = this;', _indent + 2, 2);
                 js += print('if (!($$this instanceof ' + construct.identifierToken.data + ') || $$this.$$' + ((construct.packageName && _extendsNameConflict ? construct.packageName : '') + construct.identifierToken.data).split('.').join('') + ' !== undefined) return (arguments.length !== 0) ? $es4.$$as(arguments[0], ' + construct.identifierToken.data + ') : $es4.$$throwArgumentError();', _indent + 2, 1);
                 js += print('}', _indent + 1, 1);
-
-                var innerJS;
-
-                //js += (innerJS = translateInstanceProperties(construct)) ? print(innerJS, 0, 0, 1) : '';
-                //js += (innerJS = translateInitializer(construct)) ? print(innerJS, 0, 0, 1) : '';
-                //js += (innerJS = translateConstructor(construct)) ? print(innerJS, 0, 0, 1) : '';
-                //js += (innerJS = translateInstanceMethods(construct)) ? print(innerJS, 0, 0, 1) : '';
-                //js += (innerJS = translateInstanceAccessors(construct, false)) ? print(innerJS, 0, 0, 1) : '';
 
                 js += print('//call construct if no arguments, or argument zero does not equal manual construct', _indent + 1, 1, 1);
                 js += print('if (arguments.length === 0 || arguments[0] !== $es4.$$MANUAL_CONSTRUCT)', _indent + 1, 1);
@@ -828,72 +817,6 @@ package sweetrush.core
 
                 return js;
             }
-
-            /*
-            function translateInitializer(construct)
-            {
-                upLevel();
-
-                var js = print('//initializer', _indent, 1);
-                js += print('$es4.$$iinit($$thisp, (function ()', _indent, 1);
-                js += print('{', _indent, 1);
-
-                //initialize properties
-                var found = false;
-                for (var i = 0; i < construct.instancePropertyConstructs.length; i++)
-                {
-                    var propertyConstruct = construct.instancePropertyConstructs[i];
-                    if (!propertyConstruct.valueExpression) continue;
-
-                    if (!found)
-                    {
-                        found = true;
-                        js += print('//initialize properties', _indent + 1, 1);
-                    }
-
-                    var namespaceObj = propertyConstruct.identifier.namespaceObj;
-                    if (namespaceObj.isCustom)
-                    {
-                        var namespaceString = '$$thisp.' + propertyConstruct.namespaceToken.data;
-                        if (namespaceObj.importID) namespaceString = namespaceObj.normalizedImportID;
-                        js += print('$es4.$$namespace(' + namespaceString + ', $$this).' + propertyConstruct.identifierToken.data + ' = ', _indent + 1, 0);
-                        js += translateExpression(propertyConstruct.valueExpression, _indent, false, construct);
-                        js += print(';', 0, 1);
-                    }
-                    else
-                    {
-                        if (propertyConstruct.isNative)
-                        {
-                            js += print(propertyConstruct.identifierToken.data + ' = ', _indent + 1, 0);
-
-                            var valueJS = translateExpression(propertyConstruct.valueExpression, _indent, false, construct);
-                            var typeString = getTranslatedTypeName(propertyConstruct.identifier.type);
-
-                            if (propertyConstruct.coerce && isCoerceRequired(propertyConstruct, typeString, valueJS)) js += '$es4.$$coerce(' + valueJS + ', ' + typeString + ')';
-                            else js += valueJS;
-                            js += print(';', 0, 1);
-                        }
-                        else if (_dynamicPropertyAccess)
-                        {
-                            js += print('$es4.$$set($$this, $$this, $$thisp, \'' +  propertyConstruct.identifierToken.data + '\', ' + translateExpression(propertyConstruct.valueExpression, _indent, false, construct) + ', \'=\')', _indent + 1, 0);
-                            js += print(';', 0, 1);
-                        }
-                        else
-                        {
-                            js += print('$$this.' + propertyConstruct.identifierToken.data + ' = ', _indent + 1, 0);
-                            js += translateExpression(propertyConstruct.valueExpression, _indent, false, construct);
-                            js += print(';', 0, 1);
-                        }
-                    }
-                }
-
-                js += print('}));', _indent, 1);
-
-                downLevel();
-
-                return (found) ? js : '';
-            }
-            */
 
             function translateImports(construct)
             {
@@ -2364,247 +2287,6 @@ package sweetrush.core
                 return js;
             }
 
-            /*
-            function translatePropertyExpressionDynamic2(expression, toString, setString, operator, construct, doDelete, doNew)
-            {
-                var js = '';
-
-                if (expression.constructor == Construct.DeleteExpression) return translatePropertyExpressionDynamic(expression.expression, toString, setString, operator, construct, true, doNew);
-                if (expression.constructor == Construct.NewExpression) return translatePropertyExpressionDynamic(expression.expression, toString, setString, operator, construct, doDelete, true);
-                if (!expression.construct) throw new Error('invalid expression passed to translatePropertyExpression: ' + expression.constructor);
-
-                var identifier;
-                var namespaceIdentifier;
-                switch (expression.construct.constructor)
-                {
-                    case Construct.SuperConstruct:
-                    case Construct.ThisConstruct:
-                    case Construct.IdentifierConstruct:
-                        identifier = expression.construct.identifier;
-                        break;
-                    case Construct.ParenConstruct:
-                    case Construct.ArrayConstruct:
-                    case Construct.ObjectConstruct:
-                        break;
-                    case Construct.NamespaceQualifierConstruct:
-                        namespaceIdentifier = expression.construct.namespaceIdentifier;
-                        identifier = expression.construct.identifier;
-                        break;
-                    default:
-                        throw new Error('unknown inner property expression: ' + expression.construct.constructor);
-                }
-
-                var pname;
-                var name;
-
-                var isUseNamespace = false;
-                if (identifier && !namespaceIdentifier && (identifier.isProperty || identifier.isMethod) && !identifier.isImport && identifier.namespaceObj.isCustom) isUseNamespace = namespaceIdentifier = identifier.namespaceObj.identifier;
-                if (identifier && namespaceIdentifier)
-                {
-                    var pname = (namespaceIdentifier.isStatic) ? namespaceIdentifier.scope.name : '$$this';
-                    var namespaceObj = namespaceIdentifier.namespaceObj;
-                    var namespaceString = namespaceObj.normalizedImportID;
-                    if (namespaceIdentifier.isStatic && !namespaceString) namespaceString = namespaceIdentifier.scope.name + '.' + namespaceIdentifier.name;
-                    else if (!namespaceString) namespaceString = (namespaceIdentifier.namespaceObj && namespaceIdentifier.namespaceObj.isPrivate ? '$$thisp.' : '$$this.') + namespaceIdentifier.name;
-
-                    if (isUseNamespace) pname += '.$$namespace(' + namespaceString + ')';
-                    name = identifier.name;
-                }
-                else if (identifier)
-                {
-                    name = identifier.name;
-
-                    //we need to manually add the correct scope for identifiers that do not already specify one ie.. myProperty vs this.myProperty
-                    if (identifier.isStatic && !identifier.isImport && !identifier.isNative) pname = identifier.scope.name;
-                    else if (identifier.isPrivate && !identifier.isImport) pname = '$$thisp';
-                    else if ((identifier.isProperty || identifier.isMethod) && !identifier.isImport) pname = '$$this';
-                    else if (identifier.isPackage)
-                    {
-                        name = '$es4.$$[\'' + identifier.name;
-                        var packageName = identifier.name;
-                        var tempInnerExpression = expression;
-                        var lastExpression = tempInnerExpression;
-                        while (tempInnerExpression = tempInnerExpression.nextPropertyExpression)
-                        {
-                            if (_rootConstructs[packageName + '.' + tempInnerExpression.construct.identifierToken.data])
-                            {
-                                expression = lastExpression;
-                                break;
-                            }
-
-                            packageName += '.' + tempInnerExpression.construct.identifierToken.data;
-                            name += '.' + tempInnerExpression.construct.identifierToken.data;
-
-                            lastExpression = tempInnerExpression;
-                        }
-
-                        name += '\']';
-                    }
-
-                    //change super to '$es4.$$super($$thisp)' or 'this', 'this' if a property is not being accessed or it's not being called as a function
-                    if (name == 'super')
-                    {
-                        if (_inNamespacedFunction && expression.nextPropertyExpression) name = '$$this.$$namespace(' + _inNamespacedFunction + ', $$this, $es4.$$super($$thisp))';
-                        else name = (expression.nextPropertyExpression) ? '$es4.$$super($$thisp)' : 'this';
-                    }
-                    if (name == 'this' && !_inClosure) name = '$$this';
-                }
-                else name = translateExpression(expression.construct.expression, 0, toString, construct); //example: {}.p = 4;
-
-                var state = {doAssignment:setString != null,
-                    doDelete:doDelete,
-                    doNew:doNew,
-                    doPostfix:setString == '\'postfix\'',
-                    doPrefix:setString == '\'prefix\''};
-
-                var propListCount = (pname) ? 2 : 1;
-                var accessString = '$es4.$$get';
-
-                if (pname)
-                {
-                    if (_inStaticFunction) js += accessString + '(' + pname + ', null, null';
-                    else js += accessString + '(' + pname + ', $$this, $$thisp';
-                }
-                else
-                {
-                    expression = expression.nextPropertyExpression; //name was taken from the current expression, so move to the next one
-                    js += name;
-                }
-
-                var lastAccessTypeWasArrayAccessor = false;
-                var closed = false;
-                while (expression)
-                {
-                    var expressionConstruct = expression.construct;
-                    var expressionConstructor = expressionConstruct.constructor;
-
-                    if (expressionConstructor == Construct.DotConstruct || expressionConstructor == Construct.IdentifierConstruct || expressionConstructor == Construct.ArrayAccessorConstruct || expressionConstructor == Construct.NamespaceQualifierConstruct || expression.construct.constructor == Construct.AtIdentifierConstruct)
-                    {
-                        propListCount++;
-
-                        if (!pname || closed)
-                        {
-                            if (_inStaticFunction) js = accessString + '(' + js + ', null, null';
-                            else js = accessString + '(' + js + ', $$this, $$thisp';
-
-                            closed = false;
-                            pname = js;
-                        }
-                    }
-
-                    if (expressionConstructor == Construct.DotConstruct || expressionConstructor == Construct.IdentifierConstruct)
-                    {
-                        js += ', \'' + expressionConstruct.identifierToken.data + '\'';
-                        lastAccessTypeWasArrayAccessor = false;
-                    }
-                    else if (expressionConstructor == Construct.ArrayAccessorConstruct)
-                    {
-                        js += ', ' + translateExpression(expression.construct.expression, 0, toString, construct);
-                        lastAccessTypeWasArrayAccessor = true;
-                    }
-                    else if (expressionConstructor == Construct.NamespaceQualifierConstruct)
-                    {
-                        namespaceIdentifier = expression.construct.namespaceIdentifier;
-
-                        var namespaceObj;
-                        var namespaceString;
-                        if (namespaceIdentifier.isNamespace) namespaceObj = namespaceIdentifier.isNamespace;
-                        else namespaceObj = namespaceIdentifier.namespaceObj;
-
-                        namespaceString = namespaceObj.normalizedImportID;
-
-                        if (namespaceIdentifier.isStatic && !namespaceString) namespaceString = namespaceIdentifier.scope.name + '.' + namespaceIdentifier.name;
-                        else if (!namespaceString) namespaceString = (identifier.isPrivate) ? '$$thisp.' + namespaceIdentifier.name : '$$this.' + namespaceIdentifier.name;
-
-                        if (_inStaticFunction) js = accessString + '(' + js + ').$$namespace(' + namespaceString + '), null, null, \'' + expressionConstruct.namespaceIdentifierToken.data + '\'';
-                        else js = accessString + '(' + js + ').$$namespace(' + namespaceString + '), $$this, $$thisp, \'' + expressionConstruct.namespaceIdentifierToken.data + '\'';
-                        propListCount = 2;
-                    }
-                    else if (expression.construct.constructor == Construct.ParenConstruct) throw new Error('check translator.js for this error.'); //js += '(' + translateExpression(expression.construct.expression, 0, toString, construct) + ')';
-                    else if (expression.construct.constructor == Construct.AtIdentifierConstruct)
-                    {
-                        js += ', \'$$attributes\'';
-                        lastAccessTypeWasArrayAccessor = false;
-                    }
-
-                    if (expression.construct.constructor == Construct.FunctionCallConstruct || (expression.nextPropertyExpression && expression.nextPropertyExpression.construct.constructor == Construct.FunctionCallConstruct))
-                    {
-                        var functionCallExpression = (expression.construct.constructor == Construct.FunctionCallConstruct) ? expression : expression.nextPropertyExpression;
-
-                        if (js == '$es4.$$super($$thisp)') js += '.$$z';
-
-                        var start = null;
-                        if (propListCount == 1)
-                        {
-                            if (state.doNew) js = '$es4.$$primitive(new ' + js + ')';
-                            js += '(';
-                        }
-                        else
-                        {
-                            if (state.doNew)
-                            {
-                                js = '$es4.$$primitive(new ' + js + ')';
-                                js += ')(';
-                            }
-                            else
-                            {
-                                if (!lastAccessTypeWasArrayAccessor)
-                                {
-                                    start = js.substring(4);
-                                    js = '$es4.$$call' + start;
-                                    if (functionCallExpression.construct.argumentExpressions.length) js += ', [';
-                                }
-                                else js += ')(';
-                            }
-                            closed = true;
-                            propListCount = 2;
-                        }
-
-                        state.doNew = false;
-
-                        for (var i = 0; i < functionCallExpression.construct.argumentExpressions.length; i++)
-                        {
-                            js += translateExpression(functionCallExpression.construct.argumentExpressions[i], 0, toString, construct);
-                            if ((i + 1) < functionCallExpression.construct.argumentExpressions.length) js += ', ';
-                        }
-
-                        if (start && functionCallExpression.construct.argumentExpressions.length) js += '])';
-                        else if (start) js += ', $es4.$$EMPTY_ARRAY)';
-                        else js += ')';
-
-                        if (expression.nextPropertyExpression) expression = functionCallExpression;
-                    }
-
-                    expression = expression.nextPropertyExpression;
-                }
-
-                if (!pname)
-                {
-                    if (!state.doPostfix && !state.doPrefix)
-                    {
-                        if (state.doAssignment && operator == '||=' || operator == '&&=') js += ' = ' + js + ((operator == '&&=') ? ' && (' : ' || (') + setString + ')';
-                        else if (state.doAssignment) js += ' ' + operator + ' ' + setString;
-                    }
-                    else if (state.doPrefix) js = operator + js;
-                    else if (state.doPostfix) js += operator;
-
-                    if (state.doDelete) js = 'delete ' + js;
-                    if (state.doNew) js = '$es4.$$primitive(new ' + js + ')';
-                }
-                else
-                {
-                    if (state.doAssignment)
-                    {
-                        js = '$es4.$$set' + js.slice(4);
-                        js += ', ' + setString + ', \'' + operator + '\'';
-                    }
-                    else if (state.doDelete) js = '$es4.$$delete' + js.slice(4);
-                    if (!closed) js += ')';
-                }
-
-                return js;
-            }
-            */
             function isCoerceRequired(statementOrExpression, typeName, valueJS)
             {
                 if (!statementOrExpression.coerce) return false;
