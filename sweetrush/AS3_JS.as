@@ -60,7 +60,7 @@ package sweetrush
 							{
 								var mode:uint = modes[j];
 
-								var result:Object = compileTranscompiler(mode, platform);
+								var result:Object = compileCompiler(mode, platform);
 								FileUtil.write(FileUtil.getExcludedPath() + '/_generated/as3_js.' + platform + '.' + mode + '.js', result.js);
 								FileUtil.write(FileUtil.getExcludedPath() + '/_generated/as3_js.swc', result.swc);
 							}
@@ -75,9 +75,9 @@ package sweetrush
 			}
 		}
 
-		public function compileTranscompiler(translationMode:Number=1, platform:String='node')
+		public function compileCompiler(translationMode:Number=1, platform:String='node')
 		{
-			return compile({srcDir:FileUtil.getBasePath(), mainFile:"sweetrush/Transcompiler.as", compileConstants:{'CONFIG::air':'false', 'CONFIG::node':'true'}, includeBootstrap:true, includePlayerGlobal:true, expose:'as3_js', translationMode:translationMode, excludeDirectories:['_excluded', 'node_modules'], platform:platform});
+			return compile({srcDir:FileUtil.getBasePath(), mainFile:"sweetrush/AS3_JS.as", compileConstants:{'CONFIG::air':'false', 'CONFIG::node':'true'}, includeBootstrap:true, includePlayerGlobal:true, expose:'as3_js', translationMode:translationMode, excludeDirectories:['_excluded', 'node_modules'], platform:platform});
 		}
 
 		public function compile(params:Object) //the platform we are building for (node, browser, player (browser+))

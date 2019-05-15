@@ -3,13 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="342607d7-5e25-44ce-bad1-bffc82e2954e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/as3_js.iml" beforeDir="false" afterPath="$PROJECT_DIR$/as3_js.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweetrush/Transcompiler.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/AS3_JS.as" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweetrush/core/Lexer.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/core/Lexer.as" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweetrush/utils/FileUtil.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/utils/FileUtil.as" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweetrush/utils/SwcUtil.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/utils/SwcUtil.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweetrush/AS3_JS.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/AS3_JS.as" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,8 +20,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sweetrush/AS3_JS.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="15" column="31" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
+            <state relative-caret-position="434">
+              <caret line="69" column="54" selection-start-line="69" selection-start-column="54" selection-end-line="69" selection-end-column="54" />
             </state>
           </provider>
         </entry>
@@ -43,7 +37,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>new global.B</find>
       <find>Buffer.all</find>
       <find>MIT</find>
       <find>/\*\*[a-zA-Z0-9\s*,.]*/</find>
@@ -73,6 +66,7 @@
       <find>Use of unimplemented class</find>
       <find>extraCR</find>
       <find>new</find>
+      <find>Transcompiler</find>
     </findStrings>
     <replaceStrings>
       <replace>grammar</replace>
@@ -213,7 +207,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557935419504" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557940968418" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../srf/helium/4/framework/tools/build" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Problems" />
@@ -353,12 +347,13 @@
       <workItem from="1557520773838" duration="1877000" />
       <workItem from="1557689990288" duration="14497000" />
       <workItem from="1557874171866" duration="2170000" />
-      <workItem from="1557935201193" duration="251000" />
+      <workItem from="1557935201193" duration="1843000" />
+      <workItem from="1557940919188" duration="50000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="287105000" />
+    <option name="totallyTimeSpent" value="288747000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -373,8 +368,8 @@
     <frame x="-7" y="-7" width="2062" height="1136" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8172943" visible="true" weight="0.2112887" />
-      <window_info id="Structure" order="1" sideWeight="0.18270572" side_tool="true" visible="true" weight="0.2112887" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.81673306" visible="true" weight="0.21328671" />
+      <window_info id="Structure" order="1" sideWeight="0.18326694" side_tool="true" visible="true" weight="0.21328671" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
@@ -383,7 +378,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.22709164" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32968128" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.499001" visible="true" weight="0.28585657" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.499001" weight="0.28585657" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32978722" />
@@ -703,9 +698,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/build.properties">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/build.properties" />
     <entry file="file://$PROJECT_DIR$/sweetrush/core/TranslatorProto.as">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="920">
@@ -729,8 +722,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sweetrush/AS3_JS.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="15" column="31" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
+        <state relative-caret-position="434">
+          <caret line="69" column="54" selection-start-line="69" selection-start-column="54" selection-end-line="69" selection-end-column="54" />
         </state>
       </provider>
     </entry>
