@@ -2,16 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="342607d7-5e25-44ce-bad1-bffc82e2954e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.browser.1.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.browser.1.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.browser.3.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.browser.3.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.node.1.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.node.1.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.node.3.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.node.3.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.player.1.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.player.1.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.player.3.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.player.3.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.swf" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.swf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweetrush/Transcompiler.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/Transcompiler.as" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweetrush/core/TranslatorProto.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/core/TranslatorProto.as" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweetrush/core/TranslatorPrototype.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/core/TranslatorPrototype.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/as3_js.iml" beforeDir="false" afterPath="$PROJECT_DIR$/as3_js.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweetrush/Transcompiler.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/AS3_JS.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweetrush/core/Lexer.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/core/Lexer.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweetrush/utils/FileUtil.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/utils/FileUtil.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweetrush/utils/SwcUtil.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/utils/SwcUtil.as" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,37 +24,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/sweetrush/Transcompiler.as">
+        <entry file="file://$PROJECT_DIR$/sweetrush/AS3_JS.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="103" lean-forward="true" selection-start-line="103" selection-end-line="103" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sweetrush/utils/FileUtil.as">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="517">
-              <caret line="76" column="23" selection-start-line="76" selection-start-column="23" selection-end-line="76" selection-end-column="76" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sweetrush/core/TranslatorProto.as">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="334">
-              <caret line="361" column="24" selection-start-line="361" selection-start-column="24" selection-end-line="361" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/sweetrush/core/TranslatorPrototype.as">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-34561">
-              <caret line="364" column="24" selection-start-line="364" selection-start-column="24" selection-end-line="364" selection-end-column="24" />
+            <state relative-caret-position="270">
+              <caret line="15" column="31" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -144,8 +115,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/ui/ContextMenuItem.player.as" />
-        <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/ui/Keyboard.player.as" />
         <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/ui/KeyboardType.player.as" />
         <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/ui/KeyLocation.player.as" />
         <option value="$PROJECT_DIR$/_excluded/playerglobal/flash/ui/Mouse.player.as" />
@@ -195,6 +164,8 @@
         <option value="$PROJECT_DIR$/sweetrush/core/TranslatorPrototype.as" />
         <option value="$PROJECT_DIR$/sweetrush/core/TranslatorProto.as" />
         <option value="$PROJECT_DIR$/sweetrush/Transcompiler.as" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/sweetrush/AS3_JS.as" />
       </list>
     </option>
   </component>
@@ -212,9 +183,9 @@
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
-    <option name="y" value="6" />
-    <option name="width" value="2579" />
-    <option name="height" value="1410" />
+    <option name="y" value="-10" />
+    <option name="width" value="2150" />
+    <option name="height" value="1185" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -224,7 +195,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -232,25 +202,21 @@
               <item name="as3-js" type="b2602c69:ProjectViewProjectNode" />
               <item name="as3-js" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="as3-js" type="b2602c69:ProjectViewProjectNode" />
-              <item name="as3-js" type="462c0819:PsiDirectoryNode" />
-              <item name="sweetrush" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557776167248" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557935419504" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../srf/helium/4/framework/tools/build" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -385,12 +351,14 @@
       <workItem from="1556547950969" duration="23000" />
       <workItem from="1557415822350" duration="2489000" />
       <workItem from="1557520773838" duration="1877000" />
-      <workItem from="1557689990288" duration="13897000" />
+      <workItem from="1557689990288" duration="14497000" />
+      <workItem from="1557874171866" duration="2170000" />
+      <workItem from="1557935201193" duration="251000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="284084000" />
+    <option name="totallyTimeSpent" value="287105000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -405,8 +373,8 @@
     <frame x="-7" y="-7" width="2062" height="1136" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.8187221" visible="true" weight="0.2072927" />
-      <window_info id="Structure" order="1" sideWeight="0.18127786" side_tool="true" visible="true" weight="0.2072927" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8172943" visible="true" weight="0.2112887" />
+      <window_info id="Structure" order="1" sideWeight="0.18270572" side_tool="true" visible="true" weight="0.2112887" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
@@ -414,8 +382,8 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.22709164" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32968128" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.499001" weight="0.28585657" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32968128" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" sideWeight="0.499001" visible="true" weight="0.28585657" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32978722" />
@@ -448,12 +416,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/_excluded/playerglobal/XMLList.player.as">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_excluded/builtin/RangeError.as">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/_excluded/builtin/Array.as">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -727,13 +689,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sweetrush/utils/FileUtil.as">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="517">
-          <caret line="76" column="23" selection-start-line="76" selection-start-column="23" selection-end-line="76" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sweetrush/utils/SwcUtil.as">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="262">
@@ -741,24 +696,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sweetrush/core/TranslatorPrototype.as">
+    <entry file="file://$PROJECT_DIR$/sweetrush/utils/FileUtil.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-34561">
-          <caret line="364" column="24" selection-start-line="364" selection-start-column="24" selection-end-line="364" selection-end-column="24" />
+        <state relative-caret-position="517">
+          <caret line="76" column="23" selection-start-line="76" selection-start-column="23" selection-end-line="76" selection-end-column="76" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/build.properties">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/sweetrush/core/TranslatorProto.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="334">
+        <state relative-caret-position="920">
           <caret line="361" column="24" selection-start-line="361" selection-start-column="24" selection-end-line="361" selection-end-column="24" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sweetrush/Transcompiler.as">
+    <entry file="file://$PROJECT_DIR$/sweetrush/core/TranslatorPrototype.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="103" lean-forward="true" selection-start-line="103" selection-end-line="103" />
+        <state relative-caret-position="920">
+          <caret line="364" column="24" selection-start-line="364" selection-start-column="24" selection-end-line="364" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="20" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/sweetrush/AS3_JS.as">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="15" column="31" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -814,11 +786,12 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>as3_js|as3_js</last-edited>
+          <last-edited>as3_js</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
                 <option value="0.2" />
+                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>

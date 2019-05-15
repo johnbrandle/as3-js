@@ -39,14 +39,14 @@ CONFIG::air
 	import flash.utils.ByteArray;
 	import sweetrush.obj.Construct;
 	import sweetrush.obj.Token;
-	import sweetrush.Transcompiler;
+	import sweetrush.AS3_JS;
 
 	internal class FlashSwcToJS
 	{
 		public static function parse(swcFile:String):Object
 		{
 			var rootConstructs:Object = {};
-			if (Transcompiler.DEBUG >= 1) trace('Reading SWC: ' + swcFile);
+			if (AS3_JS.DEBUG >= 1) trace('Reading SWC: ' + swcFile);
 
 			//var zipFile = new ZipFile(swcFile);
 			//var entry = zipFile.getEntry('library.swf');
@@ -80,7 +80,7 @@ CONFIG::air
 					fid = parts.join('.') + ':' + sid;
 				}
 
-				if (Transcompiler.DEBUG >= 4) trace(id);
+				if (AS3_JS.DEBUG >= 4) trace(id);
 
 				//abc header
 				inputStream.readUnsignedShort();

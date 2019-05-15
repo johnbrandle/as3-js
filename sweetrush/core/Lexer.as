@@ -7,7 +7,7 @@
 package sweetrush.core
 {
 	import sweetrush.*;
-	import sweetrush.Transcompiler;
+	import sweetrush.AS3_JS;
 	import sweetrush.obj.Token;
 
 	public class Lexer
@@ -132,7 +132,7 @@ package sweetrush.core
             var matcherObj:* = matcher(input, grammar, internal_);
             while ((token = matcherObj.find()) != null) tokens.push(token);
 
-            if (Transcompiler.DEBUG >= 5 && !internal_) trace('Tokens length: ' + tokens.length + ', Total time: ' + (((new Date()).getTime() - s) / 1000) + ' seconds.\n');
+            if (AS3_JS.DEBUG >= 5 && !internal_) trace('Tokens length: ' + tokens.length + ', Total time: ' + (((new Date()).getTime() - s) / 1000) + ' seconds.\n');
 
             return Token.getNewResult(tokens, matcherObj.getIndex());
         }
@@ -166,7 +166,7 @@ package sweetrush.core
                         currentPosition += token.data.length;
                     }
 
-                    if (Transcompiler.DEBUG >= 4 && !internal_) trace(token.line + ' : ' + token.position + ' : ' + token.type.name + ' => ' + token.data);
+                    if (AS3_JS.DEBUG >= 4 && !internal_) trace(token.line + ' : ' + token.position + ' : ' + token.type.name + ' => ' + token.data);
 
                     if (++tokensIndex == tokens.length)
                     {

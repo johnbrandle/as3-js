@@ -33,7 +33,7 @@ package sweetrush.utils
 			}
 			CONFIG::air
 			{
-				return fixPath(Transcompiler.baseDir);
+				return fixPath(AS3_JS.baseDir);
 			}
 		}
 

@@ -2,7 +2,7 @@
 <module type="Flex" version="4">
   <component name="FlexBuildConfigurationManager" active="as3_js">
     <configurations>
-      <configuration name="as3_js" target-platform="Desktop" pure-as="true" main-class="sweetrush.Transcompiler" output-file="as3_js.swf" output-folder="$MODULE_DIR$/_excluded/_generated">
+      <configuration name="as3_js" target-platform="Desktop" pure-as="true" main-class="sweetrush.AS3_JS" output-file="as3_js.swf" output-folder="$MODULE_DIR$/_excluded/_generated">
         <dependencies>
           <sdk name="AIRSDK_Compiler" />
         </dependencies>
