@@ -46,13 +46,15 @@ if (global.$es4 === undefined)
 		
 		return false;
 	}});
-
+	
+	/*
 	Object.defineProperty(Object.prototype, 'toString', {value:function() 
 	{ 
 		var val = (this.constructor !== undefined) ? this.constructor.name : this; //nodejs depd blows up without this
 		return '[object ' + val + ']'; 
 	}});
-
+	*/
+	
 	Object.defineProperty(Object.prototype, '$$nextNameIndex', {value:function(index)
 	{
 		if (this.$$names === undefined || index === 0)
@@ -115,7 +117,7 @@ if (global.$es4 === undefined)
 		Type.$$isclass = true;
 		Type.$$fullyQualifiedName = fullyQualifiedName;
 		Type.$$info = info;
-		Type.toString = function() { return '[class ' + Type.name + ']'; };
+		//Type.toString = function() { return '[class ' + Type.name + ']'; };
 		
 		if (info === undefined) return Type;  //basic type
 		
@@ -218,7 +220,7 @@ if (global.$es4 === undefined)
 		Type.$$isclass = true;
 		Type.$$fullyQualifiedName = fullyQualifiedName;
 		Type.$$info = info;
-		Type.toString = function() { return '[class ' + Type.name + ']'; };
+		//Type.toString = function() { return '[class ' + Type.name + ']'; };
 		
 		Type.$$pcinit = function()
 		{
@@ -1233,8 +1235,8 @@ if (global.$es4 === undefined)
 		return true;
 	}
 
-	$es4.$$window.toString = function() { return '[object global]'; }
-	Function.__proto__.toString = function() { return 'function Function() {}'; }
+	//$es4.$$window.toString = function() { return '[object global]'; }
+	//Function.__proto__.toString = function() { return 'function Function() {}'; }
 
 	$es4.$$throwArgumentError = function()
 	{

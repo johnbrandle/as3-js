@@ -3,7 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="342607d7-5e25-44ce-bad1-bffc82e2954e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweetrush/AS3_JS.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/AS3_JS.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/bootstrap/bootstrap.browser.player.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/bootstrap/bootstrap.node.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/bootstrap/bootstrap.node.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,8 +22,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sweetrush/AS3_JS.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="434">
-              <caret line="69" column="54" selection-start-line="69" selection-start-column="54" selection-end-line="69" selection-end-column="54" />
+            <state relative-caret-position="217">
+              <caret line="57" selection-start-line="57" selection-end-line="57" />
             </state>
           </provider>
         </entry>
@@ -189,6 +191,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -200,14 +203,13 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557940968418" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557940979312" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../srf/helium/4/framework/tools/build" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Problems" />
@@ -348,12 +350,13 @@
       <workItem from="1557689990288" duration="14497000" />
       <workItem from="1557874171866" duration="2170000" />
       <workItem from="1557935201193" duration="1843000" />
-      <workItem from="1557940919188" duration="50000" />
+      <workItem from="1557940919188" duration="1114000" />
+      <workItem from="1559175317758" duration="243000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="288747000" />
+    <option name="totallyTimeSpent" value="290054000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -368,8 +371,8 @@
     <frame x="-7" y="-7" width="2062" height="1136" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.81673306" visible="true" weight="0.21328671" />
-      <window_info id="Structure" order="1" sideWeight="0.18326694" side_tool="true" visible="true" weight="0.21328671" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8142645" visible="true" weight="0.21528472" />
+      <window_info id="Structure" order="1" sideWeight="0.18573551" side_tool="true" visible="true" weight="0.21528472" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
@@ -377,7 +380,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.22709164" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32968128" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32968128" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.499001" weight="0.28585657" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -722,8 +725,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sweetrush/AS3_JS.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="69" column="54" selection-start-line="69" selection-start-column="54" selection-end-line="69" selection-end-column="54" />
+        <state relative-caret-position="217">
+          <caret line="57" selection-start-line="57" selection-end-line="57" />
         </state>
       </provider>
     </entry>
