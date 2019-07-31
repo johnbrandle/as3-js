@@ -4,10 +4,22 @@
     <list default="true" id="342607d7-5e25-44ce-bad1-bffc82e2954e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NOTICE" beforeDir="false" afterPath="$PROJECT_DIR$/NOTICE" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/playerglobal/flash/events/Event.node.browser.as" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/playerglobal/flash/events/Event.node.browser.as" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/playerglobal/flash/events/Event.player.as" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/playerglobal/flash/events/Event.player.as" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/playerglobal/flash/events/EventDispatcher.node.browser.as" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/playerglobal/flash/events/EventDispatcher.node.browser.as" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/playerglobal/flash/events/EventDispatcher.player.as" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/playerglobal/flash/events/EventDispatcher.player.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.browser.1.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.browser.1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.browser.3.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.browser.3.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.node.1.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.node.1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.node.3.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.node.3.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.swc" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.swc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.swf" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.swf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/bootstrap/js/simplehtmlparser.player.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/playerglobal/flash/events/MouseEvent.player.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/playerglobal/flash/geom/ColorTransform.player.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/playerglobal/flash/geom/Matrix.player.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/playerglobal/flash/geom/Point.player.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/playerglobal/flash/geom/Rectangle.player.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/playerglobal/flash/geom/Transform.player.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/playerglobal/flash/utils/Timer.player.as" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweetrush/AS3_JS.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/AS3_JS.as" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -192,7 +204,7 @@
       <workItem from="1557935201193" duration="1843000" />
       <workItem from="1557940919188" duration="1114000" />
       <workItem from="1559175317758" duration="606000" />
-      <workItem from="1564587865804" duration="4157000" />
+      <workItem from="1564587865804" duration="5601000" />
     </task>
     <servers />
   </component>

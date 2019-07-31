@@ -51,7 +51,7 @@ package sweetrush
 				{
 					case 'as3_js':
 						var modes:Array = [1, 3];
-						var platforms:Array = ['node', 'browser', 'player'];
+						var platforms:Array = ['node', 'browser'];
 						for (var i = platforms.length; i--;)
 						{
 							var platform:String = platforms[i];
