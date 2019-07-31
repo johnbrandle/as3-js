@@ -1,18 +1,5 @@
 /**
- * Copyright (c) 2008-2014 CoreMedia AG, Hamburg. Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this software except in compliance with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for
- * the specific language governing permissions and limitations under the License.
- */
-
-/**
- * NOTICE: FILE HAS BEEN CHANGED FROM ORIGINAL
- *
- * @contributor	 John Brandle
+ * @author		John Brandle
  * @license		see "NOTICE" file
  * @date		04.15.2013
  */
@@ -126,10 +113,10 @@ package flash.events
 
 		public function formatToString(className:String, ...args):String
 		{
-			var str:String = '[' + className;
-			for (var i:int = 0; i < args.length; i++) str += ' ' + args[i] + '="' + this[args[i]] + '"';
-			str += ']';
-			return str;
+			var string:String = '[' + className;
+			var length:int = args.length;
+			for (var i:int = 0; i < length; i++) string += ' ' + args[i] + '="' + this[args[i]] + '"';
+			return string + ']';
 		}
 
 		public function isDefaultPrevented():Boolean

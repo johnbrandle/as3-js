@@ -149,8 +149,7 @@ However, the following files are governed by the licenses indicated below:
     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
     THE SOFTWARE.
 
-6) Event.node.browser.as, Event.player.as, EventDispatcher.node.browser.as, EventDispatcher.player.as,
-   MouseEvent.player.as, ColorTransform.player.as, Matrix.player.as, Point.player.as, Rectangle.player.as
+6) MouseEvent.player.as, ColorTransform.player.as, Matrix.player.as, Point.player.as, Rectangle.player.as
    Transform.player.as, Timer.player.as
 
     Copyright (c) 2008-2014 CoreMedia AG, Hamburg. Licensed under the Apache License, Version 2.0 (the "License");

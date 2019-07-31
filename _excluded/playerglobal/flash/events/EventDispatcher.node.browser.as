@@ -1,26 +1,11 @@
 /**
- * Copyright (c) 2008-2014 CoreMedia AG, Hamburg. Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this software except in compliance with the License. You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed
- * on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for
- * the specific language governing permissions and limitations under the License.
- */
-
-/**
- * NOTICE: FILE HAS BEEN CHANGED FROM ORIGINAL
- *
- * @contributor	 John Brandle
+ * @author		John Brandle
  * @license		see "NOTICE" file
  * @date		04.15.2013
  */
 
 package flash.events
 {
-	/* import flash.display.DisplayObject; */
-	/* import flash.display.Stage; */
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
 	
@@ -47,21 +32,23 @@ package flash.events
 			
 			return $_properties;
 		}
-		
-		private static function $_processListeners(event:Event, listeners:Array):void 
+
+		private static function $_processListeners(event:Event, listeners:Array):void
 		{
 			listeners = listeners.slice();
-			
-			var listenersLength:uint = listeners.length;
+
+			var length:int = listeners.length;
 			var properties:* = event.$__properties();
-			for (var i:uint = 0; i < listenersLength; i++) 
+			for (var i:int = 0; i < length; i++)
 			{
-				if (listeners[i].method(event) === false) 
+				var result:* = listeners[i].listener(event);
+
+				if (result === false)
 				{
 					properties.TLScope.stopPropagation();
 					properties.TLScope.preventDefault();
 				}
-				if (properties.EventScope.$_immediatePropagationStopped) break;
+				if (properties.EventScope.$_immediatePropagationStopped) return;
 			}
 		}
 
@@ -80,27 +67,27 @@ package flash.events
 			
 			var listenersByType:Object = $_properties.EventDispatcherScope.$_listeners;
 
-			var eventObj:Object = {type:type, method:listener, useCapture:useCapture, priority:priority, useWeakReference:useWeakReference};
-			if (!(type in listenersByType)) listenersByType[type] = [eventObj];
+			var obj:Object = {type:type, listener:listener, useCapture:useCapture, priority:priority, useWeakReference:useWeakReference};
+			if (listenersByType[type] === undefined) listenersByType[type] = [obj];
 			else 
 			{
 				var listeners:Array = listenersByType[type];
-				for (var i:int = listeners.length; i--;) //do not add duplicate listeners
+				var length:int = listeners.length;
+				for (var i:int = length; i--;) //do not add duplicate listeners
 				{
-					if (listener == listeners[i].method) return;
+					if (listener === listeners[i].listener) return;
 				}
 				
-				listenersByType[type].push(eventObj);
+				listenersByType[type].push(obj);
 			}
     
-			listenersByType[type].sort(eventCompare);
-			
-			function eventCompare(item1:Object, item2:Object):int 
+			listenersByType[type].sort(function (event1:Object, event2:Object):int
 			{
-				if (item1.priority > item2.priority) return -1;
-				else if (item1.priority < item2.priority) return 1;
-				else return 0;
-			}
+				if (event1.priority > event2.priority) return -1;
+				if (event1.priority < event2.priority) return 1;
+
+				return 0;
+			});
 		}
 
 		public function dispatchEvent(event:Event):Boolean
@@ -108,20 +95,20 @@ package flash.events
 			var properties:* = event.$__properties().TLScope;
 			var listeners:Array = $_properties.EventDispatcherScope.$_listeners[event.type];
 			var target:Object = $_properties.EventDispatcherScope.$_target;
-			var bubble:Boolean = false /* properties.bubbles && $_properties.EventDispatcherScope.$_target is DisplayObject; */
+			var bubble:Boolean = false; /* properties.bubbles && $_properties.EventDispatcherScope.$_target is DisplayObject; */
 			
 			if (!bubble && !listeners) return !properties.isDefaultPrevented();
-			
-			var parents:Array;
+
 			/*
-			if (bubble) 
+			var parents:Array;
+			if (bubble)
 			{
 				parents = [];
 				var currentParent:DisplayObject = target.parent;
-				while (currentParent) 
+				while (currentParent)
 				{
 					parents.push(currentParent);
-					
+
 					currentParent = currentParent.parent;
 				}
 			}
@@ -138,7 +125,8 @@ package flash.events
 				
 				$_processListeners(event, listeners);
 			}
-			
+
+			/*
 			if (bubble && !properties.$_propagationStopped && !properties.$_immediatePropagationStopped)
 			{
 				var index:Number = 0;
@@ -164,6 +152,7 @@ package flash.events
 					index++;
 				}
 			}
+			 */
 
 			properties = event.$__properties().TLScope;
 			return !properties.isDefaultPrevented();
@@ -171,7 +160,7 @@ package flash.events
 
 		public function hasEventListener(type:String):Boolean
 		{
-			return $_properties.EventDispatcherScope.$_listeners[type];
+			return $_properties.EventDispatcherScope.$_listeners[type] !== undefined;
 		}
 
 		public function removeEventListener(type:String, listener:Function, useCapture:Boolean=false):void
@@ -187,13 +176,12 @@ package flash.events
 			*/
 			
 			var listenersByType:Object = $_properties.EventDispatcherScope.$_listeners;
+			if (listenersByType[type] === undefined) return;
 			var listeners:Array = listenersByType[type];
-			
-			if (!listeners) return; 
-			
-			for (var i:uint = listeners.length; i--;) 
+			var length:int = listeners.length;
+			for (var i:int = length; i--;)
 			{
-				if (listeners[i].method != listener) continue;
+				if (listeners[i].listener !== listener) continue;
 
 				if (listeners.length == 1) delete listenersByType[type];
 				else listeners.splice(i, 1);
