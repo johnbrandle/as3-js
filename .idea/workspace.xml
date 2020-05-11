@@ -2,7 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="342607d7-5e25-44ce-bad1-bffc82e2954e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.browser.1.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.browser.1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.browser.3.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.browser.3.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.node.1.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.node.1.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.node.3.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.node.3.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.swc" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.swc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.swf" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.swf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweetrush/as3_js/utils/FileUtil.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/as3_js/utils/FileUtil.as" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,7 +196,7 @@
       <workItem from="1559175317758" duration="606000" />
       <workItem from="1564587865804" duration="6964000" />
       <workItem from="1565024207685" duration="60000" />
-      <workItem from="1589215099933" duration="1455000" />
+      <workItem from="1589215099933" duration="2138000" />
     </task>
     <servers />
   </component>
@@ -230,22 +238,42 @@
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
     <state x="999" y="427" key="#transcompiler/0.0.2560.1410@0.0.2560.1410" timestamp="1589215151802" />
-    <state width="2517" height="496" key="GridCell.Tab.0.bottom" timestamp="1589215830339">
+    <state width="2517" height="496" key="GridCell.Tab.0.bottom" timestamp="1589217538488">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
+    <state width="2517" height="496" key="GridCell.Tab.0.bottom/0.0.2560.1410/2560.0.2560.1410@0.0.2560.1410" timestamp="1589217538488" />
     <state width="2517" height="496" key="GridCell.Tab.0.bottom/0.0.2560.1410@0.0.2560.1410" timestamp="1589215830339" />
-    <state width="2517" height="496" key="GridCell.Tab.0.center" timestamp="1589215830339">
+    <state width="2517" height="496" key="GridCell.Tab.0.center" timestamp="1589217538488">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
+    <state width="2517" height="496" key="GridCell.Tab.0.center/0.0.2560.1410/2560.0.2560.1410@0.0.2560.1410" timestamp="1589217538488" />
     <state width="2517" height="496" key="GridCell.Tab.0.center/0.0.2560.1410@0.0.2560.1410" timestamp="1589215830339" />
-    <state width="2517" height="496" key="GridCell.Tab.0.left" timestamp="1589215830339">
+    <state width="2517" height="496" key="GridCell.Tab.0.left" timestamp="1589217538488">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
+    <state width="2517" height="496" key="GridCell.Tab.0.left/0.0.2560.1410/2560.0.2560.1410@0.0.2560.1410" timestamp="1589217538488" />
     <state width="2517" height="496" key="GridCell.Tab.0.left/0.0.2560.1410@0.0.2560.1410" timestamp="1589215830339" />
-    <state width="2517" height="496" key="GridCell.Tab.0.right" timestamp="1589215830339">
+    <state width="2517" height="496" key="GridCell.Tab.0.right" timestamp="1589217538488">
       <screen x="0" y="0" width="2560" height="1410" />
     </state>
+    <state width="2517" height="496" key="GridCell.Tab.0.right/0.0.2560.1410/2560.0.2560.1410@0.0.2560.1410" timestamp="1589217538488" />
     <state width="2517" height="496" key="GridCell.Tab.0.right/0.0.2560.1410@0.0.2560.1410" timestamp="1589215830339" />
+    <state width="2517" height="496" key="GridCell.Tab.1.bottom" timestamp="1589217538385">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="496" key="GridCell.Tab.1.bottom/0.0.2560.1410/2560.0.2560.1410@0.0.2560.1410" timestamp="1589217538385" />
+    <state width="2517" height="496" key="GridCell.Tab.1.center" timestamp="1589217538385">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="496" key="GridCell.Tab.1.center/0.0.2560.1410/2560.0.2560.1410@0.0.2560.1410" timestamp="1589217538385" />
+    <state width="2517" height="496" key="GridCell.Tab.1.left" timestamp="1589217538385">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="496" key="GridCell.Tab.1.left/0.0.2560.1410/2560.0.2560.1410@0.0.2560.1410" timestamp="1589217538385" />
+    <state width="2517" height="496" key="GridCell.Tab.1.right" timestamp="1589217538385">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="496" key="GridCell.Tab.1.right/0.0.2560.1410/2560.0.2560.1410@0.0.2560.1410" timestamp="1589217538385" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
