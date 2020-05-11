@@ -14,7 +14,7 @@
 *
 * Optimize & Profile any Flash content with TheMiner ( http://www.sociodox.com/theminer )
 */
-package sweetrush.utils
+package sweetrush.as3_js.utils
 {
 	import flash.utils.ByteArray;
 

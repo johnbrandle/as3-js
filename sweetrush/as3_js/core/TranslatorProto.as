@@ -4,11 +4,10 @@
  * @date		04.15.2013 
  */
 
-package sweetrush.core
+package sweetrush.as3_js.core
 {
-    import sweetrush.*;
-    import sweetrush.obj.Construct;
-    import sweetrush.obj.Token;
+    import sweetrush.as3_js.obj.Construct;
+    import sweetrush.as3_js.obj.Token;
 
     public class TranslatorProto
     {

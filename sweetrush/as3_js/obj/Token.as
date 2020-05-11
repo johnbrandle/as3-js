@@ -4,9 +4,9 @@
  * @date		04.15.2013 
  */
 
-package sweetrush.obj
+package sweetrush.as3_js.obj
 {
-	import sweetrush.core.Lexer;
+	import sweetrush.as3_js.core.Lexer;
 
 	public class Token
     {

@@ -3,25 +3,27 @@
   <component name="ChangeListManager">
     <list default="true" id="342607d7-5e25-44ce-bad1-bffc82e2954e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NOTICE" beforeDir="false" afterPath="$PROJECT_DIR$/NOTICE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js-descriptor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js-descriptor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.browser.1.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.browser.1.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.browser.3.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.browser.3.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.node.1.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.node.1.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.node.3.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.node.3.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.swc" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.swc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.swf" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.swf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/bootstrap/js/simplehtmlparser.player.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/playerglobal/flash/events/MouseEvent.player.as" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/playerglobal/flash/geom/ColorTransform.player.as" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/playerglobal/flash/geom/Matrix.player.as" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/playerglobal/flash/geom/Point.player.as" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/playerglobal/flash/geom/Rectangle.player.as" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/playerglobal/flash/geom/Transform.player.as" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/playerglobal/flash/utils/Timer.player.as" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweetrush/AS3_JS.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/AS3_JS.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/as3_js.iml" beforeDir="false" afterPath="$PROJECT_DIR$/as3_js.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweetrush/AS3_JS.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/as3_js/AS3_JS.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweetrush/core/Analyzer.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/as3_js/core/Analyzer.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweetrush/core/Lexer.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/as3_js/core/Lexer.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweetrush/core/Parser.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/as3_js/core/Parser.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweetrush/core/TranslatorProto.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/as3_js/core/TranslatorProto.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweetrush/core/TranslatorPrototype.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/as3_js/core/TranslatorPrototype.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweetrush/obj/Construct.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/as3_js/obj/Construct.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweetrush/obj/Token.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/as3_js/obj/Token.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweetrush/utils/Base64Util.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/as3_js/utils/Base64Util.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweetrush/utils/FileUtil.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/as3_js/utils/FileUtil.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweetrush/utils/JsonUtil.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/as3_js/utils/JsonUtil.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sweetrush/utils/SwcUtil.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/as3_js/utils/SwcUtil.as" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,57 +48,45 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-10" />
-    <option name="y" value="-10" />
-    <option name="width" value="2150" />
-    <option name="height" value="1185" />
-  </component>
   <component name="ProjectId" id="1OmfnzIMEUsnnkzDxSVv4EkbXQm" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1557940979312" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Problems" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="settings.editor.selected.configurable" value="flex.compiler" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="S:\Source_Control\git\transcompiler\tools\transcompiler" />
-      <recent name="S:\Source_Control\git\xrworkshop-realtimeserver\source\transcompiler\sweetrush" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="S:\Source_Control\git\as3-js\sweetrush\as3_js" />
+      <recent name="S:\Source_Control\git\transcompiler\tools\transcompiler\_excluded\playerglobal\flash\display" />
+      <recent name="S:\Source_Control\git\transcompiler\tools\transcompiler\_excluded\playerglobal\flash" />
+      <recent name="S:\Source_Control\git\xrworkshop-realtimeserver\tools\transcompiler\sweetrush\obj" />
+      <recent name="S:\Source_Control\git\xrworkshop-realtimeserver\tools\transcompiler\sweetrush\core" />
     </key>
     <key name="CreateActionScriptClassDialog.DESTINATION_PACKAGE_RECENT_KEY">
       <recent name="sweetrush.utils" />
       <recent name="sweetrush" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="S:\Source_Control\git\transcompiler\tools\transcompiler\_excluded\playerglobal\flash\display" />
-      <recent name="S:\Source_Control\git\transcompiler\tools\transcompiler\_excluded\playerglobal\flash" />
-      <recent name="S:\Source_Control\git\xrworkshop-realtimeserver\tools\transcompiler\sweetrush\obj" />
-      <recent name="S:\Source_Control\git\xrworkshop-realtimeserver\tools\transcompiler\sweetrush\core" />
-      <recent name="S:\Source_Control\git\xrworkshop-realtimeserver\tools\transcompiler\sweetrush\utils" />
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="S:\Source_Control\git\transcompiler\tools\transcompiler" />
+      <recent name="S:\Source_Control\git\xrworkshop-realtimeserver\source\transcompiler\sweetrush" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager">
     <configuration name="transcompiler" type="FlashRunConfigurationType">
@@ -138,6 +128,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -204,7 +206,9 @@
       <workItem from="1557935201193" duration="1843000" />
       <workItem from="1557940919188" duration="1114000" />
       <workItem from="1559175317758" duration="606000" />
-      <workItem from="1564587865804" duration="5601000" />
+      <workItem from="1564587865804" duration="6964000" />
+      <workItem from="1565024207685" duration="60000" />
+      <workItem from="1589215099933" duration="859000" />
     </task>
     <servers />
   </component>
@@ -225,11 +229,43 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="872" y="364" key="#Project_Structure" timestamp="1589215381687">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="872" y="364" key="#Project_Structure/0.0.2560.1410@0.0.2560.1410" timestamp="1589215381687" />
+    <state x="734" y="361" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1589215421265">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="734" y="361" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.2560.1410@0.0.2560.1410" timestamp="1589215421265" />
+    <state x="999" y="427" key="#transcompiler" timestamp="1589215151802">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state x="999" y="427" key="#transcompiler/0.0.2560.1410@0.0.2560.1410" timestamp="1589215151802" />
+    <state width="2517" height="496" key="GridCell.Tab.0.bottom" timestamp="1589215830339">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="496" key="GridCell.Tab.0.bottom/0.0.2560.1410@0.0.2560.1410" timestamp="1589215830339" />
+    <state width="2517" height="496" key="GridCell.Tab.0.center" timestamp="1589215830339">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="496" key="GridCell.Tab.0.center/0.0.2560.1410@0.0.2560.1410" timestamp="1589215830339" />
+    <state width="2517" height="496" key="GridCell.Tab.0.left" timestamp="1589215830339">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="496" key="GridCell.Tab.0.left/0.0.2560.1410@0.0.2560.1410" timestamp="1589215830339" />
+    <state width="2517" height="496" key="GridCell.Tab.0.right" timestamp="1589215830339">
+      <screen x="0" y="0" width="2560" height="1410" />
+    </state>
+    <state width="2517" height="496" key="GridCell.Tab.0.right/0.0.2560.1410@0.0.2560.1410" timestamp="1589215830339" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
@@ -238,92 +274,5 @@
         <watch expression="propertyConstruct" />
       </configuration>
     </watches-manager>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>No facets are configured</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>AIRSDK_Compiler</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>as3_js</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-                <option value="0.6" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectJDKs.UI">
-        <settings>
-          <last-edited>1.7</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
 </project>

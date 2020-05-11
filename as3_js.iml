@@ -2,9 +2,9 @@
 <module type="Flex" version="4">
   <component name="FlexBuildConfigurationManager" active="as3_js">
     <configurations>
-      <configuration name="as3_js" target-platform="Desktop" pure-as="true" main-class="sweetrush.AS3_JS" output-file="as3_js.swf" output-folder="$MODULE_DIR$/_excluded/_generated">
+      <configuration name="as3_js" target-platform="Desktop" pure-as="true" main-class="sweetrush.as3_js.AS3_JS" output-file="as3_js.swf" output-folder="$MODULE_DIR$/_excluded/_generated">
         <dependencies>
-          <sdk name="AIRSDK_Compiler" />
+          <sdk name="_flex_sdk_4.6" />
         </dependencies>
         <compiler-options>
           <map>
@@ -25,7 +25,7 @@
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/_excluded" />
     </content>
-    <orderEntry type="jdk" jdkName="AIRSDK_Compiler" jdkType="Flex SDK Type (new)" />
+    <orderEntry type="jdk" jdkName="_flex_sdk_4.6" jdkType="Flex SDK Type (new)" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

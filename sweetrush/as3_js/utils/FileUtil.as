@@ -4,10 +4,12 @@
  * @date		04.15.2013 
  */
 
-package sweetrush.utils
+package sweetrush.as3_js.utils
 {
 	import sweetrush.*;
 	import flash.utils.ByteArray;
+
+	import sweetrush.as3_js.AS3_JS;
 
 	CONFIG::air
 	{
@@ -307,7 +309,7 @@ CONFIG::air
 	import flash.filesystem.File;
 }
 
-import sweetrush.utils.FileUtil;
+import sweetrush.as3_js.utils.FileUtil;
 
 internal class VFile
 {

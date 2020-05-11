@@ -4,19 +4,19 @@
  * @date		04.15.2013
  */
 
-package sweetrush
+package sweetrush.as3_js
 {
-	import sweetrush.core.Analyzer;
-	import sweetrush.core.Lexer;
-	import sweetrush.core.Parser;
+	import sweetrush.as3_js.core.Analyzer;
+	import sweetrush.as3_js.core.Lexer;
+	import sweetrush.as3_js.core.Parser;
 
-	import sweetrush.core.TranslatorProto;
-	import sweetrush.core.TranslatorPrototype;
-	import sweetrush.obj.Construct;
-	import sweetrush.obj.Token;
+	import sweetrush.as3_js.core.TranslatorProto;
+	import sweetrush.as3_js.core.TranslatorPrototype;
+	import sweetrush.as3_js.obj.Construct;
+	import sweetrush.as3_js.obj.Token;
 
-	import sweetrush.utils.SwcUtil;
-	import sweetrush.utils.FileUtil;
+	import sweetrush.as3_js.utils.SwcUtil;
+	import sweetrush.as3_js.utils.FileUtil;
 
 	CONFIG::air
 	{
@@ -77,7 +77,7 @@ package sweetrush
 
 		public function compileCompiler(translationMode:Number=1, platform:String='node')
 		{
-			return compile({srcDir:FileUtil.getBasePath(), mainFile:"sweetrush/AS3_JS.as", compileConstants:{'CONFIG::air':'false', 'CONFIG::node':'true'}, includeBootstrap:true, includePlayerGlobal:true, expose:'as3_js', translationMode:translationMode, excludeDirectories:['_excluded', 'node_modules'], platform:platform});
+			return compile({srcDir:FileUtil.getBasePath(), mainFile:"sweetrush/as3_js/AS3_JS.as", compileConstants:{'CONFIG::air':'false', 'CONFIG::node':'true'}, includeBootstrap:true, includePlayerGlobal:true, expose:'as3_js', translationMode:translationMode, excludeDirectories:['_excluded', 'node_modules'], platform:platform});
 		}
 
 		public function compile(params:Object) //the platform we are building for (node, browser, player (browser+))

@@ -4,7 +4,7 @@
  * @date		04.15.2013 
  */
 
-package sweetrush.obj
+package sweetrush.as3_js.obj
 {
     public class Construct
     {

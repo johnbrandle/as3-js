@@ -4,7 +4,7 @@
  * @date		04.15.2013 
  */
 
-package sweetrush.utils
+package sweetrush.as3_js.utils
 {
 	public class JsonUtil
 	{
@@ -25,7 +25,7 @@ import flash.utils.getDefinitionByName;
 import flash.utils.getQualifiedClassName;
 import flash.utils.Dictionary;
 
-import sweetrush.utils.Base64Util;
+import sweetrush.as3_js.utils.Base64Util;
 
 
 internal class Hydrate

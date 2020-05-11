@@ -4,11 +4,10 @@
  * @date		04.15.2013 
  */
 
-package sweetrush.core
+package sweetrush.as3_js.core
 {
-	import sweetrush.*;
-	import sweetrush.AS3_JS;
-	import sweetrush.obj.Token;
+	import sweetrush.as3_js.AS3_JS;
+	import sweetrush.as3_js.obj.Token;
 
 	public class Lexer
     {

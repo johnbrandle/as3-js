@@ -4,7 +4,7 @@
  * @date		04.15.2013 
  */
 
-package sweetrush.utils
+package sweetrush.as3_js.utils
 {
 	public class SwcUtil
 	{
@@ -37,9 +37,9 @@ package sweetrush.utils
 CONFIG::air
 {
 	import flash.utils.ByteArray;
-	import sweetrush.obj.Construct;
-	import sweetrush.obj.Token;
-	import sweetrush.AS3_JS;
+	import sweetrush.as3_js.obj.Construct;
+	import sweetrush.as3_js.obj.Token;
+	import sweetrush.as3_js.AS3_JS;
 
 	internal class FlashSwcToJS
 	{
