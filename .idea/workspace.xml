@@ -2,27 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="342607d7-5e25-44ce-bad1-bffc82e2954e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js-descriptor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js-descriptor.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.browser.1.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.browser.1.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.browser.3.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.browser.3.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.node.1.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.node.1.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.node.3.js" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.node.3.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.swc" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.swc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/_excluded/_generated/as3_js.swf" beforeDir="false" afterPath="$PROJECT_DIR$/_excluded/_generated/as3_js.swf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/as3_js.iml" beforeDir="false" afterPath="$PROJECT_DIR$/as3_js.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweetrush/AS3_JS.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/as3_js/AS3_JS.as" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweetrush/core/Analyzer.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/as3_js/core/Analyzer.as" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweetrush/core/Lexer.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/as3_js/core/Lexer.as" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweetrush/core/Parser.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/as3_js/core/Parser.as" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweetrush/core/TranslatorProto.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/as3_js/core/TranslatorProto.as" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweetrush/core/TranslatorPrototype.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/as3_js/core/TranslatorPrototype.as" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweetrush/obj/Construct.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/as3_js/obj/Construct.as" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweetrush/obj/Token.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/as3_js/obj/Token.as" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweetrush/utils/Base64Util.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/as3_js/utils/Base64Util.as" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweetrush/utils/FileUtil.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/as3_js/utils/FileUtil.as" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweetrush/utils/JsonUtil.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/as3_js/utils/JsonUtil.as" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sweetrush/utils/SwcUtil.as" beforeDir="false" afterPath="$PROJECT_DIR$/sweetrush/as3_js/utils/SwcUtil.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,7 +188,7 @@
       <workItem from="1559175317758" duration="606000" />
       <workItem from="1564587865804" duration="6964000" />
       <workItem from="1565024207685" duration="60000" />
-      <workItem from="1589215099933" duration="859000" />
+      <workItem from="1589215099933" duration="1455000" />
     </task>
     <servers />
   </component>
