@@ -1287,6 +1287,7 @@ if ($es4.$$window === undefined)
 		return $es4.$$class(Class, null, 'Class');
 	})();
 
+	/*
 	$es4.$$Function = Function;
 	$es4.$$package('').Function = (function()
 	{
@@ -1298,7 +1299,20 @@ if ($es4.$$window === undefined)
 
 		return $es4.$$class(Function, null, 'Function');
 	})();
+	*/
+	
+	$es4.$$Function = Function;
+	$es4.$$package('').Function = (function()
+	{
+		function Function()
+		{
+			return (arguments.length !== 0) ? $es4.$$Function(arguments[0]) : this;
+		}
+		Function.prototype = $es4.$$Function;
 
+		return $es4.$$class(Function, null, 'Function');
+	})();
+	
 	$es4.$$package('').int = (function()
 	{
 		int.MAX_VALUE = 2147483647;

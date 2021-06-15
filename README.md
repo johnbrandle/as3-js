@@ -34,6 +34,10 @@ if (false) function foo() {} //compilation error
 public var myNamespace;
 namespace myNamespace = 'foo'; //conflict
 ```
+  - casting object to function (in "lite" branch):
+ ``` 
+  Function(foo); //expect standard javascript behavior instead
+```
 
 # Install:
 ```bash
