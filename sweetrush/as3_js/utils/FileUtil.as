@@ -31,7 +31,7 @@ package sweetrush.as3_js.utils
 		{
 			CONFIG::node
 			{
-				return path.join(__dirname, '../../../../', 'as3-js');
+				return path.join(__dirname, '../../../', 'as3-js');
 			}
 			CONFIG::air
 			{
@@ -43,7 +43,7 @@ package sweetrush.as3_js.utils
 		{
 			CONFIG::node
 			{
-				return path.join(__dirname, '../../../../', 'as3-js', '_excluded');
+				return path.join(__dirname, '../../../', 'as3-js', '_excluded');
 			}
 			CONFIG::air
 			{
