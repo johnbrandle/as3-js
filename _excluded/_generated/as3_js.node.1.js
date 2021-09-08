@@ -4548,7 +4548,7 @@ $es4.$$package('sweetrush.as3_js').AS3_JS = (function ()
 					$es4.$$call(bootstrapJS, $$this, $$thisp, 'push', [$es4.$$call($$thisp, $$this, $$thisp, 'getPlayerGlobalJS', [translationMode, platform])]);
 				}
 			}
-			var pre = (platform != 'node') ? '//__ES4__\n\n(function() { var $window = this; var window = $window.parent || $window; var global = window; var document = window.document; var $es4 = window.$es4 || (window.$es4 = {}); var _ = window._; var $ = window.$; \n\n' : '';
+			var pre = (platform != 'node') ? '//__ES4__\n\n(function() { var $window = this; var window = $window || $window; var global = window; var document = window.document; var $es4 = window.$es4 || (window.$es4 = {}); var _ = window._; var $ = window.$; \n\n' : '';
 			var post = (platform != 'node') ? '})();' : '';
 			return {js:pre + $es4.$$call($es4.$$call(bootstrapJS, $$this, $$thisp, 'concat', [js]), $$this, $$thisp, 'join', ['\n\n']) + post, rootConstructs:rootConstructsToTranslate, swc:jsSWC};
 		}));
