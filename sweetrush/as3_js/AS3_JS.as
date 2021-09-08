@@ -296,7 +296,7 @@ package sweetrush.as3_js
 				if (includePlayerGlobal) bootstrapJS.push(getPlayerGlobalJS(translationMode, platform));
 			}
 
-			var pre = (platform != 'node') ? '//__ES4__\n\n(function() { var $window = this; var window = $window.parent || $window; var global = window; var document = window.document; var $es4 = window.$es4 || (window.$es4 = {}); var _ = window._; var $ = window.$; \n\n' : '';
+			var pre = (platform != 'node') ? '//__ES4__\n\n(function() { var $window = this; var window = $window || $window; var global = window; var document = window.document; var $es4 = window.$es4 || (window.$es4 = {}); var _ = window._; var $ = window.$; \n\n' : '';
 			var post = (platform != 'node') ? '})();' : '';
 
 			return {js:pre + bootstrapJS.concat(js).join('\n\n') + post, rootConstructs:rootConstructsToTranslate, swc:jsSWC};
