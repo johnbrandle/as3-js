@@ -44,34 +44,38 @@ package sweetrush
 			{
 				removeEventListener(flash.events.Event.ADDED_TO_STAGE, onAddedToStage);
 
-				var command:String = 'as3_js';
-				var translationMode:uint = 3;
+				executeCommand('as3_js');
+			}
+		}
+		
+		public function executeCommand(command:String)
+		{
+			var translationMode:uint = 3;
 
-				switch (command)
-				{
-					case 'as3_js':
-						var modes:Array = [1, 3];
-						var platforms:Array = ['node', 'browser', 'player'];
-						for (var i = platforms.length; i--;)
+			switch (command)
+			{
+				case 'as3_js':
+					var modes:Array = [1, 3];
+					var platforms:Array = ['node', 'browser', 'player'];
+					for (var i = platforms.length; i--;)
+					{
+						var platform:String = platforms[i];
+
+						for (var j = modes.length; j--;)
 						{
-							var platform:String = platforms[i];
+							var mode:uint = modes[j];
 
-							for (var j = modes.length; j--;)
-							{
-								var mode:uint = modes[j];
-
-								var result:Object = compileCompiler(mode, platform);
-								FileUtil.write(FileUtil.getExcludedPath() + '/_generated/as3_js.' + platform + '.' + mode + '.js', result.js);
-								FileUtil.write(FileUtil.getExcludedPath() + '/_generated/as3_js.swc', result.swc);
-							}
+							var result:Object = compileCompiler(mode, platform);
+							FileUtil.write(FileUtil.getExcludedPath() + '/_generated/as3_js.' + platform + '.' + mode + '.js', result.js);
+							FileUtil.write(FileUtil.getExcludedPath() + '/_generated/as3_js.swc', result.swc);
 						}
-						break;
-					case 'tests':
-						var result:Object = compile({srcDir:FileUtil.getBasePath() + '/_excluded/tests', mainFile:"", compileConstants:{'CONFIG::air':'false', 'CONFIG::node':'true'}, includeBootstrap:true, includePlayerGlobal:true, expose:'', translationMode:translationMode, excludeDirectories:['_excluded', 'node_modules'], platform:'node'});
-						trace(result.js);
-						break;
+					}
+					break;
+				case 'tests':
+					var result:Object = compile({srcDir:FileUtil.getBasePath() + '/_excluded/tests', mainFile:"", compileConstants:{'CONFIG::air':'false', 'CONFIG::node':'true'}, includeBootstrap:true, includePlayerGlobal:true, expose:'', translationMode:translationMode, excludeDirectories:['_excluded', 'node_modules'], platform:'node'});
+					trace(result.js);
+					break;
 
-				}
 			}
 		}
 
@@ -349,11 +353,11 @@ package sweetrush
 			if (DEBUG >= 1) trace('Normalizing Includes');
 			function insertIncludes(filePath, fileContents, includes)
 			{
-				return fileContents.replace(/include\s*["|'][0-9A-Za-z._\/\\]+["|'];*/g, doReplace);
+				return fileContents.replace(/include\s*["|'][@0-9A-Za-z._\/\\]+["|'];*/g, doReplace);
 
 				function doReplace(match, offset, string)
 				{
-					var includePath = match.match(/["|']([0-9A-Za-z._\/\\]+)["|']/)[1];
+					var includePath = match.match(/["|']([@0-9A-Za-z._\/\\]+)["|']/)[1];
 
 					var parts = FileUtil.fixPath(filePath).split('/');
 					parts.pop();
