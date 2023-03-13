@@ -353,11 +353,11 @@ package sweetrush
 			if (DEBUG >= 1) trace('Normalizing Includes');
 			function insertIncludes(filePath, fileContents, includes)
 			{
-				return fileContents.replace(/include\s*["|'][@0-9A-Za-z._\/\\]+["|'];*/g, doReplace);
+				return fileContents.replace(/include\s*["|'][@\-0-9A-Za-z._\/\\]+["|'];*/g, doReplace);
 
 				function doReplace(match, offset, string)
 				{
-					var includePath = match.match(/["|']([@0-9A-Za-z._\/\\]+)["|']/)[1];
+					var includePath = match.match(/["|']([@\-0-9A-Za-z._\/\\]+)["|']/)[1];
 
 					var parts = FileUtil.fixPath(filePath).split('/');
 					parts.pop();
