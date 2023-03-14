@@ -1,12 +1,13 @@
 {
   "name": "@johnbrandle/as3-js",
-  "version": "1.1.29",
+  "version": "1.1.30",
   "description": "ActionScript to JavaScript Compiler",
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+	"compile": "node compile.js"
   },
   "author": "SweetRush Inc.",
   "license": "SEE LICENSE IN NOTICE",
