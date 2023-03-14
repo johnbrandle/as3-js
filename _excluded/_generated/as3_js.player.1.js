@@ -28545,7 +28545,7 @@ $es4.$$package('sweetrush').AS3_JS = (function ()
 				}
 				rootConstruct = $es4.$$call(Parser, $$this, $$thisp, 'parse', [tokens, compileConstants, release]);
 				var id = $es4.$$call($es4.$$call($es4.$$call($es4.$$call(filePath, $$this, $$thisp, 'split', [srcDir]), $$this, $$thisp, 1, 'slice', [1, -3]), $$this, $$thisp, 'split', ['/']), $$this, $$thisp, 'join', ['.']);
-				if (filePath == srcDir + '/' + mainFile)
+				if ($es4.$$call(FileUtil, $$this, $$thisp, 'fixPath', [filePath]) == $es4.$$call(FileUtil, $$this, $$thisp, 'resolvePath', [srcDir, mainFile]))
 				{
 					mainID = id;
 				}
@@ -28842,7 +28842,7 @@ $es4.$$package('sweetrush').AS3_JS = (function ()
 				var fileContents = $$$$fileContents;
 				var includes = $$$$includes;
 
-				return $es4.$$call(fileContents, $$this, $$thisp, 'replace', [/include\s*["|'][@0-9A-Za-z._\/\\]+["|'];*/g, doReplace]);
+				return $es4.$$call(fileContents, $$this, $$thisp, 'replace', [/include\s*["|'][@\-0-9A-Za-z._\/\\]+["|'];*/g, doReplace]);
 
 				function doReplace($$$$match, $$$$offset, $$$$string) 
 				{
@@ -28851,7 +28851,7 @@ $es4.$$package('sweetrush').AS3_JS = (function ()
 					var offset = $$$$offset;
 					var string = $$$$string;
 
-					var includePath = $es4.$$get($es4.$$call(match, $$this, $$thisp, 'match', [/["|']([@0-9A-Za-z._\/\\]+)["|']/]), $$this, $$thisp, 1);
+					var includePath = $es4.$$get($es4.$$call(match, $$this, $$thisp, 'match', [/["|']([@\-0-9A-Za-z._\/\\]+)["|']/]), $$this, $$thisp, 1);
 					var parts = $es4.$$call($es4.$$call(FileUtil, $$this, $$thisp, 'fixPath', [filePath]), $$this, $$thisp, 'split', ['/']);
 					$es4.$$call(parts, $$this, $$thisp, 'pop', $es4.$$EMPTY_ARRAY);
 					var path = $es4.$$call(parts, $$this, $$thisp, 'join', ['/']);

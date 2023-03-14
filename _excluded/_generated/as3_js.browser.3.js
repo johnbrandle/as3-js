@@ -5600,7 +5600,7 @@ $es4.$$package('sweetrush').AS3_JS = (function ()
 					}
 					rootConstruct = Parser.parse(tokens, compileConstants, release);
 					var id = filePath.split(srcDir)[1].slice(1, -3).split('/').join('.');
-					if (filePath == srcDir + '/' + mainFile)
+					if (FileUtil.fixPath(filePath) == FileUtil.resolvePath(srcDir, mainFile))
 					{
 						mainID = id;
 					}
@@ -5896,7 +5896,7 @@ $es4.$$package('sweetrush').AS3_JS = (function ()
 					var fileContents = $$$$fileContents;
 					var includes = $$$$includes;
 
-					return fileContents.replace(/include\s*["|'][@0-9A-Za-z._\/\\]+["|'];*/g, doReplace);
+					return fileContents.replace(/include\s*["|'][@\-0-9A-Za-z._\/\\]+["|'];*/g, doReplace);
 
 					function doReplace($$$$match, $$$$offset, $$$$string) 
 					{
@@ -5905,7 +5905,7 @@ $es4.$$package('sweetrush').AS3_JS = (function ()
 						var offset = $$$$offset;
 						var string = $$$$string;
 
-						var includePath = match.match(/["|']([@0-9A-Za-z._\/\\]+)["|']/)[1];
+						var includePath = match.match(/["|']([@\-0-9A-Za-z._\/\\]+)["|']/)[1];
 						var parts = FileUtil.fixPath(filePath).split('/');
 						parts.pop();
 						var path = parts.join('/');

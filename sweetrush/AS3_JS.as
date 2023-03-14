@@ -142,7 +142,7 @@ package sweetrush
 				rootConstruct = Parser.parse(tokens, compileConstants, release);
 
 				var id = filePath.split(srcDir)[1].slice(1, -3).split('/').join('.');
-				if (filePath == srcDir + '/' + mainFile) mainID = id;
+				if (FileUtil.fixPath(filePath) == FileUtil.resolvePath(srcDir, mainFile)) mainID = id;
 
 				rootConstructsToTranslate[id] = rootConstructs[id] = rootConstruct;
 				filePaths[id] = filePath;

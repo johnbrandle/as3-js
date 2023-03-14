@@ -4352,7 +4352,7 @@ $es4.$$package('sweetrush').AS3_JS = (function ()
 				}
 				rootConstruct = $es4.$$call(Parser, $$this, $$thisp, 'parse', [tokens, compileConstants, release]);
 				var id = $es4.$$call($es4.$$call($es4.$$call($es4.$$call(filePath, $$this, $$thisp, 'split', [srcDir]), $$this, $$thisp, 1, 'slice', [1, -3]), $$this, $$thisp, 'split', ['/']), $$this, $$thisp, 'join', ['.']);
-				if (filePath == srcDir + '/' + mainFile)
+				if ($es4.$$call(FileUtil, $$this, $$thisp, 'fixPath', [filePath]) == $es4.$$call(FileUtil, $$this, $$thisp, 'resolvePath', [srcDir, mainFile]))
 				{
 					mainID = id;
 				}
